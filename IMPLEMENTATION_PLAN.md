@@ -1,12 +1,12 @@
 # PasarMalam — Phase-by-Phase Implementation Plan
 
-Version: 4.1 · Date: 1 October 2026 · Status: Phase 1 complete locally; Phases 2–12 planned
+Version: 4.2 · Date: 1 October 2026 · Status: Phase 1 complete; Phase 2 implementation built, live acceptance pending
 
 Product contract: [PRD.md](PRD.md). Original input: [PasarMalam.md](PasarMalam.md). Assets: [100 prompts, one prompt per image](IMAGE_GENERATION_PROMPTS.md).
 
 Repository/model shortlist and source evidence: [TECH_REFERENCES.md](TECH_REFERENCES.md). The PRD's new technical, ethics and business requirements are mandatory and mapped to the phase gates below.
 
-Phase 1 is implemented and verified locally. Phases 2–12 remain planned, and hosting is not deployed. Start with a mobile-first PWA and deliver a demonstrable, zero-spend version using **Vercel + Railway + Supabase**. Paid commercial operation and guaranteed always-on availability are outside this demo commitment.
+Phase 1 is implemented and verified locally. Phase 2 implementation passed local checks; live Supabase acceptance remains pending. Phases 3–12 remain planned, and hosting is not deployed. Start with a mobile-first PWA and deliver a demonstrable, zero-spend version using **Vercel + Railway + Supabase**. Paid commercial operation and guaranteed always-on availability are outside this demo commitment.
 
 **All features, including the earlier future roadmap, remain in demo scope.** Business records and partner workflows are fictional. Connected mode additionally implements live weather, real STT → LLM JSON extraction, realtime map updates, persisted closing-agent actions and genuine Web Push to consenting test devices. Agencies, commercial partners, payment gateways, delivery, SMS and email remain simulated. Primary reservations use **pay-at-stall**; retain fake online payments only in the future-capability showcase. A “Coming soon” placeholder does not complete a phase.
 
@@ -194,30 +194,41 @@ No Phase 1 items are outstanding. Next is Phase 2: Supabase schema/RLS, authenti
 
 ## 5. Phase 2 — Data, authentication, permissions, initial seeds
 
+**Status (1 October 2026):** 18/18 implementation tasks written. Local phase-end validation passed; Phase 2 is **not complete** until real Supabase acceptance passes. No disposable Supabase environment is configured in this workspace.
+
+**Remaining acceptance checklist:**
+
+- [x] Pass local lint, types, production build, JWT/contracts/SQL parsing/operator guard checks and frontend credential scan. Result: 30 passed, 5 live groups skipped; connected missing-config and unauthenticated role gates verified in browser.
+- [ ] Apply all four migrations to a disposable Supabase database; seed twice and confirm stable counts/identities.
+- [ ] Pass real API + direct REST role/isolation checks, Storage privacy, complaint rate limits and moderation permissions.
+- [ ] Exercise actual browser sign-in/logout and session expiry with the provisioned accounts.
+
+Implementation checkmarks below mean code is present; they do not certify live database or session behavior. Setup: `docs/phase2-setup.md`; permission matrix: `docs/test-matrix.md`. Future-module tables are foundations; their full simulated features remain in their scheduled phases.
+
 **Goal:** Establish the persistent records and security rules before building user-facing writes.
 
 **Tools:** Supabase CLI, SQL migrations, PostGIS, Supabase Auth/Storage, FastAPI, Pydantic, HTTPX, pytest.
 
 ### Build tasks
 
-- [ ] Create the tables and relationships listed in the PRD, initially with minimal columns for later modules.
-- [ ] Enable PostGIS and spatial indexes; store latitude/longitude as geographic points for metre-based distance queries.
-- [ ] Add uniqueness, foreign keys, integer money, stock constraints, and UTC timestamps.
-- [ ] Create RLS policies for visitor/customer/vendor/admin; store authoritative roles in a protected table, never user-editable metadata.
-- [ ] Verify JWT signature, expected issuer/audience, expiry, and role lookup at the API boundary. Cache signing keys appropriately and handle rotation.
-- [ ] Add public-safe views that omit private profiles, evidence, and internal moderation details. Ensure view/function privileges preserve intended RLS behaviour.
-- [ ] Create transactional RPC entry points for batch creation, inventory changes, promotions, reviews, complaints, and moderation. Revoke direct protected table writes.
-- [ ] Prefer invoker security; where a definer function is necessary, constrain `search_path`, grants, actor checks, and returned data.
-- [ ] Create public listing-media and private complaint-evidence/certification buckets with matching Storage policies.
-- [ ] Add login/logout and session-expiry UI; a UI role switch cannot change access rights.
-- [ ] Build idempotent minimal seeds with stable UUIDs: two markets, two vendors, two customers, one private admin, and a few menu items.
-- [ ] Create a guarded seed/reset command restricted to a configured demo project; never run a destructive reset against an arbitrary supplied URL.
-- [ ] Keep Auth user creation separate from display personas; use `.invalid` fictional addresses for seed identities and pre-provisioned credentials for private test sessions.
-- [ ] Add an initial API-to-fixture parity contract for response shapes. Generate TypeScript types from OpenAPI when the schema stabilises.
-- [ ] Include organisation memberships, fake ledgers, orders/reservations, authority referrals/consents, permit records, delivery/collection jobs, notifications, telemetry and integration-event tables from PRD Section 12; complete behaviour in Phases 8–10.
-- [ ] Include `is_demo`, source scenario and stable event identifiers; add organisation-isolation policies and forbid arbitrary outbound integration URLs.
-- [ ] Add organiser memberships, verified-account status, report replies/flag decisions, extraction metadata, weather/rule audit, agent drafts/runs, protected push subscriptions, commission ledger, forecast/pilot measurements and notification consent tables.
-- [ ] Document BM/English notices, audio/transcript lifecycle, coarse location expiry and rights requests in `docs/privacy-data-map.md`; identify PDPA and cross-border/provider-review work before any real pilot.
+- [x] Create the tables and relationships listed in the PRD, initially with minimal columns for later modules.
+- [x] Enable PostGIS and spatial indexes; store latitude/longitude as geographic points for metre-based distance queries.
+- [x] Add uniqueness, foreign keys, integer money, stock constraints, and UTC timestamps.
+- [x] Create RLS policies for visitor/customer/vendor/admin; store authoritative roles in a protected table, never user-editable metadata.
+- [x] Verify JWT signature, expected issuer/audience, expiry, and role lookup at the API boundary. Cache signing keys appropriately and handle rotation.
+- [x] Add public-safe views that omit private profiles, evidence, and internal moderation details. Ensure view/function privileges preserve intended RLS behaviour.
+- [x] Create transactional RPC entry points for batch creation, inventory changes, promotions, reviews, complaints, and moderation. Revoke direct protected table writes.
+- [x] Prefer invoker security; where a definer function is necessary, constrain `search_path`, grants, actor checks, and returned data.
+- [x] Create public listing-media and private complaint-evidence/certification buckets with matching Storage policies.
+- [x] Add login/logout and session-expiry UI; a UI role switch cannot change access rights.
+- [x] Build idempotent minimal seeds with stable UUIDs: two markets, two vendors, two customers, one private admin, and a few menu items.
+- [x] Create a guarded seed/reset command restricted to a configured demo project; never run a destructive reset against an arbitrary supplied URL.
+- [x] Keep Auth user creation separate from display personas; use `.invalid` fictional addresses for seed identities and pre-provisioned credentials for private test sessions.
+- [x] Add an initial API-to-fixture parity contract for response shapes. Generate TypeScript types from OpenAPI when the schema stabilises.
+- [x] Include organisation memberships, fake ledgers, orders/reservations, authority referrals/consents, permit records, delivery/collection jobs, notifications, telemetry and integration-event tables from PRD Section 12; complete behaviour in Phases 8–10.
+- [x] Include `is_demo`, source scenario and stable event identifiers; add organisation-isolation policies and forbid arbitrary outbound integration URLs.
+- [x] Add organiser memberships, verified-account status, report replies/flag decisions, extraction metadata, weather/rule audit, agent drafts/runs, protected push subscriptions, commission ledger, forecast/pilot measurements and notification consent tables.
+- [x] Document BM/English notices, audio/transcript lifecycle, coarse location expiry and rights requests in `docs/privacy-data-map.md`; identify PDPA and cross-border/provider-review work before any real pilot.
 
 ### Deliverables
 

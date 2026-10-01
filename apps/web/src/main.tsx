@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { BrowserRouter } from 'react-router'
 import App from './app/App'
+import { AuthProvider } from './auth/AuthProvider'
 import './locales/i18n'
 import './styles.css'
 
@@ -16,7 +17,7 @@ const queryClient = new QueryClient({
 createRoot(root).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter><App /></BrowserRouter>
+      <AuthProvider><BrowserRouter><App /></BrowserRouter></AuthProvider>
     </QueryClientProvider>
   </StrictMode>,
 )

@@ -8,6 +8,9 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+from .routes import router
+from .settings import get_settings
+
 
 class HealthResponse(BaseModel):
     status: Literal["ok"]
@@ -23,6 +26,7 @@ class PublicConfigResponse(BaseModel):
 
 
 app = FastAPI(title="PasarMalam API", version="0.1.0")
+app.include_router(router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -32,8 +36,8 @@ app.add_middleware(
         ).split(",")
     ],
     allow_credentials=False,
-    allow_methods=["GET"],
-    allow_headers=["Accept", "Content-Type"],
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["Accept", "Content-Type", "Authorization"],
 )
 
 
@@ -50,5 +54,6 @@ def public_config() -> PublicConfigResponse:
         api_version="v1",
         supported_locales=["en", "ms"],
         business_integration_mode="simulated",
-        capabilities=["fixture-discovery", "public-health"],
+        capabilities=["fixture-discovery", "public-health"]
+        + (["connected-discovery", "authenticated-rpc"] if get_settings().configured else []),
     )

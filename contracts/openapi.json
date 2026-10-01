@@ -1,0 +1,1019 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "PasarMalam API",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/api/v1/me": {
+      "get": {
+        "tags": [
+          "identity"
+        ],
+        "summary": "Me",
+        "operationId": "me_api_v1_me_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Actor"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/discovery": {
+      "get": {
+        "tags": [
+          "public"
+        ],
+        "summary": "Discovery",
+        "operationId": "discovery_api_v1_discovery_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DiscoverySnapshot"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/batches": {
+      "post": {
+        "tags": [
+          "protected"
+        ],
+        "summary": "Create Batch",
+        "operationId": "create_batch_api_v1_batches_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Create Batch Api V1 Batches Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/batches/{batch_id}/inventory": {
+      "post": {
+        "tags": [
+          "protected"
+        ],
+        "summary": "Inventory",
+        "operationId": "inventory_api_v1_batches__batch_id__inventory_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "batch_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Batch Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InventoryInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Inventory Api V1 Batches  Batch Id  Inventory Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/batches/{batch_id}/promotions": {
+      "post": {
+        "tags": [
+          "protected"
+        ],
+        "summary": "Promote",
+        "operationId": "promote_api_v1_batches__batch_id__promotions_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "batch_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Batch Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PromotionInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Promote Api V1 Batches  Batch Id  Promotions Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/reviews": {
+      "post": {
+        "tags": [
+          "protected"
+        ],
+        "summary": "Review",
+        "operationId": "review_api_v1_reviews_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Review Api V1 Reviews Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/complaints": {
+      "post": {
+        "tags": [
+          "protected"
+        ],
+        "summary": "Complaint",
+        "operationId": "complaint_api_v1_complaints_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComplaintInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Complaint Api V1 Complaints Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/complaints/{complaint_id}/moderation": {
+      "post": {
+        "tags": [
+          "protected"
+        ],
+        "summary": "Moderate",
+        "operationId": "moderate_api_v1_complaints__complaint_id__moderation_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "complaint_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Complaint Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ModerationInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "title": "Response Moderate Api V1 Complaints  Complaint Id  Moderation Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/admin/summary": {
+      "get": {
+        "tags": [
+          "protected"
+        ],
+        "summary": "Admin Summary",
+        "operationId": "admin_summary_api_v1_admin_summary_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": true,
+                  "type": "object",
+                  "title": "Response Admin Summary Api V1 Admin Summary Get"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "tags": [
+          "system"
+        ],
+        "summary": "Health",
+        "operationId": "health_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/config": {
+      "get": {
+        "tags": [
+          "system"
+        ],
+        "summary": "Public Config",
+        "operationId": "public_config_api_v1_config_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicConfigResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Actor": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Id"
+          },
+          "display_name": {
+            "type": "string",
+            "title": "Display Name"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en",
+              "ms"
+            ],
+            "title": "Locale"
+          },
+          "verified": {
+            "type": "boolean",
+            "title": "Verified"
+          },
+          "roles": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "customer",
+                "vendor",
+                "admin",
+                "partner",
+                "organiser"
+              ]
+            },
+            "type": "array",
+            "title": "Roles"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "display_name",
+          "locale",
+          "verified",
+          "roles"
+        ],
+        "title": "Actor"
+      },
+      "BatchInput": {
+        "properties": {
+          "food_item_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Food Item Id"
+          },
+          "prepared_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Prepared At"
+          },
+          "quantity": {
+            "type": "integer",
+            "maximum": 100000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Quantity"
+          },
+          "handling": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Handling"
+          },
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Request Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "food_item_id",
+          "prepared_at",
+          "quantity",
+          "request_id"
+        ],
+        "title": "BatchInput"
+      },
+      "ComplaintInput": {
+        "properties": {
+          "stall_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Stall Id"
+          },
+          "body": {
+            "type": "string",
+            "maxLength": 2000,
+            "minLength": 10,
+            "title": "Body"
+          },
+          "evidence_keys": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 3,
+            "title": "Evidence Keys"
+          },
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Request Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "stall_id",
+          "body",
+          "request_id"
+        ],
+        "title": "ComplaintInput"
+      },
+      "DiscoverySnapshot": {
+        "properties": {
+          "markets": {
+            "items": {
+              "$ref": "#/components/schemas/Market"
+            },
+            "type": "array",
+            "title": "Markets"
+          },
+          "stalls": {
+            "items": {
+              "$ref": "#/components/schemas/Stall"
+            },
+            "type": "array",
+            "title": "Stalls"
+          },
+          "offers": {
+            "items": {
+              "$ref": "#/components/schemas/Offer"
+            },
+            "type": "array",
+            "title": "Offers"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Updatedat"
+          }
+        },
+        "type": "object",
+        "required": [
+          "markets",
+          "stalls",
+          "offers",
+          "updatedAt"
+        ],
+        "title": "DiscoverySnapshot"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HealthResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "ok",
+            "title": "Status"
+          },
+          "service": {
+            "type": "string",
+            "title": "Service"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Timestamp"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "service",
+          "timestamp"
+        ],
+        "title": "HealthResponse"
+      },
+      "InventoryInput": {
+        "properties": {
+          "delta": {
+            "type": "integer",
+            "exclusiveMaximum": 0.0,
+            "minimum": -100000.0,
+            "title": "Delta"
+          },
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Request Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "delta",
+          "request_id"
+        ],
+        "title": "InventoryInput"
+      },
+      "Market": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "area": {
+            "type": "string",
+            "title": "Area"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "night",
+              "day"
+            ],
+            "title": "Type"
+          },
+          "hours": {
+            "type": "string",
+            "title": "Hours"
+          },
+          "days": {
+            "type": "string",
+            "title": "Days"
+          },
+          "cover": {
+            "type": "string",
+            "title": "Cover"
+          },
+          "stallCount": {
+            "type": "integer",
+            "title": "Stallcount"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "open",
+              "upcoming",
+              "closed"
+            ],
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "area",
+          "type",
+          "hours",
+          "days",
+          "cover",
+          "stallCount",
+          "status"
+        ],
+        "title": "Market"
+      },
+      "ModerationInput": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "triaged",
+              "dismissed",
+              "escalated"
+            ],
+            "title": "Status"
+          },
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Request Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "status",
+          "request_id"
+        ],
+        "title": "ModerationInput"
+      },
+      "Offer": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "stallId": {
+            "type": "string",
+            "title": "Stallid"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "priceSen": {
+            "type": "integer",
+            "title": "Pricesen"
+          },
+          "originalPriceSen": {
+            "type": "integer",
+            "title": "Originalpricesen"
+          },
+          "endsAt": {
+            "type": "string",
+            "title": "Endsat"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "stallId",
+          "title",
+          "priceSen",
+          "originalPriceSen",
+          "endsAt"
+        ],
+        "title": "Offer"
+      },
+      "PromotionInput": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "price_sen": {
+            "type": "integer",
+            "maximum": 100000000.0,
+            "minimum": 0.0,
+            "title": "Price Sen"
+          },
+          "quantity": {
+            "type": "integer",
+            "maximum": 100000.0,
+            "exclusiveMinimum": 0.0,
+            "title": "Quantity"
+          },
+          "ends_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Ends At"
+          },
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Request Id"
+          }
+        },
+        "type": "object",
+        "required": [
+          "title",
+          "price_sen",
+          "quantity",
+          "ends_at",
+          "request_id"
+        ],
+        "title": "PromotionInput"
+      },
+      "PublicConfigResponse": {
+        "properties": {
+          "api_version": {
+            "type": "string",
+            "title": "Api Version"
+          },
+          "supported_locales": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Supported Locales"
+          },
+          "business_integration_mode": {
+            "type": "string",
+            "const": "simulated",
+            "title": "Business Integration Mode"
+          },
+          "capabilities": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Capabilities"
+          }
+        },
+        "type": "object",
+        "required": [
+          "api_version",
+          "supported_locales",
+          "business_integration_mode",
+          "capabilities"
+        ],
+        "title": "PublicConfigResponse"
+      },
+      "ReviewInput": {
+        "properties": {
+          "stall_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Stall Id"
+          },
+          "rating": {
+            "type": "integer",
+            "maximum": 5.0,
+            "minimum": 1.0,
+            "title": "Rating"
+          },
+          "body": {
+            "type": "string",
+            "maxLength": 1500,
+            "minLength": 1,
+            "title": "Body"
+          }
+        },
+        "type": "object",
+        "required": [
+          "stall_id",
+          "rating",
+          "body"
+        ],
+        "title": "ReviewInput"
+      },
+      "Stall": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "marketId": {
+            "type": "string",
+            "title": "Marketid"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "category": {
+            "type": "string",
+            "title": "Category"
+          },
+          "specialty": {
+            "type": "string",
+            "title": "Specialty"
+          },
+          "priceSen": {
+            "type": "integer",
+            "title": "Pricesen"
+          },
+          "rating": {
+            "type": "number",
+            "title": "Rating"
+          },
+          "reviews": {
+            "type": "integer",
+            "title": "Reviews"
+          },
+          "image": {
+            "type": "string",
+            "title": "Image"
+          },
+          "halal": {
+            "type": "string",
+            "enum": [
+              "declared",
+              "non-halal",
+              "not-declared"
+            ],
+            "title": "Halal"
+          },
+          "open": {
+            "type": "boolean",
+            "title": "Open"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "marketId",
+          "name",
+          "category",
+          "specialty",
+          "priceSen",
+          "rating",
+          "reviews",
+          "image",
+          "halal",
+          "open"
+        ],
+        "title": "Stall"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

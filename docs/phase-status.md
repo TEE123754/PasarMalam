@@ -1,6 +1,6 @@
 # Phase status
 
-Update this file at the end of each phase gate. Phase 1 is complete locally. Phases 2–12 have not started.
+Update this file at the end of each phase gate. Phase 1 is complete locally. Phase 2 implementation passed its local phase-end gate and awaits live Supabase acceptance; Phases 3–12 have not started.
 
 ## Phase 1 — Foundation and application shell
 
@@ -51,3 +51,30 @@ The API test client emits a Starlette deprecation notice about its HTTPX transpo
 - Failure fixes and focused reruns, if any:
 - Blockers and known limitations:
 - Checkpoint and next step:
+
+## Phase 2 — Data, authentication, permissions and initial seeds
+
+- Status: implementation built; local validation passed; **live acceptance pending**, 1 October 2026.
+- Checklist: 18/18 implementation tasks written; 1/4 acceptance groups passed; 3 remain in the implementation plan.
+- Deliverables: four versioned SQL migrations, core/future table foundations, protected transactional RPCs, public-safe views, scoped Storage policies, cryptographic JWT verification, caller-token API repository, connected discovery, memory-only browser sessions and role gates, guarded seed/reset/migration tools, OpenAPI-generated types and shared fixtures, bilingual privacy notices and permission matrix.
+- No configured Supabase project, Docker, Supabase CLI or database credentials are available. Actual migration execution, repeated seeds, RLS/Storage permissions and browser login/expiry are unverified. Unit tests and SQL parsing cannot substitute for these checks.
+- Run tests at the phase boundary only: `npm run phase2:check`, then `npm run phase2:live` when the disposable environment is configured. Full future workflow behavior remains in its assigned phases.
+
+### Local phase-end gate result
+
+- Web ESLint and TypeScript: PASS.
+- Production build: PASS; 1,870 modules, JS 159.51 kB gzip, CSS 5.55 kB gzip. Rollup removes two upstream Zod comment annotations and warns about the 508.65 kB JS chunk; consider splitting connected/Auth code during later performance work.
+- Python Ruff: PASS after fixing four import-order findings and correcting the Windows path match for the documented long SQL literal exemption. Only failed/unfinished checks were rerun; the passing web gate was not repeated.
+- pytest: **30 passed, 5 skipped** in 1.39 seconds. Coverage includes JWT claims/signature/rotation caching, metadata role denial, caller-token forwarding, strict inputs, shared fixture shape, four PostgreSQL migration syntax/duplicate-column checks and operator target/marker guards. The five skipped checks are explicitly live Supabase groups. SQL parsing does not execute PL/pgSQL or prove database policy correctness.
+- Frontend credential scan: PASS. Detects privileged token formats and any configured private API environment values; no private environment file is configured here.
+- Browser: PASS for existing fixture discovery, connected Profile missing-configuration guidance, disabled demo role controls, and unauthenticated Admin/hawker dashboard access denial. Actual sign-in/logout/expiry remains pending.
+- Evidence: [connected access denial](screenshots/phase2-connected-denied.png).
+- Non-failing test warnings: Starlette's TestClient HTTPX deprecation and a deliberately synthetic short HMAC tampering key. Deployment keys are not test keys.
+
+### Remaining Phase 2 work
+
+1. Configure one disposable Supabase project or install/start the official local stack with Docker. Follow `docs/phase2-setup.md`; keep keys/passwords in ignored environment files.
+2. Apply all four migrations, record the guard UUID, and run `npm run phase2:live` with `RUN_LIVE_PHASE2=1`. The gate repeats seeds and checks real API/direct REST/Storage boundaries. Resolve any runtime migration or permission failures before claiming completion.
+3. Exercise real connected browser account sign-in/logout, trusted vendor/admin roles and session expiry. Record these results and check the three remaining acceptance groups only after they pass.
+
+Phase 2 is **not complete**: all 18 implementation tasks are written, but the live acceptance environment is unavailable. No deployment, real payment, partner message or authority referral occurred. Checkpoint contains the implementation and reproducible local/live gate commands.

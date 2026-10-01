@@ -12,6 +12,8 @@ __pycache__/
 .ruff_cache/
 *.py[cod]
 *.tsbuildinfo
+supabase/.temp/
+supabase/.branches/
 .env
 .env.*
 !.env.example

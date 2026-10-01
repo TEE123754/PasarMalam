@@ -1,4 +1,6 @@
 import type { DataGateway, DiscoverySnapshot, PublicConfig } from './types'
+import { connectedRequest } from '../auth/client'
+import { discoverySchema } from './schemas'
 
 const baseUrl = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000').replace(/\/$/, '')
 
@@ -10,6 +12,8 @@ export const connectedGateway: DataGateway = {
     return response.json() as Promise<PublicConfig>
   },
   async getDiscovery(): Promise<DiscoverySnapshot> {
-    throw new Error('Connected discovery begins in Phase 2. Open the sample demo to browse fictional data.')
+    const response = await connectedRequest('/api/v1/discovery')
+    if (!response.ok) throw new Error('Connected discovery is unavailable')
+    return discoverySchema.parse(await response.json())
   },
 }

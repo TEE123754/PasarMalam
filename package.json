@@ -9,6 +9,8 @@
     "build": "npm run build -w @pasarmalam/web",
     "typecheck": "npm run typecheck -w @pasarmalam/web",
     "lint": "npm run lint -w @pasarmalam/web",
-    "phase1:check": "npm run lint && npm run typecheck && npm run build && uv run --project apps/api ruff check apps/api/app apps/api/check_contract.py && uv run --project apps/api python apps/api/check_contract.py"
+    "phase1:check": "npm run lint && npm run typecheck && npm run build && uv run --project apps/api ruff check apps/api/app apps/api/check_contract.py && uv run --project apps/api python apps/api/check_contract.py",
+    "phase2:check": "npm run lint && npm run typecheck && npm run build && uv run --project apps/api ruff check --config apps/api/pyproject.toml apps/api/app apps/api/tests scripts && uv run --project apps/api pytest apps/api/tests -q && node scripts/check-web-secrets.cjs",
+    "phase2:live": "uv run --project apps/api python scripts/phase2_live.py"
   }
 }
