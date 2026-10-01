@@ -1,12 +1,12 @@
 # PasarMalam — Phase-by-Phase Implementation Plan
 
-Version: 4.2 · Date: 1 October 2026 · Status: Phase 1 complete; Phase 2 implementation built, live acceptance pending
+Version: 4.3 · Date: 1 October 2026 · Status: Phase 1 complete; Phases 2–3 built locally, live acceptance pending
 
 Product contract: [PRD.md](PRD.md). Original input: [PasarMalam.md](PasarMalam.md). Assets: [100 prompts, one prompt per image](IMAGE_GENERATION_PROMPTS.md).
 
 Repository/model shortlist and source evidence: [TECH_REFERENCES.md](TECH_REFERENCES.md). The PRD's new technical, ethics and business requirements are mandatory and mapped to the phase gates below.
 
-Phase 1 is implemented and verified locally. Phase 2 implementation passed local checks; live Supabase acceptance remains pending. Phases 3–12 remain planned, and hosting is not deployed. Start with a mobile-first PWA and deliver a demonstrable, zero-spend version using **Vercel + Railway + Supabase**. Paid commercial operation and guaranteed always-on availability are outside this demo commitment.
+Phase 1 is implemented and verified locally. Phase 2 implementation passed local checks; live Supabase acceptance remains pending. Phase 3 implementation and local/browser checks pass; its live Supabase acceptance remains pending. Phases 4–12 remain planned, and hosting is not deployed. Start with a mobile-first PWA and deliver a demonstrable, zero-spend version using **Vercel + Railway + Supabase**. Paid commercial operation and guaranteed always-on availability are outside this demo commitment.
 
 **All features, including the earlier future roadmap, remain in demo scope.** Business records and partner workflows are fictional. Connected mode additionally implements live weather, real STT → LLM JSON extraction, realtime map updates, persisted closing-agent actions and genuine Web Push to consenting test devices. Agencies, commercial partners, payment gateways, delivery, SMS and email remain simulated. Primary reservations use **pay-at-stall**; retain fake online payments only in the future-capability showcase. A “Coming soon” placeholder does not complete a phase.
 
@@ -245,6 +245,17 @@ Versioned schema/migrations, working sessions, scoped Storage, repeatable seed c
 
 ## 6. Phase 3 — Customer discovery and stall profiles
 
+**Status (1 October 2026):** 14/14 implementation tasks written; local automated and browser gates passed. Implementation checkmarks do not certify live Supabase behavior. Phase 2 live Supabase acceptance remains pending and also prevents live Phase 3 acceptance.
+
+**Remaining acceptance:**
+
+- [x] Complete Phase 3 implementation checklist below (14/14 code tasks).
+- [x] Run phase-end schedule, dietary, distance, pagination and event-order checks plus build/lint/types. Result: 30 Vitest tests and 31 unique API/schema checks passed; 8 live groups skipped.
+- [x] Verify browser browse/filter/detail/save and map-tile fallback flows. Manual area, certified/promotion mismatch, BM search, empty search, two pages, save/remove, duplicate visit and 390 px BM layout verified.
+- [ ] Apply migration 005; verify real geographic RPCs, customer writes and two-client Realtime update/reconnect latency/private payload isolation against disposable Supabase.
+
+**What is left for Phase 3:** one live acceptance group, including migration 005 execution, real PostGIS/customer RPC/RLS checks and two-client update/reconnect latency and payload privacy. No configured Supabase/Docker environment is available. The five-second latency target has not been measured. Follow `docs/phase3-acceptance.md`; Phase 2 live permission/session acceptance must also pass. Generated photos and full policy/voice/moderation workflows remain in their assigned later phases.
+
 **Goal:** Customers can find a market, compare stalls, and discover relevant foods.
 
 **Tools:** React, Leaflet, TanStack Query, PostGIS RPC queries, Playwright, Vitest.
@@ -253,20 +264,20 @@ Versioned schema/migrations, working sessions, scoped Storage, repeatable seed c
 
 ### Build tasks
 
-- [ ] Implement day/night market cards, map pins, accessible list view, and market detail pages.
-- [ ] Evaluate weekday schedules, date exceptions, opening-soon states, and sessions spanning midnight in Malaysian time.
-- [ ] Distinguish scheduled market activity from vendor-reported stall opening status.
-- [ ] Add optional geolocation, manual area selection, map-bound queries, and distance filters.
-- [ ] Implement category/dietary/promotion filters and nearest/rating/popularity sorts with stable pagination.
-- [ ] Add BM/English aliases for search and debouncing; avoid a separate search service.
-- [ ] Add stall/menu/photo detail layouts, preparation versus upload timestamps, and multi-batch placeholders.
-- [ ] Add favourites and rate-limited daily check-ins; enforce uniqueness server-side.
-- [ ] Implement dietary labels with evidence state and expiry, including conflicting item/stall declarations.
-- [ ] Add OSM attribution, appropriate ordinary browser caching, configurable tile source, and list fallback on tile failure.
-- [ ] Subscribe to public-safe Supabase Realtime invalidation events for the visible market; include record versions and fetch canonical eligible results after updates/reconnect.
-- [ ] Retain 60-second polling fallback, stale badges and pause-on-hidden behaviour. Do not expose complaints/private rows through broadcast payloads.
-- [ ] Keep server-side location to an opted-in coarse approximately 1 km area cell; manual market choice works without GPS. Any precise local distance computation remains on-device.
-- [ ] Ensure missing review or promotion modules display correct seeded/empty states until those phases are complete.
+- [x] Implement day/night market cards, map pins, accessible list view, and market detail pages.
+- [x] Evaluate weekday schedules, date exceptions, opening-soon states, and sessions spanning midnight in Malaysian time.
+- [x] Distinguish scheduled market activity from vendor-reported stall opening status.
+- [x] Add optional geolocation, manual area selection, map-bound queries, and distance filters.
+- [x] Implement category/dietary/promotion filters and nearest/rating/popularity sorts with stable pagination.
+- [x] Add BM/English aliases for search and debouncing; avoid a separate search service.
+- [x] Add stall/menu/photo detail layouts, preparation versus upload timestamps, and multi-batch placeholders.
+- [x] Add favourites and rate-limited daily check-ins; enforce uniqueness server-side.
+- [x] Implement dietary labels with evidence state and expiry, including conflicting item/stall declarations.
+- [x] Add OSM attribution, appropriate ordinary browser caching, configurable tile source, and list fallback on tile failure.
+- [x] Subscribe to public-safe Supabase Realtime invalidation events for the visible market; include record versions and fetch canonical eligible results after updates/reconnect.
+- [x] Retain 60-second polling fallback, stale badges and pause-on-hidden behaviour. Do not expose complaints/private rows through broadcast payloads.
+- [x] Keep server-side location to an opted-in coarse approximately 1 km area cell; manual market choice works without GPS. Any precise local distance computation remains on-device.
+- [x] Ensure missing review or promotion modules display correct seeded/empty states until those phases are complete.
 
 ### Deliverables
 

@@ -1,5 +1,7 @@
+import { discoveryEn } from '../discovery/copy'
 export const en = {
   translation: {
+    ...discoveryEn,
     account: 'Connected account', email: 'Email', password: 'Password', signIn: 'Sign in', signingIn: 'Signing in…', signOut: 'Sign out',
     signInFailed: 'Sign-in failed. Check your account details and try again.', sessionExpired: 'Your session expired. Sign in again to continue.',
     accountUnavailable: 'Account access is unavailable. Try again when the service returns.',
@@ -26,10 +28,10 @@ export const en = {
     open: 'Open', upcoming: 'Opening soon', closed: 'Closed', night: 'Night market', day: 'Day market',
     from: 'From', reviews: 'reviews', vendorDeclared: 'Vendor-declared halal', nonHalal: 'Non-halal', notDeclared: 'Not declared',
     offersTitle: 'A good deal, while it lasts.', offersBody: 'Offers are linked to a specific batch. The hawker confirms availability before a real collection.',
-    savedTitle: 'Keep your favourites close.', savedBody: 'Sign in and tap a heart on any stall when the connected experience is ready.',
+    savedTitle: 'Keep your favourites close.', savedBody: 'Save a stall from its profile. Connected accounts keep a private saved list; sample choices stay in this browser.',
     profileTitle: 'Your market, your way.', profileBody: 'Choose a language and control what you share.',
     language: 'Language', privacy: 'Privacy choices', locationChoice: 'Share approximate location', microphoneChoice: 'Enable microphone when recording',
-    privacyBody: 'Location and microphone access are optional. This phase stores only your choices in this browser.',
+    privacyBody: 'Location and microphone access are optional. Exact location stays on this device for up to two hours; queries use only an approximate area. Preferences stay in this browser.',
     dashboardTitle: 'Good evening, hawker.', dashboardBody: 'Your stall, batches and offers will appear here once connected accounts are enabled.',
     stallTitle: 'Make your stall yours.', stallBody: 'Add your market, photos, food and opening hours in the next phase.',
     batchesTitle: 'Every batch has its own story.', batchesBody: 'Newly cooked food gets its own batch number, time and photo. Earlier batches keep their history.',

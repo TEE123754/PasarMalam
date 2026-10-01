@@ -30,6 +30,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (event === 'SIGNED_OUT') {
         setActor(null)
         queryClient.removeQueries({ queryKey: ['discovery', 'connected'] })
+        queryClient.removeQueries({ queryKey: ['personal'] })
       }
     })
     return () => { alive = false; data.subscription.unsubscribe() }
@@ -93,6 +94,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (error) { setNotice('unavailable'); return }
       setActor(null); setSession(null); setNotice(null)
       queryClient.removeQueries({ queryKey: ['discovery', 'connected'] })
+      queryClient.removeQueries({ queryKey: ['personal'] })
     },
   }}>{children}</AuthContext.Provider>
 }

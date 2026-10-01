@@ -4,14 +4,16 @@ from datetime import datetime, timezone
 from typing import Annotated
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
 from .contracts import (
     Actor,
     BatchInput,
+    CheckInInput,
     ComplaintInput,
     DiscoverySnapshot,
+    FavouriteInput,
     InventoryInput,
     ModerationInput,
     PromotionInput,
@@ -79,11 +81,19 @@ async def me(member: Member) -> Actor:
 
 @router.get("/discovery", response_model=DiscoverySnapshot, tags=["public"])
 async def discovery(repo: PublicRepository) -> DiscoverySnapshot:
-    markets = await repo.read("public_markets", "id,name,area,type,hours,days,status")
+    markets = await repo.rpc("discovery_markets", {})
     stalls = await repo.read(
         "public_stalls", "id,market_id,name,category,specialty,price_sen,halal,open"
     )
-    reviews = await repo.read("public_reviews", "stall_id,rating")
+    reviews = await repo.read("public_reviews", "id,stall_id,rating,body")
+    claims = await repo.rpc("discovery_claims", {})
+    menu = await repo.read(
+        "food_items", "id,stall_id,name,price_sen,ingredients", published="eq.true"
+    )
+    batches = await repo.read(
+        "public_batches",
+        "id,food_item_id,batch_number,prepared_at,uploaded_at,remaining_quantity,advisory_deadline",
+    )
     offers = await repo.read(
         "public_promotions", "id,stall_id,title,price_sen,original_price_sen,ends_at"
     )
@@ -103,6 +113,17 @@ async def discovery(repo: PublicRepository) -> DiscoverySnapshot:
                 "image": "🍴",
                 "halal": stall["halal"],
                 "open": stall["open"],
+                "claims": [
+                    {
+                        "foodItemId": c["food_item_id"],
+                        "status": c["status"],
+                        "expiresAt": c["expires_at"],
+                        "reviewedAt": c["reviewed_at"],
+                        "evidence": c["evidence"],
+                    }
+                    for c in claims
+                    if c["stall_id"] == stall["id"]
+                ],
             }
         )
     return DiscoverySnapshot.model_validate(
@@ -128,8 +149,85 @@ async def discovery(repo: PublicRepository) -> DiscoverySnapshot:
                 for row in offers
             ],
             "updatedAt": datetime.now(timezone.utc),
+            "menu": [
+                {
+                    "id": f["id"],
+                    "stallId": f["stall_id"],
+                    "name": f["name"],
+                    "priceSen": f["price_sen"],
+                    "ingredients": f["ingredients"],
+                }
+                for f in menu
+            ],
+            "batches": [
+                {
+                    "id": b["id"],
+                    "foodItemId": b["food_item_id"],
+                    "batchNumber": b["batch_number"],
+                    "preparedAt": b["prepared_at"],
+                    "uploadedAt": b["uploaded_at"],
+                    "remaining": b["remaining_quantity"],
+                    "deadline": b["advisory_deadline"],
+                }
+                for b in batches
+            ],
+            "publicReviews": [
+                {"id": r["id"], "stallId": r["stall_id"], "rating": r["rating"], "body": r["body"]}
+                for r in reviews
+            ],
         }
     )
+
+
+@router.get("/discovery/nearby", tags=["public"])
+async def nearby(
+    repo: PublicRepository,
+    lat: float = Query(ge=-90, le=90),
+    lon: float = Query(ge=-180, le=180),
+    radius: int = Query(default=50000, ge=1, le=100000),
+    south: float = Query(default=-90, ge=-90, le=90),
+    west: float = Query(default=-180, ge=-180, le=180),
+    north: float = Query(default=90, ge=-90, le=90),
+    east: float = Query(default=180, ge=-180, le=180),
+) -> list[dict]:
+    if south > north or west > east:
+        raise HTTPException(422, "Invalid map bounds")
+    # Only coarse/manual origins are accepted: a caller cannot persist precise shopper GPS.
+    return await repo.rpc(
+        "nearby_markets",
+        {
+            "p_lat": round(lat, 2),
+            "p_lon": round(lon, 2),
+            "p_radius": radius,
+            "p_south": south,
+            "p_west": west,
+            "p_north": north,
+            "p_east": east,
+        },
+    )
+
+
+@router.get("/me/favourites", tags=["protected"])
+async def favourites(member: Member) -> list[str]:
+    require(member, "customer")
+    rows = await member.repository.read("favourites", "stall_id", owner_id=f"eq.{member.actor.id}")
+    return [row["stall_id"] for row in rows]
+
+
+@router.post("/me/favourites", tags=["protected"])
+async def favourite(body: FavouriteInput, member: Member) -> dict:
+    require(member, "customer")
+    saved = await member.repository.rpc(
+        "set_favourite", {"p_stall_id": str(body.stall_id), "p_saved": body.saved}
+    )
+    return {"saved": saved}
+
+
+@router.post("/me/check-ins", tags=["protected"])
+async def check_in(body: CheckInInput, member: Member) -> dict:
+    require(member, "customer")
+    created = await member.repository.rpc("check_in", {"p_market_id": str(body.market_id)})
+    return {"created": created}
 
 
 @router.post("/batches", tags=["protected"])

@@ -15,6 +15,10 @@ export interface BatchInput {
   request_id: string
 }
 
+export interface CheckInInput {
+  market_id: string
+}
+
 export interface ComplaintInput {
   stall_id: string
   body: string
@@ -22,11 +26,27 @@ export interface ComplaintInput {
   request_id: string
 }
 
+export interface DietaryClaim {
+  foodItemId?: string | null
+  status: "declared" | "certified" | "non-halal" | "not-declared"
+  expiresAt?: string | null
+  reviewedAt?: string | null
+  evidence?: boolean
+}
+
 export interface DiscoverySnapshot {
   markets: Array<Market>
   stalls: Array<Stall>
   offers: Array<Offer>
   updatedAt: string
+  menu?: Array<MenuItem>
+  batches?: Array<PublicBatch>
+  publicReviews?: Array<PublicReview>
+}
+
+export interface FavouriteInput {
+  stall_id: string
+  saved: boolean
 }
 
 export interface HTTPValidationError {
@@ -54,6 +74,20 @@ export interface Market {
   cover: string
   stallCount: number
   status: "open" | "upcoming" | "closed"
+  latitude?: number | null
+  longitude?: number | null
+  schedules?: Array<Schedule>
+  exceptions?: Array<ScheduleException>
+  popularity?: number
+  version?: number
+}
+
+export interface MenuItem {
+  id: string
+  stallId: string
+  name: string
+  priceSen: number
+  ingredients: Array<string>
 }
 
 export interface ModerationInput {
@@ -78,6 +112,16 @@ export interface PromotionInput {
   request_id: string
 }
 
+export interface PublicBatch {
+  id: string
+  foodItemId: string
+  batchNumber: number
+  preparedAt: string
+  uploadedAt: string
+  remaining: number
+  deadline: string
+}
+
 export interface PublicConfigResponse {
   api_version: string
   supported_locales: Array<string>
@@ -85,10 +129,31 @@ export interface PublicConfigResponse {
   capabilities: Array<string>
 }
 
+export interface PublicReview {
+  id: string
+  stallId: string
+  rating: number
+  body: string
+}
+
 export interface ReviewInput {
   stall_id: string
   rating: number
   body: string
+}
+
+export interface Schedule {
+  weekday: number
+  opens: string
+  closes: string
+  nextDay?: boolean
+}
+
+export interface ScheduleException {
+  date: string
+  cancelled: boolean
+  opens?: string | null
+  closes?: string | null
 }
 
 export interface Stall {
@@ -103,6 +168,8 @@ export interface Stall {
   image: string
   halal: "declared" | "non-halal" | "not-declared"
   open: boolean
+  claims?: Array<DietaryClaim>
+  aliases?: Array<string>
 }
 
 export interface ValidationError {

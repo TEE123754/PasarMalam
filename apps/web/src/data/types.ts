@@ -1,5 +1,9 @@
-import type { DiscoverySnapshot, PublicConfigResponse } from './api-contract'
-export type { Market, Stall, DiscoverySnapshot } from './api-contract'
+import type { PublicConfigResponse } from './api-contract'
+import type { z } from 'zod'
+import type { discoverySchema } from './schemas'
+export type DiscoverySnapshot = z.infer<typeof discoverySchema>
+export type Market = DiscoverySnapshot['markets'][number]
+export type Stall = DiscoverySnapshot['stalls'][number]
 export type { Offer as DemoOffer, PublicConfigResponse as PublicConfig } from './api-contract'
 
 export type AppMode = 'fixture' | 'connected'

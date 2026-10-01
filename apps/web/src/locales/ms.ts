@@ -1,5 +1,7 @@
+import { discoveryMs } from '../discovery/copy'
 export const ms = {
   translation: {
+    ...discoveryMs,
     account: 'Akaun bersambung', email: 'E-mel', password: 'Kata laluan', signIn: 'Log masuk', signingIn: 'Sedang log masuk…', signOut: 'Log keluar',
     signInFailed: 'Log masuk gagal. Semak butiran akaun dan cuba lagi.', sessionExpired: 'Sesi anda tamat. Log masuk semula untuk meneruskan.',
     accountUnavailable: 'Akses akaun tidak tersedia. Cuba lagi selepas perkhidmatan pulih.',
@@ -26,10 +28,10 @@ export const ms = {
     open: 'Buka', upcoming: 'Akan dibuka', closed: 'Tutup', night: 'Pasar malam', day: 'Pasar pagi',
     from: 'Dari', reviews: 'ulasan', vendorDeclared: 'Halal diisytihar peniaga', nonHalal: 'Tidak halal', notDeclared: 'Tidak dinyatakan',
     offersTitle: 'Tawaran menarik, sementara ada.', offersBody: 'Tawaran terikat pada kelompok tertentu. Peniaga mengesahkan stok sebelum pengambilan sebenar.',
-    savedTitle: 'Simpan gerai kegemaran.', savedBody: 'Log masuk dan tekan ikon hati pada gerai selepas fungsi sambungan tersedia.',
+    savedTitle: 'Simpan gerai kegemaran.', savedBody: 'Simpan gerai dari profilnya. Akaun bersambung mempunyai senarai peribadi; pilihan contoh kekal dalam pelayar ini.',
     profileTitle: 'Pasar ikut pilihan anda.', profileBody: 'Pilih bahasa dan kawal perkongsian data.',
     language: 'Bahasa', privacy: 'Pilihan privasi', locationChoice: 'Kongsi lokasi anggaran', microphoneChoice: 'Benarkan mikrofon semasa rakaman',
-    privacyBody: 'Lokasi dan mikrofon adalah pilihan. Fasa ini hanya menyimpan pilihan anda dalam pelayar ini.',
+    privacyBody: 'Lokasi dan mikrofon adalah pilihan. Lokasi tepat kekal pada peranti sehingga dua jam; pertanyaan hanya menggunakan kawasan anggaran. Pilihan disimpan dalam pelayar ini.',
     dashboardTitle: 'Selamat petang, peniaga.', dashboardBody: 'Gerai, kelompok dan tawaran anda muncul di sini selepas akaun bersambung diaktifkan.',
     stallTitle: 'Cerita gerai anda.', stallBody: 'Tambah pasar, foto, makanan dan waktu operasi pada fasa seterusnya.',
     batchesTitle: 'Setiap kelompok ada kisahnya.', batchesBody: 'Makanan baharu mendapat nombor kelompok, masa dan foto sendiri. Kelompok lama kekal dalam sejarah.',

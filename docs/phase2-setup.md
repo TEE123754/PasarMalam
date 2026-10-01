@@ -24,7 +24,7 @@ Set `DEMO_DATABASE_ID` to that UUID. It must match before seed/reset/live testin
 uv run --project apps/api python scripts/demo_db.py --initialise
 ```
 
-The helper requires matching API/DB project identity and an empty public/Auth database for initialisation. It prints only migration names and the new non-secret guard UUID; set that UUID before running the seed. Subsequent migration runs omit `--initialise` and validate checksums and the marker. Apply all four migrations in order; do not regenerate an already-applied migration.
+The helper requires matching API/DB project identity and an empty public/Auth database for initialisation. It prints only migration names and the new non-secret guard UUID; set that UUID before running the seed. Subsequent migration runs omit `--initialise` and validate checksums and the marker. Apply all available migrations in order (four Phase 2 migrations and discovery migration 005 for Phase 3); do not regenerate an already-applied migration.
 
 ## Seed and connected browser
 

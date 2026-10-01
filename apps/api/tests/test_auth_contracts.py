@@ -180,8 +180,15 @@ def test_no_fractional_money_or_stock_increase():
 def test_fixture_uses_api_contract():
     fixture = json.loads((ROOT / "contracts/discovery-fixture.json").read_text(encoding="utf-8"))
     parsed = DiscoverySnapshot.model_validate(fixture)
-    assert len(parsed.markets) == 3 and len(parsed.stalls) == 3
-    assert set(parsed.model_dump()) == {"markets", "stalls", "offers", "updatedAt"}
+    assert len(parsed.markets) >= 2 and len(parsed.stalls) >= 3
+    market_ids = {market.id for market in parsed.markets}
+    stall_ids = {stall.id for stall in parsed.stalls}
+    assert len(stall_ids) == len(parsed.stalls)
+    assert all(stall.marketId in market_ids for stall in parsed.stalls)
+    assert all(item.stallId in stall_ids for item in parsed.menu)
+    assert set(parsed.model_dump()) == {
+        "markets", "stalls", "offers", "updatedAt", "menu", "batches", "publicReviews"
+    }
 
 
 @pytest.mark.anyio

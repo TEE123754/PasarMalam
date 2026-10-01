@@ -6,6 +6,53 @@ from uuid import UUID
 from pydantic import AwareDatetime, BaseModel, Field, StrictInt
 
 
+class Schedule(BaseModel):
+    weekday: int = Field(ge=0, le=6)
+    opens: str
+    closes: str
+    nextDay: bool = False
+
+
+class ScheduleException(BaseModel):
+    date: str
+    cancelled: bool
+    opens: str | None = None
+    closes: str | None = None
+
+
+class DietaryClaim(BaseModel):
+    foodItemId: str | None = None
+    status: Literal["declared", "certified", "non-halal", "not-declared"]
+    expiresAt: AwareDatetime | None = None
+    reviewedAt: AwareDatetime | None = None
+    evidence: bool = False
+
+
+class MenuItem(BaseModel):
+    id: str
+    stallId: str
+    name: str
+    priceSen: int
+    ingredients: list[str]
+
+
+class PublicBatch(BaseModel):
+    id: str
+    foodItemId: str
+    batchNumber: int
+    preparedAt: AwareDatetime
+    uploadedAt: AwareDatetime
+    remaining: int
+    deadline: AwareDatetime
+
+
+class PublicReview(BaseModel):
+    id: str
+    stallId: str
+    rating: int
+    body: str
+
+
 class Market(BaseModel):
     id: str
     name: str
@@ -16,6 +63,12 @@ class Market(BaseModel):
     cover: str
     stallCount: int
     status: Literal["open", "upcoming", "closed"]
+    latitude: float | None = None
+    longitude: float | None = None
+    schedules: list[Schedule] = Field(default_factory=list)
+    exceptions: list[ScheduleException] = Field(default_factory=list)
+    popularity: int = 0
+    version: int = 0
 
 
 class Stall(BaseModel):
@@ -30,6 +83,8 @@ class Stall(BaseModel):
     image: str
     halal: Literal["declared", "non-halal", "not-declared"]
     open: bool
+    claims: list[DietaryClaim] = Field(default_factory=list)
+    aliases: list[str] = Field(default_factory=list)
 
 
 class Offer(BaseModel):
@@ -46,6 +101,18 @@ class DiscoverySnapshot(BaseModel):
     stalls: list[Stall]
     offers: list[Offer]
     updatedAt: AwareDatetime
+    menu: list[MenuItem] = Field(default_factory=list)
+    batches: list[PublicBatch] = Field(default_factory=list)
+    publicReviews: list[PublicReview] = Field(default_factory=list)
+
+
+class FavouriteInput(BaseModel):
+    stall_id: UUID
+    saved: bool
+
+
+class CheckInInput(BaseModel):
+    market_id: UUID
 
 
 class Actor(BaseModel):

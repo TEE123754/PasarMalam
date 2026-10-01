@@ -1,6 +1,6 @@
 # Phase status
 
-Update this file at the end of each phase gate. Phase 1 is complete locally. Phase 2 implementation passed its local phase-end gate and awaits live Supabase acceptance; Phases 3–12 have not started.
+Update this file at the end of each phase gate. Phase 1 is complete locally. Phase 2 implementation passed its local phase-end gate and awaits live Supabase acceptance; Phase 3 implementation and local/browser gates passed; Phases 4–12 have not started.
 
 ## Phase 1 — Foundation and application shell
 
@@ -78,3 +78,36 @@ The API test client emits a Starlette deprecation notice about its HTTPX transpo
 3. Exercise real connected browser account sign-in/logout, trusted vendor/admin roles and session expiry. Record these results and check the three remaining acceptance groups only after they pass.
 
 Phase 2 is **not complete**: all 18 implementation tasks are written, but the live acceptance environment is unavailable. No deployment, real payment, partner message or authority referral occurred. Checkpoint contains the implementation and reproducible local/live gate commands.
+
+## Phase 3 — Customer discovery and stall profiles
+
+- Status: 14/14 implementation tasks written; local automated/browser gates passed; live acceptance pending, 1 October 2026.
+- Deliverables: bilingual discovery filters/search, lazy Leaflet map with matching list pages and tile fallback, Malaysian schedules/exceptions, dietary evidence/expiry/conflicts, menu/review/batch detail, saved stalls/check-ins, protected customer RPCs, PostGIS geographic RPC, public monotonic Realtime invalidation, 60-second visible-only polling, coarse/device-only location boundary and migration 005.
+- Remaining: live geographic/customer/Realtime acceptance only (1/4 acceptance groups pending). The same unconfigured Supabase environment blocks Phase 2 and Phase 3 live acceptance. See `docs/phase3-acceptance.md`.
+
+### Phase 3 gate results
+
+| Check | Result |
+| --- | --- |
+| Web lint / TypeScript | PASS; final lint and `tsc -b` production build |
+| Vitest discovery logic | **30/30 PASS**; schedules, combined search/filters, ties/pages, distance/bounds, certificate evidence/review/expiry/conflicts, expired offers, denied location and monotonic events |
+| API/schema regression | **31 unique checks PASS** across the gate and focused fixes; **8 live groups skipped** (5 Phase 2 + 3 Phase 3) |
+| SQL parser | PASS for all five migrations; syntax/duplicate columns only, not PL/pgSQL execution/RLS proof |
+| Final production bundle | PASS; 1,882 modules; initial JS 170.45 kB gzip; lazy map JS 44.14 kB gzip; initial CSS 6.36 kB gzip, map CSS 6.46 kB gzip |
+| Frontend private-key scan | PASS |
+| Browser | PASS: three-market/eight-stall fixture, map pins/card agreement, disabled tile fallback, certified-plus-promotion no-match, debounced BM search, manual area + 1 km nearest, no-results, stable second page, separate two-batch preparation/upload times, save/Saved/remove, repeat visit notice, BM labels |
+| Phone layout | PASS at 390 × 844; viewport content width 375 px equals document content width 375 px, no horizontal overflow |
+| Real connected / two-client latency | **PENDING**; no Supabase test environment; no latency measured |
+
+Gate began only after the implementation batch. It caught a shared empty-state helper removed during route replacement, outdated Phase 2 fixture count/shape assertions and pytest fixture-import lint. Browser review found a redundant debounced search reset overriding a quick page change and native-select grid overflow on a phone; both were fixed. Only failed or affected checks were rerun; no watch mode or test-on-edit loop was used. A final build/lint/key scan covers the UI fixes; the unchanged API/auth tests were not rerun repeatedly.
+
+Non-failing warnings remain: upstream Zod comment annotations, the initial bundle above 500 kB minified, Starlette TestClient deprecation and a deliberately synthetic short tampering key. Leaflet is lazy-loaded; further connected/Auth splitting belongs to later performance work.
+
+Evidence: [discovery](screenshots/phase3-discovery.png), [tile fallback with one matching pin](screenshots/phase3-map-filter.png), [phone BM](screenshots/phase3-mobile.png). Temporary browser preview used disabled tiles, made no public tile requests, and was closed; the user's existing preview remains available.
+
+### What remains for Phase 3
+
+- Apply migration `202610010005_discovery.sql` to the guarded disposable Supabase environment after Phase 2 live acceptance.
+- Run `RUN_LIVE_PHASE3=1` + `npm run phase3:live`: real PostGIS radius/bounds, private idempotent favourites, customer-only daily check-ins, direct-write denial and public version projection. Resolve any runtime SQL/RLS failures.
+- Perform the two-browser change/reconnect test described in `docs/phase3-acceptance.md`; record actual update latency against the five-second target and inspect payload privacy.
+- Mark the phase complete only after those live checks pass. Phase 3 is currently **locally ready, live acceptance pending**, not fully complete. No hosting was deployed.

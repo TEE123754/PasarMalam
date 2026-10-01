@@ -1,6 +1,6 @@
 # PasarMalam
 
-Mobile-first community market PWA. The repository contains the Phase 1 shell and Phase 2 data/authentication implementation (live Supabase acceptance pending); [PRD](PRD.md) and [implementation plan](IMPLEMENTATION_PLAN.md) define later features.
+Mobile-first community market PWA. The repository contains the Phase 1 shell, Phase 2 data/authentication foundation, and Phase 3 discovery/map/profiles (live Supabase acceptance pending); [PRD](PRD.md) and [implementation plan](IMPLEMENTATION_PLAN.md) define later features.
 
 ## Local setup
 
@@ -29,11 +29,13 @@ Open `http://localhost:5173`. Fixture mode is the default. Copy `.env.example` t
 Run checks only after finishing an entire phase. Phase 1 commands and results are recorded in [phase status](docs/phase-status.md). Do not use watch-mode tests or rerun the whole suite after each small change.
 
 ```powershell
-npm run phase2:check
+npm run phase3:check
 # After configuring a disposable Supabase environment:
-npm run phase2:live
+npm run phase3:live
 ```
 
 The Profile screen includes fixture clock controls and four reusable business response scenarios: success, pending, rejected and timeout. They produce labelled `DEMO-` references locally. Business providers are never contacted.
 
 The [feature coverage matrix](docs/feature-coverage.md) maps the full PRD to screens, scenario boundaries and later phases. [Image prompts](IMAGE_GENERATION_PROMPTS.md) provide one brief per generated asset.
+
+Phase 3 adds BM/English search, combined dietary/category/promotion filters, day/night schedules, manual-area/device distance, paginated map/list discovery, batch/menu/review profiles and saved stalls/visits. [Phase 3 acceptance](docs/phase3-acceptance.md) records the local/browser checks and remaining real Supabase/Realtime gate. Set `RUN_LIVE_PHASE3=1` only with the configured disposable environment; this gate does not replace Phase 2 live permission/session acceptance.

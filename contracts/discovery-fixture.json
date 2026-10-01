@@ -5,33 +5,180 @@
       "name": "Seri Pelita",
       "area": "Petaling Jaya",
       "type": "night",
-      "days": "Every Friday",
+      "days": "Daily (fictional demo)",
       "hours": "5:00 PM – 10:30 PM",
       "cover": "🌙",
       "stallCount": 18,
-      "status": "open"
+      "status": "open",
+      "latitude": 3.107,
+      "longitude": 101.606,
+      "schedules": [
+        {
+          "weekday": 0,
+          "opens": "17:00",
+          "closes": "22:30",
+          "nextDay": false
+        },
+        {
+          "weekday": 1,
+          "opens": "17:00",
+          "closes": "22:30",
+          "nextDay": false
+        },
+        {
+          "weekday": 2,
+          "opens": "17:00",
+          "closes": "22:30",
+          "nextDay": false
+        },
+        {
+          "weekday": 3,
+          "opens": "17:00",
+          "closes": "22:30",
+          "nextDay": false
+        },
+        {
+          "weekday": 4,
+          "opens": "17:00",
+          "closes": "22:30",
+          "nextDay": false
+        },
+        {
+          "weekday": 5,
+          "opens": "17:00",
+          "closes": "22:30",
+          "nextDay": false
+        },
+        {
+          "weekday": 6,
+          "opens": "17:00",
+          "closes": "22:30",
+          "nextDay": false
+        }
+      ],
+      "exceptions": [],
+      "popularity": 42,
+      "version": 1
     },
     {
       "id": "pagi-embun",
       "name": "Pagi Embun",
       "area": "Shah Alam",
       "type": "day",
-      "days": "Every Saturday",
+      "days": "Daily (fictional demo)",
       "hours": "7:00 AM – 12:00 PM",
       "cover": "☀️",
       "stallCount": 12,
-      "status": "upcoming"
+      "status": "upcoming",
+      "latitude": 3.074,
+      "longitude": 101.518,
+      "schedules": [
+        {
+          "weekday": 0,
+          "opens": "07:00",
+          "closes": "12:00",
+          "nextDay": false
+        },
+        {
+          "weekday": 1,
+          "opens": "07:00",
+          "closes": "12:00",
+          "nextDay": false
+        },
+        {
+          "weekday": 2,
+          "opens": "07:00",
+          "closes": "12:00",
+          "nextDay": false
+        },
+        {
+          "weekday": 3,
+          "opens": "07:00",
+          "closes": "12:00",
+          "nextDay": false
+        },
+        {
+          "weekday": 4,
+          "opens": "07:00",
+          "closes": "12:00",
+          "nextDay": false
+        },
+        {
+          "weekday": 5,
+          "opens": "07:00",
+          "closes": "12:00",
+          "nextDay": false
+        },
+        {
+          "weekday": 6,
+          "opens": "07:00",
+          "closes": "12:00",
+          "nextDay": false
+        }
+      ],
+      "exceptions": [],
+      "popularity": 21,
+      "version": 1
     },
     {
       "id": "sungai-bintang",
       "name": "Sungai Bintang",
       "area": "Kuala Lumpur",
       "type": "night",
-      "days": "Every Wednesday",
-      "hours": "4:30 PM – 10:00 PM",
+      "days": "Daily (fictional demo)",
+      "hours": "5:00 PM – 12:30 AM",
       "cover": "✨",
       "stallCount": 24,
-      "status": "closed"
+      "status": "closed",
+      "latitude": 3.155,
+      "longitude": 101.707,
+      "schedules": [
+        {
+          "weekday": 0,
+          "opens": "17:00",
+          "closes": "00:30",
+          "nextDay": true
+        },
+        {
+          "weekday": 1,
+          "opens": "17:00",
+          "closes": "00:30",
+          "nextDay": true
+        },
+        {
+          "weekday": 2,
+          "opens": "17:00",
+          "closes": "00:30",
+          "nextDay": true
+        },
+        {
+          "weekday": 3,
+          "opens": "17:00",
+          "closes": "00:30",
+          "nextDay": true
+        },
+        {
+          "weekday": 4,
+          "opens": "17:00",
+          "closes": "00:30",
+          "nextDay": true
+        },
+        {
+          "weekday": 5,
+          "opens": "17:00",
+          "closes": "00:30",
+          "nextDay": true
+        },
+        {
+          "weekday": 6,
+          "opens": "17:00",
+          "closes": "00:30",
+          "nextDay": true
+        }
+      ],
+      "exceptions": [],
+      "popularity": 33,
+      "version": 1
     }
   ],
   "stalls": [
@@ -46,7 +193,12 @@
       "reviews": 28,
       "image": "🍢",
       "halal": "declared",
-      "open": true
+      "open": true,
+      "claims": [],
+      "aliases": [
+        "sate ayam",
+        "chicken satay"
+      ]
     },
     {
       "id": "dapur-embun",
@@ -58,9 +210,10 @@
       "rating": 4.7,
       "reviews": 19,
       "image": "🍚",
-      "halal": "not-declared",
+      "halal": "declared",
       "open": false,
-      "halalStatus": "declared"
+      "claims": [],
+      "aliases": []
     },
     {
       "id": "manis-bulan",
@@ -73,7 +226,100 @@
       "reviews": 34,
       "image": "🍧",
       "halal": "not-declared",
-      "open": true
+      "open": true,
+      "claims": [
+        {
+          "foodItemId": null,
+          "status": "certified",
+          "expiresAt": "2027-10-01T00:00:00Z",
+          "reviewedAt": "2026-09-01T00:00:00Z",
+          "evidence": true
+        }
+      ],
+      "aliases": []
+    },
+    {
+      "id": "kuali-bintang",
+      "name": "Kuali Bintang",
+      "marketId": "sungai-bintang",
+      "category": "Rice & noodles",
+      "specialty": "Pork noodles",
+      "priceSen": 850,
+      "image": "🍜",
+      "halal": "non-halal",
+      "open": true,
+      "rating": 4.5,
+      "reviews": 2,
+      "aliases": [],
+      "claims": []
+    },
+    {
+      "id": "roti-pelita",
+      "name": "Roti Pelita",
+      "marketId": "seri-pelita",
+      "category": "Bread",
+      "specialty": "Roti john",
+      "priceSen": 650,
+      "image": "🥖",
+      "halal": "declared",
+      "open": true,
+      "rating": 4.5,
+      "reviews": 2,
+      "aliases": [],
+      "claims": []
+    },
+    {
+      "id": "jus-embun",
+      "name": "Jus Embun",
+      "marketId": "pagi-embun",
+      "category": "Drinks",
+      "specialty": "Fresh lime drink",
+      "priceSen": 350,
+      "image": "🍋",
+      "halal": "not-declared",
+      "open": true,
+      "rating": 4.5,
+      "reviews": 2,
+      "aliases": [],
+      "claims": []
+    },
+    {
+      "id": "kuih-senja",
+      "name": "Kuih Senja",
+      "marketId": "seri-pelita",
+      "category": "Desserts",
+      "specialty": "Kuih talam",
+      "priceSen": 300,
+      "image": "🧁",
+      "halal": "declared",
+      "open": true,
+      "rating": 4.5,
+      "reviews": 2,
+      "aliases": [],
+      "claims": []
+    },
+    {
+      "id": "wok-bulan",
+      "name": "Wok Bulan",
+      "marketId": "sungai-bintang",
+      "category": "Rice & noodles",
+      "specialty": "Fried rice",
+      "priceSen": 700,
+      "image": "🍳",
+      "halal": "declared",
+      "open": true,
+      "rating": 4.5,
+      "reviews": 2,
+      "aliases": [],
+      "claims": [
+        {
+          "foodItemId": "wok-bulan-dish",
+          "status": "non-halal",
+          "expiresAt": null,
+          "reviewedAt": null,
+          "evidence": false
+        }
+      ]
     }
   ],
   "offers": [
@@ -83,8 +329,631 @@
       "title": "Satay evening offer",
       "priceSen": 450,
       "originalPriceSen": 600,
-      "endsAt": "21:00"
+      "endsAt": "2026-10-01T13:00:00Z"
     }
   ],
-  "updatedAt": "2026-10-01T00:00:00Z"
+  "updatedAt": "2026-10-01T00:00:00Z",
+  "menu": [
+    {
+      "id": "bara-senja-dish",
+      "stallId": "bara-senja",
+      "name": "Chicken satay",
+      "priceSen": 600,
+      "ingredients": [
+        "Fictional sample ingredients; ask the hawker"
+      ]
+    },
+    {
+      "id": "dapur-embun-dish",
+      "stallId": "dapur-embun",
+      "name": "Nasi lemak ayam",
+      "priceSen": 750,
+      "ingredients": [
+        "Fictional sample ingredients; ask the hawker"
+      ]
+    },
+    {
+      "id": "manis-bulan-dish",
+      "stallId": "manis-bulan",
+      "name": "Cendol",
+      "priceSen": 500,
+      "ingredients": [
+        "Fictional sample ingredients; ask the hawker"
+      ]
+    },
+    {
+      "id": "kuali-bintang-dish",
+      "stallId": "kuali-bintang",
+      "name": "Pork noodles",
+      "priceSen": 850,
+      "ingredients": [
+        "Fictional sample ingredients; ask the hawker"
+      ]
+    },
+    {
+      "id": "roti-pelita-dish",
+      "stallId": "roti-pelita",
+      "name": "Roti john",
+      "priceSen": 650,
+      "ingredients": [
+        "Fictional sample ingredients; ask the hawker"
+      ]
+    },
+    {
+      "id": "jus-embun-dish",
+      "stallId": "jus-embun",
+      "name": "Fresh lime drink",
+      "priceSen": 350,
+      "ingredients": [
+        "Fictional sample ingredients; ask the hawker"
+      ]
+    },
+    {
+      "id": "kuih-senja-dish",
+      "stallId": "kuih-senja",
+      "name": "Kuih talam",
+      "priceSen": 300,
+      "ingredients": [
+        "Fictional sample ingredients; ask the hawker"
+      ]
+    },
+    {
+      "id": "wok-bulan-dish",
+      "stallId": "wok-bulan",
+      "name": "Fried rice",
+      "priceSen": 700,
+      "ingredients": [
+        "Fictional sample ingredients; ask the hawker"
+      ]
+    }
+  ],
+  "publicReviews": [
+    {
+      "id": "review-bara-senja-1",
+      "stallId": "bara-senja",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-2",
+      "stallId": "bara-senja",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-3",
+      "stallId": "bara-senja",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-4",
+      "stallId": "bara-senja",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-5",
+      "stallId": "bara-senja",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-6",
+      "stallId": "bara-senja",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-7",
+      "stallId": "bara-senja",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-8",
+      "stallId": "bara-senja",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-9",
+      "stallId": "bara-senja",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-10",
+      "stallId": "bara-senja",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-11",
+      "stallId": "bara-senja",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-12",
+      "stallId": "bara-senja",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-13",
+      "stallId": "bara-senja",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-14",
+      "stallId": "bara-senja",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-15",
+      "stallId": "bara-senja",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-16",
+      "stallId": "bara-senja",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-17",
+      "stallId": "bara-senja",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-18",
+      "stallId": "bara-senja",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-19",
+      "stallId": "bara-senja",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-20",
+      "stallId": "bara-senja",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-21",
+      "stallId": "bara-senja",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-22",
+      "stallId": "bara-senja",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-23",
+      "stallId": "bara-senja",
+      "rating": 4,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-24",
+      "stallId": "bara-senja",
+      "rating": 4,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-25",
+      "stallId": "bara-senja",
+      "rating": 4,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-26",
+      "stallId": "bara-senja",
+      "rating": 4,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-27",
+      "stallId": "bara-senja",
+      "rating": 4,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-bara-senja-28",
+      "stallId": "bara-senja",
+      "rating": 4,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-dapur-embun-1",
+      "stallId": "dapur-embun",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-dapur-embun-2",
+      "stallId": "dapur-embun",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-dapur-embun-3",
+      "stallId": "dapur-embun",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-dapur-embun-4",
+      "stallId": "dapur-embun",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-dapur-embun-5",
+      "stallId": "dapur-embun",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-dapur-embun-6",
+      "stallId": "dapur-embun",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-dapur-embun-7",
+      "stallId": "dapur-embun",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-dapur-embun-8",
+      "stallId": "dapur-embun",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-dapur-embun-9",
+      "stallId": "dapur-embun",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-dapur-embun-10",
+      "stallId": "dapur-embun",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-dapur-embun-11",
+      "stallId": "dapur-embun",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-dapur-embun-12",
+      "stallId": "dapur-embun",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-dapur-embun-13",
+      "stallId": "dapur-embun",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-dapur-embun-14",
+      "stallId": "dapur-embun",
+      "rating": 4,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-dapur-embun-15",
+      "stallId": "dapur-embun",
+      "rating": 4,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-dapur-embun-16",
+      "stallId": "dapur-embun",
+      "rating": 4,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-dapur-embun-17",
+      "stallId": "dapur-embun",
+      "rating": 4,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-dapur-embun-18",
+      "stallId": "dapur-embun",
+      "rating": 4,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-dapur-embun-19",
+      "stallId": "dapur-embun",
+      "rating": 4,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-1",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-2",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-3",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-4",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-5",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-6",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-7",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-8",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-9",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-10",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-11",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-12",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-13",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-14",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-15",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-16",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-17",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-18",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-19",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-20",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-21",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-22",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-23",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-24",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-25",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-26",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-27",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-28",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-29",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-30",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-31",
+      "stallId": "manis-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-32",
+      "stallId": "manis-bulan",
+      "rating": 4,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-33",
+      "stallId": "manis-bulan",
+      "rating": 4,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-manis-bulan-34",
+      "stallId": "manis-bulan",
+      "rating": 4,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-kuali-bintang-1",
+      "stallId": "kuali-bintang",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-kuali-bintang-2",
+      "stallId": "kuali-bintang",
+      "rating": 4,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-roti-pelita-1",
+      "stallId": "roti-pelita",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-roti-pelita-2",
+      "stallId": "roti-pelita",
+      "rating": 4,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-jus-embun-1",
+      "stallId": "jus-embun",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-jus-embun-2",
+      "stallId": "jus-embun",
+      "rating": 4,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-kuih-senja-1",
+      "stallId": "kuih-senja",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-kuih-senja-2",
+      "stallId": "kuih-senja",
+      "rating": 4,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-wok-bulan-1",
+      "stallId": "wok-bulan",
+      "rating": 5,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    },
+    {
+      "id": "review-wok-bulan-2",
+      "stallId": "wok-bulan",
+      "rating": 4,
+      "body": "Fictional demo review: friendly service and a tasty dish."
+    }
+  ],
+  "batches": []
 }

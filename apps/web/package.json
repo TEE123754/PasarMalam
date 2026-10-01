@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build --configLoader runner",
     "typecheck": "tsc -b --pretty false",
     "lint": "eslint src",
+    "test": "vitest run src/discovery/engine.test.ts --configLoader runner",
     "preview": "vite preview --configLoader runner --host 127.0.0.1"
   },
   "dependencies": {
@@ -15,6 +16,7 @@
     "@supabase/supabase-js": "2.117.2",
     "@tanstack/react-query": "5.104.0",
     "i18next": "25.10.10",
+    "leaflet": "1.9.4",
     "lucide-react": "0.468.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
@@ -25,6 +27,7 @@
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.3.3",
+    "@types/leaflet": "1.9.22",
     "@types/node": "24.19.0",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
@@ -35,6 +38,7 @@
     "tailwindcss": "4.3.3",
     "typescript": "5.9.3",
     "typescript-eslint": "8.71.0",
-    "vite": "7.3.6"
+    "vite": "7.3.6",
+    "vitest": "5.0.3"
   }
 }
