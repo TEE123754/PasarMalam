@@ -20,3 +20,5 @@ supabase/.branches/
 !.env.local.example
 .DS_Store
 Thumbs.db
+
+.phase4-qa/

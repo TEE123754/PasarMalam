@@ -60,3 +60,5 @@ The local check skips live groups when `RUN_LIVE_PHASE2` is absent. It cannot ma
 Contracts can be regenerated after an intentional API change with `uv run --project apps/api python scripts/export_contract.py`. Exact web types and OpenAPI are committed; fixture JSON passes the same discovery response model.
 
 Sources: [RLS/invoker views](https://supabase.com/docs/guides/database/postgres/row-level-security), [Storage access policies](https://supabase.com/docs/guides/storage/security/access-control), [JWT verification and key cache](https://supabase.com/docs/guides/auth/jwts).
+
+Phase 4 routing amendment: use `/sandbox/profile` for connected disposable sign-in and `/sandbox/discover` for the technical demo. `/demo/*` is now the standalone prefilled playground; root routes reject a disposable backend. Apply all migrations including 006 before rerunning current live gates; raw listing uploads are now denied and Phase 4 media setup/API validation is mandatory. The old Phase 2 MIME/path permission test now expects raw public listing writes to be denied.

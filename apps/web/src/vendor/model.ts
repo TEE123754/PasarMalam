@@ -1,0 +1,40 @@
+import { z } from 'zod'
+
+export const stallInput = z.object({
+  id: z.string().min(1), market_id: z.string().min(1), name: z.string().trim().min(2).max(100),
+  category: z.string().trim().min(1).max(60), specialty: z.string().trim().min(1).max(150),
+  price_sen: z.number().int().min(0).max(100000000), halal: z.enum(['declared','non-halal','not-declared']),
+  open: z.boolean(), lot: z.string().max(60), opens: z.string().regex(/^(?:[01]\d|2[0-3]):[0-5]\d$/), closes: z.string().regex(/^(?:[01]\d|2[0-3]):[0-5]\d$/),
+  latitude: z.number().min(-90).max(90).nullable(), longitude: z.number().min(-180).max(180).nullable(),
+  photo: z.string().nullable(),
+}).refine(s => (s.latitude === null) === (s.longitude === null), 'Choose both coordinates')
+export const foodInput = z.object({ id:z.string().min(1), stall_id:z.string().min(1), name:z.string().trim().min(2).max(100), price_sen:z.number().int().min(0).max(100000000), ingredients:z.array(z.string().trim().min(1).max(80)).max(40), photo:z.string().nullable() })
+export const batchInput = z.object({ food_item_id:z.string().min(1), prepared_at:z.string().datetime({offset:true}), quantity:z.number().int().min(1).max(100000).nullable(), handling:z.object({storage:z.enum(['ambient','chilled','hot-held','unknown']), note:z.string().max(500)}), photo:z.string().nullable() })
+export type VendorStall = z.infer<typeof stallInput>
+export type VendorFood = z.infer<typeof foodInput>
+export type NewBatch = z.infer<typeof batchInput>
+export type BatchStatus = 'needs-information'|'active'|'sold-out'|'withdrawn'|'discarded'|'merged'|'expired'|'recalled'
+export interface VendorBatch { id:string; food_item_id:string; batch_number:number; prepared_at:string; uploaded_at:string; corrected_prepared_at:string|null; original_quantity:number|null; remaining_quantity:number|null; advisory_deadline:string|null; status:BatchStatus; handling:NewBatch['handling']; photo:string|null }
+export interface BatchEvent { batch_id:string; kind:string; at:string; details:Record<string,unknown> }
+export interface VendorWorkspace { stalls:VendorStall[]; foods:VendorFood[]; batches:VendorBatch[]; events:BatchEvent[]; requests:Record<string,{fingerprint:string;result:string}> }
+export type Command = {kind:'stall';data:VendorStall}|{kind:'food';data:VendorFood}|{kind:'batch';data:NewBatch}|{kind:'action';data:{batch_id:string;action:'consume'|'sold-out'|'withdrawn'|'discarded'|'available'|'correct';quantity?:number;prepared_at?:string}}|{kind:'merge';data:{source_ids:string[]}}
+export function money(value:string):number { if (!/^\d{1,6}(?:\.\d{1,2})?$/.test(value)) throw new Error('Enter RM with up to two decimal places'); const [whole,dec='']=value.split('.');return Number(whole)*100+Number(dec.padEnd(2,'0')) }
+
+// Pure demo transaction. Real numbering/locks/permissions are implemented in SQL.
+export function applyCommand(original:VendorWorkspace, command:Command, request:string, now:Date, id:string):{workspace:VendorWorkspace;result:string} {
+  const s=structuredClone(original); const fingerprint=JSON.stringify(command)
+  const prior=s.requests[request]; if(prior) {if(prior.fingerprint!==fingerprint)throw new Error('Retry key conflicts with a different action');return {workspace:s,result:prior.result}}
+  let result=id
+  const event=(b:VendorBatch,kind:string,details:Record<string,unknown>={})=>s.events.push({batch_id:b.id,kind,at:now.toISOString(),details})
+  const eligible=(b:VendorBatch)=>['active','needs-information'].includes(b.status) && (b.advisory_deadline===null || Date.parse(b.advisory_deadline)>now.getTime())
+  if(command.kind==='stall') {const data=stallInput.parse(command.data);const old=s.stalls.findIndex(x=>x.id===data.id);if(old<0)s.stalls.push(data);else s.stalls[old]=data;result=data.id}
+  if(command.kind==='food') {const data=foodInput.parse(command.data);if(!s.stalls.some(x=>x.id===data.stall_id))throw new Error('Stall unavailable');const old=s.foods.findIndex(x=>x.id===data.id);if(old<0)s.foods.push(data);else s.foods[old]=data;result=data.id}
+  if(command.kind==='batch') {const d=batchInput.parse(command.data);if(!s.foods.some(x=>x.id===d.food_item_id)||Date.parse(d.prepared_at)>now.getTime())throw new Error('Choose your food and a past preparation time'); const b:VendorBatch={id,food_item_id:d.food_item_id,batch_number:Math.max(0,...s.batches.filter(x=>x.food_item_id===d.food_item_id).map(x=>x.batch_number))+1,prepared_at:d.prepared_at,uploaded_at:now.toISOString(),corrected_prepared_at:null,original_quantity:d.quantity,remaining_quantity:d.quantity,advisory_deadline:null,status:'needs-information',handling:d.handling,photo:d.photo};s.batches.push(b);event(b,'created-needs-policy',{quantity:d.quantity})}
+  if(command.kind==='action') {const d=command.data;const b=s.batches.find(x=>x.id===d.batch_id);if(!b)throw new Error('Batch unavailable');result=b.id
+    if(d.action==='correct') {const time=Date.parse(d.prepared_at??'');const earliest=Date.parse(b.corrected_prepared_at??b.prepared_at);if(!Number.isFinite(time)||time>earliest)throw new Error('A correction may only move preparation earlier');if(b.advisory_deadline)b.advisory_deadline=new Date(Date.parse(b.advisory_deadline)-(earliest-time)).toISOString();b.corrected_prepared_at=new Date(time).toISOString();event(b,'preparation-correction',{prepared_at:b.corrected_prepared_at})}
+    else if(d.action==='available') {if(b.status!=='withdrawn'||b.remaining_quantity===null||b.remaining_quantity===0||b.advisory_deadline===null||Date.parse(b.advisory_deadline)<=now.getTime())throw new Error('A valid unchanged policy window is required');b.status='active';event(b,'available')}
+    else {if(!eligible(b)&&!(d.action==='discarded'&&['withdrawn','expired','active','needs-information'].includes(b.status)))throw new Error('This batch is already closed or expired');if(d.action==='consume') {if(!Number.isInteger(d.quantity)||!d.quantity||b.remaining_quantity===null||d.quantity>b.remaining_quantity)throw new Error('Cannot consume unknown or insufficient stock');b.remaining_quantity-=d.quantity;if(!b.remaining_quantity)b.status='sold-out';event(b,'inventory',{consumed:d.quantity,remaining:b.remaining_quantity})} else {if(d.action==='sold-out'){if(b.remaining_quantity===null)throw new Error('Unknown stock cannot be marked sold out; withdraw it');b.remaining_quantity=0}b.status=d.action;event(b,d.action)}}
+  }
+  if(command.kind==='merge') {const ids=[...new Set(command.data.source_ids)];const sources=ids.map(x=>s.batches.find(b=>b.id===x));if(ids.length<2||sources.some(x=>!x||!eligible(x)))throw new Error('Select at least two open batches');const bs=sources as VendorBatch[];const food=bs[0].food_item_id;if(bs.some(x=>x.food_item_id!==food))throw new Error('Only the same food can be merged');const times=bs.map(x=>x.corrected_prepared_at??x.prepared_at);const b:VendorBatch={...bs[0],id,batch_number:Math.max(...s.batches.filter(x=>x.food_item_id===food).map(x=>x.batch_number))+1,prepared_at:times.sort()[0],uploaded_at:now.toISOString(),corrected_prepared_at:null,original_quantity:bs.some(x=>x.remaining_quantity===null)?null:bs.reduce((n,x)=>n+x.remaining_quantity!,0),remaining_quantity:null,advisory_deadline:bs.some(x=>!x.advisory_deadline)?null:bs.map(x=>x.advisory_deadline!).sort()[0],status:'needs-information',handling:{storage:'unknown',note:'Merged; policy must be reevaluated'},photo:null};b.remaining_quantity=b.original_quantity;for(const source of bs){source.status='merged';event(source,'merged-into',{batch_id:id})}s.batches.push(b);event(b,'merged-from',{source_ids:ids})}
+  s.requests[request]={fingerprint,result};return {workspace:s,result}
+}

@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build --configLoader runner",
     "typecheck": "tsc -b --pretty false",
     "lint": "eslint src",
-    "test": "vitest run src/discovery/engine.test.ts --configLoader runner",
+    "test": "vitest run --configLoader runner",
     "preview": "vite preview --configLoader runner --host 127.0.0.1"
   },
   "dependencies": {

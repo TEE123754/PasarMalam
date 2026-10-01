@@ -1,3 +1,4 @@
+import { appPath } from '../app/config'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import L from 'leaflet'
@@ -32,7 +33,7 @@ export default function MarketMap({ markets, onBounds }: { markets: Market[]; on
       const point: L.LatLngTuple = [market.latitude,market.longitude]
       points.push(point)
       const link = document.createElement('a')
-      link.href = `/markets/${encodeURIComponent(market.id)}`; link.textContent = market.name
+      link.href = appPath(`/markets/${encodeURIComponent(market.id)}`); link.textContent = market.name
       L.marker(point, {title:market.name,alt:market.name,icon:L.divIcon({className:'market-pin',html:market.type === 'night' ? '☾' : '☀',iconSize:[36,36],iconAnchor:[18,18]})}).bindPopup(link).addTo(pins.current)
     }
     // Do not recenter during a map-bound search: the user controls the current viewport.

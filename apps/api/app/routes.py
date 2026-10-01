@@ -83,20 +83,26 @@ async def me(member: Member) -> Actor:
 async def discovery(repo: PublicRepository) -> DiscoverySnapshot:
     markets = await repo.rpc("discovery_markets", {})
     stalls = await repo.read(
-        "public_stalls", "id,market_id,name,category,specialty,price_sen,halal,open"
+        "public_stalls",
+        "id,market_id,name,category,specialty,price_sen,halal,open,photo,lot,opens,closes,latitude,longitude",
     )
     reviews = await repo.read("public_reviews", "id,stall_id,rating,body")
     claims = await repo.rpc("discovery_claims", {})
     menu = await repo.read(
-        "food_items", "id,stall_id,name,price_sen,ingredients", published="eq.true"
+        "food_items", "id,stall_id,name,price_sen,ingredients,photo", published="eq.true"
     )
     batches = await repo.read(
         "public_batches",
-        "id,food_item_id,batch_number,prepared_at,uploaded_at,remaining_quantity,advisory_deadline",
+        "id,food_item_id,batch_number,prepared_at,uploaded_at,remaining_quantity,advisory_deadline,"
+        "photo,corrected_prepared_at",
     )
     offers = await repo.read(
         "public_promotions", "id,stall_id,title,price_sen,original_price_sen,ends_at"
     )
+
+    def photo_url(key):
+        return f"{repo.url}/storage/v1/object/public/listing-media/{key}" if key else None
+
     stall_rows = []
     for stall in stalls:
         ratings = [row["rating"] for row in reviews if row["stall_id"] == stall["id"]]
@@ -111,6 +117,12 @@ async def discovery(repo: PublicRepository) -> DiscoverySnapshot:
                 "rating": sum(ratings) / len(ratings) if ratings else 0,
                 "reviews": len(ratings),
                 "image": "🍴",
+                "photoUrl": photo_url(stall.get("photo")),
+                "lot": stall.get("lot", ""),
+                "opens": stall.get("opens"),
+                "closes": stall.get("closes"),
+                "latitude": stall.get("latitude"),
+                "longitude": stall.get("longitude"),
                 "halal": stall["halal"],
                 "open": stall["open"],
                 "claims": [
@@ -156,6 +168,7 @@ async def discovery(repo: PublicRepository) -> DiscoverySnapshot:
                     "name": f["name"],
                     "priceSen": f["price_sen"],
                     "ingredients": f["ingredients"],
+                    "photoUrl": photo_url(f.get("photo")),
                 }
                 for f in menu
             ],
@@ -168,6 +181,8 @@ async def discovery(repo: PublicRepository) -> DiscoverySnapshot:
                     "uploadedAt": b["uploaded_at"],
                     "remaining": b["remaining_quantity"],
                     "deadline": b["advisory_deadline"],
+                    "photoUrl": photo_url(b.get("photo")),
+                    "correctedPreparedAt": b.get("corrected_prepared_at"),
                 }
                 for b in batches
             ],

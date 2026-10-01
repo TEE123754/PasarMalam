@@ -10,6 +10,7 @@ from pydantic import BaseModel
 
 from .routes import router
 from .settings import get_settings
+from .vendor import router as vendor_router
 
 
 class HealthResponse(BaseModel):
@@ -22,11 +23,13 @@ class PublicConfigResponse(BaseModel):
     api_version: str
     supported_locales: list[str]
     business_integration_mode: Literal["simulated"]
+    data_environment: Literal["disposable-demo"] = "disposable-demo"
     capabilities: list[str]
 
 
 app = FastAPI(title="PasarMalam API", version="0.1.0")
 app.include_router(router)
+app.include_router(vendor_router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[

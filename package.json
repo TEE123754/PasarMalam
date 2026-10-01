@@ -2,8 +2,12 @@
   "name": "pasarmalam",
   "private": true,
   "version": "0.1.0",
-  "workspaces": ["apps/web"],
-  "engines": {"node": ">=24 <25"},
+  "workspaces": [
+    "apps/web"
+  ],
+  "engines": {
+    "node": ">=24 <25"
+  },
   "scripts": {
     "dev": "npm run dev -w @pasarmalam/web",
     "build": "npm run build -w @pasarmalam/web",
@@ -13,6 +17,9 @@
     "phase2:check": "npm run lint && npm run typecheck && npm run build && uv run --project apps/api ruff check --config apps/api/pyproject.toml apps/api/app apps/api/tests scripts && uv run --project apps/api pytest apps/api/tests -q && node scripts/check-web-secrets.cjs",
     "phase2:live": "uv run --project apps/api python scripts/phase2_live.py",
     "phase3:check": "npm run lint && npm run typecheck && npm run build && npm run test -w @pasarmalam/web && uv run --project apps/api ruff check --config apps/api/pyproject.toml apps/api/app apps/api/tests scripts && uv run --project apps/api pytest apps/api/tests -q && node scripts/check-web-secrets.cjs",
-    "phase3:live": "uv run --project apps/api python scripts/phase3_live.py"
+    "phase3:live": "uv run --project apps/api python scripts/phase3_live.py",
+    "phase4:check": "npm run lint && npm run typecheck && npm run build && npm run test -w @pasarmalam/web && uv run --project apps/api ruff check --config apps/api/pyproject.toml apps/api/app apps/api/tests scripts && uv run --project apps/api pytest apps/api/tests -q && node scripts/check-web-secrets.cjs",
+    "phase4:live": "uv run --project apps/api python scripts/phase4_live.py",
+    "phase4:media-setup": "uv run --project apps/api python scripts/media_setup.py"
   }
 }

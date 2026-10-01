@@ -19,6 +19,10 @@ export interface CheckInInput {
   market_id: string
 }
 
+export interface Cleanup {
+  key: string
+}
+
 export interface ComplaintInput {
   stall_id: string
   body: string
@@ -88,6 +92,7 @@ export interface MenuItem {
   name: string
   priceSen: number
   ingredients: Array<string>
+  photoUrl?: string | null
 }
 
 export interface ModerationInput {
@@ -120,12 +125,15 @@ export interface PublicBatch {
   uploadedAt: string
   remaining: number
   deadline: string
+  photoUrl?: string | null
+  correctedPreparedAt?: string | null
 }
 
 export interface PublicConfigResponse {
   api_version: string
   supported_locales: Array<string>
   business_integration_mode: "simulated"
+  data_environment?: "disposable-demo"
   capabilities: Array<string>
 }
 
@@ -166,10 +174,16 @@ export interface Stall {
   rating: number
   reviews: number
   image: string
+  photoUrl?: string | null
   halal: "declared" | "non-halal" | "not-declared"
   open: boolean
   claims?: Array<DietaryClaim>
   aliases?: Array<string>
+  lot?: string
+  opens?: string | null
+  closes?: string | null
+  latitude?: number | null
+  longitude?: number | null
 }
 
 export interface ValidationError {
@@ -178,4 +192,10 @@ export interface ValidationError {
   type: string
   input?: unknown
   ctx?: Record<string, unknown>
+}
+
+export interface VendorCommand {
+  kind: "stall" | "food" | "batch" | "action" | "merge"
+  data: Record<string, unknown>
+  request_id: string
 }

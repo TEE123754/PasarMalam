@@ -615,3 +615,7 @@ Provisional continuation thresholds (hypotheses to agree before launch): at leas
 ## 19. Relevant repositories and model candidates
 
 See [TECH_REFERENCES.md](TECH_REFERENCES.md) for verified GitHub/Hugging Face links, intended role, licenses/hosting caveats and selection gates. Initial candidates: Transformers.js + ONNX Whisper for STT; Malaya-Speech as a Malaysian-language comparator; Gemini structured output or developer-local Qwen + llama.cpp for extraction; Open-Meteo for weather; Supabase Realtime for map events; pywebpush for test-device push. None is a ready-made or validated food-safety engine, and none supplies project evaluation results without running the specified phase gate.
+
+## Demo and real-app separation — Phase 4 amendment (1 October 2026)
+
+The real app uses root routes and a dedicated production data environment. The standalone demo uses `/demo/*`, prefilled fictional personas, markets, menu, batches and reviews, and its own browser storage. A “Try demo” modal explains the playground and opens it explicitly; “Exit demo” returns to the real app. Demo code cannot authenticate or write to real services. All future feature demonstrations, including partners, authorities, ads and sponsorships, remain in demo scope and are built in their assigned phases. Generated images remain Phase 11 with one prompt per image. Production activation is pending its dedicated project, reviewed schema, privacy and food-policy acceptance; current Supabase migrations are deliberately disposable-demo-only.

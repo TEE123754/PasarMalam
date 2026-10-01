@@ -17,7 +17,7 @@ const queryClient = new QueryClient({
 createRoot(root).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <AuthProvider><BrowserRouter><App /></BrowserRouter></AuthProvider>
+      <AuthProvider><BrowserRouter basename={/^\/demo(?:\/|$)/.test(window.location.pathname) ? "/demo" : /^\/sandbox(?:\/|$)/.test(window.location.pathname) ? "/sandbox" : "/"}><App /></BrowserRouter></AuthProvider>
     </QueryClientProvider>
   </StrictMode>,
 )

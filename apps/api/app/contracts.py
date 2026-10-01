@@ -34,6 +34,7 @@ class MenuItem(BaseModel):
     name: str
     priceSen: int
     ingredients: list[str]
+    photoUrl: str | None = None
 
 
 class PublicBatch(BaseModel):
@@ -44,6 +45,8 @@ class PublicBatch(BaseModel):
     uploadedAt: AwareDatetime
     remaining: int
     deadline: AwareDatetime
+    photoUrl: str | None = None
+    correctedPreparedAt: AwareDatetime | None = None
 
 
 class PublicReview(BaseModel):
@@ -81,10 +84,16 @@ class Stall(BaseModel):
     rating: float
     reviews: int
     image: str
+    photoUrl: str | None = None
     halal: Literal["declared", "non-halal", "not-declared"]
     open: bool
     claims: list[DietaryClaim] = Field(default_factory=list)
     aliases: list[str] = Field(default_factory=list)
+    lot: str = ""
+    opens: str | None = None
+    closes: str | None = None
+    latitude: float | None = None
+    longitude: float | None = None
 
 
 class Offer(BaseModel):

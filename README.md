@@ -1,6 +1,6 @@
 # PasarMalam
 
-Mobile-first community market PWA. The repository contains the Phase 1 shell, Phase 2 data/authentication foundation, and Phase 3 discovery/map/profiles (live Supabase acceptance pending); [PRD](PRD.md) and [implementation plan](IMPLEMENTATION_PLAN.md) define later features.
+Mobile-first community market PWA. The repository contains the Phase 1 shell, Phase 2 data/authentication foundation, Phase 3 discovery/map/profiles, and Phase 4 vendor listings/photos/batches (live Supabase acceptance pending); [PRD](PRD.md) and [implementation plan](IMPLEMENTATION_PLAN.md) define later features.
 
 ## Local setup
 
@@ -20,7 +20,7 @@ In another terminal:
 uv run --project apps/api uvicorn app.main:app --reload --app-dir apps/api --host 127.0.0.1 --port 8000
 ```
 
-Open `http://localhost:5173`. Fixture mode is the default. Copy `.env.example` to `apps/web/.env.local` only when changing web settings; copy server values to `apps/api/.env` when configuring the API later. Never put private keys in `VITE_` variables.
+Open `http://localhost:5173`. Root routes open the real-app workspace. Click **Try demo**, then **Open prefilled demo**, or visit `/demo/discover` for the separate fictional playground. Copy `.env.example` to `apps/web/.env.local` only when changing web settings; copy server values to `apps/api/.env` when configuring the API later. Never put private keys in `VITE_` variables.
 
 `/health` and `/api/v1/config` are the Phase 1 API contract. Connected discovery/authentication are implemented; configure a disposable Supabase environment using [Phase 2 setup](docs/phase2-setup.md). The fixture app contains fictional markets, stalls and offers. Its role switch and time scenario are for presentation only; administrator permissions are restricted.
 
@@ -29,9 +29,9 @@ Open `http://localhost:5173`. Fixture mode is the default. Copy `.env.example` t
 Run checks only after finishing an entire phase. Phase 1 commands and results are recorded in [phase status](docs/phase-status.md). Do not use watch-mode tests or rerun the whole suite after each small change.
 
 ```powershell
-npm run phase3:check
+npm run phase4:check
 # After configuring a disposable Supabase environment:
-npm run phase3:live
+npm run phase4:live
 ```
 
 The Profile screen includes fixture clock controls and four reusable business response scenarios: success, pending, rejected and timeout. They produce labelled `DEMO-` references locally. Business providers are never contacted.
@@ -39,3 +39,5 @@ The Profile screen includes fixture clock controls and four reusable business re
 The [feature coverage matrix](docs/feature-coverage.md) maps the full PRD to screens, scenario boundaries and later phases. [Image prompts](IMAGE_GENERATION_PROMPTS.md) provide one brief per generated asset.
 
 Phase 3 adds BM/English search, combined dietary/category/promotion filters, day/night schedules, manual-area/device distance, paginated map/list discovery, batch/menu/review profiles and saved stalls/visits. [Phase 3 acceptance](docs/phase3-acceptance.md) records the local/browser checks and remaining real Supabase/Realtime gate. Set `RUN_LIVE_PHASE3=1` only with the configured disposable environment; this gate does not replace Phase 2 live permission/session acceptance.
+
+Phase 4 adds stall/menu editing, map pin placement, validated photos, independent numbered batches, stock actions, audit history, conservative merges and earlier-only preparation corrections. [Phase 4 acceptance](docs/phase4-acceptance.md) explains results, media setup and remaining live checks. Root routes reject this repository’s disposable-demo API; use `/sandbox/discover` on a dedicated technical test deployment for connected acceptance. Real production activation needs a separate reviewed project/schema. The demo makes no real API/auth writes.

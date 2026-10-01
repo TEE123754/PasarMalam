@@ -111,3 +111,21 @@ Evidence: [discovery](screenshots/phase3-discovery.png), [tile fallback with one
 - Run `RUN_LIVE_PHASE3=1` + `npm run phase3:live`: real PostGIS radius/bounds, private idempotent favourites, customer-only daily check-ins, direct-write denial and public version projection. Resolve any runtime SQL/RLS failures.
 - Perform the two-browser change/reconnect test described in `docs/phase3-acceptance.md`; record actual update latency against the five-second target and inspect payload privacy.
 - Mark the phase complete only after those live checks pass. Phase 3 is currently **locally ready, live acceptance pending**, not fully complete. No hosting was deployed.
+
+
+## Phase 4 checkpoint — implementation batch written, gate next
+
+12/12 code tasks implemented: vendor stall/menu forms and map placement, optional quantities, independent immutable-photo batches, server timestamps, serialised SQL numbering/idempotency, append-only events, stock/status actions, earlier-only corrections, conservative source-closing merge, metadata-stripped JPEG uploads with signed scoped tickets, draft/retry recovery and offline write blocking. Demo is isolated at `/demo/*` behind a launcher dialog; real root routes reject disposable backend data. Connected acceptance uses explicitly labelled `/sandbox/*`. Local gate is next. Live Supabase/Storage acceptance and production activation remain pending; no service or hosting was configured.
+
+
+## Phase 4 — local and browser acceptance recorded
+
+Status: **locally ready; live acceptance pending**. Implementation checklist: **12/12 code tasks**. Saved work is described in `docs/phase4-acceptance.md`; demo and real routes/storage are separated and the requested demo launcher modal is implemented. The real app refuses this disposable-demo backend; `/sandbox/*` explicitly labels connected acceptance.
+
+Phase-end checks: web lint/type/build and credential scan pass; **58 Vitest tests pass** (30 discovery, 19 vendor, 9 boundary); **44 Python checks pass** at the gate. Final affected schema/fixture checks: **7 pass**, four Phase 4 live groups skipped. Across the current suite, five Phase 2, three Phase 3 and four Phase 4 live groups remain environment-dependent. No live latency, SQL transaction execution or Storage policy behavior was measured.
+
+Browser evidence: launcher dialog opens `/demo/discover` with three markets/eight stalls; hawker creates a dish and two photo batches; Batch 1 sells out while Batch 2's text, quantity, timestamps and original photo remain unchanged; retry does not duplicate a batch; a fake JPEG produces an error and no new batch; lot edit persists; exit opens the real workspace; phone document/client width both 375 px at 390 × 844. Tiles were disabled. Temporary review tab/server are closed after verification; the user's existing preview remains intact.
+
+Grouped fixes: JSX/type/import gate failures; stale successful-save retry marker; mobile header overflow. Tests ran after the implementation batch and only failed/affected checks were rerun. Original batch identity is immutable, merge windows never extend, optional quantities stay unknown, and no new batch gets a guessed food window.
+
+Remaining Phase 4 work: configure guarded disposable Supabase, apply migration 006, install matching server/private-DB media secret with `phase4:media-setup`, run `RUN_LIVE_PHASE4=1 npm run phase4:live`, and repeat the connected two-photo/failure/reconnect browser journey. Complete prior live gates too. Production setup remains outside this demo acceptance. Periodic orphan sweeping is scheduled for Phase 6; interrupted uploads use best-effort cleanup meanwhile. Generated final images remain Phase 11 and vendor-copy BM completion is part of final accessibility/localisation work.

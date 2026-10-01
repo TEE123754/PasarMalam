@@ -1,14 +1,14 @@
 # PasarMalam — Phase-by-Phase Implementation Plan
 
-Version: 4.3 · Date: 1 October 2026 · Status: Phase 1 complete; Phases 2–3 built locally, live acceptance pending
+Version: 4.4 · Date: 1 October 2026 · Status: Phase 1 complete; Phases 2–4 built locally, live acceptance pending
 
 Product contract: [PRD.md](PRD.md). Original input: [PasarMalam.md](PasarMalam.md). Assets: [100 prompts, one prompt per image](IMAGE_GENERATION_PROMPTS.md).
 
 Repository/model shortlist and source evidence: [TECH_REFERENCES.md](TECH_REFERENCES.md). The PRD's new technical, ethics and business requirements are mandatory and mapped to the phase gates below.
 
-Phase 1 is implemented and verified locally. Phase 2 implementation passed local checks; live Supabase acceptance remains pending. Phase 3 implementation and local/browser checks pass; its live Supabase acceptance remains pending. Phases 4–12 remain planned, and hosting is not deployed. Start with a mobile-first PWA and deliver a demonstrable, zero-spend version using **Vercel + Railway + Supabase**. Paid commercial operation and guaranteed always-on availability are outside this demo commitment.
+Phase 1 is implemented and verified locally. Phase 2 implementation passed local checks; live Supabase acceptance remains pending. Phase 3 implementation and local/browser checks pass; its live Supabase acceptance remains pending. Phase 4 implementation and local/browser checks pass; live acceptance remains pending; Phases 5–12 remain planned, and hosting is not deployed. Start with a mobile-first PWA and deliver a demonstrable, zero-spend version using **Vercel + Railway + Supabase**. Paid commercial operation and guaranteed always-on availability are outside this demo commitment.
 
-**All features, including the earlier future roadmap, remain in demo scope.** Business records and partner workflows are fictional. Connected mode additionally implements live weather, real STT → LLM JSON extraction, realtime map updates, persisted closing-agent actions and genuine Web Push to consenting test devices. Agencies, commercial partners, payment gateways, delivery, SMS and email remain simulated. Primary reservations use **pay-at-stall**; retain fake online payments only in the future-capability showcase. A “Coming soon” placeholder does not complete a phase.
+**All features, including the earlier future roadmap, remain in demo scope.** Business records and partner workflows are fictional. Later connected sandbox phases add live weather, real STT → LLM JSON extraction, realtime map updates, persisted closing-agent actions and genuine Web Push to consenting test devices. Production remains a separately activated app. Agencies, commercial partners, payment gateways, delivery, SMS and email remain simulated. Primary reservations use **pay-at-stall**; retain fake online payments only in the future-capability showcase. A “Coming soon” placeholder does not complete a phase.
 
 ## 1. Execution and testing rules
 
@@ -114,7 +114,7 @@ PasarMalam/
 
 - **Connected mode:** browser obtains a Supabase Auth session; requests carry its JWT to FastAPI. FastAPI verifies it and forwards the caller's token to the Supabase Data API so RLS remains effective. Database RPCs perform protected atomic changes.
 - **Fixture mode:** the same application interface reads bundled JSON and saves simulated edits in browser-local storage. Role switching and time travel exist only here. No network write or privileged key is available.
-- Public fixture demo and connected invite-only demo use separate Vercel deployment configurations. Their mode banners are always visible.
+- Root routes are the real-app workspace; `/demo/*` contains fictional prefilled data and separate demo storage. Enter through the demo launcher modal; exit with a full-page navigation to clear in-memory state. A separately deployed connected disposable demo is a technical acceptance sandbox, never the production dataset. All mode banners remain visible.
 - Never implement backend failure as a silent fixture fallback. Tell the user the live request failed and offer an explicit switch to the sample demo.
 - Admin credentials and Supabase service keys stay in trusted environment variables or an operator's seed process. They never appear in fixture files, browser code, screenshots, or committed `.env` files.
 - Both modes force business `INTEGRATION_MODE=simulated`. Connected-only flags allow live Open-Meteo, real LLM extraction of permitted synthetic transcripts and Web Push to consenting test subscriptions. Keep keys server-side and endpoints allowlisted; arbitrary callback/LLM URLs are forbidden. SMS/email/company/authority/payment adapters cannot send externally.
@@ -295,26 +295,40 @@ Functional customer browse-to-stall journey in both modes, with geographic queri
 
 ## 7. Phase 4 — Hawker listings, photos, and batch tracking
 
+**Status (1 October 2026):** Implementation batch written (12/12 code tasks). Local automated and browser gates passed; checkmarks are implementation progress, not live certification. Live Supabase/Storage acceptance is pending a configured disposable project.
+
+**Demo / real boundary:** `/demo/*` is a prefilled, fictional playground with separate browser storage and no real-service calls. Root routes use real connected data only, with no automatic fixture fallback. A modal “Try demo” launcher explicitly navigates into the playground; “Exit demo” returns to the real app. All future feature previews stay in the demo. Production needs its own project and reviewed production migrations; current SQL remains disposable-demo-only.
+
 **Goal:** Vendors manage stalls and foods and create separate, auditable batches.
 
-**Tools:** React Hook Form, Zod, FastAPI/Pydantic, Supabase Storage, SQL RPCs, pytest.
+**Tools:** React 19, React Hook Form 7, Zod 4, TanStack Query 5, Radix Dialog, Leaflet 1.9, Web Locks/Canvas, FastAPI/Pydantic, Pillow 12.3.0, Supabase Storage/PostgreSQL RPCs, Vitest 5 and pytest. Exact resolved dependencies remain in lockfiles.
 
 **PRD coverage:** HAWK-01, BATCH-01.
 
 ### Build tasks
 
-- [ ] Build stall setup/edit, market selection, lot and map placement, opening status, and menu forms.
-- [ ] Implement image capture/upload, file-content validation, size/dimension limits, compression, EXIF removal, and upload progress.
-- [ ] Create authenticated upload authorisation with scoped paths; clean up orphaned uploads after failed entity saves.
-- [ ] Implement “New batch prepared” with food selection, preparation time, handling declaration, optional quantity, and photo.
-- [ ] Keep the preparation timestamp distinct from server creation/upload timestamps.
-- [ ] Allocate batch sequence numbers and enforce idempotency in a transaction; guard concurrent submissions.
-- [ ] Persist immutable batch identity and append-only events for quantity, correction, withdrawal, merge, and discard actions.
-- [ ] Provide available/sold-out/withdrawn/discarded actions without allowing negative stock.
-- [ ] Keep previous batches visible in hawker history and eligible customer detail views.
-- [ ] Add a merge action that carries the earliest source deadline and closes the source batches; never reset old stock as freshly prepared.
-- [ ] Implement the basic rule that published preparation corrections cannot move a deadline later; Phase 5 completes the policy calculations.
-- [ ] Disable timing-sensitive writes offline; preserve unsent form text as a draft without implying a server save.
+- [x] Build stall setup/edit, market selection, lot and map placement, opening status, and menu forms.
+- [x] Implement image capture/upload, file-content validation, size/dimension limits, compression, EXIF removal, and upload progress.
+- [x] Create authenticated upload authorisation with scoped paths; clean up orphaned uploads after failed entity saves.
+- [x] Implement “New batch prepared” with food selection, preparation time, handling declaration, optional quantity, and photo.
+- [x] Keep the preparation timestamp distinct from server creation/upload timestamps.
+- [x] Allocate batch sequence numbers and enforce idempotency in a transaction; guard concurrent submissions.
+- [x] Persist immutable batch identity and append-only events for quantity, correction, withdrawal, merge, and discard actions.
+- [x] Provide available/sold-out/withdrawn/discarded actions without allowing negative stock.
+- [x] Keep previous batches visible in hawker history and eligible customer detail views.
+- [x] Add a merge action that carries the earliest source deadline and closes the source batches; never reset old stock as freshly prepared.
+- [x] Implement the basic rule that published preparation corrections cannot move a deadline later; Phase 5 completes the policy calculations.
+- [x] Disable timing-sensitive writes offline; preserve unsent form text as a draft without implying a server save.
+
+### Acceptance checklist
+
+- [x] Separate `/demo/*` routes and fictional storage, launcher dialog, exit navigation, and real-route rejection of disposable backend data.
+- [x] Phase-end lint, TypeScript, production build, vendor/discovery/boundary tests, image-decoder/API checks and secret scan (58 Vitest + 44 Python checks; affected contract/migration checks also pass).
+- [x] Browser: modal → demo → create dish/edit stall → create two photo batches → sell out first without changing second; invalid-photo and phone review pass.
+- [ ] Live guarded Supabase migration 006, concurrent RPC/RLS tests and Storage byte/metadata/path tests.
+- [ ] Production activation: separate reviewed schema/project and real food-policy approval (outside this demo phase).
+
+**What remains for Phase 4:** one live acceptance group: apply migration 006, install the media signing secret through the guarded operator, run the four real RPC/Storage test groups and the connected `/sandbox` browser journey. See [Phase 4 acceptance](docs/phase4-acceptance.md). No Supabase/Docker environment is configured. No deployment or live results claimed. `/sandbox/*` is a separately labelled connected technical sandbox for disposable Supabase acceptance; real root routes reject that backend. Lost-upload cleanup during a server/network failure is best-effort; an operator must remove unattached objects older than the retention window. Automatic periodic orphan sweeping is scheduled with Phase 6 job operations.
 
 ### Deliverables
 
@@ -385,6 +399,8 @@ Working reminder-to-offer lifecycle, race-safe eligibility rules, recoverable al
 **PRD coverage:** LANG-01, VOICE-01, EVAL-01, PRIV-01, INCL-01.
 
 ### Build tasks
+
+- [ ] Add a guarded scheduled sweep for expired unattached listing-upload tickets/objects, with attachment recheck and retry logs; never remove original batch photos or unresolved save outcomes.
 
 - [ ] Complete BM/English translations across existing screens, errors, policy wording, and alert messages.
 - [ ] Pin a compatible multilingual ONNX speech-model artifact and its license; do not choose an English-only `.en` model.
@@ -649,7 +665,7 @@ Complete prefilling, original generated imagery, resettable presentation scenari
 
 | Variable | Location | Handling |
 | --- | --- | --- |
-| `VITE_APP_MODE` | Vercel web | `fixture` or `connected`; visible to users. |
+| `VITE_APP_MODE` | Vercel web | Deprecated: route selects the workspace; `/demo/*` is fixture, root routes are connected. |
 | `VITE_API_BASE_URL` | Connected web | Railway public API URL. |
 | `VITE_SUPABASE_URL` | Connected web | Public project URL. |
 | `VITE_SUPABASE_PUBLISHABLE_KEY` | Connected web | Public client key; security comes from RLS. |

@@ -2,7 +2,7 @@ import { useEffect, useState, type ReactNode } from 'react'
 import type { Session } from '@supabase/supabase-js'
 import { useQueryClient } from '@tanstack/react-query'
 import { selectedMode } from '../app/config'
-import { getAuthClient } from './client'
+import { getAuthClient, connectedRequest } from './client'
 import { AuthContext, type AuthState } from './context'
 import type { Actor } from '../data/api-contract'
 import { actorSchema } from '../data/schemas'
@@ -31,6 +31,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setActor(null)
         queryClient.removeQueries({ queryKey: ['discovery', 'connected'] })
         queryClient.removeQueries({ queryKey: ['personal'] })
+        queryClient.removeQueries({ queryKey: ['vendor'] })
       }
     })
     return () => { alive = false; data.subscription.unsubscribe() }
@@ -42,9 +43,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (!client || !session) { setActor(null); setStatus('ready'); return }
       setActor(null)
       setStatus('loading')
-      const base = (import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000').replace(/\/$/, '')
       try {
-        const response = await fetch(`${base}/api/v1/me`, {
+        const response = await connectedRequest('/api/v1/me', {
           headers: { Authorization: `Bearer ${session.access_token}` }, signal: controller.signal,
         })
         if (controller.signal.aborted) return
@@ -95,6 +95,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setActor(null); setSession(null); setNotice(null)
       queryClient.removeQueries({ queryKey: ['discovery', 'connected'] })
       queryClient.removeQueries({ queryKey: ['personal'] })
+        queryClient.removeQueries({ queryKey: ['vendor'] })
     },
   }}>{children}</AuthContext.Provider>
 }

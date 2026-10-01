@@ -216,7 +216,7 @@ def test_live_public_and_private_storage(live):
         f"/storage/v1/object/listing-media/{listing}",
         headers={**headers(sessions, "vendor-a"), "Content-Type": "image/png"},
         content=png,
-    ).status_code in {200, 201}
+    ).status_code >= 400
     forbidden = f"{stable('stall-a')}/{identities['vendor-b']}/{suffix}"
     assert (
         direct.post(

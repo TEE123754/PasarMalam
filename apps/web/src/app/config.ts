@@ -1,10 +1,6 @@
 import type { AppMode } from '../data/types'
 
-export const configuredMode: AppMode = import.meta.env.VITE_APP_MODE === 'connected' ? 'connected' : 'fixture'
-export const selectedMode = (): AppMode =>
-  configuredMode === 'connected' && sessionStorage.getItem('pasarmalam:sample') === 'yes' ? 'fixture' : configuredMode
-
-export const useSampleMode = () => {
-  sessionStorage.setItem('pasarmalam:sample', 'yes')
-  window.location.assign('/discover')
-}
+// The URL is the boundary. Demo never authenticates or writes to a real project.
+export const selectedMode = (): AppMode => /^\/demo(?:\/|$)/.test(window.location.pathname) ? 'fixture' : 'connected'
+export const openDemo = () => window.location.assign('/demo/discover')
+export const appPath = (path: string) => `${selectedMode() === 'fixture' ? '/demo' : /^\/sandbox(?:\/|$)/.test(window.location.pathname) ? '/sandbox' : ''}${path}`
