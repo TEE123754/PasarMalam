@@ -1,0 +1,14 @@
+{
+  "name": "pasarmalam",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": ["apps/web"],
+  "engines": {"node": ">=24 <25"},
+  "scripts": {
+    "dev": "npm run dev -w @pasarmalam/web",
+    "build": "npm run build -w @pasarmalam/web",
+    "typecheck": "npm run typecheck -w @pasarmalam/web",
+    "lint": "npm run lint -w @pasarmalam/web",
+    "phase1:check": "npm run lint && npm run typecheck && npm run build && uv run --project apps/api ruff check apps/api/app apps/api/check_contract.py && uv run --project apps/api python apps/api/check_contract.py"
+  }
+}
