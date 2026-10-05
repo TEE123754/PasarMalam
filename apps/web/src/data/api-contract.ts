@@ -7,12 +7,38 @@ export interface Actor {
   roles: Array<"customer" | "vendor" | "admin" | "partner" | "organiser">
 }
 
+export interface Ad {
+  kind: "ad"
+  id: string
+  event: "impression" | "click"
+}
+
+export interface Application {
+  kind: "collaboration" | "permit" | "claim"
+  stall: string
+  org: string
+  body: string
+}
+
 export interface BatchInput {
   food_item_id: string
   prepared_at: string
   quantity: number
   handling?: Record<string, unknown>
   request_id: string
+}
+
+export interface Campaign {
+  kind: "campaign"
+  stall: string
+  market: string
+  category: string
+  radius: number
+  start: string
+  end: string
+  budget: number
+  placement: "sponsored" | "banner" | "native" | "interstitial"
+  description: string
 }
 
 export interface CheckInInput {
@@ -23,11 +49,61 @@ export interface Cleanup {
   key: string
 }
 
+export interface Clock {
+  request_id: string
+  at: string
+}
+
+export interface Collection {
+  kind: "collection"
+  batch: string
+  org: string
+  route: "donation" | "compost" | "bsf"
+  units: number
+  estimatedGrams: number
+}
+
+export interface CommunityCommand {
+  kind: "review" | "report" | "followup" | "triage" | "status" | "reply" | "appeal" | "flag" | "remove_flag" | "approve_reply" | "review_status" | "review_report" | "referral" | "stall_status" | "schedule" | "dietary"
+  data: Record<string, unknown>
+  request_id: string
+}
+
 export interface ComplaintInput {
   stall_id: string
   body: string
   evidence_keys?: Array<string>
   request_id: string
+  incident_at?: string | null
+  category?: "hygiene" | "handling" | "misleading" | "other"
+}
+
+export interface ConfirmInput {
+  food: FoodInput
+  batch: NewBatch
+  confirmed: true
+  transcript: string
+  request_id: string
+}
+
+export interface Consent {
+  request_id: string
+  enabled: boolean
+  market?: string | null
+}
+
+export interface Declaration {
+  request_id: string
+  batch: string
+  ingredients: Array<string>
+  confirmed: boolean
+  ambient: boolean
+}
+
+export interface Delivery {
+  kind: "delivery"
+  id: string
+  action: "accepted" | "picked-up" | "arrived" | "failed" | "cancelled"
 }
 
 export interface DietaryClaim {
@@ -39,6 +115,7 @@ export interface DietaryClaim {
 }
 
 export interface DiscoverySnapshot {
+  server_now?: string | null
   markets: Array<Market>
   stalls: Array<Stall>
   offers: Array<Offer>
@@ -48,13 +125,43 @@ export interface DiscoverySnapshot {
   publicReviews?: Array<PublicReview>
 }
 
+export interface EvidenceKey {
+  key: string
+}
+
+export interface ExplainInput {
+  batch: string
+  locale?: "en" | "ms"
+}
+
+export interface ExtractInput {
+  transcript: string
+  menu?: Array<string>
+  fictional?: boolean
+  external_consent?: boolean
+}
+
 export interface FavouriteInput {
   stall_id: string
   saved: boolean
 }
 
+export interface FoodInput {
+  id: string
+  stall_id: string
+  name: string
+  price_sen: number
+  ingredients: Array<string>
+  photo: string | null
+}
+
 export interface HTTPValidationError {
   detail?: Array<ValidationError>
+}
+
+export interface Handling {
+  storage: "ambient" | "chilled" | "hot-held" | "unknown"
+  note: string
 }
 
 export interface HealthResponse {
@@ -95,9 +202,23 @@ export interface MenuItem {
   photoUrl?: string | null
 }
 
+export interface Moderate {
+  kind: "moderate"
+  id: string
+  action: "approved" | "rejected" | "paused" | "resume"
+}
+
 export interface ModerationInput {
   status: "triaged" | "dismissed" | "escalated"
   request_id: string
+}
+
+export interface NewBatch {
+  food_item_id: string
+  prepared_at: string
+  quantity: number | null
+  handling: Handling
+  photo: string | null
 }
 
 export interface Offer {
@@ -107,6 +228,39 @@ export interface Offer {
   priceSen: number
   originalPriceSen: number
   endsAt: string
+}
+
+export interface Onboard {
+  kind: "onboard"
+  name: string
+  business: string
+}
+
+export interface Order {
+  kind: "order"
+  id: string
+  action: "accept" | "reject" | "ready" | "cancel" | "vendor-confirm" | "customer-confirm" | "dispute"
+  code?: string | null
+}
+
+export interface Outcome {
+  request_id: string
+  batch: string
+  promotion?: string | null
+  units: number
+  grams: number
+}
+
+export interface Payment {
+  kind: "payment"
+  id: string
+  scenario: "success" | "failure" | "timeout" | "late"
+}
+
+export interface Preferences {
+  radius: number
+  start: string
+  end: string
 }
 
 export interface PromotionInput {
@@ -142,6 +296,48 @@ export interface PublicReview {
   stallId: string
   rating: number
   body: string
+}
+
+export interface Publish {
+  request_id: string
+  batch: string
+  kind: "percentage" | "fixed" | "free" | "bogo"
+  value: number
+  units: number
+  title: string
+}
+
+export interface Rate {
+  kind: "rate"
+  basisPoints: number
+}
+
+export interface Read {
+  request_id: string
+  id: string
+}
+
+export interface Referral {
+  kind: "referral"
+  report: string
+  org: string
+  summary: string
+  consent: boolean
+}
+
+export interface Refund {
+  kind: "refund"
+  id: string
+  amount: number
+}
+
+export interface Reserve {
+  kind: "reserve"
+  offer: string
+  quantity: number
+  fulfilment: "pickup" | "delivery"
+  payment: "stall" | "future"
+  eta: number
 }
 
 export interface ReviewInput {
@@ -186,6 +382,24 @@ export interface Stall {
   longitude?: number | null
 }
 
+export interface Trail {
+  kind: "trail"
+  org: string
+  body: string
+  stops: Array<string>
+}
+
+export interface Transition {
+  kind: "transition"
+  id: string
+  action: "submit" | "approve" | "reject" | "changes" | "publish" | "acknowledge" | "schedule" | "inspect" | "corrective" | "follow-up" | "resolve" | "renew" | "review" | "cancel" | "accept" | "collect" | "missed"
+  body?: string | null
+  scheduled?: string | null
+  checklist?: Array<"handling" | "storage" | "cleaning" | "labels"> | null
+  weighedGrams?: number | null
+  scenario?: "success" | "pending" | "rejection" | "timeout" | null
+}
+
 export interface ValidationError {
   loc: Array<string | number>
   msg: string
@@ -198,4 +412,31 @@ export interface VendorCommand {
   kind: "stall" | "food" | "batch" | "action" | "merge"
   data: Record<string, unknown>
   request_id: string
+}
+
+export interface Weather {
+  request_id: string
+  market: string
+}
+
+export interface app__commerce__Command {
+  action: unknown
+  request_id: string
+}
+
+export interface app__commerce__Subscription {
+  kind: "subscription"
+  tier: "free" | "premium" | "renewal-failed"
+}
+
+export interface app__partners__Command {
+  action: unknown
+  request_id: string
+}
+
+export interface app__push__Subscription {
+  endpoint: string
+  p256dh: string
+  auth: string
+  consent: boolean
 }

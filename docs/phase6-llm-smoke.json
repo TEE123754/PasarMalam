@@ -1,0 +1,165 @@
+{
+  "kind": "actual local LLM on fictional text only",
+  "human_recordings": 0,
+  "microphone_tests": 0,
+  "not_a_speech_accuracy_or_listing_speed_result": true,
+  "runtime": "llama.cpp b11146",
+  "model": "Qwen2.5-1.5B-Instruct q5_k_m pinned manifest",
+  "cases": [
+    {
+      "language": "English",
+      "input": "Chicken satay 20 sticks RM 6.00. Ingredients chicken, peanuts. Cooked at 6 pm.",
+      "request_seconds": 6.288,
+      "result": {
+        "draft": {
+          "dish": "Chicken satay",
+          "quantity": 20,
+          "unit": "stick",
+          "price_sen": 600,
+          "ingredients": [
+            "chicken",
+            "peanuts"
+          ],
+          "cook_time": "2026-10-01T18:00:00+08:00",
+          "timezone": "Asia/Kuala_Lumpur",
+          "action": "create_batch",
+          "confidence": 0.65,
+          "evidence": {
+            "dish": [
+              "Chicken satay"
+            ],
+            "quantity": [
+              "20 sticks"
+            ],
+            "price_sen": [
+              "RM 6.00"
+            ],
+            "ingredients": [
+              "chicken",
+              "peanuts"
+            ],
+            "cook_time": [
+              "6 pm"
+            ]
+          }
+        },
+        "flags": [],
+        "source": "llama.cpp",
+        "transcript": "Chicken satay 20 sticks RM 6.00. Ingredients chicken, peanuts. Cooked at 6 pm.",
+        "field_confidence": {
+          "dish": 0.65,
+          "quantity": 0.65,
+          "price_sen": 0.65,
+          "ingredients": 0.65,
+          "cook_time": 0.65
+        },
+        "prompt_version": "LISTING_JSON_V2"
+      }
+    },
+    {
+      "language": "BM",
+      "input": "Satay ayam dua puluh batang RM 6.00. Bahan ayam, kacang. Siap pukul 6 petang.",
+      "request_seconds": 6.776,
+      "result": {
+        "draft": {
+          "dish": null,
+          "quantity": 20,
+          "unit": "stick",
+          "price_sen": 600,
+          "ingredients": [
+            "ayam",
+            "kacang"
+          ],
+          "cook_time": null,
+          "timezone": "Asia/Kuala_Lumpur",
+          "action": "create_batch",
+          "confidence": 0.0,
+          "evidence": {
+            "dish": [
+              "Chicken satay"
+            ],
+            "quantity": [
+              "dua puluh batang"
+            ],
+            "price_sen": [
+              "RM 6.00"
+            ],
+            "ingredients": [
+              "ayam",
+              "kacang"
+            ],
+            "cook_time": [
+              "pukul 6 petang"
+            ]
+          }
+        },
+        "flags": [
+          "Preparation time conflicts with transcript; choose date and time.",
+          "dish: no matching transcript evidence; fix or confirm manually."
+        ],
+        "source": "llama.cpp",
+        "transcript": "Satay ayam dua puluh batang RM 6.00. Bahan ayam, kacang. Siap pukul 6 petang.",
+        "field_confidence": {
+          "dish": 0,
+          "quantity": 0.65,
+          "price_sen": 0.65,
+          "ingredients": 0.65,
+          "cook_time": 0
+        },
+        "prompt_version": "LISTING_JSON_V2"
+      }
+    },
+    {
+      "language": "Manglish",
+      "input": "Chicken satay 20 batang RM 6.00. Bahan ayam, kacang. Ready pukul 6 petang lah.",
+      "request_seconds": 6.632,
+      "result": {
+        "draft": {
+          "dish": "Chicken satay",
+          "quantity": 20,
+          "unit": "stick",
+          "price_sen": 600,
+          "ingredients": [
+            "ayam",
+            "kacang"
+          ],
+          "cook_time": null,
+          "timezone": "Asia/Kuala_Lumpur",
+          "action": "create_batch",
+          "confidence": 0.0,
+          "evidence": {
+            "dish": [
+              "Chicken satay"
+            ],
+            "quantity": [
+              "20 batang"
+            ],
+            "price_sen": [
+              "RM 6.00"
+            ],
+            "ingredients": [
+              "ayam",
+              "kacang"
+            ],
+            "cook_time": [
+              "pukul 6 petang"
+            ]
+          }
+        },
+        "flags": [
+          "Preparation time conflicts with transcript; choose date and time."
+        ],
+        "source": "llama.cpp",
+        "transcript": "Chicken satay 20 batang RM 6.00. Bahan ayam, kacang. Ready pukul 6 petang lah.",
+        "field_confidence": {
+          "dish": 0.65,
+          "quantity": 0.65,
+          "price_sen": 0.65,
+          "ingredients": 0.65,
+          "cook_time": 0
+        },
+        "prompt_version": "LISTING_JSON_V2"
+      }
+    }
+  ]
+}

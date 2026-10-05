@@ -187,7 +187,14 @@ def test_fixture_uses_api_contract():
     assert all(stall.marketId in market_ids for stall in parsed.stalls)
     assert all(item.stallId in stall_ids for item in parsed.menu)
     assert set(parsed.model_dump()) == {
-        "markets", "stalls", "offers", "updatedAt", "menu", "batches", "publicReviews"
+        "markets",
+        "stalls",
+        "offers",
+        "updatedAt",
+        "menu",
+        "batches",
+        "publicReviews",
+        "server_now",
     }
 
 

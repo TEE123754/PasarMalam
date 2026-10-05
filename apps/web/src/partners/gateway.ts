@@ -1,0 +1,18 @@
+import { seedPartners } from '../presentation/partnerSeed'
+import catalog from '../../../../contracts/demo-catalog.json'
+const sample=catalog.discovery
+import { selectedMode } from '../app/config'
+import { fixtureClock } from '../app/clock'
+import { readWorld } from '../commerce/gateway'
+import { COMMUNITY_KEY, readCommunity } from '../community/gateway'
+import { DEMO_KEY } from '../vendor/gateway'
+import { applyPartner, municipal, directory, emptyPartners, personas, publicPartners, sweepPartners, totals, unheld, visible, type Action, type Person } from './model'
+export function partnerWorld(){if(selectedMode()!=='fixture')throw new Error('Fixture partners are only available in /demo');const w=sweepPartners(readWorld(),fixtureClock.now());w.partners??=emptyPartners();if(!w.partners.entries.length&&!Object.keys(w.partners.requests).length){for(let i=0;i<3;i++)w.partners.entries.push({id:`DEMO-trail-${i}`,kind:'trail',owner:'editor',org:'media',stall:'',market:'seri-pelita',status:'published',body:['Lantern evening bites','Sweet stops with neighbours','Bread and skewers stroll'][i],stops:[['bara-senja','manis-bulan'],['manis-bulan','kuih-senja'],['roti-pelita','bara-senja']][i],public:true,reference:`DEMO-TRAIL-${i}`,created:fixtureClock.now().toISOString(),expires:null});for(const org of ["media","supplier"])w.partners.entries.push({id:`DEMO-request-${org}`,kind:"collaboration",owner:"hawker",org,stall:"bara-senja",market:"seri-pelita",status:"requested",body:org==="media"?"Fictional hawker requests a lantern-night editorial feature":"Fictional reusable-container supplier collaboration",reference:`DEMO-PARTNER-${org}`,created:fixtureClock.now().toISOString(),expires:null});seedPartners(w.partners,fixtureClock.now());localStorage.setItem(DEMO_KEY,JSON.stringify(w))}return w}
+export function partnerView(p:Person){const w=partnerWorld(),s=w.partners!;return {...visible(s,p),personas,directory,public:publicPartners(s,new Set(sample.stalls.filter(s=>readCommunity().operations.stalls[s.id]!==false).map(s=>s.id))),totals:totals(s,p),council:municipal(w,readCommunity(),p),now:fixtureClock.now().toISOString(),stalls:sample.stalls.filter(s=>readCommunity().operations.stalls[s.id]!==false).map(s=>({id:s.id,name:s.name,market:s.marketId})),batches:w.batches.filter(b=>p.role==='vendor'&&p.stalls.includes(w.foods.find(f=>f.id===b.food_item_id)?.stall_id??'')).map(b=>({id:b.id,status:b.status,available:unheld(w,b.id,fixtureClock.now())})),reports:p.role==='moderator'?readCommunity().reports.filter(r=>r.summary).map(r=>({id:r.id,stall:r.stall,summary:r.summary,replyDue:r.replyDue})):[]}}
+export async function savePartner(p:Person,a:Action,key:string){if(!navigator.onLine)throw new Error('Offline: no partner action saved');return navigator.locks.request(DEMO_KEY,()=>navigator.locks.request(COMMUNITY_KEY,()=>{const next=applyPartner(partnerWorld(),p,a,key,fixtureClock.now(),crypto.randomUUID(),readCommunity());localStorage.setItem(DEMO_KEY,JSON.stringify(next.world));return next.id}))}
+
+
+
+
+
+

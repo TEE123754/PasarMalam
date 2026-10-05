@@ -8,9 +8,16 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+from .agent import router as agent_router
+from .commerce import router as commerce_router
+from .community import router as community_router
+from .freshness import router as freshness_router
+from .partners import router as partners_router
+from .push import router as push_router
 from .routes import router
 from .settings import get_settings
 from .vendor import router as vendor_router
+from .voice import router as voice_router
 
 
 class HealthResponse(BaseModel):
@@ -30,6 +37,13 @@ class PublicConfigResponse(BaseModel):
 app = FastAPI(title="PasarMalam API", version="0.1.0")
 app.include_router(router)
 app.include_router(vendor_router)
+app.include_router(freshness_router)
+app.include_router(agent_router)
+app.include_router(push_router)
+app.include_router(voice_router)
+app.include_router(community_router)
+app.include_router(partners_router)
+app.include_router(commerce_router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[

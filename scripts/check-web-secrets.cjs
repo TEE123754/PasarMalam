@@ -7,7 +7,7 @@ const files = (dir) => fs.readdirSync(dir, { withFileTypes: true }).flatMap((ent
 });
 const envFile = path.join(root, 'apps/api/.env');
 const secrets = fs.existsSync(envFile) ? fs.readFileSync(envFile, 'utf8').split(/\r?\n/).flatMap((line) => {
-  const match = line.match(/^(?:SUPABASE_SECRET_KEY|SUPABASE_JWT_SECRET|DATABASE_URL|DEMO_SEED_PASSWORD)\s*=\s*(.+)$/);
+  const match = line.match(/^(?:SUPABASE_SECRET_KEY|SUPABASE_JWT_SECRET|DATABASE_URL|DEMO_SEED_PASSWORD|MORPHEUS_API_KEY|LOCAL_LLM_KEY|VAPID_PRIVATE_KEY|MEDIA_SIGNING_SECRET|AGENT_DISPATCH_SECRET|AGENT_DATABASE_PASSWORD)\s*=\s*(.+)$/);
   return match ? [match[1].trim().replace(/^['"]|['"]$/g, '')].filter((value) => value.length >= 12) : [];
 }) : [];
 let violations = 0;

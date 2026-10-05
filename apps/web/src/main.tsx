@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { BrowserRouter } from 'react-router'
 import App from './app/App'
+import { PwaStatus } from './app/PwaStatus'
 import { AuthProvider } from './auth/AuthProvider'
 import './locales/i18n'
 import './styles.css'
@@ -16,6 +17,7 @@ const queryClient = new QueryClient({
 
 createRoot(root).render(
   <StrictMode>
+    <PwaStatus />
     <QueryClientProvider client={queryClient}>
       <AuthProvider><BrowserRouter basename={/^\/demo(?:\/|$)/.test(window.location.pathname) ? "/demo" : /^\/sandbox(?:\/|$)/.test(window.location.pathname) ? "/sandbox" : "/"}><App /></BrowserRouter></AuthProvider>
     </QueryClientProvider>

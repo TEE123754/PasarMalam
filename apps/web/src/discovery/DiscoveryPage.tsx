@@ -1,9 +1,14 @@
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { EditorialBadge } from '../partners/EditorialBadge'
+import { connectedAds } from '../commerce/connected'
+import { Sponsored, sponsored } from '../commerce/Sponsored'
+import { PublicFlag } from '../community/PublicFlag'
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 import { NavLink, useParams } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { ArrowLeft, ArrowRight, Heart, MapPin, Search, Star } from 'lucide-react'
 import type { DataGateway, Market, Stall } from '../data/types'
-import { fixtureClock, systemClock } from '../app/clock'
+import { fixtureClock } from '../app/clock'
 import { DemoDialog } from '../app/DemoDialog'
 import { useAuth } from '../auth/context'
 import { connectedRequest } from '../auth/client'
@@ -12,12 +17,14 @@ import { useDiscovery } from './useDiscovery'
 import { checkIn, useFavourites } from './actions'
 import { coarsePoint, requestDeviceLocation } from './location'
 
+import { ImagePlaceholder } from '../components/ImagePlaceholder'
 const MarketMap = lazy(() => import('./MarketMap'))
 export function useNow(gateway: DataGateway) {
-  const clock = gateway.mode === 'fixture' ? fixtureClock : systemClock
-  const [now, setNow] = useState(clock.now())
-  useEffect(() => { const timer = setInterval(() => { if (document.visibilityState !== 'hidden') setNow(clock.now()) },1000); return () => clearInterval(timer) }, [clock])
-  return now
+  const snapshot=useQuery({queryKey:['discovery',gateway.mode],queryFn:()=>gateway.getDiscovery(),enabled:false})
+  const anchor=useMemo(()=>({server:snapshot.data?.server_now?Date.parse(snapshot.data.server_now):Infinity,elapsed:performance.now(),received:snapshot.dataUpdatedAt}),[snapshot.data?.server_now,snapshot.dataUpdatedAt])
+  const [elapsed,setElapsed]=useState(0)
+  useEffect(()=>{const timer=setInterval(()=>{if(document.visibilityState!=='hidden')setElapsed(performance.now())},1000);return()=>clearInterval(timer)},[])
+  return gateway.mode==='fixture'?fixtureClock.now():new Date(Number.isFinite(anchor.server)?anchor.server+Math.max(0,elapsed-anchor.elapsed):8640000000000000)
 }
 function State({ query, gateway }: { query: ReturnType<typeof useDiscovery>; gateway: DataGateway }) {
   const { t } = useTranslation()
@@ -29,7 +36,7 @@ function Freshness({ query, gateway }: { query: ReturnType<typeof useDiscovery>;
 }
 export function DiscoveryStallCard({ stall, market, now, distance }: { stall: Stall; market?: Market; now: Date; distance?: number }) {
   const { t } = useTranslation()
-  return <NavLink className="stall-card card-link" to={`/stalls/${stall.id}`}><div className="food-art" aria-hidden="true">{stall.photoUrl?<img className="listing-photo" src={stall.photoUrl} alt=""/>:stall.image}</div><div className="stall-content"><div className="eyebrow">{stall.category}</div><h3>{stall.name}</h3><p className="muted">{stall.specialty} · {market?.name}</p><p className="dietary-label">{t(`diet_${dietaryStatus(stall,now)}`)}</p><p className="small muted">{t(stall.open ? 'vendorOpen' : 'vendorClosed')}{distance !== undefined ? ` · ${distance.toFixed(1)} km` : ''}</p><div className="stall-bottom"><span className="rating"><Star size={14}/>{stall.reviews ? `${stall.rating.toFixed(1)} (${stall.reviews})` : t('noReviews')}</span><span>RM {(stall.priceSen/100).toFixed(2)}</span></div></div></NavLink>
+  return <NavLink className="stall-card card-link" to={`/stalls/${stall.id}`}><div className="food-art"><ImagePlaceholder description={`${stall.specialty} from ${stall.name}`}/></div><div className="stall-content"><div className="eyebrow">{stall.category}</div><h3>{stall.name}</h3><PublicFlag stall={stall.id}/><EditorialBadge stall={stall.id}/><p className="muted">{stall.specialty} · {market?.name}</p><p className="dietary-label">{t(`diet_${dietaryStatus(stall,now)}`)}</p><p className="small muted">{t(stall.open ? 'vendorOpen' : 'vendorClosed')}{distance !== undefined ? ` · ${distance.toFixed(1)} km` : ''}</p><div className="stall-bottom"><span className="rating"><Star size={14}/>{stall.reviews ? `${stall.rating.toFixed(1)} (${stall.reviews})` : t('noReviews')}</span><span>RM {(stall.priceSen/100).toFixed(2)}</span></div></div></NavLink>
 }
 
 export function DiscoveryPage({ gateway }: { gateway: DataGateway }) {
@@ -79,6 +86,7 @@ export function DiscoveryPage({ gateway }: { gateway: DataGateway }) {
     } catch { setLocationMessage('locationDenied') }
   }
   const data = query.data
+  const advertisements=useQuery({queryKey:['commerce-ads',gateway.mode],queryFn:connectedAds,enabled:gateway.mode==='connected',refetchInterval:10000})
   const result = data ? discover(data,filters,now,page) : null
   return <><header className="page-intro"><div className="eyebrow">✳ {t('discoverEyebrow')}</div><h1>{t('discoverTitle')}</h1><p>{t('discoverBody')}</p></header>
     <div className="search-wrap"><Search size={20}/><label className="sr-only" htmlFor="market-search">{t('findFood')}</label><input id="market-search" value={search} onChange={e => setSearch(e.target.value)} placeholder={t('findFood')}/></div>
@@ -100,9 +108,9 @@ export function DiscoveryPage({ gateway }: { gateway: DataGateway }) {
       <p role="status" className="small muted">{t(locationMessage)}{mapLookup && gateway.mode === 'connected' && filters.origin ? ` · ${t(mapLookup)}` : ''} {t('marketDistance')}</p>
     </section>
     {!data || !result ? <State query={query} gateway={gateway}/> : <><Freshness query={query} gateway={gateway}/><div className="section-heading"><h2>{t('resultsCount',{count:result.total})}</h2><button className="button secondary" aria-pressed={showMap} onClick={() => setShowMap(!showMap)}>{t(showMap ? 'hideMap' : 'showMap')}</button></div>
-      {showMap && <Suspense fallback={<p role="status">{t('loading')}</p>}><MarketMap markets={result.markets} onBounds={bounds => change({bounds})}/></Suspense>}
+      {showMap && <Suspense fallback={<p role="status">{t('loading')}</p>}><MarketMap markets={result.markets} sponsors={new Set(sponsored(data,filters,now,gateway.mode==='fixture'?undefined:advertisements.data??[]).map(c=>c.market))} onBounds={bounds => change({bounds})}/></Suspense>}
       <div className="market-grid">{result.markets.map(m => <NavLink className="panel market-summary card-link" key={m.id} to={`/markets/${m.id}`}><span className="eyebrow">{t(m.type)}</span><h3>{m.name}</h3><p>{m.area} · {m.hours}</p><span className={`status-pill ${scheduleStatus(m,now)}`}>{t(scheduleStatus(m,now))}</span><p className="small muted">{t('scheduleOnly')} · {m.days}</p></NavLink>)}</div>
-      <div className="stall-grid">{result.stalls.map(s => { const m = data.markets.find(m => m.id === s.marketId); return <DiscoveryStallCard key={s.id} stall={s} market={m} now={now} distance={filters.origin && m?.latitude !== null && m?.longitude !== null && m ? distanceKm(filters.origin,{latitude:m.latitude,longitude:m.longitude}) : undefined}/> })}</div>
+      <Sponsored data={data} filters={filters} now={now} campaigns={gateway.mode==='connected'?advertisements.data??[]:undefined}/><div className="stall-grid">{result.stalls.map(s => { const m = data.markets.find(m => m.id === s.marketId); return <DiscoveryStallCard key={s.id} stall={s} market={m} now={now} distance={filters.origin && m?.latitude !== null && m?.longitude !== null && m ? distanceKm(filters.origin,{latitude:m.latitude,longitude:m.longitude}) : undefined}/> })}</div>
       {!result.total && <div className="panel state-panel"><h2>{t('noMatches')}</h2><p>{t('relaxFilters')}</p></div>}
       <nav className="pagination" aria-label={t('resultPages')}><button className="button secondary" disabled={result.page === 0} onClick={() => setPage(result.page-1)}><ArrowLeft size={16}/>{t('previous')}</button><span>{result.page+1} / {result.pages}</span><button className="button secondary" disabled={result.page+1 >= result.pages} onClick={() => setPage(result.page+1)}>{t('next')}<ArrowRight size={16}/></button></nav></>}
   </>
@@ -124,13 +132,13 @@ export function DiscoveryDetail({ gateway, kind }: {gateway:DataGateway;kind:'ma
   if (!market || kind === 'stall' && !stall) return <div className="panel state-panel">{t('noMatches')}</div>
   const action = async (run:() => Promise<unknown>, success:string) => { setBusy(true); try { const result=await run();setMessage(result === false ? 'alreadyCheckedIn' : success); if (kind === 'market') await query.refetch() } catch {setMessage('actionFailed')} finally {setBusy(false)} }
   const timestamp = (value:string) => new Intl.DateTimeFormat(i18n.language === 'ms' ? 'ms-MY' : 'en-MY',{dateStyle:'medium',timeStyle:'short',timeZone:'Asia/Kuala_Lumpur'}).format(new Date(value))
-  return <><NavLink className="back-link" to="/discover"><ArrowLeft size={17}/>{t('back')}</NavLink><header className="detail-hero"><div className="detail-symbol" aria-hidden="true">{stall?.photoUrl?<img className="listing-photo" src={stall.photoUrl} alt=""/>:stall?.image ?? market.cover}</div><div><div className="eyebrow">{t(kind === 'stall' ? 'foodStall' : 'market')}</div><h1>{stall?.name ?? market.name}</h1><p>{market.area} · {market.hours}</p><p>{t('scheduleOnly')}: {t(scheduleStatus(market,now))}</p>{stall && <><p>{t(stall.open ? 'vendorOpen' : 'vendorClosed')}</p>{stall.lot&&<p>Lot {stall.lot} · {stall.opens}–{stall.closes}</p>}{stall.latitude!==null&&stall.longitude!==null&&<a className="back-link" href={`https://www.openstreetmap.org/?mlat=${stall.latitude}&mlon=${stall.longitude}#map=18/${stall.latitude}/${stall.longitude}`} target="_blank" rel="noreferrer">Stall location: {stall.latitude.toFixed(5)}, {stall.longitude.toFixed(5)}</a>}<p>{t(`diet_${dietaryStatus(stall,now)}`)}</p></>}</div></header><Freshness query={query} gateway={gateway}/>
+  return <><NavLink className="back-link" to="/discover"><ArrowLeft size={17}/>{t('back')}</NavLink><header className="detail-hero"><div className="detail-symbol"><ImagePlaceholder description={stall ? `${stall.name} stall and food` : `${market.name} market scene`}/></div><div><div className="eyebrow">{t(kind === 'stall' ? 'foodStall' : 'market')}</div><h1>{stall?.name ?? market.name}</h1><p>{market.area} · {market.hours}</p><p>{t('scheduleOnly')}: {t(scheduleStatus(market,now))}</p>{stall && <><p>{t(stall.open ? 'vendorOpen' : 'vendorClosed')}</p>{stall.lot&&<p>Lot {stall.lot} · {stall.opens}–{stall.closes}</p>}{stall.latitude!==null&&stall.longitude!==null&&<a className="back-link" href={`https://www.openstreetmap.org/?mlat=${stall.latitude}&mlon=${stall.longitude}#map=18/${stall.latitude}/${stall.longitude}`} target="_blank" rel="noreferrer">Stall location: {stall.latitude.toFixed(5)}, {stall.longitude.toFixed(5)}</a>}<p>{t(`diet_${dietaryStatus(stall,now)}`)}</p></>}</div></header><Freshness query={query} gateway={gateway}/>
     {message && <p role="status" className="panel">{t(message)}</p>}
     {kind === 'market' ? <><button className="button primary" disabled={busy || gateway.mode === 'connected' && !actor?.roles.includes('customer')} onClick={() => void action(async () => {const created=await checkIn(gateway,market.id);setMessage(created ? 'checkedIn' : 'alreadyCheckedIn');return created},'checkedIn')}>{t('checkIn')}</button><p className="small muted">{t('checkInLimit')}</p><div className="stall-grid">{data.stalls.filter(s => s.marketId === market.id).map(s => <DiscoveryStallCard key={s.id} stall={s} market={market} now={now}/>)}</div></>
       : stall && <><button className="button secondary" disabled={busy || !saved.allowed || saved.loading || saved.error} onClick={() => void action(() => saved.save(stall.id,!saved.ids.includes(stall.id)),'savedUpdated')}><Heart size={18}/>{t(saved.ids.includes(stall.id) ? 'unsaveStall' : 'saveStall')}</button>{!saved.allowed && <p><NavLink to="/profile">{t('signInToSave')}</NavLink></p>}<section className="panel detail-panel"><h2>{t('menu')}</h2>{data.menu.filter(f => f.stallId === stall.id).map(f => {
         const batches = data.batches.filter(b => b.foodItemId === f.id && Date.parse(b.deadline)>now.getTime() && b.remaining>0)
-        return <article className="menu-item" key={f.id}><h3>{f.name} · RM {(f.priceSen/100).toFixed(2)}</h3><p>{f.ingredients.join(', ')}</p><p>{t(`diet_${dietaryStatus(stall,now,f.id)}`)}</p>{f.photoUrl&&<img className="listing-photo" src={f.photoUrl} alt={f.name}/>}{batches.length ? batches.map(b => <div className="batch-detail" key={b.id}><strong>{t('batchNumber',{number:b.batchNumber})}</strong>{b.photoUrl&&<img className="listing-photo" src={b.photoUrl} alt={`${f.name}, batch ${b.batchNumber}`}/>}{b.correctedPreparedAt&&<p>Earlier preparation correction: {timestamp(b.correctedPreparedAt)}</p>}<p>{t('preparedAt')}: {timestamp(b.preparedAt)}</p><p>{t('uploadedAt')}: {timestamp(b.uploadedAt)}</p><p>{t('advisoryUntil')}: {timestamp(b.deadline)}</p><p>{t('remainingUnits',{count:b.remaining})}</p></div>) : <p className="muted">{t('noActiveBatches')}</p>}</article>
-      })}{!data.menu.some(f => f.stallId === stall.id) && <p>{t('emptyMenu')}</p>}</section><section className="panel detail-panel"><h2>{t('offers')}</h2>{eligibleOffers(data,now).filter(o => o.stallId === stall.id).map(o => <p key={o.id}>{o.title} · RM {(o.priceSen/100).toFixed(2)} · {timestamp(o.endsAt)}</p>)}{!eligibleOffers(data,now).some(o => o.stallId === stall.id) && <p>{t('noOffers')}</p>}</section><section className="panel detail-panel"><h2>{t('reviews')}</h2>{data.publicReviews.filter(r => r.stallId === stall.id).map(r => <article key={r.id}><strong>{r.rating}/5</strong><p>{r.body}</p></article>)}{!data.publicReviews.some(r => r.stallId === stall.id) && <p>{t('noReviews')}</p>}</section></>}
+        return <article className="menu-item" key={f.id}><h3>{f.name} · RM {(f.priceSen/100).toFixed(2)}</h3><p>{f.ingredients.join(', ')}</p><p>{t(`diet_${dietaryStatus(stall,now,f.id)}`)}</p><ImagePlaceholder description={`Prepared ${f.name}, showing its ingredients`}/>{batches.length ? batches.map(b => <div className="batch-detail" key={b.id}><strong>{t('batchNumber',{number:b.batchNumber})}</strong><ImagePlaceholder description={`${f.name}, freshly prepared batch ${b.batchNumber}`}/>{b.correctedPreparedAt&&<p>Earlier preparation correction: {timestamp(b.correctedPreparedAt)}</p>}<p>{t('preparedAt')}: {timestamp(b.preparedAt)}</p><p>{t('uploadedAt')}: {timestamp(b.uploadedAt)}</p><p>{t('advisoryUntil')}: {timestamp(b.deadline)}</p><p>{t('remainingUnits',{count:b.remaining})}</p></div>) : <p className="muted">{t('noActiveBatches')}</p>}</article>
+      })}{!data.menu.some(f => f.stallId === stall.id) && <p>{t('emptyMenu')}</p>}</section><section className="panel detail-panel"><h2>{t('offers')}</h2>{eligibleOffers(data,now).filter(o => o.stallId === stall.id).map(o => <p key={o.id}>{o.title} · RM {(o.priceSen/100).toFixed(2)} · {timestamp(o.endsAt)}</p>)}{!eligibleOffers(data,now).some(o => o.stallId === stall.id) && <p>{t('noOffers')}</p>}</section><section className="panel detail-panel"><h2>{t('reviews')}</h2><NavLink className="button secondary" to={`/community/${stall.id}`}>Reviews &amp; confidential reports</NavLink><PublicFlag stall={stall.id}/><EditorialBadge stall={stall.id}/>{data.publicReviews.filter(r => r.stallId === stall.id).map(r => <article key={r.id}><strong>{r.rating}/5</strong><p>{r.body}</p></article>)}{!data.publicReviews.some(r => r.stallId === stall.id) && <p>{t('noReviews')}</p>}</section></>}
   </>
 }
 

@@ -1,0 +1,10 @@
+import { useState } from 'react'
+import { ui } from '../locales/phrases'
+import type { Command } from './model'
+export default function AdminOperations({data,reason,busy,run}:{data:{stalls?:{id:string;name:string;published:boolean}[];markets?:{id:string;market_id:string;weekday:number;opens_at:string;closes_at:string}[];dietary?:{id:string;stall_id:string;status:string}[]};reason:string;busy:boolean;run:(c:Command)=>Promise<void>}){
+ const [opens,setOpens]=useState('17:00'),[closes,setCloses]=useState('22:00'),[next,setNext]=useState(false)
+ return <><h3>{ui('Stall moderation queue')}</h3>{data.stalls?.map(s=><p key={s.id}>{s.name} · {s.published?ui('published'):ui('hidden')} <button className="button secondary" disabled={busy} onClick={()=>void run({kind:'stall_status',stall:s.id,published:!s.published,reason})}>{ui(s.published?'Hide stall':'Restore stall')}</button></p>)}
+ <h3>{ui('Dietary evidence queue')}</h3><p>{ui('Review declarations explicitly. Certification needs separate validated evidence; names and photos never establish halal status.')}</p>{data.dietary?.map(d=><p key={d.id}>{d.stall_id} · {d.status} {['declared','non-halal','not-declared'].map(status=><button className="button secondary" disabled={busy} key={status} onClick={()=>void run({kind:'dietary',target:d.id,status,reason})}>{ui(status)}</button>)}</p>)}
+ <h3>{ui('Market schedule queue')}</h3><div className="form-grid"><label>{ui('Opens')}<input type="time" value={opens} onChange={e=>setOpens(e.target.value)}/></label><label>{ui('Closes')}<input type="time" value={closes} onChange={e=>setCloses(e.target.value)}/></label><label className="choice-row"><input type="checkbox" checked={next} onChange={e=>setNext(e.target.checked)}/>{ui('Closes next day')}</label></div>{data.markets?.map(m=><p key={m.id}>{m.market_id} · {m.weekday} · {m.opens_at}–{m.closes_at} <button className="button secondary" disabled={busy} onClick={()=>void run({kind:'schedule',market:m.market_id,weekday:m.weekday,opens,closes,next_day:next,reason})}>{ui('Apply reviewed schedule')}</button></p>)}
+ </>
+}

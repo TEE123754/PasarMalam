@@ -1,12 +1,27 @@
 # PasarMalam — Phase-by-Phase Implementation Plan
 
-Version: 4.4 · Date: 1 October 2026 · Status: Phase 1 complete; Phases 2–4 built locally, live acceptance pending
+Version: 5.1 · Date: 5 October 2026 · Status: Phases 1–11 locally built; connected/human/device acceptance pending
 
 Product contract: [PRD.md](PRD.md). Original input: [PasarMalam.md](PasarMalam.md). Assets: [100 prompts, one prompt per image](IMAGE_GENERATION_PROMPTS.md).
 
 Repository/model shortlist and source evidence: [TECH_REFERENCES.md](TECH_REFERENCES.md). The PRD's new technical, ethics and business requirements are mandatory and mapped to the phase gates below.
 
-Phase 1 is implemented and verified locally. Phase 2 implementation passed local checks; live Supabase acceptance remains pending. Phase 3 implementation and local/browser checks pass; its live Supabase acceptance remains pending. Phase 4 implementation and local/browser checks pass; live acceptance remains pending; Phases 5–12 remain planned, and hosting is not deployed. Start with a mobile-first PWA and deliver a demonstrable, zero-spend version using **Vercel + Railway + Supabase**. Paid commercial operation and guaranteed always-on availability are outside this demo commitment.
+Current user amendment (5 October 2026): finish local web/API work and acceptance before deploying. Supabase test-project and Morpheus API connections may run from localhost. Morpheus extraction is implemented using `qwen35-9b`, explicit transcript consent and bounded validated responses; the local model option remains available. Railway remains the backend deployment target in final Phase 12. Supabase direct database connectivity still fails; the user authorised a private GitHub backup as the fallback. See [local readiness evidence](docs/local-readiness-acceptance.md).
+
+### Latest local checklist
+
+- [x] Configure ignored frontend/backend environments; no private credential in browser output or Git upload candidates.
+- [x] Implement and exercise Morpheus extraction on three fictional English/BM/Manglish text samples, with hawker review and manual fallback.
+- [x] Scope voice menus by stall and use plain white image boxes with centred descriptions.
+- [x] Build PWA manifest, public static shell, update control and offline explanation; test private-route/cache boundaries.
+- [x] Add guarded Phase 11 core seed scaffold; execution, full business history and reset remain unfinished.
+- [x] Run completed-batch local gate: 186 frontend / 149 API passes, 33 live skips; affected repairs: 28 API / three PWA passes.
+- [ ] Connect a reachable guarded Supabase database, migrate and execute connected acceptance. Direct endpoint remains unreachable.
+- [ ] Complete full connected Phase 11 history/reset and scenario parity; complete actual CSV/device/push and human evaluation gates.
+- [ ] Replace described image placeholders when user assets arrive.
+- [ ] Deploy only in Phase 12 after a later instruction; currently on hold.
+
+Phase 1 is implemented and verified locally. Phase 2 implementation passed local checks; live Supabase acceptance remains pending. Phase 3 implementation and local/browser checks pass; its live Supabase acceptance remains pending. Phases 4–9 implementation and local/browser checks pass; connected acceptance remains pending. Phase 10 advanced demo and test-push adapter are locally implemented; its live device/database gate remains pending. Phase 11 local presentation build and focused acceptance are recorded; Phase 12 remains planned, and hosting is not deployed. Start with a mobile-first PWA and deliver a demonstrable, zero-spend version using **Vercel + Railway + Supabase**. Paid commercial operation and guaranteed always-on availability are outside this demo commitment.
 
 **All features, including the earlier future roadmap, remain in demo scope.** Business records and partner workflows are fictional. Later connected sandbox phases add live weather, real STT → LLM JSON extraction, realtime map updates, persisted closing-agent actions and genuine Web Push to consenting test devices. Production remains a separately activated app. Agencies, commercial partners, payment gateways, delivery, SMS and email remain simulated. Primary reservations use **pay-at-stall**; retain fake online payments only in the future-capability showcase. A “Coming soon” placeholder does not complete a phase.
 
@@ -28,7 +43,7 @@ Additional constraints:
 - Do not use Vitest/pytest watch mode, continuous browser test loops, or test-on-save hooks.
 - A development server's hot reload is allowed; it does not require a new test run.
 - Do not repeatedly build the whole app just to check individual edits. Use one production build at the applicable phase gate.
-- Run the full regression suite once in the final release phase. Earlier phases run only their focused scope and directly affected shared contracts.
+- Run the full regression suite once at the final local readiness gate before deployment. Earlier batches run only their focused scope and directly affected shared contracts; deployed smoke checks repeat broader tests only when changes invalidate the accepted build.
 - Configure optional GitHub Actions as a manual `workflow_dispatch` phase gate, not a test suite on every push. Hosted CI is optional and must fit the account's free allowance.
 - Keep outputs concise. Save detailed failure logs locally; do not repeatedly dump successful logs or reread unchanged files.
 - The only routine retests are for actual failures, subsequent changes that invalidate a result, or the final release gate.
@@ -47,11 +62,11 @@ Additional constraints:
 | Auth/media | Supabase Auth + Storage | User JWTs, ownership rules, separate public/private media. |
 | Scheduled work | Supabase Cron / pg_cron | SQL alert generation while Railway is idle; no separate worker. |
 | Speech | Transformers.js, multilingual Whisper-tiny ONNX, Web Worker | Local transcription with no inference bill; text fallback. |
-| Listing extraction | FastAPI LLM adapter, Gemini JSON-schema output; optional local Qwen/llama.cpp | Actual JSON extraction with validation/confidence; synthetic inputs on hosted free tier. No LLM in eligibility calculations. |
+| Listing extraction | FastAPI/Pydantic; consented Morpheus `qwen35-9b`; optional authenticated loopback Qwen2.5-1.5B / llama.cpp | Backend-only key, evidence/confidence and manual correction; bounded cloud calls, no automatic paid fallback. Local model/text remain free options. No LLM in eligibility calculations. |
 | Freshness/weather | Versioned SQL policy tables/functions, Open-Meteo temperature/humidity cache | Deterministic advisory caps; demo rules isolated from real-food use until expert review. |
 | Agent/events/push | pg_cron, pg_net, SQL outbox, signed FastAPI dispatch, pywebpush/VAPID | Persisted drafts/nudges, confirmation, retry and real test-device push. |
 | Live map | Supabase Realtime, TanStack Query | Public-safe event invalidation, version-aware reconnect and polling fallback. |
-| Images/demo data | IMAGE_GENERATION_PROMPTS.md, generated image files, procedural fallback, Sharp, JSON + SQL seeds | 100 separate generated assets with provenance; all business records fictional. |
+| Images/demo data | IMAGE_GENERATION_PROMPTS.md, generated image files, procedural fallback, Sharp, JSON + SQL seeds | Described placeholders now; user-provided assets later. All business records fictional. |
 | External integrations | Typed mock-provider interfaces, TypeScript fixture engine, FastAPI adapters, SQL event log | Simulated company/agency/ad/payment/delivery/message/sensor operations; no third-party SDK calls. |
 | Charts/exports | Recharts, browser CSV export, HTML print styles | Synthetic analytics, telemetry and demo receipts without paid reporting tools. |
 | Package management | npm + lockfile; uv + Python lockfile | Reproducible installs and small deploy images. |
@@ -136,8 +151,8 @@ Estimates are rough solo-developer effort, excluding account provisioning, image
 | 8 | Orders, fake payments, ads, sponsorship, subscriptions, delivery | 1–7 | 4–6 days |
 | 9 | Company/media, authority/council and waste partner simulations | 1–8 | 4–6 days |
 | 10 | Test Web Push, demand forecast, analytics and advanced previews | 1–9 | 4–6 days |
-| 11 | Complete seeds/images, evaluation screen, pilot dashboard | 1–10 | 4–5 days |
-| 12 | Hosting, full acceptance gate, handoff | 1–11 | 4–7 days |
+| 11 | Complete seeds/placeholders, evaluation screen, pilot dashboard and local readiness | 1–10 | 4–5 days |
+| 12 | Final deployment, deployed-origin smoke checks, handoff | 1–11 | 4–7 days |
 
 Phases are sequential by default. Do not start extra agents, speculative parallel work, or later-phase features unless separately requested.
 
@@ -345,6 +360,8 @@ Complete vendor stall/menu management, secure image uploads, independent batch r
 
 ## 8. Phase 5 — Deterministic freshness rules and closing-time agent
 
+**Status:** Locally implemented and verified; live acceptance pending. Connected SQL/RLS/Cron/worker acceptance remains pending, with no live environment configured.
+
 **Goal:** Implement the product's food-waste workflow with explicit time limits and no claim of certified safety.
 
 **Tools:** Versioned PostgreSQL rules, Open-Meteo/HTTPX, Supabase Cron/pg_net, SQL outbox, signed FastAPI dispatch, TanStack Query, pytest and frozen clocks.
@@ -353,26 +370,26 @@ Complete vendor stall/menu management, secure image uploads, independent batch r
 
 ### Build tasks
 
-- [ ] Replace the fixed-only policy with `DEMO_ADVISORY_V2`: confirmed ingredient risk class, cook time, temperature/humidity bands and uncertainty caps. Store synthetic numeric tables with provenance/approval state; refuse use for real food without reviewed applicable policy.
-- [ ] Implement the PRD min-cap algorithm and non-increasing deadlines; no LLM may set risk rules, final time or eligibility. Missing cook time blocks publication; unknown ingredients/stale weather use a shorter configured cap.
-- [ ] Add market-level Open-Meteo current temperature/humidity fetch, 15-minute cache, 30-minute stale threshold, timestamp/source tracking and adverse-condition reevaluation. Keep fixture weather separate and labelled.
-- [ ] Validate preparation and handling data; unsupported/unknown handling cannot create an eligible timed offer.
-- [ ] Compute deadlines through one authoritative transactional database function; subsequent risk/weather changes can shorten them and append audit events, never extend them. Fixture logic follows the same versioned examples.
-- [ ] Separate inventory state from time eligibility; sold-out/withdrawn/moderated stock cannot return just because it has time remaining.
-- [ ] Use database/server time for eligibility. Send `server_now` and absolute deadlines to the client; never trust the phone clock for an authoritative write.
-- [ ] Add a minute-level SQL Cron job that inserts deduplicated 30-minute, 15-minute, and deadline alerts and closes offers as necessary.
-- [ ] Extend that job into the closing-time agent: inspect batch and market close, persist a unique nudge/clearance draft, and await explicit hawker Confirm/Fix.
-- [ ] On confirmation revalidate and atomically publish plus enqueue opted-in nearby recipients. Enforce deduplication, expiry, consent and notification-rate caps on dispatch, not only on draft creation.
-- [ ] Use SQL jobs for deadline/draft work. A leased outbox with a scoped secret wakes FastAPI via pg_net only when dispatch/weather refresh is due; avoid an always-on worker. Log retries, run duration, lease recovery and vendor confirmation. Phase 10 adds real Web Push; this phase persists and exercises its queue with a fake transport.
-- [ ] Add auditable input/rule explanations; optional LLM wording in Phase 6 must preserve computed facts and fall back to deterministic copy.
-- [ ] Use a unique `(batch_id, policy_version, threshold)` alert key. Late creation/reconnect shows the most relevant current alert rather than a burst of obsolete alerts.
-- [ ] Apply effective-time filters on every read and mutation independently of the scheduler; expiration must still work when a cron run is missed.
-- [ ] Build the persistent hawker alert centre and dashboard warnings. Poll only while the relevant screen is visible, use backoff, and provide optional sound.
-- [ ] Build percentage/fixed/70%/RM0/buy-one-get-one promotion drafts with confirmation, integer-sen totals, complete bundle stock accounting and maximum end time 15 minutes before the batch deadline.
-- [ ] Disable creation once at most 15 minutes remain, and end an existing offer on sell-out, withdrawal, deadline, or earlier configured end.
-- [ ] Add customer offer cards and active-offer filters; prevent stale cached availability after the end instant.
-- [ ] Add vendor-reported sold-at-discount/discarded outcomes and simple summaries; do not describe these as independently verified waste saved.
-- [ ] Add admin-only fixture time controls and ensure demo time override is unavailable in the connected production configuration.
+- [x] Replace the fixed-only policy with `DEMO_ADVISORY_V2`: confirmed ingredient risk class, cook time, temperature/humidity bands and uncertainty caps. Store synthetic numeric tables with provenance/approval state; refuse use for real food without reviewed applicable policy.
+- [x] Implement the PRD min-cap algorithm and non-increasing deadlines; no LLM may set risk rules, final time or eligibility. Missing cook time blocks publication; unknown ingredients/stale weather use a shorter configured cap.
+- [x] Add market-level Open-Meteo current temperature/humidity fetch, 15-minute cache, 30-minute stale threshold, timestamp/source tracking and adverse-condition reevaluation. Keep fixture weather separate and labelled.
+- [x] Validate preparation and handling data; unsupported/unknown handling cannot create an eligible timed offer.
+- [x] Compute deadlines through one authoritative transactional database function; subsequent risk/weather changes can shorten them and append audit events, never extend them. Fixture logic follows the same versioned examples.
+- [x] Separate inventory state from time eligibility; sold-out/withdrawn/moderated stock cannot return just because it has time remaining.
+- [x] Use database/server time for eligibility. Send `server_now` and absolute deadlines to the client; never trust the phone clock for an authoritative write.
+- [x] Add a minute-level SQL Cron job that inserts deduplicated 30-minute, 15-minute, and deadline alerts and closes offers as necessary.
+- [x] Extend that job into the closing-time agent: inspect batch and market close, persist a unique nudge/clearance draft, and await explicit hawker Confirm/Fix.
+- [x] On confirmation revalidate and atomically publish plus enqueue opted-in nearby recipients. Enforce deduplication, expiry, consent and notification-rate caps on dispatch, not only on draft creation.
+- [x] Use SQL jobs for deadline/draft work. A leased outbox with a scoped secret wakes FastAPI via pg_net only when dispatch/weather refresh is due; avoid an always-on worker. Log retries, run duration, lease recovery and vendor confirmation. Phase 10 adds real Web Push; this phase persists and exercises its queue with a fake transport.
+- [x] Add auditable input/rule explanations; optional LLM wording in Phase 6 must preserve computed facts and fall back to deterministic copy.
+- [x] Use a unique `(batch_id, policy_version, threshold)` alert key. Late creation/reconnect shows the most relevant current alert rather than a burst of obsolete alerts.
+- [x] Apply effective-time filters on every read and mutation independently of the scheduler; expiration must still work when a cron run is missed.
+- [x] Build the persistent hawker alert centre and dashboard warnings. Poll only while the relevant screen is visible, use backoff, and provide optional sound.
+- [x] Build percentage/fixed/70%/RM0/buy-one-get-one promotion drafts with confirmation, integer-sen totals, complete bundle stock accounting and maximum end time 15 minutes before the batch deadline.
+- [x] Disable creation once at most 15 minutes remain, and end an existing offer on sell-out, withdrawal, deadline, or earlier configured end.
+- [x] Add customer offer cards and active-offer filters; prevent stale cached availability after the end instant.
+- [x] Add vendor-reported sold-at-discount/discarded outcomes and simple summaries; do not describe these as independently verified waste saved.
+- [x] Add admin-only fixture time controls and ensure demo time override is unavailable in the connected production configuration.
 
 ### Deliverables
 
@@ -390,34 +407,47 @@ Working reminder-to-offer lifecycle, race-safe eligibility rules, recoverable al
 
 **Done when:** deadline correctness does not depend on browser timers or scheduled job timing, and prohibited batches can never be promoted.
 
+### Phase 5 checkpoint — 2026-10-01
+
+Build checklist records implemented code, not verified live infrastructure. Changes include policy artifact, fixture persistence, migrations 007–008, caller-scoped API, signed weather persistence, restricted dispatcher role, guarded Cron setup, alert/offer/outcome UI and described image placeholders. No paid service or real push/agency/company action is enabled.
+
+- [x] Local gate: lint/type/build and secret scan pass; 86 frontend tests and 56 Python checks pass (one corrected contract assertion rerun). 15 live groups skipped.
+- [x] Browser: persisted draft → confirmation → 70% offer → simulated dispatch → customer discovery → forward-time automatic removal; 390 px mobile dashboard/alerts fit, with described placeholders.
+- [ ] Apply migrations to a guarded disposable Supabase and execute `npm run phase5:live`.
+- [ ] Verify live race/stock/ownership checks, advisory/weather audit rows, outbox fencing/restart, revoked consent, quotas and Cron/pg_net wake evidence.
+- [ ] Configure scoped local dispatcher credentials and verify actual market-level Open-Meteo caching/failure handling and minute-level SQL job. Railway endpoint activation is deferred to final deployment. Real food policy approval and real Web Push remain separate gates.
+
 ## 9. Phase 6 — Voice-to-JSON, confidence, fallback and evaluation
+
+**Status:** Remaining local code implemented; phase-end local gate passed. Actual local LLM smoke executed. Human speech evaluation, desktop/Android microphone and connected database/job acceptance still require external evidence. No accuracy or speedup is claimed. See [required user actions](docs/phase6-user-actions.md) and `docs/phase6-acceptance.md`.
 
 **Goal:** Add usable BM, English, and mixed-language updates without a paid AI service.
 
-**Tools:** i18next, Transformers.js/Whisper, Web Worker, MediaRecorder, FastAPI LLM adapter (Gemini schema output or local Qwen/llama.cpp), Pydantic/Zod, quick-entry chips and evaluation harness.
+**Tools:** i18next, Transformers.js/Whisper, Web Worker, MediaRecorder, FastAPI loopback-only Qwen/llama.cpp adapter (no cloud or paid fallback), Pydantic/Zod, quick-entry chips and evaluation harness.
 
 **PRD coverage:** LANG-01, VOICE-01, EVAL-01, PRIV-01, INCL-01.
 
 ### Build tasks
 
-- [ ] Add a guarded scheduled sweep for expired unattached listing-upload tickets/objects, with attachment recheck and retry logs; never remove original batch photos or unresolved save outcomes.
+- [x] Add a guarded scheduled sweep for expired unattached listing-upload tickets/objects, with attachment recheck and retry logs; retain ready unresolved tickets, support explicit abandonment, and never remove attached original batch photos. Deployment acceptance remains pending.
 
-- [ ] Complete BM/English translations across existing screens, errors, policy wording, and alert messages.
-- [ ] Pin a compatible multilingual ONNX speech-model artifact and its license; do not choose an English-only `.en` model.
-- [ ] Lazy-load speech code and model after user action; show download size/progress and let the user cancel.
-- [ ] Implement microphone permission, recording, 30-second duration cap, playback, decoding/resampling, and worker transcription with WASM fallback where supported.
-- [ ] Delete audio buffers/blobs immediately after transcription, cancellation or failure; stop microphone tracks and revoke URLs. Keep only transcript and validated fields. Do not upload raw audio to the backend/LLM or cache it.
-- [ ] Send the permitted transcript to the real LLM extraction adapter; enforce JSON Schema for dish, quantity/unit, integer-sen price, ingredients, cook time/timezone, action, confidence and evidence text. Missing data remains null.
-- [ ] Validate schema, ranges, ingredient confirmation, food matches and exact time context; attach heuristic field-confidence/ambiguity flags. Treat the displayed score as uncalibrated, not a probability of correctness/safety.
-- [ ] Support common BM/English number and time forms; flag ambiguous or conflicting values rather than infer them silently.
-- [ ] Present editable fields and the transcript side by side; publish only through the same validated APIs as manual forms.
-- [ ] Add one-tap Confirm when all required fields are valid, easy field Fix, and known dish/quantity/price/ingredient/time chips if STT or LLM fails. Do not default to “cooked now” without selection.
-- [ ] Bound LLM requests, timeout and token size; redact personal details, keep credentials server-side and never fall through to paid inference. Keep provider/model IDs configurable and version prompts.
-- [ ] Add an optional “Why this time?” LLM paraphrase of deterministic facts with numeric verification and template fallback; no tools or authority to change the result.
-- [ ] Handle cancellation, denied microphone, model-download failure, slow devices, unsupported audio, and browser memory pressure with a text alternative.
+- [x] Complete BM/English translation coverage for existing UI, known errors, dynamic advisory/deadline/outcome messages and evaluation tasks. User-entered names and technical provenance remain original; native-speaker copy review is welcome.
+- [x] Pin a compatible multilingual ONNX speech-model artifact and its license; do not choose an English-only `.en` model.
+- [x] Lazy-load speech code and model after user action; show download size/progress and let the user cancel.
+- [x] Implement microphone permission, recording, 30-second duration cap, playback, decoding/resampling, and worker transcription with WASM fallback where supported.
+- [x] Delete audio buffers/blobs immediately after transcription, cancellation or failure; stop microphone tracks and revoke URLs. Keep only transcript and validated fields. Do not upload raw audio to the backend/LLM or cache it.
+- [x] Send the permitted transcript to the real LLM extraction adapter; enforce JSON Schema for dish, quantity/unit, integer-sen price, ingredients, cook time/timezone, action, confidence and evidence text. Missing data remains null.
+- [x] Validate schema, ranges, ingredient confirmation, food matches and exact time context; attach heuristic field-confidence/ambiguity flags. Treat the displayed score as uncalibrated, not a probability of correctness/safety.
+- [x] Support common BM/English number and time forms; flag ambiguous or conflicting values rather than infer them silently.
+- [x] Present editable fields and the transcript side by side; publish only through the same validated APIs as manual forms.
+- [x] Add one-tap Confirm when all required fields are valid, easy field Fix, and known dish/quantity/price/ingredient/time chips if STT or LLM fails. Do not default to “cooked now” without selection.
+- [x] Bound LLM requests, timeout and token size; redact personal details, keep credentials server-side and never fall through to paid inference. Keep provider/model IDs configurable and version prompts.
+- [x] Add an optional “Why this time?” LLM paraphrase of deterministic facts with numeric verification and template fallback; no tools or authority to change the result.
+- [x] Handle cancellation, denied microphone, model-download failure, slow devices, unsupported audio, and browser memory pressure with a text alternative.
 - [ ] Create 20 human-recorded fictional listing clips (10 BM, 10 Manglish, at least five consenting speakers) plus four English controls; annotate expected fields before evaluating. Keep these consented evaluation assets separate from user voice-note retention.
-- [ ] Build paired voice-versus-typing timing tasks, counterbalanced order and an Evaluation screen/report that stays “Not measured” until execution at this phase gate.
-- [ ] Label “Try a sample” clearly. If a prerecorded transcript is used without running inference, label it as a scripted example.
+- [x] Implement automatic paired-task instrumentation: consent/context, counterbalanced order, clock through fixes and successful confirmation, actual voice-inference requirement, background-tab invalidation and valid-pair aggregation.
+- [ ] Execute actual consenting-participant voice-versus-typing tasks. The report stays “Not measured” until real results are supplied.
+- [x] Label “Try a sample” clearly. If a prerecorded transcript is used without running inference, label it as a scripted example.
 
 ### Deliverables
 
@@ -437,30 +467,50 @@ Real STT → LLM → confirmed JSON flow, visible field confidence, reliable chi
 
 **If the accuracy target fails:** improve vocabulary/parsing or model configuration within the same phase, then rerun only affected clips plus a small unchanged sample. Do not secretly substitute canned transcripts for live results or add a paid API. Record a limitation if a device/language target remains unsupported.
 
+### Phase 6 progress checkpoint — 2026-10-01
+
+Checked items describe implemented code and the stated local checks. Missing human/device/live acceptance is not a pass. Phase 6 is not fully complete.
+
+- [x] Preserve described image placeholders; no image generation/download performed.
+- [x] Implement script-only annotated corpus (10 BM, 10 Manglish, 4 English) and reject canned results as measured inference.
+- [x] Implement atomic voice/text confirmation through existing validated menu/batch/advisory operations; raw audio is never a request payload.
+- [x] Implement loopback-only llama.cpp adapter with bounded JSON extraction and visible quick-entry fallback.
+- [x] Provide a guarded media sweep and hourly Railway operator-job configuration; retain ready/unresolved tickets.
+- [x] Complete dynamic BM/error/policy-copy coverage and automatic timing instrumentation.
+- [x] Phase-end local lint/type/build, credential scan and evaluation/parser tests pass; browser verifies explicit fallback, confirmed new batch, menu-only update without a new batch, and “Not measured” evaluation. Final focused cleanup checks are recorded in `docs/phase6-acceptance.md`.
+- [x] Install checksum-pinned official llama.cpp/Qwen locally and run actual English/BM/Manglish text extraction. Model errors are recorded; conflicting explicit preparation clocks are cleared deterministically rather than trusted.
+- [ ] Perform real microphone acceptance on desktop/Android; record unsupported device coverage. Supplied synthetic audio is not a microphone/human evaluation.
+- [ ] Obtain consented human clips and measure accuracy/timing; all current evaluation values stay “Not measured”.
+- [ ] Apply migrations 009–010; verify live confirmation/quota/RLS/retention and actual scheduled media sweep. Guarded `phase6:live` runner is implemented.
+
+**Latest checkpoint:** 113 frontend tests and 79 Python tests passed; 19 live groups skipped for missing infrastructure. The affected clock-validator gate adds four passing cases (20 voice checks). Local code, paired timing and sweep completion do not substitute for human, phone or live database evidence. See `docs/phase6-user-actions.md`; images remain described placeholders.
+
 ## 10. Phase 7 — Verified reports, organiser triage and hawker reply
+
+**Status:** Local implementation and phase-end/browser gate completed; connected acceptance pending. Setup actions consolidated in [USER_ACTIONS.md](docs/USER_ACTIONS.md).
 
 **Goal:** Complete community participation while protecting private reports and supporting moderation.
 
-**Tools:** FastAPI, SQL/RLS, private Supabase Storage, React admin routes, pytest, Playwright.
+**Tools:** React/TypeScript, TanStack Query, i18next, FastAPI/Pydantic, SQL/RLS/transactions, private Supabase Storage, Pillow and optional FFmpeg/ffprobe; Vitest, pytest and browser UI verification.
 
 **PRD coverage:** TRUST-01/02, ADMIN-01.
 
 ### Build tasks
 
-- [ ] Add one editable customer review per stall, optional photo, publication status, and review-report action.
-- [ ] Prevent self-reviews; compute average/count from published reviews only.
-- [ ] Implement confidential complaint form, category, incident time, description, optional private synthetic image/video evidence and clearly simulated location stamps. Cap video at 10 seconds/5 MB and validate type/content.
-- [ ] Display the precise anonymity promise before submission; no public complaint feed or automatic public risk score.
-- [ ] Require confirmed-email or organiser-verified accounts for reports; remove the old guest capability. Enforce three new reports/account/day and one open report/account/stall/incident, with updates instead of duplicates.
-- [ ] Restrict evidence to reporter/admin, use short-lived access URLs, and redact sensitive request/log fields.
-- [ ] Add report status/history and reporter follow-up; vendor view receives only a separately approved redacted summary.
-- [ ] Add market-scoped organiser access to early redacted reports, hawker right-of-reply, moderation/appeal history and a 48-hour demo reply opportunity.
-- [ ] Add a neutral public “Reports under review” flag only after at least three distinct verified, independently reviewed reports within 14 days and a recorded moderator decision. Block duplicates/collusion indicators from threshold counts; support flag expiry/removal and display the approved reply.
-- [ ] Build admin queues for complaints, review reports, dietary evidence, stall moderation, and market schedules.
-- [ ] Audit moderation/privileged changes and rate-limit repeated submissions with database-backed counters appropriate to one small API instance.
-- [ ] Add demo-only deletion/reset and document pilot retention/deletion policy decisions that must precede real data collection.
-- [ ] Add verified/unverified fictional accounts and below-threshold/duplicate/collusive/appeal scenarios; unverified accounts cannot file reports even in fixture workflows.
-- [ ] Prepare redacted referral payloads for Phase 9; do not send email or forward anything outside the simulated app.
+- [x] Add one editable customer review per stall, optional described photo placeholder (final image supplied later), publication status, and review-report action.
+- [x] Prevent self-reviews; compute average/count from published reviews only.
+- [x] Implement confidential complaint form, category, incident time, description, optional private synthetic image/video evidence and clearly simulated location stamps. Cap video at 10 seconds/5 MB and validate type/content with optional FFmpeg runtime; connected runtime acceptance remains pending.
+- [x] Display the precise anonymity promise before submission; no public complaint feed or automatic public risk score.
+- [x] Require confirmed-email or organiser-verified accounts for reports; remove the old guest capability. Enforce three new reports/account/day and one open report/account/stall/incident, with updates instead of duplicates.
+- [x] Restrict evidence to reporter/admin, use short-lived access URLs, and redact sensitive request/log fields.
+- [x] Add report status/history and reporter follow-up; vendor view receives only a separately approved redacted summary.
+- [x] Add market-scoped organiser access to early redacted reports, hawker right-of-reply, moderation/appeal history and a 48-hour demo reply opportunity.
+- [x] Add a neutral public “Reports under review” flag only after at least three distinct verified, independently reviewed reports within 14 days and a recorded moderator decision. Block duplicates/collusion indicators from threshold counts; support flag expiry/removal and display the approved reply.
+- [x] Build admin queues for complaints, review reports, dietary evidence, stall moderation, and market schedules.
+- [x] Audit moderation/privileged changes and rate-limit repeated submissions with database-backed counters appropriate to one small API instance.
+- [x] Add demo-only deletion/reset and document pilot retention/deletion policy decisions that must precede real data collection.
+- [x] Add verified/unverified fictional accounts and below-threshold/duplicate/collusive/appeal scenarios; unverified accounts cannot file reports even in fixture workflows.
+- [x] Prepare redacted referral payloads for Phase 9; do not send email or forward anything outside the simulated app.
 
 ### Deliverables
 
@@ -476,31 +526,58 @@ Working reviews and ratings, protected complaint/evidence workflow, and a restri
 
 **Done when:** moderation works and no unauthorised role can view reporter identity, raw report details, or private evidence.
 
+### Phase 7 checkpoint — 2026-10-01
+
+Checked items record implemented code, not live infrastructure acceptance. Migration 011, caller-scoped community API, isolated fixture moderation engine, bilingual community screens, adversarial scenarios and guarded live runner are written. Images remain described placeholders. No external referral, email, ads purchase or real complaint is sent.
+
+- [x] Local gate: lint/type/build, 123 frontend and 92 Python tests pass; 23 live groups skipped. Final affected checks: 12 community tests and 8 Python checks pass; credential scan passes.
+- [x] Browser: private complaint → approved summary → hawker reply → reporter triaged status; unverified denial, organiser redaction, threshold/48-hour block, manual flag/reply approval/removal and review publication. BM 390×844 layout has no horizontal overflow.
+- [ ] Configure disposable Supabase and media secret, apply migration 011 and run real Phase 7 permission/Storage/race/expiry checks after prior live gates.
+- [ ] Configure FFmpeg/ffprobe and verify actual private image/video content validation and signed-link expiry.
+- [ ] Approve real-pilot retention/deletion/privacy decisions before collecting real data. These are external launch actions, not required for fictional fixture use.
+
+  See [acceptance](docs/phase7-acceptance.md) and [all later user actions](docs/USER_ACTIONS.md).
 ## 11. Phase 8 — Commerce, ads, sponsorship and delivery simulations
 
 **Goal:** Demonstrate the full commercial experience with fake money and synthetic results.
 
-**Tools:** Existing React/FastAPI/Supabase stack, typed mock payment/ad/delivery providers, SQL transactions, Recharts, browser CSV and printable HTML receipts.
+**Tools:** Existing React/FastAPI/Supabase stack, typed mock payment/ad/delivery providers, SQL transactions for connected acceptance (pending), native HTML meters, browser CSV and printable pages.
 
 **PRD coverage:** COM-01, PAY-01, ADS-01, DEL-01, MON-01, commercial DATA-01.
 
 ### Build tasks
 
-- [ ] Build customer cart, batch-specific quantity selection, reservation timer, pickup/delivery checkout, order history and demo collection code.
-- [ ] Make pay-at-stall the default: reserve → vendor accepts → collect with code → both confirm payment/collection. No gateway, stored card or automatic charge.
-- [ ] Add a configurable hypothetical 3% completed-clearance commission, integer-sen calculations, disputes/no-show exclusions/reversals and a monthly manual statement. Separate reserved value from collected value.
-- [ ] Add council/organiser subscription preview for aggregated waste diversion, activity hotspots and hygiene trends; suppress small groups and scope every dashboard to its markets.
-- [ ] Enforce atomic reservations bounded by offer end and batch fulfilment buffer. Expiry/cancellation releases stock once; never reopens deadline-reached inventory.
-- [ ] Build vendor accept/reject, ready-for-pickup, collected and cancellation controls with visible order history.
-- [ ] Create a fake payment provider with pretend balance and scenario choices, including success/failure/timeout/late callback. Never collect real payment credentials.
-- [ ] Place fake online payments/refunds in an explicitly separate future-capability showcase; they are not necessary for the pilot purchase path.
-- [ ] Add idempotent payment callbacks, fake ledger, full/partial refunds and watermarked `DEMO-` receipts; forbid over-refunds and duplicate stock/money effects.
-- [ ] Build fictional advertiser onboarding, creative upload, market/radius/category targeting, dates, pretend budget, mock checkout and moderation queue.
-- [ ] Implement sponsored search cards/map pins, native ads, banners and an optional non-blocking interstitial preview. Keep all labels visible and respect filters/availability.
-- [ ] Simulate campaign scheduling, approval/rejection, pause/resume, budget exhaustion, ad fill/no-fill, impressions/clicks and performance charts.
-- [ ] Add free/paid vendor tier comparison, simulated subscriptions, renewal failure/cancellation and multi-stall analytics with synthetic revenue/inventory exports.
-- [ ] Build courier partner board with scoped assignment, route/ETA preview and accept/pickup/arrive/fail/cancel controls. Reject demo fulfilment beyond the listing constraints.
-- [ ] Keep every provider in simulated mode in both data adapters; no ad SDK, checkout provider, real dispatch or real financial account.
+- [x] Build customer cart, batch-specific quantity selection, reservation timer, pickup/delivery checkout, order history and demo collection code.
+- [x] Make pay-at-stall the default: reserve → vendor accepts → collect with code → both confirm payment/collection. No gateway, stored card or automatic charge.
+- [x] Add a configurable hypothetical 3% completed-clearance commission, integer-sen calculations, disputes/no-show exclusions/reversals and a monthly manual statement. Separate reserved value from collected value.
+- [x] Add council/organiser subscription preview for aggregated waste diversion, activity hotspots and hygiene trends; suppress small groups and scope every dashboard to its markets.
+- [x] Enforce atomic reservations bounded by offer end and batch fulfilment buffer. Expiry/cancellation releases stock once; never reopens deadline-reached inventory.
+- [x] Build vendor accept/reject, ready-for-pickup, collected and cancellation controls with visible order history.
+- [x] Create a fake payment provider with pretend balance and scenario choices, including success/failure/timeout/late callback. Never collect real payment credentials.
+- [x] Place fake online payments/refunds in an explicitly separate future-capability showcase; they are not necessary for the pilot purchase path.
+- [x] Add idempotent payment callbacks, fake ledger, full/partial refunds and watermarked `DEMO-` receipts; forbid over-refunds and duplicate stock/money effects.
+- [x] Build fictional advertiser onboarding, creative description placeholders (images supplied later), market/radius/category targeting, dates, pretend budget, mock checkout and moderation queue.
+- [x] Implement sponsored search cards/map pins, native ads, banners and an optional non-blocking interstitial preview. Keep all labels visible and respect filters/availability.
+- [x] Simulate campaign scheduling, approval/rejection, pause/resume, budget exhaustion, ad fill/no-fill, impressions/clicks and performance charts.
+- [x] Add free/paid vendor tier comparison, simulated subscriptions, renewal failure/cancellation and multi-stall analytics with synthetic revenue/inventory exports.
+- [x] Build courier partner board with scoped assignment, route/ETA preview and accept/pickup/arrive/fail/cancel controls. Reject demo fulfilment beyond the listing constraints.
+- [x] Keep every provider in simulated mode in both data adapters; no ad SDK, checkout provider, real dispatch or real financial account.
+
+### Current Phase 8 checkpoint — 2026-10-02
+
+Implementation and local phase-end/browser acceptance complete. Connected Supabase execution remains pending. `/demo/commerce` contains the isolated fictional commerce portal. `/sandbox/commerce` uses caller-authenticated API commands and the new `20261002051951_commerce_simulation.sql` migration. Roles, organisation membership and courier assignments come from protected database records. Real root routes continue to reject this disposable backend.
+
+Completed: batch carts, bounded stock holds, two-sided code collection, commission rate snapshots and reversals, fake payment outcomes, capped refunds, printable DEMO receipts/CSV, advertiser profiles and campaign targeting/scheduling/moderation, labelled capped sponsorship/map pins/ad previews, tier lifecycle, scoped inventory/revenue exports, assigned couriers and council aggregates with group suppression. Historical seed orders are explicitly fictional and independent of live demo batch inventory. Images remain described placeholders.
+
+Acceptance checklist:
+
+- [x] Complete local gate: initial full suite 154 frontend / 105 API tests passed; final focused repairs 78 frontend / 12 commerce API tests passed. Lint, type/build, Ruff, SQL/PLpgSQL syntax parsing and credential scan passed. Five Phase 8 live cases remain skipped.
+- [x] Verify local browser pickup/collection, failed payment/refund, subscription cancellation, campaign approval/budget exhaustion, courier isolation/failure, council suppression, sponsored halal filtering and phone overflow. Evidence in [Phase 8 acceptance](docs/phase8-acceptance.md).
+- [ ] Apply the commerce migration to the guarded disposable Supabase project after prior live gates; run `RUN_LIVE_PHASE8=1 npm run phase8:live`.
+- [ ] Verify connected transaction races, direct-write denial, courier/organisation isolation and the connected browser journeys on the configured project. SQL parsing alone is not execution or RLS proof.
+- [ ] Complete target phone/network testing and final BM/English copy polish with the Phase 11 accessibility/localisation gate.
+
+No real payment, ads SDK, delivery, accounts or external agency traffic is introduced. See `docs/USER_ACTIONS.md` for later setup; no keys are needed to use `/demo/commerce`.
 
 ### Deliverables
 
@@ -527,18 +604,35 @@ Working fake purchase-to-refund lifecycle, complete ad/sponsorship management, s
 
 ### Build tasks
 
-- [ ] Add a fictional organisation directory and scoped media/editor, company, officer/council and collection roles.
-- [ ] Use fictional partner brands and clearly labelled Foodie/KKM/Majlis Bandaraya-style concepts. No official logos, claimed affiliation or invented live agency API.
-- [ ] Implement media/supplier collaboration request, request-changes/approve/reject, published feature, editorial badge and influencer food-trail builder.
-- [ ] Build referral redaction preview, destination selection, explicit simulated consent, fake submit/acknowledge, `DEMO-CASE-*` reference and status timeline.
-- [ ] Keep originals private; create a separate approved redacted case record for the assigned authority organisation. Enforce this in RLS/API, not only the screen.
-- [ ] Reuse Phase 7's verified-report threshold and reply/moderation process; no automatic authority referral, public guilt score or external sending.
-- [ ] Build officer queue, inspection schedule/checklist, corrective-action request, follow-up and resolution, plus retry after a simulated timeout.
-- [ ] Build council permit apply/review/approve/reject/expiry/renewal with `DEMO-PERMIT-*` references, market occupancy and aggregate complaint/waste dashboard.
-- [ ] Include simulated dietary-evidence verification without official certificates or seals.
-- [ ] Build surplus donation matching with the same eligibility/buffer constraints as offers; create separate compost and BSF non-consumption pickup paths.
-- [ ] Build collection request/accept/reject/schedule/collect/missed states, fake weights and watermarked receipt. Do not double-count reused batch/job events.
-- [ ] Implement controllable integration success/pending/rejection/timeout/replayed callback scenarios; save visible outcomes in fixture and connected modes.
+- [x] Add a fictional organisation directory and scoped media/editor, company, officer/council and collection roles.
+- [x] Use fictional partner brands and clearly labelled Foodie/KKM/Majlis Bandaraya-style concepts. No official logos, claimed affiliation or invented live agency API.
+- [x] Implement media/supplier collaboration request, request-changes/approve/reject, published feature, editorial badge and influencer food-trail builder.
+- [x] Build referral redaction preview, destination selection, explicit simulated consent, fake submit/acknowledge, `DEMO-CASE-*` reference and status timeline.
+- [x] Keep originals private; create a separate approved redacted case record for the assigned authority organisation. Enforce this in RLS/API, not only the screen.
+- [x] Reuse Phase 7's verified-report threshold and reply/moderation process; no automatic authority referral, public guilt score or external sending.
+- [x] Build officer queue, inspection schedule/checklist, corrective-action request, follow-up and resolution, plus retry after a simulated timeout.
+- [x] Build council permit apply/review/approve/reject/expiry/renewal with `DEMO-PERMIT-*` references, market occupancy and aggregate complaint/waste dashboard.
+- [x] Include simulated dietary-evidence verification without official certificates or seals.
+- [x] Build surplus donation matching with the same eligibility/buffer constraints as offers; create separate compost and BSF non-consumption pickup paths.
+- [x] Build collection request/accept/reject/schedule/collect/missed states, fake weights and watermarked receipt. Do not double-count reused batch/job events.
+- [x] Implement controllable integration success/pending/rejection/timeout/replayed callback scenarios; save visible outcomes in fixture and connected modes.
+
+### Current Phase 9 checkpoint — 2026-10-02
+
+All 12 implementation tasks are written. Local automated and browser acceptance passed after focused repairs; connected database acceptance is pending. `/demo/partners` contains the isolated fictional portal, while `/sandbox/partners` requires caller authentication and protected organisation/market assignments. Image slots remain description placeholders.
+
+Completed: fictional directory/personas; prefilled media/supplier requests and three food trails; editorial review/publication/badges; consented redacted authority cases with private source links; timeout/retry/replay and officer resolution; permits, expiry/renewal and dietary evidence; fictional occupancy/coarse complaint and waste aggregates; charity/compost/BSF pickups sharing stock with reservations; deduplicated synthetic weights and DEMO receipts. Connected FastAPI routes, contracts and migration `20261002060812_partner_simulation.sql` are implemented with RLS/direct-access denial and caller-scoped RPCs. No agency/company endpoint, official certificate or real dispatch exists.
+
+Acceptance checklist:
+
+- [x] Run phase-end local checks. Full frontend suite: 169 passed before final regressions. API gate: 115 passed plus one new parser failure; focused repair: all 10 Phase 9 checks passed. Final focused frontend stock/partner suite: 92 passed. Lint/type/build, Ruff, SQL/PLpgSQL syntax and credential scan passed.
+- [x] Browser: vendor→editor publication, foreign editor denial, consent rejection, reviewed report→officer resolution, timeout/retry and foreign officer denial, permit approval/expiry/renewal, expired-food compost collection, eligible donation collection/replay, expired donation rejection and trail publication. Mobile overflow repaired; document/client widths both 375 px.
+- [ ] Apply migrations through the new partner migration to the guarded disposable Supabase project after prior live gates; run `RUN_LIVE_PHASE9=1 npm run phase9:live`. Three live Phase 9 cases are currently skipped.
+- [ ] Complete additional connected database scenarios for full referral privacy/resolution, donation/shopper races, cutoff changes, collection replay/weight deduplication, anonymous editorial publication and council suppression; extend guarded live cases where necessary. SQL parsing is not RLS/runtime proof.
+- [ ] Run authenticated connected browser/session/reconnect journeys after trusted role/membership provisioning.
+- [ ] Complete target-phone/network/accessibility and BM/English partner copy review in the final-demo gate.
+
+Evidence, demo steps and limitations: [Phase 9 acceptance](docs/phase9-acceptance.md). Later user setup: [USER_ACTIONS.md](docs/USER_ACTIONS.md). No keys are required for the standalone fictional portal.
 
 ### Deliverables
 
@@ -558,25 +652,41 @@ Functional media/company, authority/council and charity/waste partner workspaces
 
 **Goal:** Make the rest of the future vision interactive without external infrastructure.
 
-**Tools:** TypeScript/FastAPI simulators, fixture clocks, PostgreSQL events, Recharts, responsive device frames, existing local speech pipeline.
+**Tools:** React/TypeScript/FastAPI simulators, fixture clocks, PostgreSQL/PostGIS events, HTML meters, responsive device frames, Service Worker/Web Push, pywebpush/VAPID and existing local speech pipeline.
 
 **PRD coverage:** NOTIFY-01, FORECAST-01, LAB-01, AI-01, APP-01, remaining DATA-01 and AGENT-01 delivery.
 
 ### Build tasks
 
-- [ ] Build fake push/SMS/email preferences, consent/quiet hours, 1.5 km default radius and vendor bulk-message audience preview with pretend cost.
-- [ ] Implement simulated recipient inboxes and queued/sent/failed/retried/suppressed delivery states. Opt-out changes later eligibility.
-- [ ] Add real Web Push service-worker subscriptions, VAPID configuration and pywebpush dispatch for consenting test devices in connected mode. Consume the Phase 5 leased outbox, recheck offer expiry/opt-in before sending, delete invalid subscriptions and use stable event tags for deduplication.
-- [ ] Seed fictional recipients/coarse area cells; use no real phone numbers or SMS/email gateway. Keep push secrets private, make opt-out immediate and record attempted versus acknowledged delivery honestly.
-- [ ] Add synthetic hot/cold/ambient sensor timelines, missing-reading and excursion scenarios, fake weather controls and visible simulated-reading labels.
-- [ ] Build isolated research preview for ingredient/weather model ideas with fictional non-operational output; prevent any write into authoritative batch deadline fields.
-- [ ] Add cloud audio/photo extraction preview with editable fields, tentative ingredients, confidence, failure/quota scenarios and explicit “Scripted AI preview” labels.
-- [ ] Include scripted Tamil/Mandarin/photo examples while preserving the real BM/English/mixed STT → LLM extraction path and confirmation step.
-- [ ] Build Android/iOS styled interactive screen previews for onboarding, permissions, notifications and app deep links. Reuse actual demo routes; no native build or app-store account.
-- [ ] Add date filters/drill-downs and demo exports for multi-stall, council, campaign and waste dashboards; distinguish reported/estimated/simulated measurements.
-- [ ] Implement premium demand-forecast preview: same-stall weekday-median baseline, bounded rainfall adjustment, stockout flags, at least eight comparable sessions or “Insufficient data”, sample count and uncertainty. Use synthetic history for demo forecasts.
-- [ ] Backtest forecast logic against the baseline with time-ordered holdout at this phase gate; do not let LLMs invent preparation quantities. The “20% less on rainy Tuesdays” example remains labelled synthetic unless supported by measured data.
-- [ ] Add a scenario directory linking every advanced preview to its seeded happy/error path and reset control.
+- [x] Build fake push/SMS/email preferences, consent/quiet hours, 1.5 km default radius and vendor bulk-message audience preview with pretend cost.
+- [x] Implement simulated recipient inboxes and queued/sent/failed/retried/suppressed delivery states. Opt-out changes later eligibility.
+- [x] Add real Web Push service-worker subscriptions, VAPID configuration and pywebpush dispatch for consenting test devices in connected mode. Consume the Phase 5 leased outbox, recheck offer expiry/opt-in before sending, delete invalid subscriptions and use stable event tags for deduplication.
+- [x] Seed fictional recipients/coarse area cells; use no real phone numbers or SMS/email gateway. Keep push secrets private, make opt-out immediate and record attempted versus acknowledged delivery honestly.
+- [x] Add synthetic hot/cold/ambient sensor timelines, missing-reading and excursion scenarios, fake weather controls and visible simulated-reading labels.
+- [x] Build isolated research preview for ingredient/weather model ideas with fictional non-operational output; prevent any write into authoritative batch deadline fields.
+- [x] Add cloud audio/photo extraction preview with editable fields, tentative ingredients, confidence, failure/quota scenarios and explicit “Scripted AI preview” labels.
+- [x] Include scripted Tamil/Mandarin/photo examples while preserving the real BM/English/mixed STT → LLM extraction path and confirmation step.
+- [x] Build Android/iOS styled interactive screen previews for onboarding, permissions, notifications and app deep links. Reuse actual demo routes; no native build or app-store account.
+- [x] Add date filters/drill-downs and demo exports for multi-stall, council, campaign and waste dashboards; distinguish reported/estimated/simulated measurements.
+- [x] Implement premium demand-forecast preview: same-stall weekday-median baseline, bounded rainfall adjustment, stockout flags, at least eight comparable sessions or “Insufficient data”, sample count and uncertainty. Use synthetic history for demo forecasts.
+- [x] Backtest forecast logic against the baseline with time-ordered holdout at this phase gate; do not let LLMs invent preparation quantities. The “20% less on rainy Tuesdays” example remains labelled synthetic unless supported by measured data.
+- [x] Add a scenario directory linking every advanced preview to its seeded happy/error path and reset control.
+
+### Checkpoint — 2 October 2026
+
+All 13 local build tasks implemented. `/demo/advanced` contains seven resettable previews: notification preferences/bulk audience/inboxes, telemetry, non-operational research, editable scripted AI, native web frames, synthetic analytics/CSV and evidence-labelled forecasts. Images stay description placeholders. Connected test-push adapter includes authenticated enrol/revoke/preferences/history, private credential storage, coarse radius enqueue/matching, VAPID/pywebpush, Phase 5 leased agent preflight, invalid-endpoint cleanup and stable service-worker tags. Real-app routes do not load fixture data. Technology: existing React/TypeScript/Vite, FastAPI/Pydantic, Postgres/PostGIS, free browser Service Worker/Web Push and locked pywebpush; lightweight HTML meters avoid another chart dependency.
+
+One phase-end full gate passed: 178 frontend tests, 131 API tests, lint/type/build, Ruff and credential scan; 31 live tests skipped. Focused safeguards passed eight advanced tests and 21 push tests; two Phase 10 live cases are configured but skipped. Browser verified failure/retry/dedup/opt-out, synthetic sensor labels, Tamil confirmation/photo quota fallback, denied native preview → demo discovery, bounded/insufficient forecast and council suppression. Phone emulation reported 360 px document/client widths and no console errors. CSV download event could not be captured; output-row/aggregate logic is unit-tested. Detailed evidence and limits: [Phase 10 acceptance](docs/phase10-acceptance.md).
+
+**Remaining Phase 10 acceptance (unchecked means still required):**
+
+- [ ] Apply migration `20261002104837_test_push.sql` on the guarded disposable Supabase target and run `npm run phase10:live` plus previous live gates; verify SQL name binding/grants/RLS with actual execution.
+- [ ] Add/execute full connected lease timeout/restart, concurrent recipient delivery/revocation/re-enrolment, radius/quiet-hours and invalid-subscription cleanup acceptance vectors. Parser and mocked transport tests are not proof of database concurrency.
+- [ ] Configure VAPID/agent values and explicitly enrol one consenting test browser. Send a genuine notification from a hawker-confirmed eligible offer; record OS/browser/secure origin and observe the device. No successful delivery or acknowledgement is claimed yet.
+- [ ] Verify expired offers and opt-out prevent later sends, stable tags across interrupted dispatch/retry, and recipient history exposes no subscription keys. Opt-out cannot recall a provider-accepted message; an in-flight bounded send may complete before its row lock releases.
+- [ ] Complete actual CSV download verification, desktop/mobile reset/deep-link walk-through, connected role/session/reconnect checks, BM/accessibility and target low-memory phone acceptance. Existing large speech/WASM assets remain a device-performance risk.
+
+Setup is recorded for later in [USER_ACTIONS.md](docs/USER_ACTIONS.md). No credentials are needed for the advanced fixture preview. No push permission, agency/company action, SMS/email/payment, deployment or live database change was performed. Phase 10 is locally built but **not fully accepted** until the unchecked device/database/browser gates pass.
 
 ### Deliverables
 
@@ -594,39 +704,56 @@ Complete communication, telemetry, AI and native-experience previews with measur
 
 **Done when:** every advanced feature is interactive and accurately labelled, real push works on the documented opted-in test device, forecasts expose their evidence/limitations, and no unauthorised business action or food/permission bypass is possible.
 
-## 14. Phase 11 — Complete dataset, 100 generated images and presentation
+## 14. Phase 11 — Complete dataset, described image slots and presentation
 
 **Goal:** Make the app presentation-ready with varied, consistent content and explicit simulation boundaries.
 
-**Tools:** IMAGE_GENERATION_PROMPTS.md, available no-cost image generation or procedural fallback, Sharp, deterministic Node/Python seeds, fixture adapter, SQL seeds, Playwright.
+**Tools:** React/TypeScript/Vite, deterministic Python/JSON seeds, existing fixture domain engines, Pillow/imageio-ffmpeg for synthetic diagram clips, qrcode for SVG posters, Vitest/pytest and browser inspection. Optional image prompts remain references; user supplies imagery.
 
 **PRD coverage:** IMAGE-01, complete PRD Section 13 seed inventory, all-feature coverage matrix.
 
 ### Build tasks
 
-- [ ] Expand all seeds to PRD Section 13 counts, including partner organisations/personas, commerce, referrals, permits, jobs, notifications, AI examples and telemetry. All business information is fictional.
-- [ ] Generate the 100 listed images separately: 2 hero + 10 markets + 30 stalls + 30 foods + 12 personas + 6 partner scenes + 6 ads + 4 evidence/training scenes. One prompt produces one image; no collages/contact sheets.
-- [ ] Save assets under their specified filenames, optimise WebP copies, supply alt text and record prompt/provenance/license in `docs/asset-manifest.json`. Use procedural generation per brief if no free image-generation service is available; never silently incur charges.
-- [ ] Produce two short synthetic training videos from the evidence artwork/simple animation, with visible demo time/location captions and no external video service dependency. These are additional media assets, not replacements for any of the 100 individual images.
-- [ ] Add fictional names, plausible MYR prices, categories, dietary diversity, realistic BM/English/mixed reviews, and explicit generated-content labels.
-- [ ] Create stable scenario fixtures for fresh batch, reminder, ending offer, sold-out stock, missing handling data, rejected upload, and confidential report.
-- [ ] Keep all fixture content public-safe: no true credentials, private connected records, or real complaint evidence in the static build.
-- [ ] Implement frozen-time fixture scenarios and an explicit reset-to-today connected seed process. Guard every reset with the known demo project identity.
-- [ ] Make fixture actions local to the current browser, with Reset Demo; never expose a public remote reset endpoint.
-- [ ] Populate all Phase 8–10 simulation screens with varied pending/approved/rejected/failed/completed states; fix any placeholder-only feature.
-- [ ] Ensure sponsors obey active filters, do not change organic rank, have visible labels, and disappear when campaign eligibility ends.
-- [ ] Complete dashboard summaries for vendor-reported offer sales/discards and anonymous aggregate discovery events.
-- [ ] Write both the five-minute core script and the full-vision script, with working persona switches and scenario resets. Complete `docs/feature-coverage.md` for every PRD requirement, with no deferred demo feature.
-- [ ] Record dataset/asset provenance and model licenses in `docs/demo-guide.md`.
-- [ ] Populate a synthetic **one market / 10 stalls / four weeks** pilot dashboard alongside the larger demo dataset. Clearly distinguish synthetic pilot values from actual Phase 6 evaluation measurements.
-- [ ] Write `docs/pilot-plan.md`: week-one baseline/onboarding, weeks-two/three pay-at-stall trial, week-four review; define net RM recovered per participating stall-night and weighed kg diverted to human consumption, separately from compost/BSF and estimated weights.
-- [ ] Prepare fictional WhatsApp/Facebook/TikTok share cards and QR posters for organiser-approved distribution after hawker onboarding; do not post or message anyone automatically.
-- [ ] Include the sourced DOSM sector figure, scoped positioning statement, free basic tier and commission/council-subscription/forecast hypotheses from PRD Section 18 in the demo business view.
-- [ ] Fill `docs/feature-coverage.md` for must-have/should-have requirements, privacy/halal/report safeguards, agent side effects and pilot KPI fields.
+- [x] Expand the fixture catalog to PRD Section 13 business counts: 10 markets, 30 stalls/owners, 50 customers, 90 foods, 150 batches/reviews, and complete partner/commerce/advanced history sets. All business information is fictional. Actual consented speech recordings and full connected provisioning remain unchecked below.
+- [x] Reserve described placeholders for the 100 listed image slots (user will provide final images): 2 hero + 10 markets + 30 stalls + 30 foods + 12 personas + 6 partner scenes + 6 ads + 4 evidence/training scenes. Keep optional prompts as references; no generation is required.
+- [x] Create an asset manifest with descriptions and accessible alt text. When the user supplies images, validate and optimise them and record user-provided provenance.
+- [x] Produce two short synthetic training videos from described placeholders/simple animation, with visible demo time/location captions and no external video service dependency. These are additional media assets, not replacements for any of the 100 individual images.
+- [x] Add fictional names, plausible MYR prices, categories, dietary diversity, realistic BM/English/mixed reviews, and explicit generated-content labels.
+- [x] Create stable scenario fixtures for fresh batch, reminder, ending offer, sold-out stock, missing handling data, rejected upload, and confidential report.
+- [x] Keep all fixture content public-safe: no true credentials, private connected records, or real complaint evidence in the static build.
+- [x] Implement frozen-time fixture scenarios and complete browser-local reset. Existing connected operator guard still refuses arbitrary/non-demo targets; full Phase 11 connected reset-to-today provisioning remains unchecked below.
+- [x] Make fixture actions local to the current browser, with Reset Demo; never expose a public remote reset endpoint.
+- [x] Populate all Phase 8–10 simulation screens with varied pending/approved/rejected/failed/completed states; fix any placeholder-only feature.
+- [x] Ensure sponsors obey active filters, do not change organic rank, have visible labels, and disappear when campaign eligibility ends.
+- [x] Complete dashboard summaries for vendor-reported offer sales/discards and anonymous aggregate discovery events.
+- [x] Write both the five-minute core script and the full-vision script, with working persona switches and scenario resets. Complete `docs/feature-coverage.md` for every PRD requirement, with no deferred demo feature.
+- [x] Record dataset/asset provenance and model licenses in `docs/demo-guide.md`.
+- [x] Populate a synthetic **one market / 10 stalls / four weeks** pilot dashboard alongside the larger demo dataset. Clearly distinguish synthetic pilot values from actual Phase 6 evaluation measurements.
+- [x] Write `docs/pilot-plan.md`: week-one baseline/onboarding, weeks-two/three pay-at-stall trial, week-four review; define net RM recovered per participating stall-night and weighed kg diverted to human consumption, separately from compost/BSF and estimated weights.
+- [x] Prepare fictional WhatsApp/Facebook/TikTok share cards and QR posters for organiser-approved distribution after hawker onboarding; do not post or message anyone automatically.
+- [x] Include the sourced DOSM sector figure, scoped positioning statement, free basic tier and commission/council-subscription/forecast hypotheses from PRD Section 18 in the demo business view.
+- [x] Fill `docs/feature-coverage.md` for must-have/should-have requirements, privacy/halal/report safeguards, agent side effects and pilot KPI fields.
+
+### Checkpoint — 2 October 2026
+
+Local Phase 11 build batch implemented: `/demo/presentation` studio and business/pilot view, deterministic full catalog, resettable frozen scenarios, full runtime discovery/menu/batch/review fixtures, expanded commerce/partner/advanced history, 100 individually mapped described image slots, two eight-second synthetic diagram MP4s, three fictional community poster drafts with same-device QR, and core/full-vision/pilot guides. Images remain placeholders as requested; no raster image was generated. Local lint/type/build and credential checks passed. Initial broad tests found two legacy fixture assertions and a Windows temporary-directory issue; focused repairs passed 39 frontend and three Python checks. Browser checks covered local reset, pilot baseline/trial calculations, food slots, clip metadata and desktop/mobile overflow. Final Friday schedule/food association/cache refresh repairs are recorded in [Phase 11 acceptance](docs/phase11-acceptance.md).
+
+**Remaining Phase 11 work / acceptance:**
+
+- [x] Add guarded core catalog/account/membership seed scaffold in `scripts/phase11_seed.py`; it is unexecuted and preserves existing rows/audits.
+- [ ] Complete full commerce/partner history and guarded reset-to-today, then execute complete Phase 11 provisioning against the disposable project. Direct DB is unreachable; fixture counts are not connected counts.
+- [ ] Execute fixture-versus-SQL scenario parity, repeated connected seed deduplication and non-demo reset refusal after configuration. Do not treat skipped live tests or syntax parsing as database acceptance.
+- [ ] Supply consented human BM/Manglish/English evaluation clips and actual paired listing times as described in Phase 6; 24 labelled scripts exist, not 24 measured recordings. No synthetic pilot/video data enters Evaluation.
+- [ ] Finish complete core/full-vision walkthroughs on desktop and phone, actual filtered export download and target-device/localisation/accessibility acceptance. Browser evidence/limitations are recorded below when available.
+- [ ] When user images arrive, validate/optimise each of the 100 supplied files and record provenance/licence. Described slots satisfy the current user instruction; actual image files remain absent.
+- [ ] Replace localhost QR origin with an approved deployed preview, review posters with the organiser and obtain explicit distribution instruction. Nothing is posted or sent automatically.
+- [ ] Complete prior live acceptance, including genuine opted-in Phase 10 push and connected permissions/transaction races before calling the full demo accepted.
+
+No keys, remote migration/reset, hosting, agency/company messages or paid service used during this build. Technology: React/TypeScript/Vite, deterministic Python/JSON seeds, existing domain engines, local Pillow/imageio-ffmpeg rendering and qrcode SVG metadata. Guides: [demo guide](docs/demo-guide.md), [pilot plan](docs/pilot-plan.md), [asset manifest](docs/asset-manifest.json). Phase 11 is locally built; full connected/human/device acceptance remains pending.
 
 ### Deliverables
 
-Complete prefilling, original generated imagery, resettable presentation scenarios, revenue mock-ups, and demo guide.
+Complete prefilling, described image placeholders (user-provided imagery later), resettable presentation scenarios, revenue mock-ups, and demo guide.
 
 ### End-of-phase test gate
 
@@ -634,32 +761,49 @@ Complete prefilling, original generated imagery, resettable presentation scenari
 - Run the same key scenario vectors against fixture and connected adapters to detect divergent batch/promotion rules.
 - Verify repeated seeding does not duplicate accounts/records and that reset refuses a non-demo target.
 - Walk through the core and full-vision scripts once at phone and desktop sizes; check no mixed-mode write, private-data leakage, or unlabelled fake certification/partnership.
-- Validate all 100 prompt IDs and individual files, manifest mappings and generated labels; visually inspect the image library once and fix missing/incorrect subjects together.
+- Validate all 100 image slot IDs, descriptions and manifest mappings; inspect placeholders once and validate final user-provided files when supplied.
 - Check sponsor filter integrity and campaign time boundaries.
 - Check pilot metric denominators for weekly markets, collection/weight deduplication, gross versus net RM, actual versus estimated/synthetic evidence, and the Evaluation screen's use of real recorded results only.
 
-**Done when:** every feature has usable fictional content, every required image has a file and provenance, all journeys are repeatable, and the feature coverage matrix has no placeholder/deferred gaps.
+**Done when:** every feature has usable fictional content, all 100 user-image slots have descriptions and mappings (actual user files/provenance tracked separately), all journeys are repeatable, and the feature coverage matrix accurately distinguishes implemented simulations from pending live acceptance.
 
-## 15. Phase 12 — Deployment, full acceptance, handoff
+### Local readiness closeout — before Phase 12
+
+Authoritative remaining jobs and user inputs: [docs/REMAINING_JOBS.md](docs/REMAINING_JOBS.md). No deployment is authorised by this planning amendment. Supabase credentials enable disposable connected acceptance; they do not complete missing provisioning or prove permission correctness. Current image placeholders remain valid until the user's files arrive.
+
+- [ ] Configure localhost web/FastAPI with the disposable Supabase project and guarded operator settings; apply ordered migrations and test account/session behaviour.
+- [ ] Finish full connected Phase 11 datasets/memberships/reset and execute repeat-seed, refusal and fixture/SQL parity checks.
+- [ ] Implement a backend-only Morpheus extraction adapter; select the model against actual availability, BM/Manglish quality and the account's free allowance. Add schema validation, confidence/confirmation, timeout/quota handling and manual fallback. Retain local inference; freshness stays deterministic.
+- [ ] Complete connected gates from Phases 2–9: RLS/Storage/Realtime, weather/closing agent, voice/retention, reports/media, commerce stock/sponsor checks and partner privacy/collections. Run dispatch locally now; Railway dispatch activation is deferred to Phase 12.
+- [ ] Complete Phase 10 actual consenting desktop push plus lease/retry/revocation/privacy tests locally; explicitly track phone secure-origin constraints.
+- [ ] Add PWA manifest/icons/app-shell cache/offline/update handling locally, without private/API/tile caching.
+- [ ] Complete desktop/phone core/full-vision scripts, actual CSV downloads, copy/accessibility/security/failure paths and low-memory/network checks.
+- [ ] Obtain consented human recordings and paired timing measurements; keep Evaluation unmeasured until actual evidence exists.
+- [ ] Prepare local launch/recovery and deployment/migration/backup/rollback instructions and configuration files; publishing remains later.
+- [ ] Validate user-provided images/provenance when supplied; do not generate replacement artwork.
+- [ ] Run one final local regression/acceptance batch after implementation; record real results before deployment. Focused failure repairs only.
+
+## 15. Phase 12 — Final deployment and handoff
 
 **Goal:** Deliver the fixture demo on Vercel and connected demo on Vercel/Railway/Supabase, subject to free-account access and eligibility.
 
 **Tools:** Vercel, Railway, Supabase dashboards/CLI, Dockerfile, provider logs, Playwright, pytest, Vitest, axe-core, browser performance tools.
 
-### Build and deployment tasks
+### Deployment tasks — execute last
 
-- [ ] Confirm account access, free-tier availability, remaining allowances, and a non-commercial demo use compatible with Vercel Hobby. Do not purchase plans or attach a paid add-on.
-- [ ] Create the Supabase demo project; apply versioned migrations, policies and seeds; enable and inspect the SQL reminder schedule.
-- [ ] Deploy one small Railway API container using the pinned Python runtime. Bind Uvicorn to `0.0.0.0` and the provider's `PORT`; use one worker initially.
-- [ ] Set API health endpoint, restart behaviour, log redaction, allowed origins, and request limits. Store no durable uploads on Railway's filesystem.
-- [ ] Enable idle/sleep behaviour if available on the actual free account; do not rely on it as a guaranteed entitlement. Use no keep-alive pings.
-- [ ] Deploy the Vite static app to Vercel with SPA route rewrites and separate fixture/connected configuration.
-- [ ] Configure exact Supabase Auth redirect URLs and public media/private signed-access behaviour for deployed origins.
-- [ ] Add PWA manifest, icons, app-shell service worker, cache-version updates, and an offline explanation. Exclude API availability, private media, and OSM tiles from offline prefetch/cache rules.
-- [ ] Add usage/runbook guidance: inspect Railway credit, Supabase storage/egress, service pausing, and recovery before presentations. Set account-supported caps/alerts; if free operation cannot continue, suspend connected service and retain fixture mode.
-- [ ] Document environment variables, migration order, seed/reset, restoring paused services, rollback, and known limitations.
-- [ ] Use code rollback plus a compatible schema strategy; back up/export demo data before risky schema changes. Do not rely on paid point-in-time recovery.
-- [ ] Complete mobile layout, performance, accessibility, security, and failure-state fixes as one final preparation batch.
+Current instruction (5 October 2026): frontend and API stay on localhost until a later deployment instruction. Hosted disposable Supabase and Morpheus API connections may be tested from the local backend. Railway remains the selected future backend host. Morpheus model selection is delegated to the implementation agent; no model or free allowance is assumed yet.
+
+Complete the local readiness checklist above first. Deployment jobs are kept separately in [REMAINING_JOBS.md, section B](docs/REMAINING_JOBS.md#b-deploy-last--phase-12).
+
+- [ ] Confirm account access, current free allowances and eligibility without buying a plan.
+- [ ] Deploy the accepted Vite frontend to Vercel with SPA rewrites/PWA assets.
+- [ ] Deploy FastAPI and required dispatcher/media runtime to Railway; configure port, health, log redaction, limits and restart/sleep behaviour.
+- [ ] Configure deployed secrets, exact Auth redirects/CORS and accepted Supabase/Morpheus settings; verify the guarded database target rather than reseeding it blindly.
+- [ ] Connect and observe public-origin jobs, weather, private media, realtime and opted-in test push.
+- [ ] Verify quota controls, paused/asleep service recovery, backups and rollback.
+- [ ] Run deployed-origin smoke checks and any device checks requiring the public secure origin. Repeat full regression only when changed code/configuration invalidates prior acceptance.
+- [ ] Replace localhost QR destinations with approved deployed URLs; distribute only after explicit instruction.
+- [ ] Deliver verified links, deployment runbook, actual acceptance evidence and remaining limitations.
 
 ### Configuration contract
 
@@ -678,15 +822,15 @@ Complete prefilling, original generated imagery, resettable presentation scenari
 | `INTEGRATION_MODE` | Railway | Business providers must remain `simulated`; technical adapter modes are configured separately. |
 | `VITE_INTEGRATION_MODE` | Web | Business simulation label only; cannot enable a live technical or business service. |
 | `WEATHER_MODE`, `EXTRACTION_MODE`, `PUSH_MODE` | Railway | Separate technical adapters: live/fixture, hosted/local/fixture, enrolled-test/simulated. Business integration mode remains simulated. |
-| `GEMINI_API_KEY`, `EXTRACTION_MODEL` | Railway only | Scoped free-tier synthetic-transcript extraction; never expose a key in web code. |
+| `LOCAL_LLM_URL`, `LOCAL_LLM_MODEL`, `LOCAL_LLM_KEY` | API process only | Authenticated loopback llama.cpp configuration; key remains private. Hosted/cloud adapter is not implemented and free Railway model hosting is not assumed. |
 | `VAPID_PRIVATE_KEY`, `VAPID_PUBLIC_KEY`, `VAPID_SUBJECT` | Railway; public key only in web | Genuine push to opted-in demo subscriptions; no sensitive payload in notifications. |
 | `AGENT_DISPATCH_SECRET` | Railway and protected scheduler configuration | Authenticate conditional outbox dispatch; never public. |
 
 Do not place server-only secrets in any `VITE_` variable. Use a separate migration credential locally/within a trusted deployment job; never distribute it with the app.
 
-### Final end-of-phase gate — run the full suite here once
+### Deployed acceptance gate — reuse the accepted local regression evidence
 
-- Full lint/type/build, unit, API, database permission, and fixture/connected contract suites.
+- Confirm the final local lint/type/build, unit, API, database-permission and fixture/connected gate evidence remains valid. Repeat affected checks only when deployment changes invalidate it.
 - End-to-end coverage of every PRD feature, including commerce/refunds, ads/subscriptions, partner publishing, authority/council cases, waste collection, notification/AI/sensor/native previews and 100 image assets.
 - Fresh-session checks in connected deployment, including CORS, JWT validation, Auth redirect, upload access, cron alert generation, and expired promotion filtering.
 - Permission regressions for cross-vendor writes, role escalation, direct database access, private media, and time overrides.
@@ -719,7 +863,7 @@ These are planning constraints checked on 1 October 2026, not unlimited-service 
 - **Supabase:** Keep seed database and media substantially below free quotas; free projects may pause after inactivity. Document recovery and do not rely on scheduled jobs while a project is paused. [Supabase pricing](https://supabase.com/pricing)
 - **Maps:** OSM data and rendering libraries do not imply unlimited free tile hosting. Follow attribution/cache policy, avoid automated tile-load testing, and do not package public raster tiles for offline use. [OSM policy](https://operations.osmfoundation.org/policies/tiles/)
 - **Speech:** Browser inference avoids a hosted inference fee, but device capability and mixed-language accuracy must be measured. [Transformers.js](https://huggingface.co/docs/transformers.js/en/index)
-- **LLM extraction:** Use the selected Gemini free quota for synthetic/redacted inputs only after reviewing availability/data-use terms, or a developer-local Qwen/llama.cpp adapter. Neither free hosting of a model nor unlimited hosted inference is assumed. Chips handle quota failures. [Gemini pricing](https://ai.google.dev/gemini-api/docs/pricing)
+- **LLM extraction:** Phase 6 uses the pinned developer-local Qwen/llama.cpp adapter on existing hardware, with no paid/cloud fallback. Free hosting of this model is not assumed; connected deployment must retain manual entry when no local runtime is available. A future hosted provider would require separate implementation and terms/quota review.
 - **Weather/push/agent:** Open-Meteo free hosted API is non-commercial. Cache by active market; use conditional job dispatch and free VAPID/Web Push libraries. Provider compute/egress still consumes quotas and push is not guaranteed. [Open-Meteo](https://github.com/open-meteo/open-meteo), [pywebpush](https://github.com/web-push-libs/pywebpush)
 - **Food policy:** Use the PRD's explicitly labelled demo handling policy. Review it with a qualified local food-safety professional before a real-vendor pilot; do not implement the original unsupported thermal formula. [MOH guidance](https://hq.moh.gov.my/fsq/amr-antimicrobial-resistance-dan-keselamatan-makanan)
 
@@ -749,3 +893,7 @@ Copy into `docs/phase-status.md` when implementation starts:
 ```
 
 No application tests are needed merely to create or edit these planning documents. During implementation, follow the phase gates above rather than repeatedly testing each small change.
+
+## Image delivery amendment — user-provided assets
+
+All current image slots use labelled placeholders describing the intended subject. The user will supply final images later; do not generate or download artwork. Retain `IMAGE_GENERATION_PROMPTS.md` as an optional reference only. Phase 11 image-generation tasks are superseded by an asset manifest, accessible placeholders and eventual user-file replacement/validation. This does not block Phase 5.

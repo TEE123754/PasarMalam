@@ -1,0 +1,15 @@
+import catalog from '../../../../contracts/demo-catalog.json'
+import type { VendorWorkspace, VendorBatch } from '../vendor/model'
+import { emptyFresh, publish, tick } from '../freshness/engine'
+export function seededWorkspace(now:Date):VendorWorkspace {
+ const data=catalog.discovery,w:VendorWorkspace={stalls:data.stalls.map(s=>{const m=data.markets.find(m=>m.id===s.marketId)!;return {id:s.id,market_id:s.marketId,name:s.name,category:s.category,specialty:s.specialty,price_sen:s.priceSen,halal:s.halal as 'declared'|'non-halal'|'not-declared',open:s.open,lot:s.lot||'DEMO',opens:m.type==='night'?'17:00':'07:00',closes:m.type==='night'?'22:30':'12:00',latitude:s.latitude??null,longitude:s.longitude??null,photo:null}}),foods:data.menu.map(f=>({id:f.id,stall_id:f.stallId,name:f.name,price_sen:f.priceSen,ingredients:f.ingredients,photo:null})),batches:catalog.batches.map((b,i):VendorBatch=>({id:i<2?`satay-batch-${i+1}`:b.id,food_item_id:b.food,batch_number:b.number,prepared_at:new Date(now.getTime()-b.ageMinutes*60000).toISOString(),uploaded_at:new Date(now.getTime()-b.ageMinutes*60000+120000).toISOString(),corrected_prepared_at:null,original_quantity:20,remaining_quantity:b.quantity,advisory_deadline:b.confirmed?new Date(now.getTime()+(i%5===1?15:60)*60000).toISOString():null,status:b.status as VendorBatch['status'],handling:{storage:b.storage as 'ambient'|'unknown',note:'Fictional prepared batch'},photo:null})),events:[],requests:{}}
+ const state=emptyFresh(now)
+ for(const [i,b] of w.batches.entries()){if(catalog.batches[i].confirmed)state.declarations[b.id]={ingredients:w.foods.find(f=>f.id===b.food_item_id)!.ingredients,confirmed:true,ambient:true};w.events.push({batch_id:b.id,kind:'synthetic-seed',at:b.uploaded_at,details:{demo:true,source:'Phase 11 deterministic seed',original_prepared_at:b.prepared_at}})}
+ const next=tick(w,state,now);next.workspace.freshness=next.state
+ const eligible=next.workspace.batches.filter(b=>b.status==='active'&&next.state.decisions[b.id]?.eligible&&Date.parse(b.advisory_deadline??'')>now.getTime()+15*60000&&next.workspace.stalls.find(s=>s.id===next.workspace.foods.find(f=>f.id===b.food_item_id)?.stall_id)?.opens==='17:00')
+ for(const [i,b] of eligible.slice(0,12).entries()){next.workspace.freshness=publish(next.workspace,next.workspace.freshness!,now,{batch:b.id,kind:i%3===0?'free':i%3===1?'bogo':'percentage',value:i%3===2?25:0,units:4,title:`DEMO ${i%3===0?'surplus RM0':i%3===1?'bundle':'25% clearance'} · ${i+1}`},`DEMO-seed-offer-${i+1}`)}
+ next.workspace.freshness.outcomes=next.workspace.stalls.slice(0,10).map((s,i)=>({batch:next.workspace.batches[i*5+4].id,units:2,grams:100+i*20,at:new Date(now.getTime()-86400000).toISOString()}))
+ return next.workspace
+}
+
+

@@ -1,0 +1,30 @@
+{
+  "fictional_text_only": true,
+  "human_accuracy": "not measured",
+  "results": [
+    {
+      "source": "morpheus",
+      "dish": "Chicken satay",
+      "quantity": 20,
+      "price_sen": 600,
+      "cook_time": "2026-10-05T17:00:00+08:00",
+      "flags": []
+    },
+    {
+      "source": "morpheus",
+      "dish": "Chicken satay",
+      "quantity": 20,
+      "price_sen": 600,
+      "cook_time": "2026-10-05T17:00:00+08:00",
+      "flags": []
+    },
+    {
+      "source": "morpheus",
+      "dish": "Chicken satay",
+      "quantity": 20,
+      "price_sen": 600,
+      "cook_time": "2026-10-05T17:00:00+08:00",
+      "flags": []
+    }
+  ]
+}

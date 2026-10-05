@@ -1,0 +1,11 @@
+{
+  "platform": "Windows x64 CPU",
+  "version": "b11146",
+  "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11146/llama-b11146-bin-win-cpu-x64.zip",
+  "sha256": "14cf1303ca9ac3abd94816850532f9f9a69ac66fbaca3776fc6f9061c2fac1d1",
+  "bytes": 18560055,
+  "model_sha256": "b46661073c18e5b56a41fa320975f866a00def1ff08feef4718e013258896f8c",
+  "model_bytes": 1285494304,
+  "license": "MIT llama.cpp; Apache-2.0 Qwen",
+  "source": "https://github.com/ggml-org/llama.cpp/releases/tag/b11146"
+}

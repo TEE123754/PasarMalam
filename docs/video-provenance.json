@@ -1,0 +1,14 @@
+{
+  "method": "Original text/diagram animation; no raster artwork generated",
+  "synthetic": true,
+  "location": "Fictional Seri Pelita",
+  "timestamp": "2026-10-02T20:30:00+08:00",
+  "durationSeconds": 8,
+  "fps": 12,
+  "files": [
+    "training-1.mp4",
+    "training-2.mp4"
+  ],
+  "renderer": "Pillow and imageio-ffmpeg 0.6.0; bundled FFmpeg, libx264",
+  "qrOrigin": "http://127.0.0.1:5173"
+}

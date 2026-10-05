@@ -1,0 +1,2 @@
+import type { VendorWorkspace } from './model'
+export function heldUnits(w:VendorWorkspace,batch:string,now:Date){const orders=w.commerce?.orders.filter(o=>o.batch===batch&&['reserved','accepted','ready'].includes(o.status)&&Date.parse(o.expires)>now.getTime()).reduce((n,o)=>n+o.units,0)??0;const jobs=w.partners?.entries.filter(e=>e.kind==='collection'&&e.batch===batch&&['requested','accepted','scheduled'].includes(e.status)&&(!e.expires||Date.parse(e.expires)>now.getTime())).reduce((n,e)=>n+(e.units??0),0)??0;return orders+jobs}

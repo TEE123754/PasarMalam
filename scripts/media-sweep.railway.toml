@@ -1,0 +1,5 @@
+# Separate guarded operator job; deployment is intentionally not performed here.
+[deploy]
+startCommand = "uv run --project apps/api python scripts/media_sweep.py --apply"
+cronSchedule = "0 * * * *"
+restartPolicyType = "NEVER"

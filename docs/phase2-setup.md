@@ -36,7 +36,7 @@ This provisions/reuses confirmed `.invalid` accounts without sending invitations
 
 `--reset` removes only the stable Phase 2 business seed IDs, then recreates them. It refuses any database containing batches/reports and cannot delete Auth users or their audit history. Restrictive future foreign keys also stop unsafe resets. This is not a blanket database reset.
 
-Copy the root `.env.example` to `apps/web/.env.local` and set **only** `VITE_APP_MODE=connected`, public Supabase URL/public key and local API URL. Disable hosted public signup in the Supabase Auth settings. The five login emails are `vendor-a`, `vendor-b`, `customer-a`, `customer-b` and `admin`, each at `pasarmalam.invalid`; the shared operator-chosen seed password is never committed or shown in the UI.
+Copy the root `.env.example` to `apps/web/.env.local` and set **only** the public Supabase URL/public key and local API URL; routes now select modes (`/sandbox/*` for the disposable connected database, `/demo/*` for browser fixtures), so `VITE_APP_MODE` is deprecated. Disable hosted public signup in the Supabase Auth settings. The five login emails are `vendor-a`, `vendor-b`, `customer-a`, `customer-b` and `admin`, each at `pasarmalam.invalid`; the shared operator-chosen seed password is never committed or shown in the UI.
 
 ```powershell
 uv run --project apps/api uvicorn app.main:app --app-dir apps/api --host 127.0.0.1 --port 8000

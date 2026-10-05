@@ -1,0 +1,11 @@
+{
+  "version": "DEMO_ADVISORY_V2",
+  "approval": "synthetic-demo-only",
+  "provenance": "Product demonstration table; no scientific validation or real-food approval",
+  "base": 120,
+  "risk": {"low":120,"medium":90,"high":60,"unknown":30},
+  "temperature": [{"below":30,"cap":120},{"below":35,"cap":90},{"below":100,"cap":60}],
+  "humidity": [{"below":80,"cap":120},{"below":90,"cap":90},{"below":101,"cap":60}],
+  "uncertain":30,
+  "ingredients": {"rice":"medium","nasi":"medium","noodles":"medium","mee":"medium","chicken":"high","ayam":"high","egg":"high","telur":"high","coconut":"high","santan":"high","milk":"high","susu":"high","fish":"high","ikan":"high","meat":"high","daging":"high","pork":"high","flour":"low","tepung":"low","potato":"low","kentang":"low","sugar":"low","gula":"low","peanuts":"medium","kacang":"medium"}
+}

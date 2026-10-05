@@ -1,0 +1,7 @@
+{
+  "supabase_jwks": 200,
+  "supabase_markets": 404,
+  "morpheus_models_status": 200,
+  "selected_model_available": true,
+  "database": "unreachable; verify connection endpoint/password/network"
+}

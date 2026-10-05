@@ -1,0 +1,463 @@
+{
+  "reference_now": "2026-10-01T20:00:00+08:00",
+  "status": "Not measured; scripts only. Human recordings and consent pending.",
+  "minimum_speakers": 5,
+  "samples": [
+    {
+      "id": "bm-01",
+      "language": "BM",
+      "transcript": "Satay ayam 5 batang RM 5.00, bahan ayam, kacang. Siap pukul 6 petang.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 5,
+        "unit": "stick",
+        "price_sen": 500,
+        "ingredients": [
+          "ayam",
+          "kacang"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "bm-02",
+      "language": "BM",
+      "transcript": "Satay ayam 10 batang RM 6.00, bahan ayam, kacang. Siap pukul 6 petang.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 10,
+        "unit": "stick",
+        "price_sen": 600,
+        "ingredients": [
+          "ayam",
+          "kacang"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "bm-03",
+      "language": "BM",
+      "transcript": "Satay ayam 20 batang RM 3.50, bahan ayam, kacang. Siap pukul 6 petang.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 20,
+        "unit": "stick",
+        "price_sen": 350,
+        "ingredients": [
+          "ayam",
+          "kacang"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "bm-04",
+      "language": "BM",
+      "transcript": "Satay ayam 12 batang RM 8.00, bahan ayam, kacang. Siap pukul 6 petang.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 12,
+        "unit": "stick",
+        "price_sen": 800,
+        "ingredients": [
+          "ayam",
+          "kacang"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "bm-05",
+      "language": "BM",
+      "transcript": "Satay ayam 8 batang RM 5.00, bahan ayam, kacang. Siap pukul 6 petang.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 8,
+        "unit": "stick",
+        "price_sen": 500,
+        "ingredients": [
+          "ayam",
+          "kacang"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "bm-06",
+      "language": "BM",
+      "transcript": "Satay ayam 3 batang RM 6.00, bahan ayam, kacang. Siap pukul 6 petang.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 3,
+        "unit": "stick",
+        "price_sen": 600,
+        "ingredients": [
+          "ayam",
+          "kacang"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "bm-07",
+      "language": "BM",
+      "transcript": "Satay ayam 5 batang RM 3.50, bahan ayam, kacang. Siap pukul 6 petang.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 5,
+        "unit": "stick",
+        "price_sen": 350,
+        "ingredients": [
+          "ayam",
+          "kacang"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "bm-08",
+      "language": "BM",
+      "transcript": "Satay ayam 10 batang RM 8.00, bahan ayam, kacang. Siap pukul 6 petang.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 10,
+        "unit": "stick",
+        "price_sen": 800,
+        "ingredients": [
+          "ayam",
+          "kacang"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "bm-09",
+      "language": "BM",
+      "transcript": "Satay ayam 20 batang RM 5.00, bahan ayam, kacang. Siap pukul 6 petang.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 20,
+        "unit": "stick",
+        "price_sen": 500,
+        "ingredients": [
+          "ayam",
+          "kacang"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "bm-10",
+      "language": "BM",
+      "transcript": "Satay ayam 12 batang RM 6.00, bahan ayam, kacang. Siap pukul 6 petang.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 12,
+        "unit": "stick",
+        "price_sen": 600,
+        "ingredients": [
+          "ayam",
+          "kacang"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "manglish-01",
+      "language": "Manglish",
+      "transcript": "Chicken satay 8 batang RM 3.50, bahan ayam, kacang. Ready pukul 6 petang lah.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 8,
+        "unit": "stick",
+        "price_sen": 350,
+        "ingredients": [
+          "ayam",
+          "kacang"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "manglish-02",
+      "language": "Manglish",
+      "transcript": "Chicken satay 3 batang RM 8.00, bahan ayam, kacang. Ready pukul 6 petang lah.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 3,
+        "unit": "stick",
+        "price_sen": 800,
+        "ingredients": [
+          "ayam",
+          "kacang"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "manglish-03",
+      "language": "Manglish",
+      "transcript": "Chicken satay 5 batang RM 5.00, bahan ayam, kacang. Ready pukul 6 petang lah.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 5,
+        "unit": "stick",
+        "price_sen": 500,
+        "ingredients": [
+          "ayam",
+          "kacang"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "manglish-04",
+      "language": "Manglish",
+      "transcript": "Chicken satay 10 batang RM 6.00, bahan ayam, kacang. Ready pukul 6 petang lah.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 10,
+        "unit": "stick",
+        "price_sen": 600,
+        "ingredients": [
+          "ayam",
+          "kacang"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "manglish-05",
+      "language": "Manglish",
+      "transcript": "Chicken satay 20 batang RM 3.50, bahan ayam, kacang. Ready pukul 6 petang lah.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 20,
+        "unit": "stick",
+        "price_sen": 350,
+        "ingredients": [
+          "ayam",
+          "kacang"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "manglish-06",
+      "language": "Manglish",
+      "transcript": "Chicken satay 12 batang RM 8.00, bahan ayam, kacang. Ready pukul 6 petang lah.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 12,
+        "unit": "stick",
+        "price_sen": 800,
+        "ingredients": [
+          "ayam",
+          "kacang"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "manglish-07",
+      "language": "Manglish",
+      "transcript": "Chicken satay 8 batang RM 5.00, bahan ayam, kacang. Ready pukul 6 petang lah.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 8,
+        "unit": "stick",
+        "price_sen": 500,
+        "ingredients": [
+          "ayam",
+          "kacang"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "manglish-08",
+      "language": "Manglish",
+      "transcript": "Chicken satay 3 batang RM 6.00, bahan ayam, kacang. Ready pukul 6 petang lah.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 3,
+        "unit": "stick",
+        "price_sen": 600,
+        "ingredients": [
+          "ayam",
+          "kacang"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "manglish-09",
+      "language": "Manglish",
+      "transcript": "Chicken satay 5 batang RM 3.50, bahan ayam, kacang. Ready pukul 6 petang lah.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 5,
+        "unit": "stick",
+        "price_sen": 350,
+        "ingredients": [
+          "ayam",
+          "kacang"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "manglish-10",
+      "language": "Manglish",
+      "transcript": "Chicken satay 10 batang RM 8.00, bahan ayam, kacang. Ready pukul 6 petang lah.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 10,
+        "unit": "stick",
+        "price_sen": 800,
+        "ingredients": [
+          "ayam",
+          "kacang"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "en-01",
+      "language": "English",
+      "transcript": "Chicken satay 20 sticks RM 5.00, ingredients chicken, peanuts. Cooked at 6 pm.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 20,
+        "unit": "stick",
+        "price_sen": 500,
+        "ingredients": [
+          "chicken",
+          "peanuts"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "en-02",
+      "language": "English",
+      "transcript": "Chicken satay 12 sticks RM 6.00, ingredients chicken, peanuts. Cooked at 6 pm.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 12,
+        "unit": "stick",
+        "price_sen": 600,
+        "ingredients": [
+          "chicken",
+          "peanuts"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "en-03",
+      "language": "English",
+      "transcript": "Chicken satay 8 sticks RM 3.50, ingredients chicken, peanuts. Cooked at 6 pm.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 8,
+        "unit": "stick",
+        "price_sen": 350,
+        "ingredients": [
+          "chicken",
+          "peanuts"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "en-04",
+      "language": "English",
+      "transcript": "Chicken satay 3 sticks RM 8.00, ingredients chicken, peanuts. Cooked at 6 pm.",
+      "audio": null,
+      "speaker": null,
+      "consent": null,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 3,
+        "unit": "stick",
+        "price_sen": 800,
+        "ingredients": [
+          "chicken",
+          "peanuts"
+        ],
+        "cook_time": "2026-10-01T18:00:00+08:00"
+      }
+    }
+  ]
+}

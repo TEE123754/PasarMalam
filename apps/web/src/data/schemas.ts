@@ -6,6 +6,7 @@ export const actorSchema = z.object({
 })
 
 export const discoverySchema = z.object({
+  server_now: z.string().datetime({offset:true}).nullable().default(null),
   markets: z.array(z.object({
     id: z.string(), name: z.string(), area: z.string(), type: z.enum(['night','day']),
     hours: z.string(), days: z.string(), cover: z.string(), stallCount: z.number().int().nonnegative(),

@@ -6,7 +6,7 @@ import 'leaflet/dist/leaflet.css'
 import type { Market } from '../data/types'
 import type { Bounds } from './engine'
 
-export default function MarketMap({ markets, onBounds }: { markets: Market[]; onBounds: (bounds: Bounds | null) => void }) {
+export default function MarketMap({ markets, onBounds, sponsors }: { markets: Market[]; onBounds: (bounds: Bounds | null) => void; sponsors?:Set<string> }) {
   const { t } = useTranslation()
   const host = useRef<HTMLDivElement>(null)
   const map = useRef<L.Map | null>(null)
@@ -33,15 +33,17 @@ export default function MarketMap({ markets, onBounds }: { markets: Market[]; on
       const point: L.LatLngTuple = [market.latitude,market.longitude]
       points.push(point)
       const link = document.createElement('a')
-      link.href = appPath(`/markets/${encodeURIComponent(market.id)}`); link.textContent = market.name
-      L.marker(point, {title:market.name,alt:market.name,icon:L.divIcon({className:'market-pin',html:market.type === 'night' ? '☾' : '☀',iconSize:[36,36],iconAnchor:[18,18]})}).bindPopup(link).addTo(pins.current)
+      const sponsored=sponsors?.has(market.id)??false
+      const label=`${market.name}${sponsored?' · DEMO sponsored':''}`
+      link.href = appPath(`/markets/${encodeURIComponent(market.id)}`); link.textContent = label
+      L.marker(point, {title:label,alt:label,icon:L.divIcon({className:'market-pin',html:sponsored?'Ad':market.type === 'night' ? '☾' : '☀',iconSize:[36,36],iconAnchor:[18,18]})}).bindPopup(link).addTo(pins.current)
     }
     // Do not recenter during a map-bound search: the user controls the current viewport.
     if (points.length && !map.current.getContainer().dataset.positioned) {
       map.current.fitBounds(points,{padding:[35,35],maxZoom:13})
       map.current.getContainer().dataset.positioned = 'yes'
     }
-  }, [markets])
+  }, [markets,sponsors])
   return <section className="map-panel panel" aria-label={t('mapView')}>
     <div ref={host} className="market-map" aria-label={t('mapView')}/>
     {failed && <p role="status">{t('tilesUnavailable')}</p>}

@@ -1,0 +1,17 @@
+{
+  "library": "@huggingface/transformers@4.3.0",
+  "model": "onnx-community/whisper-tiny",
+  "revision": "ff4177021cc41f7db950912b73ea4fdf7d01d8e7",
+  "dtype": "q8",
+  "device": "wasm",
+  "weights_bytes": 40844231,
+  "size_note": "Approximately 41 MB weights, plus tokenizer/config and ONNX WASM runtime; browser cache may avoid repeat downloads.",
+  "license": "MIT upstream Whisper; ONNX repository declares its upstream base_model but has no separate license field.",
+  "upstream": "https://huggingface.co/openai/whisper-tiny",
+  "onnx": "https://huggingface.co/onnx-community/whisper-tiny",
+  "llm": "Qwen/Qwen2.5-1.5B-Instruct-GGUF",
+  "llm_revision": "91cad51170dc346986eccefdc2dd33a9da36ead9",
+  "llm_file": "qwen2.5-1.5b-instruct-q5_k_m.gguf",
+  "llm_license": "Apache-2.0",
+  "evaluation": "Not measured; Malay/Manglish recognition and structured extraction require real recordings."
+}

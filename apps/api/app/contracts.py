@@ -106,6 +106,7 @@ class Offer(BaseModel):
 
 
 class DiscoverySnapshot(BaseModel):
+    server_now: AwareDatetime | None = None
     markets: list[Market]
     stalls: list[Stall]
     offers: list[Offer]
@@ -168,6 +169,8 @@ class ComplaintInput(BaseModel):
     body: str = Field(min_length=10, max_length=2000)
     evidence_keys: list[str] = Field(default_factory=list, max_length=3)
     request_id: UUID
+    incident_at: AwareDatetime | None = None
+    category: Literal["hygiene", "handling", "misleading", "other"] = "hygiene"
 
 
 class ModerationInput(BaseModel):

@@ -2,7 +2,7 @@ import json
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Annotated
-from uuid import UUID
+from uuid import UUID, uuid4
 
 from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
@@ -81,6 +81,8 @@ async def me(member: Member) -> Actor:
 
 @router.get("/discovery", response_model=DiscoverySnapshot, tags=["public"])
 async def discovery(repo: PublicRepository) -> DiscoverySnapshot:
+    await repo.rpc("refresh_discovery_advisories", {})
+    server_now = await repo.rpc("fresh_clock", {})
     markets = await repo.rpc("discovery_markets", {})
     stalls = await repo.read(
         "public_stalls",
@@ -161,6 +163,7 @@ async def discovery(repo: PublicRepository) -> DiscoverySnapshot:
                 for row in offers
             ],
             "updatedAt": datetime.now(timezone.utc),
+            "server_now": server_now,
             "menu": [
                 {
                     "id": f["id"],
@@ -298,11 +301,11 @@ async def promote(batch_id: UUID, body: PromotionInput, member: Member) -> dict:
 async def review(body: ReviewInput, member: Member) -> dict:
     require(member, "customer")
     result = await member.repository.rpc(
-        "submit_review",
+        "community_command",
         {
-            "p_stall_id": str(body.stall_id),
-            "p_rating": body.rating,
-            "p_body": body.body,
+            "p_kind": "review",
+            "p_data": {"stall": str(body.stall_id), "rating": body.rating, "body": body.body},
+            "p_request": str(uuid4()),
         },
     )
     return {"id": result}
@@ -313,13 +316,20 @@ async def complaint(body: ComplaintInput, member: Member) -> dict:
     require(member, "customer")
     if not member.actor.verified:
         raise HTTPException(403, "Verified account required")
+    if body.incident_at is None:
+        raise HTTPException(422, "Explicit incident time required")
     result = await member.repository.rpc(
-        "submit_complaint",
+        "community_command",
         {
-            "p_stall_id": str(body.stall_id),
-            "p_body": body.body,
-            "p_evidence_keys": body.evidence_keys,
-            "p_request_id": str(body.request_id),
+            "p_kind": "report",
+            "p_data": {
+                "stall": str(body.stall_id),
+                "body": body.body,
+                "evidence": body.evidence_keys,
+                "category": body.category,
+                "incident": body.incident_at.isoformat(),
+            },
+            "p_request": str(body.request_id),
         },
     )
     return {"id": result}
@@ -329,11 +339,15 @@ async def complaint(body: ComplaintInput, member: Member) -> dict:
 async def moderate(complaint_id: UUID, body: ModerationInput, member: Member) -> dict:
     require(member, "admin")
     await member.repository.rpc(
-        "moderate_complaint",
+        "community_command",
         {
-            "p_complaint_id": str(complaint_id),
-            "p_status": body.status,
-            "p_request_id": str(body.request_id),
+            "p_kind": "status",
+            "p_data": {
+                "target": str(complaint_id),
+                "status": body.status,
+                "reason": "Legacy operator status decision",
+            },
+            "p_request": str(body.request_id),
         },
     )
     return {"status": body.status}

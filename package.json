@@ -20,6 +20,24 @@
     "phase3:live": "uv run --project apps/api python scripts/phase3_live.py",
     "phase4:check": "npm run lint && npm run typecheck && npm run build && npm run test -w @pasarmalam/web && uv run --project apps/api ruff check --config apps/api/pyproject.toml apps/api/app apps/api/tests scripts && uv run --project apps/api pytest apps/api/tests -q && node scripts/check-web-secrets.cjs",
     "phase4:live": "uv run --project apps/api python scripts/phase4_live.py",
-    "phase4:media-setup": "uv run --project apps/api python scripts/media_setup.py"
+    "phase4:media-setup": "uv run --project apps/api python scripts/media_setup.py",
+    "phase5:check": "npm run lint && npm run typecheck && npm run build && npm run test -w @pasarmalam/web && uv run --project apps/api ruff check --config apps/api/pyproject.toml apps/api/app apps/api/tests scripts && uv run --project apps/api pytest apps/api/tests -q && node scripts/check-web-secrets.cjs",
+    "phase5:agent-setup": "uv run --project apps/api python scripts/agent_setup.py",
+    "phase5:live": "uv run --project apps/api python scripts/phase5_live.py",
+    "phase6:check": "npm run lint && npm run typecheck && npm run build && npm run test -w @pasarmalam/web && uv run --project apps/api ruff check --config apps/api/pyproject.toml apps/api/app apps/api/tests scripts && uv run --project apps/api pytest apps/api/tests -q && node scripts/check-web-secrets.cjs",
+    "phase6:media-sweep": "uv run --project apps/api python scripts/media_sweep.py",
+    "phase6:model-setup": "uv run --project apps/api python scripts/voice_model_setup.py",
+    "phase6:live": "uv run --project apps/api python scripts/phase6_live.py",
+    "phase7:check": "npm run lint && npm run typecheck && npm run build && npm run test -w @pasarmalam/web && uv run --project apps/api ruff check --config apps/api/pyproject.toml apps/api/app apps/api/tests scripts && uv run --project apps/api pytest apps/api/tests -q && node scripts/check-web-secrets.cjs",
+    "phase7:live": "uv run --project apps/api python scripts/phase7_live.py",
+    "phase8:check": "npm run lint && npm run typecheck && npm run build && npm run test -w @pasarmalam/web && uv run --project apps/api ruff check --config apps/api/pyproject.toml apps/api/app apps/api/tests scripts && uv run --project apps/api pytest apps/api/tests -q && node scripts/check-web-secrets.cjs",
+    "phase8:live": "uv run --project apps/api python scripts/phase8_live.py",
+    "phase9:check": "npm run lint && npm run typecheck && npm run build && npm run test -w @pasarmalam/web && uv run --project apps/api ruff check --config apps/api/pyproject.toml apps/api/app apps/api/tests scripts && uv run --project apps/api pytest apps/api/tests -q && node scripts/check-web-secrets.cjs",
+    "phase9:live": "uv run --project apps/api python scripts/phase9_live.py",
+    "phase10:check": "npm run lint && npm run typecheck && npm run build && npm run test -w @pasarmalam/web && uv run --project apps/api ruff check --config apps/api/pyproject.toml apps/api/app apps/api/tests scripts && uv run --project apps/api pytest apps/api/tests -q && node scripts/check-web-secrets.cjs",
+    "phase10:live": "uv run --project apps/api python scripts/phase10_live.py",
+    "phase11:check": "npm run lint && npm run typecheck && npm run build && npm run test -w @pasarmalam/web && uv run --project apps/api ruff check --config apps/api/pyproject.toml apps/api/app apps/api/tests scripts && uv run --project apps/api pytest apps/api/tests -q --basetemp .phase11-qa && node scripts/check-web-secrets.cjs",
+    "phase11:catalog": "uv run --project apps/api python scripts/build_demo_catalog.py",
+    "phase11:media": "uv run --project apps/api python scripts/render_demo_media.py"
   }
 }

@@ -128,4 +128,84 @@ Browser evidence: launcher dialog opens `/demo/discover` with three markets/eigh
 
 Grouped fixes: JSX/type/import gate failures; stale successful-save retry marker; mobile header overflow. Tests ran after the implementation batch and only failed/affected checks were rerun. Original batch identity is immutable, merge windows never extend, optional quantities stay unknown, and no new batch gets a guessed food window.
 
-Remaining Phase 4 work: configure guarded disposable Supabase, apply migration 006, install matching server/private-DB media secret with `phase4:media-setup`, run `RUN_LIVE_PHASE4=1 npm run phase4:live`, and repeat the connected two-photo/failure/reconnect browser journey. Complete prior live gates too. Production setup remains outside this demo acceptance. Periodic orphan sweeping is scheduled for Phase 6; interrupted uploads use best-effort cleanup meanwhile. Generated final images remain Phase 11 and vendor-copy BM completion is part of final accessibility/localisation work.
+Remaining Phase 4 work: configure guarded disposable Supabase, apply migration 006, install matching server/private-DB media secret with `phase4:media-setup`, run `RUN_LIVE_PHASE4=1 npm run phase4:live`, and repeat the connected two-photo/failure/reconnect browser journey. Complete prior live gates too. Production setup remains outside this demo acceptance. Periodic orphan sweeping is scheduled for Phase 6; interrupted uploads use best-effort cleanup meanwhile. User-provided final images remain Phase 11 and vendor-copy BM completion is part of final accessibility/localisation work.
+
+
+## Phase 5 — local completion; connected acceptance pending
+
+Implemented synthetic ingredient/weather advisory policy, non-increasing deadlines, current reminder/draft generation, confirmed bounded clearance offers, inventory/outcomes, leased simulated outbox, coarse opt-in/revocation/quota checks, market weather cache and scoped guarded Cron/dispatcher setup. Final read-time filters conservatively cap stale weather even when maintenance is missed. All images are described placeholders for user-provided assets.
+
+Local gate: lint/type/build/private-key scan pass, 86 frontend and 56 Python checks pass; 15 live groups skipped. Final affected checks: 28 freshness tests, 10 Python checks and TypeScript pass. Browser confirms reminder → fixed declaration → 70% clearance → one simulated delivery → customer visibility → forward-time removal, plus 390px phone layout. See [Phase 5 acceptance](phase5-acceptance.md).
+
+Remaining: apply migrations 007–008 to guarded disposable Supabase after earlier live gates; execute real RPC/RLS/stock-race/outbox lease/revocation/quotas/weather persistence tests; verify minute Cron and deployed scoped dispatcher. No actual Supabase execution, hosting, real push or approved real-food policy claimed.
+
+## Phase 6 — remaining local implementation complete; external acceptance pending
+
+Completed the previously open local work: dynamic BM/error/advisory translations, automatic paired-task timing with consent/context/order and successful-confirmation clock, guarded expired/abandoned upload sweeping, migration 010 and explicit guarded live-test runner. Added official checksum-pinned local llama.cpp/Qwen setup/start scripts and installed the private runtime in ignored `.local-voice/`. Model manifest now uses Qwen2.5-1.5B q5_k_m (~1.29 GB), with no paid/cloud fallback.
+
+Gate: web lint/type/build and **113 frontend tests passed**; Ruff and **79 Python tests passed**, **19 live groups skipped** for missing infrastructure. The actual model smoke exposed errors, so a deterministic explicit-clock mismatch validator was added; only affected voice checks reran, **20 passed including four new regressions**. Final model/message asset build and frontend credential scan passed. No test-on-edit loop or repeated full suite.
+
+Actual inference: official local LLM ran three fictional English/BM/Manglish texts. English control complete; BM dish evidence unsupported and BM/Manglish times incorrect, now cleared with correction warning. Request durations about 6.3–6.8 seconds are LLM/validation only, not listing speed. Preserve failures in `phase6-llm-smoke.json`. Synthetic Windows SAPI English audio passed through real browser Whisper, producing dish/price recognition mistakes; playback was removed after transcription. Corrected transcript → actual LLM → visible conflicting-clock warning → explicit fictional time fix → confirmed independent demo batch verified. This is not a human recording or microphone test.
+
+Browser evaluation remains “Not measured”, with empty timing records; missing participant consent/context prevents task start. BM evaluation and 390×844 layout have document/client widths both 375 px. No horizontal overflow. Screenshot evidence in `phase6-acceptance.md`. All stall/food photos remain described placeholders. Temporary review tab/services cleaned up; user's 5173 preview preserved.
+
+Remaining required Phase 6 evidence:
+
+- At least five consenting speakers, 10 BM/10 Manglish/four English clips and actual per-group accuracy/WER/correction evaluation; then actual counterbalanced paired timings through confirmation. No measured accuracy or speedup exists.
+- User-controlled microphone permission and desktop Chromium/target Android audio, cleanup, cold/warm latency and memory checks; available Safari/iOS fallback.
+- Guarded disposable Supabase configuration, migrations through 010 and prior live gates, actual atomic confirmation/quota/RLS/retention and scheduled Storage sweep acceptance. No real database/Storage/scheduler runtime claimed.
+
+See [user actions](phase6-user-actions.md) for concrete commands and [acceptance](phase6-acceptance.md) for results/limitations. Local implementation can be reviewed now; full phase completion still depends on those external gates. No paid service, hosting, production-food policy or business integration activated.
+
+## Phase 7 — local implementation verified; connected acceptance pending
+
+Built moderated editable reviews, separate confidential report drafts, verified-account daily quotas/duplicate updates, private evidence/follow-ups, scoped organiser summaries, hawker replies/appeals, moderator-reviewed independence groups and 48-hour reply opportunities, explicit neutral public flag approval/removal/expiry, private referral drafts, review-report/audit queues, stall/dietary-declaration/schedule administration and fictional reset/adversarial personas. Images remain described placeholders. New migration 011 and caller-scoped API enforce permission and Storage boundaries; optional video validation requires FFmpeg/ffprobe and fails closed if absent.
+
+Local gate: lint/type/build and credential scan pass; 123 frontend and 92 Python tests pass, 23 live groups skipped. Final affected checks: 12 community tests and eight API/parser checks pass; procedural parser accepts seven functions. No repeated full-suite testing after browser fixes. SQL parser output is not database/Storage/RLS acceptance.
+
+Browser: verified confidential complaint → separately approved redacted summary → hawker reply → reporter triaged status; unverified denial; organiser/hawker lack raw body/identity/evidence; threshold and 48-hour flag block; explicit flag with approved reply after demo clock advancement, then removal; pending review published once. BM phone-sized layout has document/client widths both 375 px. Screenshot evidence and exact limitations are in phase7-acceptance.md. Temporary review resources cleaned up; existing preview preserved.
+
+## Phase 8 — local implementation complete; connected acceptance pending
+
+2 October 2026: all 15 build tasks complete. Demo commerce covers batch carts, bounded atomic holds, pay-at-stall collection with both confirmations, commission snapshots/reversals, pretend payments/refunds, watermarked receipts, advertiser onboarding/campaigns/moderation/budgets, filtered sponsored search/map/ad previews, tier lifecycle, multi-stall exports, assigned delivery and suppressed market-scoped council metrics. Images remain description placeholders. No real commercial provider, account, payment or dispatch is introduced.
+
+Connected implementation: FastAPI caller-scoped commerce routes, regenerated contracts, private transaction/ledger/request tables and migration `20261002051951_commerce_simulation.sql`, created with Supabase CLI. Browser persona selection exists only in the isolated fixture portal; protected memberships govern connected roles. Ambiguous network retries retain exact action/key, stock guards cover existing vendor actions, and fully refunded orders do not qualify aggregate groups.
+
+Initial complete local gate: lint/type/build, 154 frontend tests, Ruff, 105 API tests, SQL/PLpgSQL parsing and credential scan passed; 26 live cases skipped. Final affected repair gate: lint/build/type, 78 frontend tests, Ruff, 12 commerce API tests and credential scan passed; five Phase 8 live cases skipped. Two new frontend regressions and two live cases were added after the initial full gate. No unnecessary repeat of the full suites.
+
+Browser passed pickup/collection/refund, failed fake payment, tier renewal failure/cancellation, advertiser approval/budget exhaustion, courier assignment/failure, council market/small-group scopes, sponsored halal filtering, unauthenticated connected gate and phone overflow. No console errors observed. Details and screenshots: [Phase 8 acceptance](phase8-acceptance.md).
+
+Remaining: actual migration execution, prior/Phase 8 live gates and authenticated connected browser journeys after disposable Supabase setup; target-phone/network/localisation acceptance in the final-demo gate. No deployment or live database permission claim. Setup is documented in [USER_ACTIONS.md](USER_ACTIONS.md). Next implementation phase: Phase 9.
+
+## Phase 9 — local implementation verified; connected acceptance pending
+
+2 October 2026: all 12 build tasks implemented. `/demo/partners` includes fictional media/supplier applications, editor publication and public badges, three trails/builder, reviewed consented referrals, officer inspection/corrective/follow-up resolution, council permits/renewal/dietary evidence, capacity/coarse suppressed aggregates, and donation/compost/BSF pickups with synthetic receipt/weight totals. Pickups share inventory holds with commerce, vendor stock actions and clearance outcomes. Images remain description placeholders; there are no external business or agency calls.
+
+Connected implementation: strict FastAPI partner actions, updated OpenAPI/types, caller-scoped workspace/public/command RPCs and CLI-created migration `20261002060812_partner_simulation.sql`. Private source links never enter case projections. Roles/memberships/market assignments remain protected; anonymous publication exposes approved editorial fields only. Donation collection reevaluates the advisory before consuming stock. No migration was applied to a live project.
+
+Initial phase-boundary run: 169 frontend tests passed; API run 115 passed, one parser failure, 31 live skips. Focused repairs passed all 10 partner API tests. Final focused shared-stock/commerce/partner suite: 92 passed, including an additional eligible donation/BSF case. Lint/type/build, Ruff and credential scan passed. Final presentation fixes compiled; last stock/parser safeguard rerun passed 14 partner tests and 10 partner API tests. No repeated full-suite run. Three Phase 9 live cases remain skipped.
+
+Browser verified vendor/editor publication, foreign editor denial, independent-report review/reply time, consent rejection, case timeout/retry, foreign officer denial and full officer resolution; council permit approval/expiry/renewal; expired-food compost collection; fresh eligible donation and callback replay; expired donation rejection; two-stop trail publication; connected sign-in gate. Dropdown overflow repaired and phone document/client widths both 375 px. No console errors observed. Evidence and detailed remaining coverage: [Phase 9 acceptance](phase9-acceptance.md).
+
+Remaining: guarded migration/live execution; additional complete connected referral/collection concurrency and privacy cases; connected browser/session/reconnect acceptance; target-phone/accessibility/BM copy polish. Setup is in [USER_ACTIONS.md](USER_ACTIONS.md). No keys needed for standalone demo. Next implementation phase: Phase 10.
+
+Remaining: guarded disposable Supabase and media secret, migrations through 011, prior live gates, actual foreign-role/direct-write/Storage/signed-link-expiry/quota/race/flag tests and valid/invalid video with configured FFmpeg runtime. Human moderation/privacy/retention decisions and real-pilot policy approval remain launch gates. No external referral, hosting or paid service activated. Consolidated later actions: docs/USER_ACTIONS.md; no keys requested in chat.
+
+## Phase 10 — local advanced implementation; live push acceptance pending
+
+2 October 2026: all 13 local build tasks implemented. Seven advanced fixture tabs provide notifications/inboxes, synthetic telemetry/research, scripted AI, web device frames, filtered synthetic dashboards and bounded deterministic forecasts. Separate connected test-push API/SQL/worker code supports one opted-in device, private subscription keys, coarse radius/quiet preferences, leased agent checks, invalid cleanup, stable tags and scoped attempt history. No live migration/device permission/push was performed. Initial full gate: 178 frontend / 131 Python tests pass, 31 live tests skipped; final focused advanced/push checks pass, two additional live tests skip. Browser and limitations: [phase10-acceptance.md](phase10-acceptance.md). Plan has explicit unchecked live concurrency/device/export/phone gates. Setup: [USER_ACTIONS.md](USER_ACTIONS.md). Phase 10 is not fully accepted yet.
+
+## Phase 11 — local presentation build; full acceptance pending
+
+2 October 2026: expanded deterministic fictional catalog (10 markets, 30 stalls/owners, 50 customers, 90 menu items, 150 batches/reviews), expanded operational portal fixtures and labelled historical reference groups; `/demo/presentation` provides local scenarios/reset, synthetic pilot/business view, 100 user-image slots, two original eight-second diagram clips and three unposted community poster drafts. Image prompts remain optional; no artwork generated. Connected Phase 11 provisioning/reset is still implementation work, not merely missing credentials.
+
+Phase-boundary lint/type/build, Ruff and credential scan passed. Initial broad run: 181/183 frontend passed, two obsolete fixture expectations; API 140 passed, 33 live skipped and one Windows tmp-directory fixture error. Grouped repairs: affected 56/58 frontend initially passed, remaining assertion repairs subsequently passed; final affected catalog/commerce/discovery suite 39 passed, Python catalog/media/idempotency three passed. No second broad suite run. Browser evidence and pending acceptance are in [phase11-acceptance.md](phase11-acceptance.md). Human recordings, supplied images, deployed QR origin, full guided/device/export checks and guarded connected runtime remain unchecked in the implementation plan.
+
+## Local-first scheduling amendment — 5 October 2026
+Remaining work is consolidated in REMAINING_JOBS.md. Local readiness now includes connected seed/permission/jobs/media/push acceptance, Morpheus adapter implementation (provider chosen; model later selected by agent), PWA/device/export polish and measured human evaluation. Vercel/Railway publishing, deployed-origin settings/smoke checks and QR distribution remain Phase 12, last. Backend remains FastAPI locally and Railway when deployed. No service credentials, migrations, AI calls or deployment were performed in this documentation update.
+
+## Local connectivity and GitHub fallback — 5 October 2026
+
+Morpheus qwen35-9b adapter, explicit cloud consent, stall-scoped voice menus, white described image boxes and public PWA shell are implemented. Three actual fictional EN/BM/Manglish text calls passed; browser draft review and batch confirmation passed. Full local batch: 186 frontend / 149 API pass, 33 connected skips; affected model/PWA repairs: 28 API / three frontend pass. No human accuracy claimed. Guarded Phase 11 core seed scaffold added but unexecuted; full history/reset remains work.
+
+Supabase HTTPS Auth responds, markets REST returns 404 and direct PostgreSQL is unreachable. No remote migration/seed/reset was run. User authorised private GitHub backup as the fallback; source is prepared without ignored secrets. Vercel/Railway remain on hold. Current app ports: web 5174/API 8010. Full evidence and remaining work: [local readiness](local-readiness-acceptance.md), [remaining jobs](REMAINING_JOBS.md).
