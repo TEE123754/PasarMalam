@@ -431,5 +431,3 @@ PasarMalam/
 | [Evaluation report](docs/evaluation-report.md) | Speech evaluation status and limitations |
 | [Tech references](TECH_REFERENCES.md) | Related repositories/models and source evidence |
 | [Image prompts](IMAGE_GENERATION_PROMPTS.md) / [asset manifest](docs/asset-manifest.json) | Reserved descriptions and later image workflow |
-
-README organisation takes inspiration from [404Hire](https://github.com/Xiaoming0313883/404-Brain-Not-Found-Recruiter) and [DraftWise](https://github.com/TEE123754/DraftWise). Product descriptions, setup and status above refer to PasarMalam.
