@@ -2,7 +2,7 @@ import { categoryId } from '../discovery/classifications'
 import catalog from '../../../../contracts/demo-catalog.json'
 import type { VendorWorkspace, VendorBatch } from '../vendor/model'
 import { emptyFresh, publish, tick } from '../freshness/engine'
-import { foodImage, demoImages } from '../components/demo-images'
+import { batchPhoto, foodImage, demoImages } from '../components/demo-images'
 import type { Allergens } from '../listings/declarations'
 
 export const marketName = (name: string) => name.replace(/^DEMO\s+/i, '').replace(/\s*\([^)]*(?:demo|fictional)[^)]*\)/gi, '').replace(/\s*·\s*fictional.*$/i, '')
@@ -64,7 +64,7 @@ export function seededWorkspace(now: Date): VendorWorkspace {
         advisory_deadline:new Date(now.getTime()+(60-age)*60000).toISOString(),
         status:position<3?'active':b.status as VendorBatch['status'],
         handling:{storage:'ambient',note:'Covered service tray; separate utensils and small-batch preparation.'},
-        photo:dishPhoto(data.menu.find(f=>f.id===b.food)?.name ?? ''),
+        photo:batchPhoto(data.menu.find(f=>f.id===b.food)?.name ?? '',b.number,b.food,i<2?`satay-batch-${i+1}`:b.id),
       }
     }), events:[], requests:{},
   }
@@ -82,4 +82,17 @@ export function seededWorkspace(now: Date): VendorWorkspace {
   }
   next.workspace.freshness.outcomes=next.workspace.stalls.slice(0,10).map((s,i)=>({batch:next.workspace.batches[i*5+4].id,units:2,grams:100+i*20,at:new Date(now.getTime()-86400000).toISOString()}))
   return next.workspace
+}
+
+// Upgrade seeded media only. Never reset saved actions, batch times or uploaded user photographs.
+export function withFixturePhotos(w:VendorWorkspace):VendorWorkspace {
+  const seededFoods=new Set(catalog.discovery.menu.map(f=>f.id))
+  seededFoods.add('c0200000-0000-4000-8000-000000000003')
+  const replaceable=(photo:string|null)=>!photo||/^\/demo\/images\/pm-/.test(photo)
+  for(const food of w.foods)if(seededFoods.has(food.id)&&replaceable(food.photo))food.photo=dishPhoto(food.name)
+  for(const b of w.batches)if(seededFoods.has(b.food_item_id)&&replaceable(b.photo)) {
+    const seeded=catalog.batches.some(c=>c.id===b.id)||['satay-batch-1','satay-batch-2','kebun-pagi-batch-1'].includes(b.id)
+    if(seeded)b.photo=batchPhoto(w.foods.find(f=>f.id===b.food_item_id)?.name??'',b.batch_number,b.food_item_id,b.id)
+  }
+  return w
 }

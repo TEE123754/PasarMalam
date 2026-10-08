@@ -1,5 +1,7 @@
 # PasarMalam — remaining-work implementation plan
 
+Batch photo update, 9 October 2026: 51 generated stall/context images, three batch-camera views per subject, responsive assets, complete sample image slots and preservation of existing timestamps/uploads are delivered. See [the batch photo checklist, prompts and verification](BATCH_PHOTO_UPDATE.md). Deployment and external acceptance remain separate.
+
 Local demo experience update, 9 October 2026: complete sample listings, running food countdowns, clearance offers, all matching market pins, customer reviews/private reports, agency workspaces, sponsored ads and mobile layouts are implemented and browser-checked. See [the completed demo update and verification](DEMO_EXPERIENCE_UPDATE.md). External acceptance items below remain separate, and deployment stays on hold.
 
 Version 1.11 · 8 October 2026 · CP1/CP3 code/gates, CP2, CP4 passport/recording work, CP5 and CP6 complete; human registration/privacy acceptance pending.

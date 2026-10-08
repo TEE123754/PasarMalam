@@ -1,6 +1,6 @@
 import { capture } from '../accounting/model'
 import { cp2Workspace } from '../discovery/cp2-fixture'
-import { seededWorkspace } from '../presentation/seed'
+import { seededWorkspace, withFixturePhotos } from '../presentation/seed'
 import { connectedRequest } from '../auth/client'
 import { fixtureClock } from '../app/clock'
 import { applyCommand, type Command, type VendorWorkspace } from './model'
@@ -9,8 +9,8 @@ import type { AppMode } from '../data/types'
 export const DEMO_KEY='pasarmalam:demo:vendor-v1'
 export class SaveError extends Error { constructor(message:string, readonly definite:boolean) {super(message)} }
 export function readDemo(fresh=false):VendorWorkspace {
-  const stored=fresh?null:localStorage.getItem(DEMO_KEY);if(stored)return cp2Workspace(JSON.parse(stored) as VendorWorkspace)
-  return cp2Workspace(seededWorkspace(fixtureClock.now()))
+  const stored=fresh?null:localStorage.getItem(DEMO_KEY);if(stored)return withFixturePhotos(cp2Workspace(JSON.parse(stored) as VendorWorkspace))
+  return withFixturePhotos(cp2Workspace(seededWorkspace(fixtureClock.now())))
 }
 export async function workspace(mode:AppMode):Promise<VendorWorkspace> {
   if(mode==='fixture') {const s=readDemo();if(!localStorage.getItem(DEMO_KEY))localStorage.setItem(DEMO_KEY,JSON.stringify(s));return s}

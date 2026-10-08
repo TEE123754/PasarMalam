@@ -2,8 +2,7 @@ import { Clock3, Leaf, ArrowRight, ShieldCheck } from 'lucide-react'
 import { NavLink } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import type { DiscoverySnapshot } from '../data/types'
-import { DemoImage } from '../components/DemoImage'
-import { foodImage } from '../components/demo-images'
+import { BatchPhoto } from '../components/BatchPhoto'
 import { malaysiaTime, countdown } from './batch-time'
 export { malaysiaTime, countdown } from './batch-time'
 export function BatchFreshness({batch,now,compact=false}:{batch:DiscoverySnapshot['batches'][number];now:Date;compact?:boolean}) {
@@ -23,6 +22,6 @@ export function FreshFoodSection({data,now}:{data:DiscoverySnapshot;now:Date}) {
     <section className="fresh-food-section"><div className="section-heading"><div><span className="eyebrow">{bm?'DARI DAPUR KE KOMUNITI':'FROM THE WOK TO YOUR NEIGHBOURHOOD'}</span><h2>{bm?'Disediakan hari ini':'Prepared today'}</h2></div><NavLink to="/offers">{bm?'Tawaran lebihan':'Surplus offers'}<ArrowRight size={17}/></NavLink></div><div className="fresh-food-grid">{first.map(f=>{
       const stall=data.stalls.find(s=>s.id===f.stallId)!, batch=data.batches.filter(b=>b.foodItemId===f.id&&Date.parse(b.deadline)>now.getTime()&&b.remaining>0).sort((a,b)=>Date.parse(b.preparedAt)-Date.parse(a.preparedAt))[0]
       const offer=data.offers.find(o=>o.stallId===f.stallId&&Date.parse(o.endsAt)>now.getTime())
-      return <NavLink className="fresh-food-card card-link" to={`/stalls/${f.stallId}`} key={f.id}><div className="fresh-food-photo"><DemoImage image={foodImage(f.name)} description={f.name}/>{offer&&<span className="offer-ribbon"><Leaf size={13}/>{bm?'Tawaran lebihan':'Surplus offer'}</span>}</div><div className="fresh-food-copy"><span className="small muted">{stall.name}</span><h3>{f.name}</h3><strong className="food-price">RM {(f.priceSen/100).toFixed(2)}</strong><BatchFreshness batch={batch} now={now}/></div></NavLink>
+      return <NavLink className="fresh-food-card card-link" to={`/stalls/${f.stallId}`} key={f.id}><div className="fresh-food-photo"><BatchPhoto food={f.name} number={batch.batchNumber} foodId={f.id} batchId={batch.id} photo={batch.photoUrl}/>{offer&&<span className="offer-ribbon"><Leaf size={13}/>{bm?'Tawaran lebihan':'Surplus offer'}</span>}</div><div className="fresh-food-copy"><span className="small muted">{stall.name}</span><h3>{f.name}</h3><strong className="food-price">RM {(f.priceSen/100).toFixed(2)}</strong><BatchFreshness batch={batch} now={now}/></div></NavLink>
     })}</div><p className="advisory-note">{bm?'Tempoh nasihat berdasarkan masa penyediaan, bahan dan keadaan cuaca. Semak keadaan makanan bersama penjaja.':'Advisory windows consider preparation time, ingredients and weather. Check the food’s condition with the hawker.'}</p></section></>
 }

@@ -1,0 +1,308 @@
+[
+  {
+    "key": "apam",
+    "variant": 1,
+    "source": "IMAGE/generated-batches/apam-1.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a steel serving tray of freshly made Malaysian apam balik jagung, folded golden pancake half-moons cut into wedges with sweet corn and crushed peanut filling visible. Camera composition: a left diagonal 45-degree overhead view with the tray long edge slanting toward the bottom-right, a full freshly prepared tray. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "apam",
+    "variant": 2,
+    "source": "IMAGE/generated-batches/apam-2.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a steel serving tray of freshly made Malaysian apam balik jagung, folded golden pancake half-moons cut into wedges with sweet corn and crushed peanut filling visible. Camera composition: a closer front-right 30-degree view from the customer side, a changed tray arrangement and the serving utensil on the left. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "apam",
+    "variant": 3,
+    "source": "IMAGE/generated-batches/apam-3.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a steel serving tray of freshly made Malaysian apam balik jagung, folded golden pancake half-moons cut into wedges with sweet corn and crushed peanut filling visible. Camera composition: an almost top-down view from slightly behind the counter, a newly replenished batch arranged differently and the serving utensil on the right. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "banana",
+    "variant": 1,
+    "source": "IMAGE/generated-batches/banana-1.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a stainless steel tray of golden freshly fried banana fritters with irregular crispy batter and a draining rack alongside. Camera composition: a left diagonal 45-degree overhead view with the tray long edge slanting toward the bottom-right, a full freshly prepared tray. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "banana",
+    "variant": 2,
+    "source": "IMAGE/generated-batches/banana-2.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a stainless steel tray of golden freshly fried banana fritters with irregular crispy batter and a draining rack alongside. Camera composition: a closer front-right 30-degree view from the customer side, a changed tray arrangement and the serving utensil on the left. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "banana",
+    "variant": 3,
+    "source": "IMAGE/generated-batches/banana-3.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a stainless steel tray of golden freshly fried banana fritters with irregular crispy batter and a draining rack alongside. Camera composition: an almost top-down view from slightly behind the counter, a newly replenished batch arranged differently and the serving utensil on the right. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "cendol",
+    "variant": 1,
+    "source": "IMAGE/generated-batches/cendol-1.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of several newly filled clear takeaway cups of cendol with green pandan jelly, coconut milk, palm sugar syrup and shaved ice, beside the stall ingredient tubs. Camera composition: a left diagonal 45-degree overhead view with the tray long edge slanting toward the bottom-right, a full freshly prepared tray. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "cendol",
+    "variant": 2,
+    "source": "IMAGE/generated-batches/cendol-2.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of several newly filled clear takeaway cups of cendol with green pandan jelly, coconut milk, palm sugar syrup and shaved ice, beside the stall ingredient tubs. Camera composition: a closer front-right 30-degree view from the customer side, a changed tray arrangement and the serving utensil on the left. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "cendol",
+    "variant": 3,
+    "source": "IMAGE/generated-batches/cendol-3.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of several newly filled clear takeaway cups of cendol with green pandan jelly, coconut milk, palm sugar syrup and shaved ice, beside the stall ingredient tubs. Camera composition: an almost top-down view from slightly behind the counter, a newly replenished batch arranged differently and the serving utensil on the right. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "community",
+    "variant": 1,
+    "source": "IMAGE/generated-batches/community-1.png",
+    "prompt": "Use case: photorealistic-natural. Square candid ordinary smartphone photograph at a fictional Malaysian pasar malam: clean reusable crates of carefully packed surplus takeaway portions being handed from a stall counter to a community collector, only adult hands and torsos visible, no identifiable faces. Warm market lights, steel counter, canopy, practical sealed food packaging, normal imperfect phone snapshot. No text, logos, official marks, certificates, graphics, watermark or timestamps."
+  },
+  {
+    "key": "curry",
+    "variant": 1,
+    "source": "IMAGE/generated-batches/curry-1.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a stainless steel tray holding twelve freshly fried Malaysian curry puffs, crisp golden pastry with crimped edges, a pair of serving tongs beside the tray. Camera composition: a left diagonal 45-degree overhead view with the tray long edge slanting toward the bottom-right, a full freshly prepared tray. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "curry",
+    "variant": 2,
+    "source": "IMAGE/generated-batches/curry-2.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a stainless steel tray holding twelve freshly fried Malaysian curry puffs, crisp golden pastry with crimped edges, a pair of serving tongs beside the tray. Camera composition: a closer front-right 30-degree view from the customer side, a changed tray arrangement and the serving utensil on the left. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "curry",
+    "variant": 3,
+    "source": "IMAGE/generated-batches/curry-3.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a stainless steel tray holding twelve freshly fried Malaysian curry puffs, crisp golden pastry with crimped edges, a pair of serving tongs beside the tray. Camera composition: an almost top-down view from slightly behind the counter, a newly replenished batch arranged differently and the serving utensil on the right. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "friedRice",
+    "variant": 1,
+    "source": "IMAGE/generated-batches/friedRice-1.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a large stainless steel tray of freshly wok-fried rice with egg, carrot, spring onion and small chicken pieces, a metal serving spoon resting at the side. Camera composition: a left diagonal 45-degree overhead view with the tray long edge slanting toward the bottom-right, a full freshly prepared tray. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "friedRice",
+    "variant": 2,
+    "source": "IMAGE/generated-batches/friedRice-2.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a large stainless steel tray of freshly wok-fried rice with egg, carrot, spring onion and small chicken pieces, a metal serving spoon resting at the side. Camera composition: a closer front-right 30-degree view from the customer side, a changed tray arrangement and the serving utensil on the left. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "friedRice",
+    "variant": 3,
+    "source": "IMAGE/generated-batches/friedRice-3.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a large stainless steel tray of freshly wok-fried rice with egg, carrot, spring onion and small chicken pieces, a metal serving spoon resting at the side. Camera composition: an almost top-down view from slightly behind the counter, a newly replenished batch arranged differently and the serving utensil on the right. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "john",
+    "variant": 1,
+    "source": "IMAGE/generated-batches/john-1.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a steel tray with freshly cooked roti john long bread rolls filled with minced chicken and omelette, sliced for takeaway with chilli sauce and mayonnaise. Camera composition: a left diagonal 45-degree overhead view with the tray long edge slanting toward the bottom-right, a full freshly prepared tray. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "john",
+    "variant": 2,
+    "source": "IMAGE/generated-batches/john-2.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a steel tray with freshly cooked roti john long bread rolls filled with minced chicken and omelette, sliced for takeaway with chilli sauce and mayonnaise. Camera composition: a closer front-right 30-degree view from the customer side, a changed tray arrangement and the serving utensil on the left. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "john",
+    "variant": 3,
+    "source": "IMAGE/generated-batches/john-3.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a steel tray with freshly cooked roti john long bread rolls filled with minced chicken and omelette, sliced for takeaway with chilli sauce and mayonnaise. Camera composition: an almost top-down view from slightly behind the counter, a newly replenished batch arranged differently and the serving utensil on the right. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "kuih",
+    "variant": 1,
+    "source": "IMAGE/generated-batches/kuih-1.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a steel tray of freshly cut square kuih talam, distinct green pandan lower layer and white coconut upper layer arranged in slightly uneven rows. Camera composition: a left diagonal 45-degree overhead view with the tray long edge slanting toward the bottom-right, a full freshly prepared tray. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "kuih",
+    "variant": 2,
+    "source": "IMAGE/generated-batches/kuih-2.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a steel tray of freshly cut square kuih talam, distinct green pandan lower layer and white coconut upper layer arranged in slightly uneven rows. Camera composition: a closer front-right 30-degree view from the customer side, a changed tray arrangement and the serving utensil on the left. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "kuih",
+    "variant": 3,
+    "source": "IMAGE/generated-batches/kuih-3.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a steel tray of freshly cut square kuih talam, distinct green pandan lower layer and white coconut upper layer arranged in slightly uneven rows. Camera composition: an almost top-down view from slightly behind the counter, a newly replenished batch arranged differently and the serving utensil on the right. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "lime",
+    "variant": 1,
+    "source": "IMAGE/generated-batches/lime-1.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of several just-filled clear plastic cups of iced lime juice with sliced calamansi limes, alongside a drinks dispenser. Camera composition: a left diagonal 45-degree overhead view with the tray long edge slanting toward the bottom-right, a full freshly prepared tray. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "lime",
+    "variant": 2,
+    "source": "IMAGE/generated-batches/lime-2.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of several just-filled clear plastic cups of iced lime juice with sliced calamansi limes, alongside a drinks dispenser. Camera composition: a closer front-right 30-degree view from the customer side, a changed tray arrangement and the serving utensil on the left. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "lime",
+    "variant": 3,
+    "source": "IMAGE/generated-batches/lime-3.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of several just-filled clear plastic cups of iced lime juice with sliced calamansi limes, alongside a drinks dispenser. Camera composition: an almost top-down view from slightly behind the counter, a newly replenished batch arranged differently and the serving utensil on the right. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "person-customer",
+    "variant": 1,
+    "source": "IMAGE/generated-batches/person-customer.png",
+    "prompt": "Use case: photorealistic-natural. Square profile portrait of a completely fictional Malaysian adult woman customer in her early thirties, casually dressed, friendly relaxed expression, quick phone camera picture at an evening pasar malam, softly blurred market canopies in background, natural warm stall lights, head and shoulders centered, realistic skin texture, ordinary rather than studio or fashion photography. No text, logo, watermark, religious/certification symbols, resemblance to a real known person or graphic frame."
+  },
+  {
+    "key": "person-hawker",
+    "variant": 1,
+    "source": "IMAGE/generated-batches/person-hawker.png",
+    "prompt": "Use case: photorealistic-natural. Square profile portrait of a completely fictional Malaysian adult man food hawker in his late thirties, wearing a simple dark apron, friendly relaxed expression, quick phone camera picture at an evening pasar malam, softly blurred market canopies in background, natural warm stall lights, head and shoulders centered, realistic skin texture, ordinary rather than studio or fashion photography. No text, logo, watermark, religious/certification symbols, resemblance to a real known person or graphic frame."
+  },
+  {
+    "key": "popia",
+    "variant": 1,
+    "source": "IMAGE/generated-batches/popia-1.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a stainless steel tray stacked with crispy freshly fried vegetable popia spring rolls, a small bowl of chilli dipping sauce beside it. Camera composition: a left diagonal 45-degree overhead view with the tray long edge slanting toward the bottom-right, a full freshly prepared tray. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "popia",
+    "variant": 2,
+    "source": "IMAGE/generated-batches/popia-2.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a stainless steel tray stacked with crispy freshly fried vegetable popia spring rolls, a small bowl of chilli dipping sauce beside it. Camera composition: a closer front-right 30-degree view from the customer side, a changed tray arrangement and the serving utensil on the left. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "popia",
+    "variant": 3,
+    "source": "IMAGE/generated-batches/popia-3.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a stainless steel tray stacked with crispy freshly fried vegetable popia spring rolls, a small bowl of chilli dipping sauce beside it. Camera composition: an almost top-down view from slightly behind the counter, a newly replenished batch arranged differently and the serving utensil on the right. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "pork",
+    "variant": 1,
+    "source": "IMAGE/generated-batches/pork-1.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of several freshly cooked pork noodle soup portions in takeaway bowls on a service tray with pork slices, noodles, clear broth and spring onions. Camera composition: a left diagonal 45-degree overhead view with the tray long edge slanting toward the bottom-right, a full freshly prepared tray. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "pork",
+    "variant": 2,
+    "source": "IMAGE/generated-batches/pork-2.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of several freshly cooked pork noodle soup portions in takeaway bowls on a service tray with pork slices, noodles, clear broth and spring onions. Camera composition: a closer front-right 30-degree view from the customer side, a changed tray arrangement and the serving utensil on the left. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "pork",
+    "variant": 3,
+    "source": "IMAGE/generated-batches/pork-3.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of several freshly cooked pork noodle soup portions in takeaway bowls on a service tray with pork slices, noodles, clear broth and spring onions. Camera composition: an almost top-down view from slightly behind the counter, a newly replenished batch arranged differently and the serving utensil on the right. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "produce",
+    "variant": 1,
+    "source": "IMAGE/generated-batches/produce-1.png",
+    "prompt": "Use case: photorealistic-natural. Square candid smartphone batch photo taken by a hawker at a Malaysian farmers market. A clean reusable crate containing freshly packed seasonal vegetable portions, potatoes, leafy greens, carrots and long beans beside a metal worktop under a simple market canopy. Camera: a left diagonal 45-degree overhead view with the tray long edge slanting toward the bottom-right, a full freshly prepared tray. Ordinary morning daylight, realistic imperfect casual framing, vegetables centered, no studio lighting, text, logos, certificates, faces, watermarks or timestamps. Fictional sample produce batch."
+  },
+  {
+    "key": "produce",
+    "variant": 2,
+    "source": "IMAGE/generated-batches/produce-2.png",
+    "prompt": "Use case: photorealistic-natural. Square candid smartphone batch photo taken by a hawker at a Malaysian farmers market. A clean reusable crate containing freshly packed seasonal vegetable portions, potatoes, leafy greens, carrots and long beans beside a metal worktop under a simple market canopy. Camera: a closer front-right 30-degree view from the customer side, a changed tray arrangement and the serving utensil on the left. Ordinary morning daylight, realistic imperfect casual framing, vegetables centered, no studio lighting, text, logos, certificates, faces, watermarks or timestamps. Fictional sample produce batch."
+  },
+  {
+    "key": "produce",
+    "variant": 3,
+    "source": "IMAGE/generated-batches/produce-3.png",
+    "prompt": "Use case: photorealistic-natural. Square candid smartphone batch photo taken by a hawker at a Malaysian farmers market. A clean reusable crate containing freshly packed seasonal vegetable portions, potatoes, leafy greens, carrots and long beans beside a metal worktop under a simple market canopy. Camera: an almost top-down view from slightly behind the counter, a newly replenished batch arranged differently and the serving utensil on the right. Ordinary morning daylight, realistic imperfect casual framing, vegetables centered, no studio lighting, text, logos, certificates, faces, watermarks or timestamps. Fictional sample produce batch."
+  },
+  {
+    "key": "rice",
+    "variant": 1,
+    "source": "IMAGE/generated-batches/rice-1.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photograph. Candid smartphone snapshot a hawker took on the spot at a Malaysian pasar malam stall, showing freshly prepared nasi lemak ayam portions in open brown paper takeaway packs lined with banana leaves, coconut rice, sambal, fried chicken, cucumber and halved boiled eggs on a metal tray. Composition: a left diagonal 45-degree overhead view with the tray long edge slanting toward the bottom-right, a full freshly prepared tray. Clean practical steel worktop, canopy and softly blurred market activity in background, ordinary warm stall LED lighting, realistic phone grain and authentic imperfect food textures. Food and tray should occupy most of frame with essential details centered for card crops. No restaurant plating, studio photography, graphic overlays, text, timestamps, logos, watermarks, faces, hygiene violations or certification symbols. This represents a separate newly prepared batch, fictional sample imagery."
+  },
+  {
+    "key": "rice",
+    "variant": 2,
+    "source": "IMAGE/generated-batches/rice-2.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photograph. Candid smartphone snapshot a hawker took on the spot at a Malaysian pasar malam stall, showing freshly prepared nasi lemak ayam portions in open brown paper takeaway packs lined with banana leaves, coconut rice, sambal, fried chicken, cucumber and halved boiled eggs on a metal tray. Composition: a closer front-right 30-degree view from the customer side, a changed tray arrangement and the serving utensil on the left. Clean practical steel worktop, canopy and softly blurred market activity in background, ordinary warm stall LED lighting, realistic phone grain and authentic imperfect food textures. Food and tray should occupy most of frame with essential details centered for card crops. No restaurant plating, studio photography, graphic overlays, text, timestamps, logos, watermarks, faces, hygiene violations or certification symbols. This represents a separate newly prepared batch, fictional sample imagery."
+  },
+  {
+    "key": "rice",
+    "variant": 3,
+    "source": "IMAGE/generated-batches/rice-3.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photograph. Candid smartphone snapshot a hawker took on the spot at a Malaysian pasar malam stall, showing freshly prepared nasi lemak ayam portions in open brown paper takeaway packs lined with banana leaves, coconut rice, sambal, fried chicken, cucumber and halved boiled eggs on a metal tray. Composition: an almost top-down view from slightly behind the counter, a newly replenished batch arranged differently and the serving utensil on the right. Clean practical steel worktop, canopy and softly blurred market activity in background, ordinary warm stall LED lighting, realistic phone grain and authentic imperfect food textures. Food and tray should occupy most of frame with essential details centered for card crops. No restaurant plating, studio photography, graphic overlays, text, timestamps, logos, watermarks, faces, hygiene violations or certification symbols. This represents a separate newly prepared batch, fictional sample imagery."
+  },
+  {
+    "key": "satay",
+    "variant": 1,
+    "source": "IMAGE/generated-batches/satay-1.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: PasarMalam sample batch photo, square. A candid smartphone snapshot taken by a hawker just after preparing chicken satay at a Malaysian pasar malam stall. Show a full stainless steel service tray with many unevenly arranged grilled chicken satay skewers, small steel container of peanut sauce beside it, clean metal worktop, red-orange canopy edge and softly blurred market lights in the background. Camera held above the tray at a slight left 45 degree angle, casual asymmetric framing, ordinary warm stall LED lighting, realistic phone grain and authentic food textures. Food should occupy most of the image and all essential tray contents fit near center for card cropping. No fancy restaurant plating, studio lighting, text, timestamps, logos, watermarks, faces, hygiene violations or certification symbols. This is fictional sample imagery, not evidence of real food."
+  },
+  {
+    "key": "satay",
+    "variant": 2,
+    "source": "IMAGE/generated-batches/satay-2.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photograph. Candid smartphone snapshot a hawker took on the spot at a Malaysian pasar malam stall, showing a stainless steel tray crowded with freshly grilled chicken satay skewers and a small metal bowl of peanut sauce. Composition: a closer front-right 30-degree view from the customer side, a changed tray arrangement and the serving utensil on the left. Clean practical steel worktop, canopy and softly blurred market activity in background, ordinary warm stall LED lighting, realistic phone grain and authentic imperfect food textures. Food and tray should occupy most of frame with essential details centered for card crops. No restaurant plating, studio photography, graphic overlays, text, timestamps, logos, watermarks, faces, hygiene violations or certification symbols. This represents a separate newly prepared batch, fictional sample imagery."
+  },
+  {
+    "key": "satay",
+    "variant": 3,
+    "source": "IMAGE/generated-batches/satay-3.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photograph. Candid smartphone snapshot a hawker took on the spot at a Malaysian pasar malam stall, showing a stainless steel tray crowded with freshly grilled chicken satay skewers and a small metal bowl of peanut sauce. Composition: an almost top-down view from slightly behind the counter, a newly replenished batch arranged differently and the serving utensil on the right. Clean practical steel worktop, canopy and softly blurred market activity in background, ordinary warm stall LED lighting, realistic phone grain and authentic imperfect food textures. Food and tray should occupy most of frame with essential details centered for card crops. No restaurant plating, studio photography, graphic overlays, text, timestamps, logos, watermarks, faces, hygiene violations or certification symbols. This represents a separate newly prepared batch, fictional sample imagery."
+  },
+  {
+    "key": "tea",
+    "variant": 1,
+    "source": "IMAGE/generated-batches/tea-1.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of several newly filled takeaway cups of golden chrysanthemum tea with a few chrysanthemum flowers visible beside a stall tea dispenser. Camera composition: a left diagonal 45-degree overhead view with the tray long edge slanting toward the bottom-right, a full freshly prepared tray. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "tea",
+    "variant": 2,
+    "source": "IMAGE/generated-batches/tea-2.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of several newly filled takeaway cups of golden chrysanthemum tea with a few chrysanthemum flowers visible beside a stall tea dispenser. Camera composition: a closer front-right 30-degree view from the customer side, a changed tray arrangement and the serving utensil on the left. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "tea",
+    "variant": 3,
+    "source": "IMAGE/generated-batches/tea-3.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of several newly filled takeaway cups of golden chrysanthemum tea with a few chrysanthemum flowers visible beside a stall tea dispenser. Camera composition: an almost top-down view from slightly behind the counter, a newly replenished batch arranged differently and the serving utensil on the right. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "tofu",
+    "variant": 1,
+    "source": "IMAGE/generated-batches/tofu-1.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a stainless steel tray of golden freshly fried crispy tofu cubes, uneven pieces and a small dipping-sauce container beside the tray. Camera composition: a left diagonal 45-degree overhead view with the tray long edge slanting toward the bottom-right, a full freshly prepared tray. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "tofu",
+    "variant": 2,
+    "source": "IMAGE/generated-batches/tofu-2.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a stainless steel tray of golden freshly fried crispy tofu cubes, uneven pieces and a small dipping-sauce container beside the tray. Camera composition: a closer front-right 30-degree view from the customer side, a changed tray arrangement and the serving utensil on the left. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "tofu",
+    "variant": 3,
+    "source": "IMAGE/generated-batches/tofu-3.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a stainless steel tray of golden freshly fried crispy tofu cubes, uneven pieces and a small dipping-sauce container beside the tray. Camera composition: an almost top-down view from slightly behind the counter, a newly replenished batch arranged differently and the serving utensil on the right. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "ubi",
+    "variant": 1,
+    "source": "IMAGE/generated-batches/ubi-1.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a metal tray of freshly roasted Malaysian sweet potatoes with purple-brown skins, several split open to reveal golden-orange flesh. Camera composition: a left diagonal 45-degree overhead view with the tray long edge slanting toward the bottom-right, a full freshly prepared tray. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "ubi",
+    "variant": 2,
+    "source": "IMAGE/generated-batches/ubi-2.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a metal tray of freshly roasted Malaysian sweet potatoes with purple-brown skins, several split open to reveal golden-orange flesh. Camera composition: a closer front-right 30-degree view from the customer side, a changed tray arrangement and the serving utensil on the left. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  },
+  {
+    "key": "ubi",
+    "variant": 3,
+    "source": "IMAGE/generated-batches/ubi-3.png",
+    "prompt": "Use case: photorealistic-natural. Asset type: square PasarMalam sample batch photo. A quick ordinary smartphone snapshot by a hawker at a Malaysian pasar malam stall of a metal tray of freshly roasted Malaysian sweet potatoes with purple-brown skins, several split open to reveal golden-orange flesh. Camera composition: an almost top-down view from slightly behind the counter, a newly replenished batch arranged differently and the serving utensil on the right. Clean practical stainless counter, modest canopy, blurred neighbouring stalls, ordinary warm LED light, authentic textures and mild phone noise. A casually framed batch record, all essential food contents near centre for card cropping. No fancy restaurant plating, studio light, graphics, text, timestamps, logos, watermark, faces, hygiene violations or certificate symbols. Newly prepared fictional sample batch."
+  }
+]
