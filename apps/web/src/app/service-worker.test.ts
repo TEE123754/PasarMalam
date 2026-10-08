@@ -33,3 +33,29 @@ describe('PWA privacy and offline boundaries',()=>{
   await response;expect(w.matches).toEqual(['/demo/discover'])
  })
 })
+
+async function installation(paths:unknown, size=100){
+ const handlers:Record<string,(e:{waitUntil:(value:Promise<void>)=>void})=>void>={}
+ const stored:string[]=[]
+ runInNewContext(source,{
+  importScripts:()=>{},URL,Response,
+  self:{location:{origin:'https://market.example'},addEventListener:(key:string,fn:typeof handlers[string])=>{handlers[key]=fn}},
+  caches:{open:async()=>({addAll:async()=>{},match:async()=>new Response(JSON.stringify(paths)),put:async(path:string)=>{stored.push(path)}})},
+  fetch:async()=>new Response('x'.repeat(size)),
+ })
+ let pending:Promise<void>|undefined
+ handlers.install({waitUntil:value=>{pending=value}})
+ await pending
+ return stored
+}
+it('preloads lazy route styles and exports without mistaking them for speech assets',async()=>{
+ expect(await installation(['/assets/index-123.js','/assets/exports-123.js','/assets/Commerce-123.css'])).toEqual(['/assets/index-123.js','/assets/exports-123.js','/assets/Commerce-123.css'])
+})
+it('rejects a manifest containing private or speech-runtime paths',async()=>{
+ for(const path of ['/api/v1/me','/private/evidence.jpg','/assets/speech.worker-123.js','/assets/ort-123.js']){
+  await expect(installation([path])).rejects.toThrow('Invalid public shell manifest')
+ }
+})
+it('rejects oversized assets instead of marking an incomplete shell installed',async()=>{
+ await expect(installation(['/assets/index-123.js'],1500001)).rejects.toThrow('Public shell asset too large')
+})

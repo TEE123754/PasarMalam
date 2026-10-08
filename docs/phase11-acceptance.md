@@ -1,3 +1,9 @@
+# Phase 11 acceptance — current update 7 October 2026
+
+Full connected provisioning/history/reset now executed on the replacement guarded project. Actual counts, repeat/refusal/parity and 44 connected cases are recorded in [local readiness](local-readiness-acceptance.md). The actual Week 2 CSV download matches nine participating rows / RM190.02 / 7.92 weighed kg. Device push, human recordings, target hardware and final user images remain pending.
+
+The dated 2 October checkpoint below is historical evidence; its unexecuted provisioning/download statements are superseded by this update.
+
 # Phase 11 local acceptance — 2 October 2026
 
 Status: local presentation build implemented; complete Phase 11 acceptance remains pending.

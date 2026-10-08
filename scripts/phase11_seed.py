@@ -1,12 +1,14 @@
-"""Guarded connected core catalog. No reset/deletion or invented safety eligibility."""
+"""Guarded complete connected catalog. Retire old runs without rewinding batch history."""
 
+import argparse
 import json
 import os
-from datetime import datetime, timedelta, timezone
+from datetime import timedelta
 from uuid import NAMESPACE_DNS, uuid5
 
 import demo_seed
 import psycopg
+from connected_seed import finish_run, seed_workflows, start_run
 from demo_db import ROOT, target_configuration, verify_marker
 
 
@@ -34,7 +36,7 @@ def plan(catalog):
     return people
 
 
-def seed():
+def seed(reset=False):
     _, url, database = target_configuration()
     catalog = json.loads(
         (ROOT / "contracts/demo-catalog.json").read_text(encoding="utf-8")
@@ -42,13 +44,20 @@ def seed():
     d = catalog["discovery"]
     with psycopg.connect(database, connect_timeout=10) as db:
         verify_marker(db)
+        db.execute("select pg_advisory_xact_lock(517011)")
+        # Match inspector food-before-batch ordering before retiring existing stock.
+        db.execute(
+            "select id from public.food_items where source_scenario='phase11' "
+            "order by id for update"
+        ).fetchall()
+        run, now, completed = start_run(db, catalog, reset)
+        if completed:
+            print(
+                "Current catalog already complete; no records or batch timestamps changed."
+            )
+            return
         # Provision uses protected bindings and confirmed .invalid identities without email.
-        original = demo_seed.PERSONAS
-        demo_seed.PERSONAS = plan(catalog)
-        try:
-            identities = demo_seed.provision(db, url)
-        finally:
-            demo_seed.PERSONAS = original
+        identities = demo_seed.provision(db, url, plan(catalog))
         for key, (name, role) in plan(catalog).items():
             db.execute(
                 "insert into public.profiles(id,display_name,verified_at,source_scenario) values(%s,%s,now(),'phase11') on conflict(id) do nothing",
@@ -128,7 +137,12 @@ def seed():
                     r["body"],
                 ),
             )
-        now = datetime.now(timezone.utc)
+        # Synthetic weather is labelled; current runtime weather subsequently tightens windows.
+        for m in d["markets"]:
+            db.execute(
+                "insert into public.weather_snapshots(id,market_id,temperature_c,humidity_pct,observed_at,provider,synthetic,status,source_scenario) values(%s,%s,28,75,%s,'fixture',true,'valid','phase11') on conflict(id) do nothing",
+                (stable(f"{run}:weather:{m['id']}"), stable(m["id"]), now),
+            )
         for b in catalog["batches"]:
             # Leave proposed active batches needs-information until guarded advisory confirmation.
             status = (
@@ -136,13 +150,17 @@ def seed():
                 if b["status"] in ["discarded", "sold-out"]
                 else "needs-information"
             )
+            batch_id = stable(f"{run}:{b['id']}")
             db.execute(
-                "insert into public.batches(id,food_item_id,batch_number,prepared_at,original_quantity,remaining_quantity,handling,status,request_id,request_hash,source_scenario) values(%s,%s,%s,%s,20,%s,%s,%s,%s,%s,'phase11') on conflict do nothing",
+                "select id from public.food_items where id=%s for update",
+                (stable(b["food"]),),
+            )
+            inserted = db.execute(
+                "insert into public.batches(id,food_item_id,batch_number,prepared_at,original_quantity,remaining_quantity,handling,status,inventory_state,request_id,request_hash,source_scenario) select %s,id,next_batch_number,%s,%s,%s,%s,%s,%s,%s,%s,'phase11' from public.food_items where id=%s on conflict(id) do nothing returning id",
                 (
-                    stable(b["id"]),
-                    stable(b["food"]),
-                    b["number"],
+                    batch_id,
                     now - timedelta(minutes=b["ageMinutes"]),
+                    max(20, b["quantity"]),
                     b["quantity"],
                     json.dumps(
                         {
@@ -151,13 +169,80 @@ def seed():
                         }
                     ),
                     status,
-                    stable("request:" + b["id"]),
-                    "phase11:" + b["id"],
+                    status if status in ["discarded", "sold-out"] else "available",
+                    stable(f"{run}:request:{b['id']}"),
+                    f"phase11:{run}:{b['id']}",
+                    stable(b["food"]),
                 ),
-            )
+            ).fetchone()
+            if inserted:
+                db.execute(
+                    "update public.food_items set next_batch_number=next_batch_number+1 where id=%s",
+                    (stable(b["food"]),),
+                )
+                food = next(f for f in d["menu"] if f["id"] == b["food"])
+                index = next(
+                    i for i, s in enumerate(d["stalls"]) if s["id"] == food["stallId"]
+                )
+                actor = identities[f"owner-{index + 1:02}"]
+                db.execute(
+                    "select set_config('request.jwt.claims',%s,true)",
+                    (json.dumps({"sub": str(actor), "role": "authenticated"}),),
+                )
+                db.execute(
+                    "insert into public.batch_events(batch_id,actor_id,kind,request_id,details) values(%s,%s,'synthetic-seed',%s,%s)",
+                    (
+                        batch_id,
+                        actor,
+                        stable(f"{run}:audit:{b['id']}"),
+                        json.dumps(
+                            {
+                                "run": str(run),
+                                "catalog_batch": b["id"],
+                                "fictional": True,
+                                "original_prepared_at": (
+                                    now - timedelta(minutes=b["ageMinutes"])
+                                ).isoformat(),
+                            }
+                        ),
+                    ),
+                )
+                if b["confirmed"] and status == "needs-information":
+                    db.execute(
+                        "select public.confirm_advisory(%s,%s,true,%s,%s)",
+                        (
+                            batch_id,
+                            food["ingredients"],
+                            b["storage"] == "ambient",
+                            stable(f"{run}:declaration:{b['id']}"),
+                        ),
+                    )
         db.execute(
             "update public.food_items f set next_batch_number=greatest(f.next_batch_number,coalesce((select max(b.batch_number)+1 from public.batches b where b.food_item_id=f.id),1)) where f.source_scenario='phase11'"
         )
+        eligible = db.execute(
+            "select b.id,f.stall_id from public.batches b join public.food_items f on f.id=b.food_item_id join public.stalls s on s.id=f.stall_id where b.request_hash like %s and b.status='active' and b.remaining_quantity>=4 and private.effective_deadline(b.id)>private.clock_now()+interval '15 minutes' and private.market_close(s.market_id)>private.clock_now() and s.open order by b.id limit 12",
+            (f"phase11:{run}:%",),
+        ).fetchall()
+        for i, (batch, stall_id) in enumerate(eligible):
+            index = next(
+                i for i, s in enumerate(d["stalls"]) if stable(s["id"]) == stall_id
+            )
+            actor = identities[f"owner-{index + 1:02}"]
+            db.execute(
+                "select set_config('request.jwt.claims',%s,true)",
+                (json.dumps({"sub": str(actor), "role": "authenticated"}),),
+            )
+            db.execute(
+                "select public.publish_clearance(%s,%s,%s,4,%s,%s)",
+                (
+                    batch,
+                    ["free", "bogo", "percentage"][i % 3],
+                    25 if i % 3 == 2 else 0,
+                    f"DEMO confirmed clearance {i + 1}",
+                    stable(f"{run}:clearance:{batch}"),
+                ),
+            )
         kinds = [
             "media",
             "media",
@@ -194,18 +279,26 @@ def seed():
                         identities[f"partner-{i + 1:02}"],
                     ),
                 )
+        seed_workflows(db, catalog, identities, run, now, stable)
+        finish_run(db, run)
     print(
-        "Core Phase 11 catalog provisioned. Advisory eligibility and full workflow history still require acceptance; no timers reset."
+        "Complete fictional catalog provisioned. Eligibility comes from SQL rules; previous timestamps/audits retained."
     )
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--reset-to-today",
+        action="store_true",
+        help="Retire current demo run and create new batches; preserve all previous audit history",
+    )
     if len(os.getenv("DEMO_SEED_PASSWORD", "")) < 16:
         raise SystemExit(
             "Configure a private seed password of at least 16 characters first."
         )
     try:
-        seed()
+        seed(parser.parse_args().reset_to_today)
     except Exception:
         raise SystemExit(
             "Guarded core seed unavailable; inspect connection/migrations privately."

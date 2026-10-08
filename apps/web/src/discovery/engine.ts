@@ -1,15 +1,18 @@
+import { categoryId, plantStatus } from './classifications'
 import type { Market, Stall, DiscoverySnapshot } from '../data/types'
 
 export type Point = { latitude: number; longitude: number }
 export type Bounds = { south: number; west: number; north: number; east: number }
-export type Filters = { search: string; market: string; type: string; category: string; dietary: string; promotion: boolean; sort: string; radius: number; origin: Point | null; bounds: Bounds | null }
-export const defaultFilters: Filters = { search: '', market: '', type: '', category: '', dietary: '', promotion: false, sort: 'rating', radius: 50, origin: null, bounds: null }
+export type Filters = { marketKind?:string;plantDiet?:string;maxPriceSen?:number|null;search: string; market: string; type: string; category: string; dietary: string; promotion: boolean; sort: string; radius: number; origin: Point | null; bounds: Bounds | null }
+export const defaultFilters: Filters = { marketKind:'',plantDiet:'',maxPriceSen:null,search: '', market: '', type: '', category: '', dietary: '', promotion: false, sort: 'rating', radius: 50, origin: null, bounds: null }
+export const CLOSING_SOON_MINUTES=30
 const DAY = 86400000
 const minutes = (value: string) => Number(value.slice(0, 2)) * 60 + Number(value.slice(3, 5))
 const localDate = (time: number) => new Date(time + 8 * 3600000).toISOString().slice(0, 10)
 
-export function scheduleStatus(market: Pick<Market, 'schedules' | 'exceptions'>, now: Date): 'open' | 'upcoming' | 'closed' {
+export function scheduleStatus(market: Pick<Market, 'schedules' | 'exceptions'>, now: Date): 'open' | 'closing-soon' | 'upcoming' | 'closed' {
   const at = now.getTime()
+  let closingSoon=false
   for (let offset = -1; offset <= 1; offset++) {
     const date = localDate(at + offset * DAY)
     const start = Date.parse(`${date}T00:00:00+08:00`)
@@ -22,9 +25,10 @@ export function scheduleStatus(market: Pick<Market, 'schedules' | 'exceptions'>,
     for (const s of schedules) {
       const open = start + minutes(s.opens) * 60000
       const close = start + minutes(s.closes) * 60000 + (s.nextDay || minutes(s.closes) <= minutes(s.opens) ? DAY : 0)
-      if (at >= open && at < close) return 'open'
+      if (at >= open && at < close) {if(close-at>CLOSING_SOON_MINUTES*60000)return 'open';closingSoon=true}
     }
   }
+  if(closingSoon)return 'closing-soon'
   // Opening-soon is the next two hours, including a session starting after midnight.
   for (let offset = 0; offset <= 1; offset++) {
     const date = localDate(at + offset * DAY)
@@ -68,7 +72,7 @@ export function eligibleOffers(data: DiscoverySnapshot, now: Date) {
 export function discover(data: DiscoverySnapshot, filters: Filters, now: Date, page = 0, size = 6) {
   const term = normalizeSearch(filters.search)
   const markets = data.markets.filter(m => {
-    if (filters.market && m.id !== filters.market || filters.type && m.type !== filters.type) return false
+    if (filters.marketKind && (m.kind??'general')!==filters.marketKind || filters.market && m.id !== filters.market || filters.type && m.type !== filters.type) return false
     if (filters.origin && (m.latitude === null || m.longitude === null || distanceKm(filters.origin, { latitude: m.latitude, longitude: m.longitude }) > filters.radius)) return false
     const b = filters.bounds
     return !b || (m.latitude !== null && m.longitude !== null && m.latitude >= b.south && m.latitude <= b.north && m.longitude >= b.west && m.longitude <= b.east)
@@ -76,7 +80,17 @@ export function discover(data: DiscoverySnapshot, filters: Filters, now: Date, p
   const offers = eligibleOffers(data, now)
   const matched = data.stalls.filter(s => {
     const market = markets.find(m => m.id === s.marketId)
-    if (!market || filters.category && s.category !== filters.category || filters.dietary && dietaryStatus(s, now) !== filters.dietary || filters.promotion && !offers.some(o => o.stallId === s.id)) return false
+    if (!market || filters.dietary && dietaryStatus(s, now) !== filters.dietary || filters.promotion && !offers.some(o => o.stallId === s.id)) return false
+    const foods=data.menu.filter(f=>f.stallId===s.id)
+    // All menu filters must be satisfied by the same item. Offers never redefine unit price.
+    if(filters.plantDiet || filters.maxPriceSen!=null || filters.category) {
+      if(!foods.some(f=> {
+        if(filters.category && (categoryId(f.categoryId??s.categoryId??s.category)??s.category)!==(categoryId(filters.category)??filters.category))return false
+        const diet=plantStatus(f.plantDiet)
+        if(filters.plantDiet==='vegan'&&diet!=='vegan'||filters.plantDiet==='vegetarian'&&!['vegan','vegetarian'].includes(diet))return false
+        return filters.maxPriceSen==null || Number.isSafeInteger(filters.maxPriceSen)&&filters.maxPriceSen>=0&&f.priceSen<=filters.maxPriceSen
+      }))return false
+    }
     const haystack = normalizeSearch([s.name, s.specialty, s.category, ...s.aliases, market.name, market.area, ...data.menu.filter(f => f.stallId === s.id).map(f => f.name)].join(' '))
     return !term || term.split(' ').every(word => haystack.includes(word))
   }).sort((a, b) => {

@@ -1,3 +1,5 @@
+import { ui } from '../locales/phrases'
+import { destination } from './classifications'
 import { appPath } from '../app/config'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -29,14 +31,14 @@ export default function MarketMap({ markets, onBounds, sponsors }: { markets: Ma
     pins.current.clearLayers()
     const points: L.LatLngTuple[] = []
     for (const market of markets) {
-      if (market.latitude === null || market.longitude === null) continue
+      if (!destination(market.latitude,market.longitude)||market.latitude===null||market.longitude===null) continue
       const point: L.LatLngTuple = [market.latitude,market.longitude]
       points.push(point)
       const link = document.createElement('a')
       const sponsored=sponsors?.has(market.id)??false
-      const label=`${market.name}${sponsored?' · DEMO sponsored':''}`
+      const label=`${market.name} · ${ui(market.kind==='farmers'?'Farmers’ market':'General market')}${sponsored?' · DEMO sponsored':''}`
       link.href = appPath(`/markets/${encodeURIComponent(market.id)}`); link.textContent = label
-      L.marker(point, {title:label,alt:label,icon:L.divIcon({className:'market-pin',html:sponsored?'Ad':market.type === 'night' ? '☾' : '☀',iconSize:[36,36],iconAnchor:[18,18]})}).bindPopup(link).addTo(pins.current)
+      L.marker(point, {title:label,alt:label,icon:L.divIcon({className:'market-pin',html:sponsored?'Ad':market.kind==='farmers'?'🌱':market.type === 'night' ? '☾' : '☀',iconSize:[36,36],iconAnchor:[18,18]})}).bindPopup(link).addTo(pins.current)
     }
     // Do not recenter during a map-bound search: the user controls the current viewport.
     if (points.length && !map.current.getContainer().dataset.positioned) {

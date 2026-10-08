@@ -1,0 +1,4 @@
+.native-test-panel{margin:12px max(12px,env(safe-area-inset-right)) 12px max(12px,env(safe-area-inset-left));padding:12px;font-size:.85rem}
+.native-test-panel summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center}
+@supports(padding:env(safe-area-inset-top)){.site-header{padding-top:env(safe-area-inset-top);height:calc(88px + env(safe-area-inset-top))}.main-content{padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}}
+@media(max-width:800px){.site-header{height:calc(70px + env(safe-area-inset-top))}.main-content{padding-bottom:calc(100px + env(safe-area-inset-bottom))}}

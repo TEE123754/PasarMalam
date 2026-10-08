@@ -1,6 +1,37 @@
 # Phase status
 
-Update this file at the end of each phase gate. Phase 1 is complete locally. Phase 2 implementation passed its local phase-end gate and awaits live Supabase acceptance; Phase 3 implementation and local/browser gates passed; Phases 4–12 have not started.
+Update this file at the end of each phase gate. Original Phases 1–11 have local implementation and representative connected acceptance. CP1 code and its focused gate passed on 8 October 2026; registration-policy and human privacy acceptance remain pending. CP2 local code and gate are complete; CP3 local code/gate are complete; CP4 passport/recording code and gate are complete; CP5 and CP6 are complete; CP8 local implementation is complete; CP7–CP11 external/human acceptance remains pending; deployment remains on hold. Earlier entries below preserve historical checkpoints.
+
+## CP5 — clearance decisions and stock accounting
+
+- Status: **complete locally**, 8 October 2026; four requirements closed. **114 checked / 37 open**; CP6 is next.
+- Gate: 118 distinct selected frontend tests / 36 backend tests, including eight connected cases. Final lint/types/build/Ruff, credential/contract/private-permission checks passed.
+- One additive migration, 31 total. Connected disposable fixture cleanup retained 33 stalls / 96 foods. No deployment, new provider or actual payments.
+- Browser: fictional normal sale, final closing count, feasible/unknown/excessive ETA and downloaded CSV reconciliation passed. The example closes at 30 prepared, 5 normal, 6 clearance, 1 giveaway, 2 donation, 1 discard and 15 leftover portions. Confirmed clearance revenue/savings both RM15.00, all fictional.
+- [Acceptance](CP5_ACCEPTANCE.md). CP4 reviewed food policy, CP6 weight metrics and later human/device/partner evidence remain separate.
+
+## CP4 — batch passports and handling records
+
+- Status: **local passport/recording code and focused gate complete**, 8 October 2026. `C07-01` qualified review and `C07-13` approved cumulative accounting/parity implementation remain pending.
+- Gate: **68 frontend / 25 backend tests passed**, including one connected journey and its affected restore/merge-trigger retry. Lint/TypeScript/build/Ruff, exported contracts, final credential scan and private-table/function permissions passed.
+- Three additive migrations (30 total); connected cleanup retains 33 public stalls / 96 menu items. No reseed or deployment.
+- Browser: 158 °F observation, 157 °F correction retaining original, chilled transition, public passport with original 6:12 pm preparation / 6:42 pm deadline / 5 units, 3 handling records and 2 temperature records, blocked clearance and visible QR. Private notes/methods/actors absent from passport. A stale asset after a local rebuild required refresh/update; final route worked.
+- **110 checked / 41 open**. [Evidence](CP4_ACCEPTANCE.md) · [Reviewer package](CP4_POLICY_REVIEW.md). CP5 is next; actual phone scan and reviewed policy remain separate acceptance inputs.
+
+## CP3 — confirmed voice workflow
+
+- Status: **local code and phase gate complete**, 8 October 2026. No remaining CP3 coding job; `C05-05` human expression acceptance stays open for CP7.
+- Gate: **55 frontend / 39 backend cases passed**, including **5 connected CP3 cases**; lint/TypeScript/build/Ruff, API contract export, credential scan and database permissions passed.
+- Two additive guarded migrations; 27 migrations total. Connected fixture cleanup leaves 33 public stalls / 96 menu items. Test-cleanup dependency and static issues were repaired with affected retries only.
+- Browser: text draft → Malaysia date clarification → observed English readback start → new Batch 3 → remaining stock 10 to 5 → customer shows original 6:12 pm preparation and 6:42 pm advisory end, with 5 left.
+- **107 checked / 44 open** consolidated requirements. [Detailed evidence and limits](CP3_ACCEPTANCE.md). CP4 is next; deployment held.
+
+## CP2 — discovery completion
+
+- Status: **complete locally**, 8 October 2026; **0 remaining CP2 tasks**.
+- Seven consolidated gaps closed. Gate: 91 frontend / 26 backend tests (3 connected CP2 cases), lint/TypeScript/build/Ruff, credential scan and browser journeys passed.
+- One new additive guarded migration; 33 public stalls / 96 menu items. Local services refreshed; deployment held.
+- [Detailed evidence and limits](CP2_ACCEPTANCE.md). CP1 human onboarding/privacy acceptance remains open.
 
 ## Phase 1 — Foundation and application shell
 
@@ -209,3 +240,79 @@ Remaining work is consolidated in REMAINING_JOBS.md. Local readiness now include
 Morpheus qwen35-9b adapter, explicit cloud consent, stall-scoped voice menus, white described image boxes and public PWA shell are implemented. Three actual fictional EN/BM/Manglish text calls passed; browser draft review and batch confirmation passed. Full local batch: 186 frontend / 149 API pass, 33 connected skips; affected model/PWA repairs: 28 API / three frontend pass. No human accuracy claimed. Guarded Phase 11 core seed scaffold added but unexecuted; full history/reset remains work.
 
 Supabase HTTPS Auth responds, markets REST returns 404 and direct PostgreSQL is unreachable. No remote migration/seed/reset was run. User authorised private GitHub backup as the fallback; source is prepared without ignored secrets. Vercel/Railway remain on hold. Current app ports: web 5174/API 8010. Full evidence and remaining work: [local readiness](local-readiness-acceptance.md), [remaining jobs](REMAINING_JOBS.md).
+
+## 7 October 2026 — local connected completion and repairs
+
+The supplied Session pooler resolved the replacement database blocker. Applied 22 checksum-tracked files, provisioned five foundation plus 99 Phase 11 identities, complete catalog/commercial/partner history and preserved-audit reset. Auth/markets/model discovery now HTTP 200; database connected. Real scoped dispatcher and media sweep succeeded; minute SQL tick configured without cloud-to-local callback.
+
+Completed build gate: 186 frontend / 150 backend passes, initially 35 live skips. Actual connected execution exposed outdated fixtures and SQL name binding; grouped fixes reran failed/affected cases only. Final coverage is 44 distinct connected cases across gates. Three actual FFmpeg checks and two new frontend permission-timeout tests passed; 188 distinct frontend coverage across batches. Vendor five-case and voice four-case focused gates passed after additive SQL repairs. Exact configured Ruff and secret scans pass. No repeated full regression after individual edits.
+
+Repairs: original unapplied draft-table migration compatibility, scheduled reset lock ordering, freshness/reservation SQL aliases, unchanged-row event loop, stall photo binding and retention-preserving tick. Applied migration history remains immutable, including harmless no-op entries. Two independent actual Realtime clients received public version-only updates in 885 ms; edited stall restored.
+
+Browser evidence: production-preview sign-in/discovery/mode isolation/PWA update, representative fixture reservation/advertiser/permit workflows, actual Week 2 CSV matching nine rows/RM190.02/7.92kg; latest narrow viewport/document400px no overflow. Notification permission never resolved in the in-app browser, so no device receipt is claimed. Human recordings, cheap-phone/PWA acceptance and final images/provenance remain external inputs; deployment held. See [current readiness](local-readiness-acceptance.md), [remaining jobs](REMAINING_JOBS.md) and [user actions](USER_ACTIONS.md).
+
+Final operational probe: connected weather switched from fixture to Open-Meteo; actual vendor refresh persisted a provider observation then reused its cache, both HTTP 200. Minute Cron active with 12 observed recent ticks. Local worker running: dispatcher HTTP 200 and hourly sweep completed with zero candidates. Browser notification timeout and sign-out visibly verified; no actual device enrolled.
+
+## 7 October 2026 — final PWA repair and handoff
+
+A controlled outage of the task-owned preview produced a blank page on in-app-browser reload. Restored the preview and repaired the public shell: bounded build manifest of JS/CSS includes lazy-route styles and exports, excludes large speech/WASM runtime, versions manifest/worker content, validates install assets and obtains a bounded cache acknowledgement. The app now displays preparing/ready/unconfirmed/unsupported status in BM/English instead of silently hiding setup failures.
+
+Completed this repair batch before its gate: lint, typecheck, production build, 11 focused tests and configured frontend credential scan all passed. Six new tests bring frontend coverage to 194 distinct tests across batches. The browser activated the repaired update and visibly reports unconfirmed readiness, so actual offline reload remains open. Desktop browser-control approval timed out before actual notification enrolment/receipt; existing human notification consent remains valid.
+
+Restored localhost API/web/worker after the interrupted turn. Subsequent worker observations included repeated dispatch HTTP 200 responses and one eligible-object sweep deletion while retaining unresolved ready tickets. Corrected stale Phase 6 and demo-guide database/export blockers, updated plan/remaining-job checklists, and retained actual phone/voice/image/pilot inputs as pending. Deployment remains on hold. Evidence: [readiness status screenshot](screenshots/local-offline-readiness-oct7.png) and [local readiness](local-readiness-acceptance.md).
+
+## 8 October 2026 — customer/hawker UI refresh and supplied artwork
+
+Completed the reference-led cream/orange UI batch: customer hero/search/category cards, expandable filters and segmented sorting; selected-stall hawker overview with scoped batch/review/offer counts, illustrated reminders/products, voice-first quick actions and a mobile floating menu. Shared navigation, focus states, responsive layout, detail/menu/offer presentation, demo dialog and asset library are updated. Existing domain engines, role boundaries, batch audits and private evidence remain in control.
+
+All 12 original PNGs supplied in `IMAGE/` are preserved and integrated via 24 metadata-stripped responsive WebP files. Original aggregate size 29,297,792 bytes; output aggregate 1,872,656 bytes. Matching subjects carry demo labels and accessible alt text; unmatched subjects and batch/evidence slots retain described placeholders. The legacy 100 logical slot manifest remains a descriptor catalogue; actual outputs/hashes are recorded in [supplied provenance](supplied-image-provenance.json). Model/date/public-use rights are not invented.
+
+Phase-end gate: after repairing one obsolete TypeScript comparison, typecheck/build and **92 tests in six files** passed. Lint, asset-script Ruff and frontend credential scan passed. Four new artwork tests cover subject/provenance boundaries and all responsive files; frontend coverage is 198 distinct tests across batches. Browser-driven refinements then passed only the affected lint/typecheck/build/credential checks; no repeated broad API/SQL or 92-test run.
+
+Browser evidence: category/search/dietary exclusion/reset, stall selection with matching heading/products/status, floating New batch action closing its menu and scrolling the unsaved form into view. No broken rendered images or horizontal overflow: actual desktop viewport/document widths 1422/1405 pixels and narrow preview 434/417 pixels. Screenshots and exact scope are in [UI refresh report](UI_UX_REFRESH.md). Physical phone/localisation/accessibility acceptance remains separate.
+
+After applying the final app update, the controlling worker now acknowledged **Fictional demo ready offline**. This supersedes the earlier unconfirmed-readiness observation; a network-disconnected reload remains unverified. Temporary browser viewport was restored and fixture role returned to customer. Services remain local. Deployment/publishing and business-provider activation remain on hold. Image local integration is complete; generation metadata/public-use rights, human voice/timing, displayed push, target-device and real pilot review remain open.
+
+## 8 October 2026 — consolidated backlog and completion planning
+
+Reviewed the user's broader consolidated checklist: **94 checked / 57 unchecked** requirements. The open inventory preserves source wording/status reasons and gives each requirement a section/item ID. Every one of the 57 items is mapped exactly once to CP1–CP11, with dependencies, tools, build tasks, phase-end gates and code-versus-acceptance completion criteria. CP12 maps to original Phase 12 deployment and remains last/on hold.
+
+Deliverables: [all partial/pending requirements](PARTIAL_AND_PENDING_JOBS.md) and [completion implementation plan](COMPLETION_IMPLEMENTATION_PLAN.md). Original implementation-plan history is preserved and linked to this extended scope. Human/device checks attached to already implemented features and image metadata/rights are separately listed without inflating the 57-item count. The inventory generator validated unique IDs, complete coverage and all phase counts.
+
+Documentation only: no new feature checkbox was ticked, no application test/build was run, no database/Auth policy/provider setting changed, and no deployment, partnership outreach or external submission occurred. Existing local services/data are unchanged. Official competition instructions, participant measurements, expert policy review, native hardware and real agreements remain inputs rather than fabricated implementation evidence.
+
+## CP1 — Registration, listing details and transparent declarations (8 October 2026)
+
+**Local code and focused gate complete; human registration/privacy acceptance pending.** Consolidated checklist: **97/151 checked, 54 open**. Three requirements closed: C03-07, C04-01, C04-09. C01-03 stays partial.
+
+Delivered dedicated description, independent dietary/ownership declarations and explicit confirmed/unknown allergens with SQL recording/audit and ingredient-change invalidation. Voice cannot infer or reconfirm allergens. Invitation verification and customer onboarding ignore browser/user-metadata roles; new uninvited profiles are refused. Public signup remains disabled. Two additive migrations applied without editing prior applied files; no seed or batch-time reset and no deployment.
+
+After the complete build batch, lint, TypeScript/build, 78 selected Vitest tests, 21 backend tests including 4 guarded connected tests, Ruff and frontend credential scan passed. First sandbox Vite startup failed before execution; only failed build/tests were retried with required filesystem access. Three Python formatting failures were repaired and only Ruff rerun; passed backend tests were not repeated. Browser verified descriptions/declarations, confirmed/unknown allergens, ingredient-edit invalidation, explicit reconfirmation and English/BM invite-only Profile. No human email/password setup or real device claim.
+
+Evidence, commands, migrations and remaining actions: [CP1 acceptance](CP1_ACCEPTANCE.md). Review draft: [CP1 privacy](CP1_PRIVACY_REVIEW.md). Local API refreshed on port 8010; existing frontend on 5174. Next phase: CP2. Owner signup-policy, actual consenting email/password acceptance and privacy/provider/audit-retention review remain pending; CP1 has no further identified local code task.
+
+## CP6 — community and impact, 8 October 2026
+
+Complete locally: seven requirements closed; **121 checked / 30 open**. Review replies/moderation, dedicated report categories, minimised private summaries, opt-in deduplicated telemetry, comparable leftover metrics, measured-weight provenance and suppressed scoped exports are delivered. 47 distinct selected frontend and 25 backend tests passed, including five connected cases; three additive migrations (34 total), fixture baseline 33 stalls / 96 foods preserved. Browser private-draft/public-reply and organiser CSV evidence recorded. [Acceptance](CP6_ACCEPTANCE.md). CP7 human/device evidence is next; provider quality and real pilot effects are not claimed. Deployment held.
+
+## CP7 preparation — 8 October 2026
+
+Collection/scoring preparation complete; all seven human/device requirements remain pending. Expanded 24-case holdout template, consent/audio/hash freeze checks, offline metric/timing/request-cost scorer, interview/trial/device templates and browser pack download are ready. 15 distinct Python tests and six frontend timing tests passed; final static/build/credential and browser download evidence recorded. These are synthetic software checks, not measured human accuracy or pilot effects. Counts stay **121 checked / 30 open**. [Guide](CP7_MEASUREMENT_GUIDE.md) · [Preparation evidence](CP7_ACCEPTANCE.md). No deployment.
+
+## CP8 — photo assistance and evaluated planning
+
+8 October 2026: local gate complete; four real-history requirements pending. Three closed; **124 checked / 27 open** overall. 22 distinct backend cases (one connected), four frontend cases, static/build/contracts/credential checks passed. Affected provider retries followed fenced JSON and ingredient-prose findings; evidence is now constrained to apparent categories. Browser confirmed conflict, source choice and actual draft download. Gemma supplied-image smoke: satay, 480 total tokens; no price/accuracy claim. Synthetic coverage 6/8, below nominal 90%; real history unmeasured. No migration added (34 total); cumulative connected cases 71. API refreshed at 8010; web 5174. Deployment held. [Acceptance](CP8_ACCEPTANCE.md) · [Collection guide](CP8_FORECAST_GUIDE.md).
+
+## CP9 — showcase preparation
+
+8 October 2026: preparation complete; five human/competition requirements remain pending. Overall 124 checked / 27 open. English storyboard/evidence map/conditional declarations/private templates and studio download ready. Nine distinct frontend / one Python case passed; static/build/Ruff, credential scans and private Git-ignore check passed. Affected clearance selection retries preserved the 15-minute cutoff and reject active duplicate offers. Browser pack parity, confirmed scripted Batch 3/older Batch 1, Ubi bakar approval/customer offer, same-workspace advance/delisting, missing-handling block and Not measured label observed. Used an isolated localhost origin due existing shared demo-state interference; no actual offline/phone/student-video claim. No migrations/provider/database call, recording/submission or deployment. [Acceptance](CP9_ACCEPTANCE.md) · [Guide](CP9_SHOWCASE_GUIDE.md).
+
+## CP10 — partner activation preparation, 8 October 2026
+
+Local preparation/contract gate complete; all six real partner/data requirements pending. Six private templates and strict offline review/draft projection, source/expiry/revocation checks and owner handoff briefs delivered. 32 Python (22 new / 10 existing) and 14 existing frontend partner cases passed. Two import-only lint fixes; only failed Ruff rerun. Private-ignore and credential checks passed; actual template review reports missing evidence. No runtime/UI/schema change, network/provider call, external transmission or deployment. Overall 124 checked / 27 open. [Acceptance](CP10_ACCEPTANCE.md) · [Owner guide](CP10_PARTNER_GUIDE.md). Next: CP11 or supply real CP10 agreements/sources and approved samples.
+
+## CP11 — fictional native wrapper preparation, 8 October 2026
+
+Android/iOS source projects and isolated native bundle prepared; native binaries/device testing skipped by owner. 57 distinct frontend tests, lint/TypeScript/builds, platform generation/sync, config/credential checks passed. Dependency pin 8.4.3 avoids CLI audit finding. Focused repairs addressed notification-removal type, late-night seed initialization, Swift Windows paths, native exit link and pause UI cleanup; only affected checks repeated. Browser root/sandbox redirected to working fictional discovery; screenshot captured. No APK, iOS compiler or device receipt claim. C01-07 remains partial; 124 checked / 27 open. [Guide](CP11_NATIVE_GUIDE.md) · [Acceptance](CP11_ACCEPTANCE.md). Deployment held.
+
+CP11 handoff continuation: final source/document review complete; no further code changes or repeated test gate. Owner-requested device/toolchain skip preserved. Native source preparation complete, C01-07 partial and deployment held.

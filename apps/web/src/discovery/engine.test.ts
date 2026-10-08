@@ -10,8 +10,8 @@ const overnight = {schedules:[{weekday:3,opens:'17:00',closes:'00:30',nextDay:tr
 describe('Malaysian schedule boundaries', () => {
   it.each([
     ['2026-09-30T16:59:59+08:00','upcoming'],['2026-09-30T17:00:00+08:00','open'],
-    ['2026-09-30T23:59:59+08:00','open'],['2026-10-01T00:00:00+08:00','open'],
-    ['2026-10-01T00:29:59+08:00','open'],['2026-10-01T00:30:00+08:00','closed'],
+    ['2026-09-30T23:59:59+08:00','open'],['2026-10-01T00:00:00+08:00','closing-soon'],
+    ['2026-10-01T00:29:59+08:00','closing-soon'],['2026-10-01T00:30:00+08:00','closed'],
     ['2026-09-30T14:59:59+08:00','closed'],['2026-09-30T15:00:00+08:00','upcoming'],
   ])('%s gives %s', (time,status) => expect(scheduleStatus(overnight,new Date(time))).toBe(status))
   it('cancels a session including its after-midnight continuation', () => {

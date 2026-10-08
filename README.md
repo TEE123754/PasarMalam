@@ -13,7 +13,7 @@
   <p><strong>React · TypeScript · Vite · FastAPI · Supabase · Morpheus</strong></p>
 </div>
 
-**Current status — 5 October 2026:** locally built prototype with a separate prefilled demo. Deployment is on hold. Vercel is the planned frontend host and Railway the planned backend host; neither is live. Connected Supabase, human speech evaluation and full device acceptance remain unfinished.
+**Current status — 8 October 2026:** complete local implementation with a separate prefilled demo and a migrated/seeded connected Supabase sandbox. Customer and hawker interfaces have been refreshed, and all 12 supplied images are integrated. 44 real connected cases passed across earlier completion/repair gates; the UI refresh passed 92 focused frontend tests. Deployment remains on hold; actual device push, human voice evaluation, target-phone acceptance and image public-use rights remain tracked separately.
 
 ## Overview
 
@@ -75,18 +75,18 @@ Reduced listing effort and better surplus coordination are intended benefits. Ti
 
 | Area | Features | Current boundary |
 | --- | --- | --- |
-| Discovery | Markets, map pins, schedules, categories, proximity, popularity/reviews and promotions | Local fixtures; connected Realtime acceptance pending |
-| Hawker workspace | Stall/menu editing, numbered batches, stock actions, corrections and audit trails | Fixture workflows; live database/media checks pending |
+| Discovery | Markets, map pins, schedules, categories, proximity, popularity/reviews and promotions | Fixtures plus connected queries and two-client Realtime verified |
+| Hawker workspace | Stall/menu editing, numbered batches, stock actions, corrections and audit trails | Connected batch/edit/Storage gates and synthetic media checks passed |
 | Voice listings | Local transcription, BM/English/Manglish extraction, evidence and confirmation | Morpheus text checks pass; human speech benchmark pending |
 | Freshness/clearance | Ingredient/weather caps, conservative uncertainty, reminders and expiry | Demonstration policy; no food-safety badge |
-| Community | Reviews, confidential reports, moderation, replies and appeals | Fictional verified personas; connected privacy checks pending |
+| Community | Reviews, confidential reports, moderation, replies and appeals | Fictional trusted accounts; connected permission/Storage gates passed |
 | Commerce | Reservations, collection codes, pay-at-stall, commissions, receipts and delivery | No real payment, courier or subscription transaction |
 | Advertising | Campaigns, approval, budgets and labelled sponsored placement | Internal simulation; no ad-network integration |
 | Partners/authorities | Collaborations, editorial trails, reviewed referrals, officer case steps and permits | Fictional organisations; no official submission |
 | Surplus routes | Donation, compost and BSF pickups with separate receipts/weights | Synthetic transfers; consumption/non-consumption totals stay separate |
 | Advanced previews | Notifications, telemetry, research, scripted AI and forecasts | Labelled simulations; genuine push needs a consenting device |
 | Presentation | Scenario reset, pilot/business views, assets and guided scripts | Browser-local fixtures and generated histories |
-| PWA | Manifest, public-shell caching, update control and offline explanation | Local update verified; physical-device acceptance pending |
+| PWA | Bounded public-shell manifest, cache readiness status, update control and offline explanation | Local update verified; in-app browser offline reload unconfirmed; physical-device acceptance pending |
 
 ## Try the Demo
 
@@ -113,9 +113,9 @@ From the real-app screen, click **Try demo → Open prefilled demo**. No account
 | `/sandbox/*` | Connected acceptance requiring a guarded disposable Supabase project and actual caller permissions |
 | Root app routes | Separate real-app entry; no demo fixtures, and disposable-demo API rejected for production use |
 
-The fixture catalog contains **10 markets, 30 stalls/owners, 50 shoppers, 90 foods, 150 batches and 150 reviews**, plus business histories. These are fictional fixture counts, not provisioned Supabase counts.
+The fixture catalog contains **10 markets, 30 stalls/owners, 50 shoppers, 90 foods, 150 batches and 150 reviews**, plus business histories. The connected Phase 11 catalog is also provisioned; it uses 150 catalog batches plus 24 closed historical batches. The five-account acceptance foundation adds two markets/two stalls to connected discovery; reset preserves prior generations.
 
-All photo slots are **white boxes with centred descriptions**. Final user-supplied images are pending; 100 individually described asset slots are reserved. Demo times are frozen scenario times, not current market conditions.
+All **12 supplied original images** are integrated as responsive WebP artwork, visibly labelled **Demo illustration**. Markets and matching food/menu subjects reuse these originals; unmatched subjects retain white boxes with centred descriptions. Batch photos and private evidence remain separate. The 100 legacy logical slots remain compatible; no extra image generation is required. [Your action checklist](docs/YOUR_ACTION_CHECKLIST.md) retains the 12 prompts and excludes deployment tasks. Demo times are frozen scenario times, not current market conditions.
 
 ### Five-minute tour
 
@@ -128,13 +128,13 @@ All photo slots are **white boxes with centred descriptions**. Final user-suppli
 The [demo guide](docs/demo-guide.md) includes the longer commerce, authority, donation and advanced walkthroughs.
 
 <details>
-<summary>Preview: separate demo entry and described image boxes</summary>
+<summary>Preview: refreshed customer and hawker interfaces</summary>
 
-![Separate demo entry](docs/screenshots/local-demo-dialog.png)
+![Customer discovery with supplied demo illustrations](docs/screenshots/ui-customer-oct8.png)
 
-![Local discovery with described placeholders](docs/screenshots/local-placeholder-desktop.png)
+![Hawker overview in a narrow browser preview](docs/screenshots/ui-hawker-oct8-narrow.png)
 
-These show the local fictional app, not a deployed service or supplied food photography.
+These show the local fictional app and representative supplied artwork. [Refresh details and verification](docs/UI_UX_REFRESH.md).
 
 </details>
 
@@ -158,7 +158,7 @@ Active batch → deterministic advisory → reminder/clearance draft
 → expiry or stock exhaustion ends eligibility
 ```
 
-Connected implementation includes SQL state, outbox events and leased dispatch; live execution remains pending. The local demo demonstrates these transitions with fictional state.
+Connected SQL state, outbox events, lease/consent boundaries and localhost dispatcher execution are verified; actual browser receipt remains pending. The local demo demonstrates these transitions with fictional state.
 
 ### Private report to reviewed referral
 
@@ -347,16 +347,17 @@ Measure **net RM recovered per participating stall-night** and **explicitly weig
 
 | Check | Latest recorded result |
 | --- | --- |
-| Local regression batch | **186 frontend passes; 149 API passes; 33 database-dependent skips** |
-| Static/build checks | ESLint, TypeScript, production build and Ruff passed |
-| Affected model/PWA repairs | 28 voice/provider API checks and three service-worker checks passed |
-| Real Morpheus text smoke | Three fictional English/BM/Manglish samples returned expected fields without flags |
-| Browser | Consent, extraction, review/confirmation, stall-specific menus, demo separation and PWA update verified |
-| Responsive preview | Final viewport/document widths both 375 px; no horizontal overflow observed |
-| Secret scans | Configured private values excluded from frontend output and upload candidates |
-| Human/device results | Pending; no WER, calibrated accuracy or measured listing-time improvement |
+| Completed build gate | **186 frontend tests; 150 API tests passed**; initial 35 live skips subsequently executed |
+| Connected runtime | **44 distinct cases passed across completion/affected batches** on the new guarded project |
+| Affected repairs | Two additional frontend push tests, three actual FFmpeg checks, vendor and voice SQL regressions passed |
+| Static/build | ESLint, TypeScript, production build, exact configured Ruff and credential scans passed |
+| Live services | Auth/markets/model discovery HTTP 200; pooler connected; 22 migration files; local dispatch/sweep and actual Open-Meteo/cache reuse succeeded |
+| Realtime | Two independent clients received the same public-only event in 885 ms; temporary edit restored |
+| Browser/export | Mode dialogue/isolation, sign-in/discovery, PWA update, representative commerce/partner journeys and actual Week 2 CSV verified |
+| Narrow preview | Latest IAB viewport/document both 400 px, no horizontal overflow; no physical-phone claim |
+| Human/device | Actual push receipt, target-phone/PWA and human voice measurements remain pending |
 
-These checkpoint results do not mean every connected feature is accepted. See [local readiness](docs/local-readiness-acceptance.md) and [phase status](docs/phase-status.md).
+Frontend coverage totals **194 distinct tests across batches**, not one repeated full run. The final PWA repair gate passed lint/typecheck/build, 11 focused tests and the frontend credential scan. Actual offline reload and notification display remain unverified in the available browser; the app visibly reports unconfirmed offline readiness. Detailed scopes and repair results are in [local readiness](docs/local-readiness-acceptance.md) and [phase status](docs/phase-status.md). This is a fictional demo with representative connected boundary tests, not certification for real food or every production condition.
 
 ### Development and testing
 
@@ -375,13 +376,13 @@ Live phase commands require the configured disposable project and explicit gate 
 | --- | --- |
 | Frontend/API | Localhost only |
 | GitHub | Private source backup, not deployment |
-| Supabase | At last check: Auth HTTPS reachable, direct DB unreachable, markets REST 404 |
+| Supabase | Session pooler connected; schema/full seed installed; Auth/markets HTTP 200 |
 | Morpheus | Configured privately; fictional text extraction exercised |
 | Vercel/Railway | Planned final Phase 12; on hold |
 
-Remaining work includes reachable guarded database setup/migrations; connected permission, Realtime, Storage, job, stock-race and genuine push acceptance; complete Phase 11 history/reset provisioning; human recordings/timing; physical-device/offline/install/export checks; and user images.
+Remaining acceptance is actual supported-browser notification receipt, human recordings/timing and target-device checks. The database, migrations, full seed/reset and representative connected runtime gates are verified. All 12 supplied images are integrated locally; generator metadata/public-use rights remain to be confirmed. Unmatched subjects retain described placeholders.
 
-The core seed scaffold is **unexecuted** and does not yet implement all connected commerce/partner history or reset-to-today. Fixture counts are not database counts. Large speech/WASM assets also need low-memory phone testing.
+Connected seed code now includes 99 identities, trusted memberships, advisory declarations/eligible clearance, private reports, commerce ledgers/ads/subscriptions, partner history and guarded reset-to-today. Twenty-four closed historical batches preserve stock/history separation. Provisioning and repeat/reset/isolation checks **executed successfully on the replacement project**; current-generation and retained-history counts are distinguished in the readiness evidence. See [local operations](docs/local-operations.md) for commands and [deployment handoff](docs/deployment.md) for prepared configuration. Large speech/WASM assets still need low-memory phone testing.
 
 Deployment begins only after a later instruction and readiness review. Account allowances/commercial eligibility must be checked then; free always-on hosting is not guaranteed. [Remaining jobs](docs/REMAINING_JOBS.md) separates local work from deployment; [the implementation plan](IMPLEMENTATION_PLAN.md) tracks the phase checklists.
 
@@ -398,7 +399,7 @@ Deployment begins only after a later instruction and readiness review. Account a
 | Clearance refused | Correct missing preparation/handling information; never extend a deadline to bypass eligibility |
 | Old demo changes appear | Reset in the studio; catalog regeneration does not overwrite an existing session |
 | Update banner appears | Save current work, then choose **Update app** |
-| Images are blank | Expected placeholders until final images arrive |
+| Images are blank | Unmatched subjects and original batch/evidence slots use described placeholders; supplied art appears in demo/sandbox only. Failed requests also fall back to placeholders |
 
 ## Project Structure
 
@@ -422,6 +423,8 @@ PasarMalam/
 | [PRD](PRD.md) | Product, ethics, business requirements and boundaries |
 | [Implementation plan](IMPLEMENTATION_PLAN.md) | Phase scope, stack, gates and remaining tasks |
 | [Local readiness](docs/local-readiness-acceptance.md) | Checks, blockers and launch/recovery instructions |
+| [Local operations](docs/local-operations.md) | Runnable launch, guarded seed/reset, worker and recovery |
+| [Deployment handoff](docs/deployment.md) | Prepared Vercel/Railway/container configuration; execution deferred |
 | [Remaining jobs](docs/REMAINING_JOBS.md) | Local acceptance separated from deployment |
 | [User actions](docs/USER_ACTIONS.md) | Supabase/keys, devices and later assets |
 | [Demo guide](docs/demo-guide.md) | Core/full-vision scripts, reset and provenance |
@@ -430,4 +433,25 @@ PasarMalam/
 | [Pilot plan](docs/pilot-plan.md) | Four-week proposal and measurement definitions |
 | [Evaluation report](docs/evaluation-report.md) | Speech evaluation status and limitations |
 | [Tech references](TECH_REFERENCES.md) | Related repositories/models and source evidence |
-| [Image prompts](IMAGE_GENERATION_PROMPTS.md) / [asset manifest](docs/asset-manifest.json) | Reserved descriptions and later image workflow |
+
+| [Your actions and 12 image prompts](docs/YOUR_ACTION_CHECKLIST.md) | Current local acceptance checklist and reduced image brief; supplied originals integrated; no deployment tasks |
+| [UI and UX refresh](docs/UI_UX_REFRESH.md) / [supplied image provenance](docs/supplied-image-provenance.json) | Customer/hawker redesign, screenshots, focused checks and 12-original asset pipeline |
+| [CP7 recording and measurement guide](docs/CP7_MEASUREMENT_GUIDE.md) | Expanded collection pack; human evaluation remains pending |
+| [CP6 community and impact](docs/CP6_ACCEPTANCE.md) | Review replies, private summaries, scoped telemetry and measured-weight reporting |
+| [CP5 clearance and accounting](docs/CP5_ACCEPTANCE.md) | Reconciled sessions, completed-sale savings, entered-ETA decisions and CSV source audit |
+| [CP4 passports and handling](docs/CP4_ACCEPTANCE.md) / [policy review package](docs/CP4_POLICY_REVIEW.md) | Public batch QR, private manual temperatures and append-only transitions; approved cumulative policy pending |
+| [CP3 voice acceptance](docs/CP3_ACCEPTANCE.md) | Owned targeting, clarification, readback and atomic stock/menu/batch confirmation; human expression accuracy pending |
+| [Consolidated checklist](docs/CONSOLIDATED_FEATURES_CHECKLIST.md) / [all partial and pending jobs](docs/PARTIAL_AND_PENDING_JOBS.md) | 124 checked / 27 open requirements, with reasons and stable IDs |
+| [CP1 acceptance](docs/CP1_ACCEPTANCE.md) / [privacy-review draft](docs/CP1_PRIVACY_REVIEW.md) | Description, declarations, allergens and guarded customer onboarding; 78 frontend / 21 backend focused passes; human registration/privacy acceptance pending |
+| [CP2 acceptance](docs/CP2_ACCEPTANCE.md) | Farmers’ markets, categories, diet/budget filters, availability and directions; 91 frontend / 26 backend focused passes |
+| [Completion implementation plan](docs/COMPLETION_IMPLEMENTATION_PLAN.md) | CP1–CP11 remaining work, stack, dependencies and phase-end gates; CP12 deployment held |
+| [Optional legacy image catalogue](IMAGE_GENERATION_PROMPTS.md) / [asset manifest](docs/asset-manifest.json) | Existing logical slot references; generating 100 originals is no longer required |
+
+
+CP8 local photo assistance/planning is accessible from hawker accounting. [Acceptance and remaining real-history work](docs/CP8_ACCEPTANCE.md). Existing Morpheus credits owner-authorised; deployment held.
+
+CP9 showcase preparation is downloadable from the demo studio. [English recording guide](docs/CP9_SHOWCASE_GUIDE.md) and [evidence/declarations](docs/CP9_EVIDENCE_PACK.md); actual student video, eligibility/history and competition assessment remain pending.
+
+CP10 local partner preparation: [handoff and evidence guide](docs/CP10_PARTNER_GUIDE.md) · [phase acceptance](docs/CP10_ACCEPTANCE.md). Real agreements and data sources remain pending; no external activation or deployment.
+
+CP11 native source preparation: [local build/device guide](docs/CP11_NATIVE_GUIDE.md) · [acceptance](docs/CP11_ACCEPTANCE.md). Android/iOS binary and device tests are deferred; the fictional package preview is available with `npm run native:preview`.

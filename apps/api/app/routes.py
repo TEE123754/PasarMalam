@@ -84,14 +84,18 @@ async def discovery(repo: PublicRepository) -> DiscoverySnapshot:
     await repo.rpc("refresh_discovery_advisories", {})
     server_now = await repo.rpc("fresh_clock", {})
     markets = await repo.rpc("discovery_markets", {})
+    kinds = await repo.read("markets", "id,kind", published="eq.true")
+    market_kinds = {row["id"]: row["kind"] for row in kinds}
     stalls = await repo.read(
         "public_stalls",
-        "id,market_id,name,category,specialty,price_sen,halal,open,photo,lot,opens,closes,latitude,longitude",
+        "id,market_id,name,category,specialty,price_sen,halal,open,photo,lot,opens,closes,latitude,longitude,description,declarations,declarations_recorded_at,category_id,availability_confirmed_at",
     )
     reviews = await repo.read("public_reviews", "id,stall_id,rating,body")
     claims = await repo.rpc("discovery_claims", {})
     menu = await repo.read(
-        "food_items", "id,stall_id,name,price_sen,ingredients,photo", published="eq.true"
+        "food_items",
+        "id,stall_id,name,price_sen,ingredients,photo,allergens,allergens_recorded_at,category_id,plant_diet,plant_diet_recorded_at",
+        published="eq.true",
     )
     batches = await repo.read(
         "public_batches",
@@ -114,7 +118,12 @@ async def discovery(repo: PublicRepository) -> DiscoverySnapshot:
                 "marketId": stall["market_id"],
                 "name": stall["name"],
                 "category": stall["category"],
+                "categoryId": stall.get("category_id"),
+                "availabilityConfirmedAt": stall.get("availability_confirmed_at"),
                 "specialty": stall["specialty"],
+                "description": stall.get("description", ""),
+                "declarations": stall.get("declarations"),
+                "declarationsRecordedAt": stall.get("declarations_recorded_at"),
                 "priceSen": stall["price_sen"],
                 "rating": sum(ratings) / len(ratings) if ratings else 0,
                 "reviews": len(ratings),
@@ -145,6 +154,7 @@ async def discovery(repo: PublicRepository) -> DiscoverySnapshot:
             "markets": [
                 {
                     **row,
+                    "kind": market_kinds.get(row["id"], "general"),
                     "cover": "🌙" if row["type"] == "night" else "☀️",
                     "stallCount": sum(s["market_id"] == row["id"] for s in stalls),
                 }
@@ -171,6 +181,11 @@ async def discovery(repo: PublicRepository) -> DiscoverySnapshot:
                     "name": f["name"],
                     "priceSen": f["price_sen"],
                     "ingredients": f["ingredients"],
+                    "categoryId": f.get("category_id"),
+                    "plantDiet": f.get("plant_diet"),
+                    "plantDietRecordedAt": f.get("plant_diet_recorded_at"),
+                    "allergens": f.get("allergens"),
+                    "allergensRecordedAt": f.get("allergens_recorded_at"),
                     "photoUrl": photo_url(f.get("photo")),
                 }
                 for f in menu

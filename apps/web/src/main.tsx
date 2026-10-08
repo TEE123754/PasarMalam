@@ -7,6 +7,12 @@ import { PwaStatus } from './app/PwaStatus'
 import { AuthProvider } from './auth/AuthProvider'
 import './locales/i18n'
 import './styles.css'
+import './ui-refresh.css'
+import './native/native.css'
+import { prepareNativeDemoRoute, nativeDemoBuild } from './native/policy'
+import { NativeRuntime } from './native/NativeRuntime'
+
+prepareNativeDemoRoute()
 
 const root = document.getElementById('root')
 if (!root) throw new Error('App root is missing')
@@ -17,9 +23,9 @@ const queryClient = new QueryClient({
 
 createRoot(root).render(
   <StrictMode>
-    <PwaStatus />
+    {!nativeDemoBuild() && <PwaStatus />}
     <QueryClientProvider client={queryClient}>
-      <AuthProvider><BrowserRouter basename={/^\/demo(?:\/|$)/.test(window.location.pathname) ? "/demo" : /^\/sandbox(?:\/|$)/.test(window.location.pathname) ? "/sandbox" : "/"}><App /></BrowserRouter></AuthProvider>
+      <AuthProvider><BrowserRouter basename={/^\/demo(?:\/|$)/.test(window.location.pathname) ? "/demo" : /^\/sandbox(?:\/|$)/.test(window.location.pathname) ? "/sandbox" : "/"}><NativeRuntime/><App /></BrowserRouter></AuthProvider>
     </QueryClientProvider>
   </StrictMode>,
 )

@@ -38,9 +38,9 @@ def database(live):
         )
         batch = connection.execute(
             "insert into public.batches(food_item_id,batch_number,"
-            "prepared_at,original_quantity,remaining_quantity,handling) "
+            "prepared_at,original_quantity,remaining_quantity,handling,request_id,request_hash) "
             "select %s,coalesce(max(batch_number),0)+1,%s,10,10,"
-            '\'{"storage":"ambient"}\' from public.batches '
+            "'{\"storage\":\"ambient\"}',gen_random_uuid(),'acceptance' from public.batches "
             "where food_item_id=%s returning id",
             (stable("food-a"), now - timedelta(minutes=35), stable("food-a")),
         ).fetchone()[0]

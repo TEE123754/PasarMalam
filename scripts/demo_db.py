@@ -59,7 +59,7 @@ def verify_marker(connection: psycopg.Connection) -> None:
 
 def migrate(initialise: bool = False) -> None:
     _, _, database = target_configuration()
-    with psycopg.connect(database, autocommit=True) as connection:
+    with psycopg.connect(database, autocommit=True, connect_timeout=10) as connection:
         marker = connection.execute("select to_regclass('private.environment_guard')").fetchone()[0]
         if marker:
             verify_marker(connection)

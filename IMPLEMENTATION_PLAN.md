@@ -1,29 +1,192 @@
 # PasarMalam — Phase-by-Phase Implementation Plan
 
-Version: 5.1 · Date: 5 October 2026 · Status: Phases 1–11 locally built; connected/human/device acceptance pending
+Version: 6.6 · Date: 8 October 2026 · Status: original Phases 1–11 built locally; consolidated checklist retains 27 open completion requirements; deployment held
 
-Product contract: [PRD.md](PRD.md). Original input: [PasarMalam.md](PasarMalam.md). Assets: [100 prompts, one prompt per image](IMAGE_GENERATION_PROMPTS.md).
+8 October 2026 UI/asset update: the customer and hawker interfaces now follow the supplied cream/orange reference. All **12 supplied originals** are integrated as 24 responsive WebP files; the existing 100 logical slot IDs remain compatible. Reuse matching subjects with demo labels and keep unmatched subjects, batch photos and private evidence separate. [Your action checklist](docs/YOUR_ACTION_CHECKLIST.md) retains 12 optional prompts and excludes deployment. See [UI refresh evidence](docs/UI_UX_REFRESH.md) and [supplied-image provenance](docs/supplied-image-provenance.json).
 
-Repository/model shortlist and source evidence: [TECH_REFERENCES.md](TECH_REFERENCES.md). The PRD's new technical, ethics and business requirements are mandatory and mapped to the phase gates below.
+Product contract: [PRD.md](PRD.md). Original idea: [PasarMalam.md](PasarMalam.md). Assets: [one prompt per image](IMAGE_GENERATION_PROMPTS.md). Repository/model evidence: [TECH_REFERENCES.md](TECH_REFERENCES.md).
 
-Current user amendment (5 October 2026): finish local web/API work and acceptance before deploying. Supabase test-project and Morpheus API connections may run from localhost. Morpheus extraction is implemented using `qwen35-9b`, explicit transcript consent and bounded validated responses; the local model option remains available. Railway remains the backend deployment target in final Phase 12. Supabase direct database connectivity still fails; the user authorised a private GitHub backup as the fallback. See [local readiness evidence](docs/local-readiness-acceptance.md).
+### CP11 native preparation — 8 October 2026
+
+- [x] Pinned Capacitor Android/iOS source projects and a separate fictional `dist-native` package.
+- [x] Mode/key isolation, restricted demo links, safe areas/back navigation, recording pause cleanup and optional local-notification permission fallback.
+- [x] Source gate: 57 distinct frontend tests, lint, native/browser builds, sync/config/credential checks; dependencies audit clean.
+- [x] Document local resume commands and platform/device matrix.
+- [ ] Android APK and iOS compilation, installed/device acceptance, connected native Auth/API and actual native delivery. Toolchain/device work skipped at the owner's request.
+
+**Wrapper preparation complete; C01-07 stays partial. 124 checked / 27 open overall.** [Guide](docs/CP11_NATIVE_GUIDE.md) · [Acceptance](docs/CP11_ACCEPTANCE.md). Deployment held.
+
+### CP10 preparation — 8 October 2026
+
+- [x] Six private non-overwriting evidence templates and owner handoff briefs.
+- [x] Offline agreement/source/date/revocation/scope validator and consented authority draft projection; no external sender.
+- [x] Phase-end gate: 32 Python / 14 frontend cases, Ruff, private-ignore and credential checks passed.
+- [ ] Six real partnership/data/expansion requirements, approved samples and provider-specific activation evidence.
+
+**Local preparation complete; real activation pending. 124 checked / 27 open overall.** [Checklist](docs/COMPLETION_IMPLEMENTATION_PLAN.md#cp10--real-partnership-authority-and-expansion-activation-readiness) · [Guide](docs/CP10_PARTNER_GUIDE.md) · [Evidence](docs/CP10_ACCEPTANCE.md). Deployment held.
+
+### CP9 preparation — 8 October 2026
+
+- [x] English 300-second provisional storyboard, claim/evidence and TRL-review map, conditional history drafts and private templates.
+- [x] Downloadable studio pack, clearance/expired controls and observed desktop technical rehearsal.
+- [x] Phase-end preparation gate: nine frontend / one Python case, static/build/credential/download checks passed.
+- [ ] All five CP9 acceptance requirements: official rules and team/supervisor/history confirmations, reviewed TRL assessment, actual student English video and complete backup/intended-device rehearsal.
+
+**Preparation complete; human/competition acceptance pending. 124 checked / 27 open overall.** [CP9 checklist](docs/COMPLETION_IMPLEMENTATION_PLAN.md#cp9--competition-evidence-and-rehearsed-student-showcase) · [Recording guide](docs/CP9_SHOWCASE_GUIDE.md) · [Evidence](docs/CP9_ACCEPTANCE.md). Deployment/submission held.
+
+### CP8 local implementation — 8 October 2026
+
+- [x] Consented Morpheus photo assistance, human speech/photo review and insufficient-history manual planning.
+- [x] Owned reconciled history, mean/median baselines, chronological forecast/interval evaluation and clearly fictional demo.
+- [x] Phase-end gate and browser confirmed export; 22 distinct backend / four frontend cases passed. Local API refreshed.
+- [ ] Four real-history forecast acceptance requirements: consented actual history and frozen benchmark still needed.
+
+**Local CP8 code complete; real forecast acceptance pending. 124 checked / 27 open overall.** [Full CP8 checklist](docs/COMPLETION_IMPLEMENTATION_PLAN.md#cp8--photo-assistance-and-evaluated-leftover-forecasting) · [Evidence](docs/CP8_ACCEPTANCE.md) · [History guide](docs/CP8_FORECAST_GUIDE.md). Existing Morpheus credits authorised; deployment held.
+
+### CP7 preparation update — 8 October 2026
+
+- [x] Expanded recording pack, private collection templates and frozen holdout workflow.
+- [x] Accuracy/WER, paired timing, latency/usage/cost scorer; interview/trial/device templates and full guide.
+- [x] Evaluation-page downloadable pack and preparation gate: 15 Python / six frontend tests; build/static/credential/browser-download checks passed.
+- [ ] Actual recordings, interviews, trial/timing/usage evidence, notification/offline and target-phone observations; seven CP7 requirements remain open.
+
+**CP7 preparation complete; acceptance pending.** [Guide](docs/CP7_MEASUREMENT_GUIDE.md) and [evidence](docs/CP7_ACCEPTANCE.md). **121 checked / 30 open** overall. Provide the private recording folder and phone details when ready. Deployment held.
+
+### CP6 completion update — 8 October 2026
+
+- [x] Review-specific owner replies retain history, require moderation and follow parent visibility; confidential abuse reporting is available.
+- [x] Dedicated spoiled-food, pests, cross-contamination and unhygienic-handling categories retain legacy aliases and existing verification/triage limits.
+- [x] Private editable summary drafts minimise category/status/count before consented provider calls; human-reviewed saves never publish or refer.
+- [x] Opt-in deduplicated views/offer engagement and confirmed batch posting are scoped; active-user windows and fictional sources are explicit.
+- [x] Closed reconciled Malaysia preparation-date sessions show denominator, exclusions and leftovers per 100; comparable baseline/trial filters do not claim causal improvement.
+- [x] Food-specific measured samples produce labelled estimates; actual weighed completed routes retain uncertainty/date/sample count and source deduplication.
+- [x] Owned/assigned-market aggregates and CSV exports suppress small groups before RPC output; concern counts remain unverified.
+- [x] Phase-end gate: 47 distinct selected frontend / 25 backend tests, five connected CP6 journeys; final build, static, credential, permissions and browser CSV checks. Three additive migrations (34 total); 33 stalls / 96 foods preserved.
+
+**CP6 left: 0 local jobs.** [Acceptance](docs/CP6_ACCEPTANCE.md). **121 checked / 30 open** overall. CP7 human/device evaluation is next; no deployment.
+
+### CP5 completion update — 8 October 2026
+
+- [x] Preparation-date session reconciliation, source-separated stock movements, unknown-count/legacy-gap indicators and immutable closing leftovers.
+- [x] Exact-once direct sales, completed clearance and donation/compost/BSF collections; shared reservation locks, no-show/cancellation release and closed-batch guards.
+- [x] Immutable menu/offer unit/bundle snapshots, completed-sale revenue and retained savings with refunds, disputes and free/BOGO handling.
+- [x] Explainable sales-pace/stock/time recommendations with entered ETA, uncertainty, suppression and final hawker approval.
+- [x] Hawker accounting page, EN/BM copy, isolated fictional example, source audit and session/ledger CSV exports.
+- [x] One additive migration (31 total), refreshed contracts, 118 distinct selected frontend tests / 36 backend tests including eight connected cases; final static/build/credential/permission and browser/export checks passed.
+
+**CP5 left: 0 local jobs.** [Acceptance evidence](docs/CP5_ACCEPTANCE.md). **114 checked / 37 open** overall; CP6 is complete; CP7 is next. Existing human policy/device/partner tasks remain open. Local services continue; deployment remains held.
+
+### CP4 completion update — 8 October 2026
+
+- [x] Public batch-specific passports, current/closed/expired state and same-computer QR routes; no private notes/actors in the public payload.
+- [x] Append-only storage transitions and corrections with effective/recorded time, manual source and private actor audit.
+- [x] Manual °C/°F food measurements, method/time, conversion display, missing-data states and separation from weather/synthetic sensors.
+- [x] Conservative transition, restore and merge guards; unchanged preparation history and non-increasing deadlines.
+- [x] Qualified-review package and machine-readable pending review state; no invented approval or cumulative values.
+- [x] Three additive migrations, refreshed API/browser contracts and **68 frontend / 25 backend passing tests**, including one connected CP4 journey; static/build/credential/permission checks and browser walkthrough passed.
+- [ ] Obtain qualified food-policy review (`C07-01`).
+- [ ] Implement/compare the approved cumulative interval policy after those rules are supplied (`C07-13`).
+
+**CP4 left: two review-dependent requirements.** The available passport/recording implementation is complete. [Acceptance evidence](docs/CP4_ACCEPTANCE.md) · [Review package](docs/CP4_POLICY_REVIEW.md). Actual phone scanning is later device acceptance. **CP5 is complete; CP6 is complete; CP7 is next; deployment remains held.**
+
+### CP3 completion update — 8 October 2026
+
+- [x] Owned stall/dish/batch targeting with exact-ID confirmation and duplicate-name clarification.
+- [x] Separate new-batch, menu-only and stock actions; stock updates never reset preparation times/deadlines.
+- [x] BM/Manglish remaining quantities, bundle-price clarification and unsupported second-pan/timer blocking.
+- [x] Field-specific questions, original evidence and correction history; unresolved fields block writes.
+- [x] User-triggered English/BM readback with visible summary and truthful audio fallback.
+- [x] Consent/redaction, local quick-entry chips, atomic saves, stale-stock checks and idempotent retry.
+- [x] Two additive migrations, exported API contracts and expanded held-out recording brief.
+- [x] Phase-end acceptance: **55 frontend / 39 backend cases passed**, including **5 connected CP3 cases**, plus lint/build/Ruff/credential/permission checks and browser journey.
+- [ ] Evaluate consenting held-out recordings for local-expression accuracy in CP7 (`C05-05`).
+
+**CP3 left: 0 local code jobs; 1 human acceptance requirement.** See [CP3 evidence](docs/CP3_ACCEPTANCE.md). **Next: CP7.** Deployment stays last and on hold.
+
+### CP2 completion update — 8 October 2026
+
+- [x] Farmers’ market classification and fictional pasar tani journey, independent of day/night hours.
+- [x] Six stable categories and legacy aliases in hawker forms, menu contracts and discovery.
+- [x] Explicit vegetarian/vegan declarations with unknown/conflict handling and ingredient invalidation.
+- [x] RM5/RM10/custom menu-item price filters, combined on the same item; no discounted bundle substitution.
+- [x] Opening/closing-soon and Malaysia-time overnight/cancellation/overlap boundaries.
+- [x] Explicit availability confirmation, server time, stale/unknown labels and idempotent retry.
+- [x] Validated market/stall destination directions/copy, labelled missing-stall-pin fallback.
+- [x] Guarded additive migration, public/vendor contracts, map/list parity and sponsored-filter gate.
+- [x] Phase-end acceptance: **91 frontend / 26 backend tests passed**, including **3 connected CP2 cases**, plus lint/build/Ruff/credential scan and browser walkthrough.
+
+**CP2 left: 0 local tasks.** [Acceptance evidence](docs/CP2_ACCEPTANCE.md). CP3 code/gate are complete; CP4 recording/passports are now built; CP5 is complete; CP6 is complete; CP7 is next. CP1 registration/privacy and later human/device/partner work remain open; deployment is held.
+
+### CP1 completion update — 8 October 2026
+
+- [x] Build dedicated descriptions, explicit dietary statements and confirmed/unknown allergens across demo, API, SQL and customer views.
+- [x] Build invite verification and customer-only onboarding; preserve disabled public signup and protected privileged roles.
+- [x] Apply two additive migrations and pass the focused CP1 gate: 78 frontend tests, 21 backend tests including 4 connected tests, static/build/credential checks and browser journey.
+- [x] Prepare [CP1 privacy-review draft](docs/CP1_PRIVACY_REVIEW.md).
+- [ ] Accept registration policy and an actual human email/password journey; public self-registration stays disabled.
+- [ ] Obtain human privacy/provider/new-audit-retention review before real collection.
+
+[CP1 evidence and limitations](docs/CP1_ACCEPTANCE.md). CP2 is now complete locally; CP7 human/device evaluation is next and deployment stays last.
+
+### Consolidated checklist completion plan — 30 open items
+
+The new [consolidated checklist](docs/CONSOLIDATED_FEATURES_CHECKLIST.md) has **121 checked / 30 unchecked** requirements, including additional features and real/human acceptance beyond the original fictional-demo scope. Use the [complete partial/pending inventory](docs/PARTIAL_AND_PENDING_JOBS.md) and [completion implementation plan](docs/COMPLETION_IMPLEMENTATION_PLAN.md) for the next work. Every open requirement has a stable section/item ID and exactly one primary completion phase. CP1 closed three listing requirements; CP2 closed seven discovery requirements; CP3 closed three voice requirements; CP4 closed three passport/recording requirements; CP5 closed four clearance/accounting requirements; CP6 closed seven community/impact requirements. Registration acceptance remains partial. See [CP1 evidence](docs/CP1_ACCEPTANCE.md).
+
+| Completion phase | Work | Open source requirements |
+| --- | --- | ---: |
+| CP1 | Registration acceptance; description/declarations/allergens complete | 1 |
+| CP2 | Complete locally — market discovery and filters | 0 |
+| CP3 | Code/gate complete; human expression acceptance pending | 1 |
+| CP4 | Passports/recording complete; approved policy/accounting pending | 2 |
+| CP5 | Complete locally — clearance decisions and accounting | 0 |
+| CP6 | Complete locally — community and impact | 0 |
+| CP7 | Human interviews/trial/voice metrics, actual devices and cost evidence | 7 |
+| CP8 | Photo assistance, leftover forecasting, uncertainty and benchmarking | 7 |
+| CP9 | Student video, version declaration, TRL/eligibility and showcase | 5 |
+| CP10 | Real partner/referral/licensing/collection agreements and rollout | 6 |
+| CP11 | Actual local Android/iOS builds | 1 |
+| CP12 | Final deployment; original Phase 12, on hold | Separate |
+
+CP1–CP11 extend the accepted original phases rather than renumbering their history. Main local coding runs CP1–CP6; recruit/review inputs early for CP7 and dependent acceptance. Optional/provider/hardware work can progress independently where its inputs exist. Keep code completion separate from human/partner/device acceptance. Deployment remains last and requires a later instruction. Continue the existing rule: finish each phase before its focused test gate; rerun only failed or affected checks.
+
+Current instruction: complete local implementation and verification; deploy only in final Phase 12 after a later instruction. Frontend uses React/TypeScript/Vite; API uses FastAPI/Python; guarded database/Auth/Storage/Realtime use Supabase. Morpheus `qwen35-9b` is configured privately with consent, validation and bounded calls. Railway and Vercel remain prepared hosting targets. All business providers remain fictional internal simulations. Supplied artwork appears in demo/sandbox modes; unmatched subjects retain described placeholders.
 
 ### Latest local checklist
 
-- [x] Configure ignored frontend/backend environments; no private credential in browser output or Git upload candidates.
-- [x] Implement and exercise Morpheus extraction on three fictional English/BM/Manglish text samples, with hawker review and manual fallback.
-- [x] Scope voice menus by stall and use plain white image boxes with centred descriptions.
-- [x] Build PWA manifest, public static shell, update control and offline explanation; test private-route/cache boundaries.
-- [x] Add guarded Phase 11 core seed scaffold; execution, full business history and reset remain unfinished.
-- [x] Run completed-batch local gate: 186 frontend / 149 API passes, 33 live skips; affected repairs: 28 API / three PWA passes.
-- [ ] Connect a reachable guarded Supabase database, migrate and execute connected acceptance. Direct endpoint remains unreachable.
-- [ ] Complete full connected Phase 11 history/reset and scenario parity; complete actual CSV/device/push and human evaluation gates.
-- [ ] Replace described image placeholders when user assets arrive.
-- [ ] Deploy only in Phase 12 after a later instruction; currently on hold.
+- [x] Configure localhost web/API and private replacement Supabase/Morpheus environments.
+- [x] Connect the supplied Session pooler, apply 34 migration files with guards/checksums (22 baseline, two CP1, one CP2, two CP3, three CP4 additions, one CP5 addition and three CP6 additions) and provision trusted fictional accounts/roles.
+- [x] Finish full Phase 11 catalog, commercial/partner history and preserved-audit reset; verify repeat-seed, refusal and scenario parity.
+- [x] Execute 70 distinct connected cases across grouped completion/repair gates (44 baseline plus four CP1 cases, three CP2 cases, five CP3 cases, one CP4 journey, eight CP5 cases and five CP6 cases); verify two real Realtime clients, scoped local dispatch and synthetic video processing.
+- [x] Repair connected SQL name binding, reset locking, unchanged-row event loops, transcript cleanup and bounded browser notification permission handling.
+- [x] Complete local build gate: 186 frontend / 150 API passes; two new frontend and three actual FFmpeg checks passed in affected batches. Initial 35 live skips were subsequently executed; total connected coverage is 44 distinct cases.
+- [x] Verify demo dialogue/mode isolation, sign-in/discovery, PWA update, representative business journeys and actual Week 2 CSV contents.
+- [x] Repair offline shell caching: explicitly preload bounded public lazy-route JS/CSS, include worker/manifest content in cache versioning, and display readiness only after the controlling worker confirms every required cache entry. The repair gate passed lint/typecheck/build, 11 focused tests and the frontend credential scan; six new tests bring frontend coverage to 194 distinct tests across batches.
+- [x] Prepare launch/recovery/seed/reset/worker and deployment runbooks/configuration; keep publishing on hold.
+- [x] Complete customer/hawker UI refresh and integrate all 12 supplied images. Pass 92 focused frontend tests plus lint/typecheck/build, asset-script Ruff and frontend credential scan; verify search/category/dietary filtering, stall switching and mobile quick-action form entry in the browser.
+- [ ] Observe actual push receipt in a supported browser; current in-app browser does not resolve notification permission and desktop browser-control approval timed out. Existing notification consent remains valid. SQL transport boundaries passed.
+- [ ] Observe a successful real offline reload on a supported browser/device. The 8 October update now acknowledged **Fictional demo ready offline**; disconnected reload remains unverified. This supersedes the earlier unconfirmed-readiness observation without claiming offline device acceptance.
+- [ ] Obtain human recordings/timing and target cheap-phone/PWA/device evidence. No fabricated metrics.
+- [x] Validate/optimise all 12 user-provided originals and integrate the reduced subject mapping; preserve originals and record hashes/output sizes. The old 100-image catalogue is optional.
+- [ ] Obtain generation model/date and public-use rights confirmation for the supplied originals; provenance explicitly records missing metadata.
+- [ ] Deploy in Phase 12 only after a later instruction.
 
-Phase 1 is implemented and verified locally. Phase 2 implementation passed local checks; live Supabase acceptance remains pending. Phase 3 implementation and local/browser checks pass; its live Supabase acceptance remains pending. Phases 4–9 implementation and local/browser checks pass; connected acceptance remains pending. Phase 10 advanced demo and test-push adapter are locally implemented; its live device/database gate remains pending. Phase 11 local presentation build and focused acceptance are recorded; Phase 12 remains planned, and hosting is not deployed. Start with a mobile-first PWA and deliver a demonstrable, zero-spend version using **Vercel + Railway + Supabase**. Paid commercial operation and guaranteed always-on availability are outside this demo commitment.
+Evidence: [local readiness](docs/local-readiness-acceptance.md) and [UI refresh](docs/UI_UX_REFRESH.md). Authoritative separated jobs: [remaining jobs](docs/REMAINING_JOBS.md). Required human/device actions: [user actions](docs/USER_ACTIONS.md). Earlier dated checkpoints below preserve development history; this checklist and the 7–8 October closeouts supersede their connection/seed/image blockers. Physical push, human evaluation and real-food pilot acceptance remain open even though implementation is built.
 
-**All features, including the earlier future roadmap, remain in demo scope.** Business records and partner workflows are fictional. Later connected sandbox phases add live weather, real STT → LLM JSON extraction, realtime map updates, persisted closing-agent actions and genuine Web Push to consenting test devices. Production remains a separately activated app. Agencies, commercial partners, payment gateways, delivery, SMS and email remain simulated. Primary reservations use **pay-at-stall**; retain fake online payments only in the future-capability showcase. A “Coming soon” placeholder does not complete a phase.
+### UI refresh closeout — 8 October 2026
+
+**Stack/tools:** existing React/TypeScript/Vite, React Router, TanStack Query, i18next, Lucide, CSS/native accessible controls; Python/Pillow for local responsive WebP preparation. No paid UI service or new remote image generation.
+
+- [x] Add customer hero, photo market cards, category filters, prominent search, expandable filter panel and segmented sorting.
+- [x] Add selected-stall hawker overview, real fixture batch/offer counts, reminder/product cards, voice-first actions and mobile floating menu.
+- [x] Refresh shared navigation, focus/touch styles, mobile layouts and market/stall/offer presentation.
+- [x] Integrate all 12 supplied originals into matching subjects and the presentation library; label art, provide alt text and failure placeholders. Preserve original batch/audit/private-evidence boundaries.
+- [x] Prepare 24 WebP files totaling 1.87 MB from 29.30 MB of originals, record provenance and preserve the source PNGs.
+- [x] Complete the focused phase-end gate: 92 tests in six files passed; four artwork tests are new. Final affected lint/typecheck/build/credential checks passed after browser-driven refinements. Broad API/SQL suites were not repeated for presentation-only changes.
+- [x] Save desktop customer and narrow hawker screenshots; observe no broken rendered images or horizontal overflow at actual viewport widths 1422 and 434 pixels.
+- [ ] Confirm image generator/model/date and public-use rights before future public release.
+- [ ] Complete physical-phone/BM/English/accessibility, successful disconnected reload, displayed push and human voice/timing acceptance as separately tracked user/device work.
+
+No local UI implementation item remains open in this refresh. Deployment stays in Phase 12, on hold. See [full refresh report](docs/UI_UX_REFRESH.md).
 
 ## 1. Execution and testing rules
 
@@ -66,7 +229,7 @@ Additional constraints:
 | Freshness/weather | Versioned SQL policy tables/functions, Open-Meteo temperature/humidity cache | Deterministic advisory caps; demo rules isolated from real-food use until expert review. |
 | Agent/events/push | pg_cron, pg_net, SQL outbox, signed FastAPI dispatch, pywebpush/VAPID | Persisted drafts/nudges, confirmation, retry and real test-device push. |
 | Live map | Supabase Realtime, TanStack Query | Public-safe event invalidation, version-aware reconnect and polling fallback. |
-| Images/demo data | IMAGE_GENERATION_PROMPTS.md, generated image files, procedural fallback, Sharp, JSON + SQL seeds | Described placeholders now; user-provided assets later. All business records fictional. |
+| Images/demo data | 12 user-supplied originals, Python/Pillow responsive WebP pipeline, labelled art/described fallback, JSON + SQL seeds | Local artwork integrated; legacy 100 logical slots retained. All business records fictional. |
 | External integrations | Typed mock-provider interfaces, TypeScript fixture engine, FastAPI adapters, SQL event log | Simulated company/agency/ad/payment/delivery/message/sensor operations; no third-party SDK calls. |
 | Charts/exports | Recharts, browser CSV export, HTML print styles | Synthetic analytics, telemetry and demo receipts without paid reporting tools. |
 | Package management | npm + lockfile; uv + Python lockfile | Reproducible installs and small deploy images. |
@@ -214,9 +377,9 @@ No Phase 1 items are outstanding. Next is Phase 2: Supabase schema/RLS, authenti
 **Remaining acceptance checklist:**
 
 - [x] Pass local lint, types, production build, JWT/contracts/SQL parsing/operator guard checks and frontend credential scan. Result: 30 passed, 5 live groups skipped; connected missing-config and unauthenticated role gates verified in browser.
-- [ ] Apply all four migrations to a disposable Supabase database; seed twice and confirm stable counts/identities.
-- [ ] Pass real API + direct REST role/isolation checks, Storage privacy, complaint rate limits and moderation permissions.
-- [ ] Exercise actual browser sign-in/logout and session expiry with the provisioned accounts.
+- [x] Phase 2 migrations applied; repeated foundation seed and actual permission gates passed.
+- [x] Actual API/direct REST role/isolation, Storage privacy, report limits and moderation permission gates passed.
+- [x] Browser sign-in/logout observed with assigned accounts; token/session expiry boundaries covered by automated security checks. Target-device session journeys remain separate.
 
 Implementation checkmarks below mean code is present; they do not certify live database or session behavior. Setup: `docs/phase2-setup.md`; permission matrix: `docs/test-matrix.md`. Future-module tables are foundations; their full simulated features remain in their scheduled phases.
 
@@ -267,7 +430,7 @@ Versioned schema/migrations, working sessions, scoped Storage, repeatable seed c
 - [x] Complete Phase 3 implementation checklist below (14/14 code tasks).
 - [x] Run phase-end schedule, dietary, distance, pagination and event-order checks plus build/lint/types. Result: 30 Vitest tests and 31 unique API/schema checks passed; 8 live groups skipped.
 - [x] Verify browser browse/filter/detail/save and map-tile fallback flows. Manual area, certified/promotion mismatch, BM search, empty search, two pages, save/remove, duplicate visit and 390 px BM layout verified.
-- [ ] Apply migration 005; verify real geographic RPCs, customer writes and two-client Realtime update/reconnect latency/private payload isolation against disposable Supabase.
+- [x] Migration 005, geographic/customer/private projection gates and two-client Realtime passed. Target-device reconnect timing remains separate.
 
 **What is left for Phase 3:** one live acceptance group, including migration 005 execution, real PostGIS/customer RPC/RLS checks and two-client update/reconnect latency and payload privacy. No configured Supabase/Docker environment is available. The five-second latency target has not been measured. Follow `docs/phase3-acceptance.md`; Phase 2 live permission/session acceptance must also pass. Generated photos and full policy/voice/moderation workflows remain in their assigned later phases.
 
@@ -340,7 +503,7 @@ Functional customer browse-to-stall journey in both modes, with geographic queri
 - [x] Separate `/demo/*` routes and fictional storage, launcher dialog, exit navigation, and real-route rejection of disposable backend data.
 - [x] Phase-end lint, TypeScript, production build, vendor/discovery/boundary tests, image-decoder/API checks and secret scan (58 Vitest + 44 Python checks; affected contract/migration checks also pass).
 - [x] Browser: modal → demo → create dish/edit stall → create two photo batches → sell out first without changing second; invalid-photo and phone review pass.
-- [ ] Live guarded Supabase migration 006, concurrent RPC/RLS tests and Storage byte/metadata/path tests.
+- [x] Guarded listing/batch/Storage gates and connected stall edit/retry/foreign-owner regression passed.
 - [ ] Production activation: separate reviewed schema/project and real food-policy approval (outside this demo phase).
 
 **What remains for Phase 4:** one live acceptance group: apply migration 006, install the media signing secret through the guarded operator, run the four real RPC/Storage test groups and the connected `/sandbox` browser journey. See [Phase 4 acceptance](docs/phase4-acceptance.md). No Supabase/Docker environment is configured. No deployment or live results claimed. `/sandbox/*` is a separately labelled connected technical sandbox for disposable Supabase acceptance; real root routes reject that backend. Lost-upload cleanup during a server/network failure is best-effort; an operator must remove unattached objects older than the retention window. Automatic periodic orphan sweeping is scheduled with Phase 6 job operations.
@@ -413,9 +576,9 @@ Build checklist records implemented code, not verified live infrastructure. Chan
 
 - [x] Local gate: lint/type/build and secret scan pass; 86 frontend tests and 56 Python checks pass (one corrected contract assertion rerun). 15 live groups skipped.
 - [x] Browser: persisted draft → confirmation → 70% offer → simulated dispatch → customer discovery → forward-time automatic removal; 390 px mobile dashboard/alerts fit, with described placeholders.
-- [ ] Apply migrations to a guarded disposable Supabase and execute `npm run phase5:live`.
-- [ ] Verify live race/stock/ownership checks, advisory/weather audit rows, outbox fencing/restart, revoked consent, quotas and Cron/pg_net wake evidence.
-- [ ] Configure scoped local dispatcher credentials and verify actual market-level Open-Meteo caching/failure handling and minute-level SQL job. Railway endpoint activation is deferred to final deployment. Real food policy approval and real Web Push remain separate gates.
+- [x] Freshness/agent migrations applied and real guarded Phase 5 cases passed.
+- [x] Connected stock/ownership/advisory and local scheduled SQL/dispatch evidence recorded; hosted wake is Phase 12. Device push receipt remains separate.
+- [x] Scoped local dispatcher and minute SQL job run. Live Open-Meteo persisted through the actual vendor API, then reused its cache (both HTTP 200); failure/staleness boundaries have automated coverage. Railway wake, real-food policy and actual device push remain separate.
 
 ## 9. Phase 6 — Voice-to-JSON, confidence, fallback and evaluation
 
@@ -481,7 +644,7 @@ Checked items describe implemented code and the stated local checks. Missing hum
 - [x] Install checksum-pinned official llama.cpp/Qwen locally and run actual English/BM/Manglish text extraction. Model errors are recorded; conflicting explicit preparation clocks are cleared deterministically rather than trusted.
 - [ ] Perform real microphone acceptance on desktop/Android; record unsupported device coverage. Supplied synthetic audio is not a microphone/human evaluation.
 - [ ] Obtain consented human clips and measure accuracy/timing; all current evaluation values stay “Not measured”.
-- [ ] Apply migrations 009–010; verify live confirmation/quota/RLS/retention and actual scheduled media sweep. Guarded `phase6:live` runner is implemented.
+- [x] Voice migrations and actual confirmation/quota/RLS/retention/abandonment gates passed; hourly local media worker configured and probed.
 
 **Latest checkpoint:** 113 frontend tests and 79 Python tests passed; 19 live groups skipped for missing infrastructure. The affected clock-validator gate adds four passing cases (20 voice checks). Local code, paired timing and sweep completion do not substitute for human, phone or live database evidence. See `docs/phase6-user-actions.md`; images remain described placeholders.
 
@@ -532,8 +695,8 @@ Checked items record implemented code, not live infrastructure acceptance. Migra
 
 - [x] Local gate: lint/type/build, 123 frontend and 92 Python tests pass; 23 live groups skipped. Final affected checks: 12 community tests and 8 Python checks pass; credential scan passes.
 - [x] Browser: private complaint → approved summary → hawker reply → reporter triaged status; unverified denial, organiser redaction, threshold/48-hour block, manual flag/reply approval/removal and review publication. BM 390×844 layout has no horizontal overflow.
-- [ ] Configure disposable Supabase and media secret, apply migration 011 and run real Phase 7 permission/Storage/race/expiry checks after prior live gates.
-- [ ] Configure FFmpeg/ffprobe and verify actual private image/video content validation and signed-link expiry.
+- [x] Community schema/media secret configured; actual permission/Storage tests and synthetic FFmpeg checks passed.
+- [x] FFmpeg/ffprobe installed; actual Storage/content gates and three synthetic video sanitization/rejection checks passed. Expiry/foreign access remain enforced.
 - [ ] Approve real-pilot retention/deletion/privacy decisions before collecting real data. These are external launch actions, not required for fictional fixture use.
 
   See [acceptance](docs/phase7-acceptance.md) and [all later user actions](docs/USER_ACTIONS.md).
@@ -573,8 +736,8 @@ Acceptance checklist:
 
 - [x] Complete local gate: initial full suite 154 frontend / 105 API tests passed; final focused repairs 78 frontend / 12 commerce API tests passed. Lint, type/build, Ruff, SQL/PLpgSQL syntax parsing and credential scan passed. Five Phase 8 live cases remain skipped.
 - [x] Verify local browser pickup/collection, failed payment/refund, subscription cancellation, campaign approval/budget exhaustion, courier isolation/failure, council suppression, sponsored halal filtering and phone overflow. Evidence in [Phase 8 acceptance](docs/phase8-acceptance.md).
-- [ ] Apply the commerce migration to the guarded disposable Supabase project after prior live gates; run `RUN_LIVE_PHASE8=1 npm run phase8:live`.
-- [ ] Verify connected transaction races, direct-write denial, courier/organisation isolation and the connected browser journeys on the configured project. SQL parsing alone is not execution or RLS proof.
+- [x] Commerce migration and actual five connected stock/retry/refund/scope cases passed.
+- [x] Connected transaction/direct-write/courier/organisation checks passed; representative fixture business journeys observed.
 - [ ] Complete target phone/network testing and final BM/English copy polish with the Phase 11 accessibility/localisation gate.
 
 No real payment, ads SDK, delivery, accounts or external agency traffic is introduced. See `docs/USER_ACTIONS.md` for later setup; no keys are needed to use `/demo/commerce`.
@@ -627,9 +790,9 @@ Acceptance checklist:
 
 - [x] Run phase-end local checks. Full frontend suite: 169 passed before final regressions. API gate: 115 passed plus one new parser failure; focused repair: all 10 Phase 9 checks passed. Final focused frontend stock/partner suite: 92 passed. Lint/type/build, Ruff, SQL/PLpgSQL syntax and credential scan passed.
 - [x] Browser: vendor→editor publication, foreign editor denial, consent rejection, reviewed report→officer resolution, timeout/retry and foreign officer denial, permit approval/expiry/renewal, expired-food compost collection, eligible donation collection/replay, expired donation rejection and trail publication. Mobile overflow repaired; document/client widths both 375 px.
-- [ ] Apply migrations through the new partner migration to the guarded disposable Supabase project after prior live gates; run `RUN_LIVE_PHASE9=1 npm run phase9:live`. Three live Phase 9 cases are currently skipped.
-- [ ] Complete additional connected database scenarios for full referral privacy/resolution, donation/shopper races, cutoff changes, collection replay/weight deduplication, anonymous editorial publication and council suppression; extend guarded live cases where necessary. SQL parsing is not RLS/runtime proof.
-- [ ] Run authenticated connected browser/session/reconnect journeys after trusted role/membership provisioning.
+- [x] Partner migrations and three actual scoped publication/referral/permit cases passed.
+- [x] Add actual donation/shopper race and collection/weight replay gate; permission/referral/permit cases pass. Target-phone journeys remain separate.
+- [x] Trusted roles/memberships provisioned; connected browser sign-in/discovery/logout and two independent Realtime clients verified. Target-device reconnect measurements remain in device acceptance.
 - [ ] Complete target-phone/network/accessibility and BM/English partner copy review in the final-demo gate.
 
 Evidence, demo steps and limitations: [Phase 9 acceptance](docs/phase9-acceptance.md). Later user setup: [USER_ACTIONS.md](docs/USER_ACTIONS.md). No keys are required for the standalone fictional portal.
@@ -680,11 +843,12 @@ One phase-end full gate passed: 178 frontend tests, 131 API tests, lint/type/bui
 
 **Remaining Phase 10 acceptance (unchecked means still required):**
 
-- [ ] Apply migration `20261002104837_test_push.sql` on the guarded disposable Supabase target and run `npm run phase10:live` plus previous live gates; verify SQL name binding/grants/RLS with actual execution.
-- [ ] Add/execute full connected lease timeout/restart, concurrent recipient delivery/revocation/re-enrolment, radius/quiet-hours and invalid-subscription cleanup acceptance vectors. Parser and mocked transport tests are not proof of database concurrency.
+- [x] Push schema applied; actual subscription/privacy/replacement and additional lease/radius/quiet-hour/revocation boundaries passed.
+- [x] Actual lease expiry/reclaim, stale completion, revocation, radius/quiet hours, invalid endpoint cleanup and replacement isolation passed without push network calls.
 - [ ] Configure VAPID/agent values and explicitly enrol one consenting test browser. Send a genuine notification from a hawker-confirmed eligible offer; record OS/browser/secure origin and observe the device. No successful delivery or acknowledgement is claimed yet.
-- [ ] Verify expired offers and opt-out prevent later sends, stable tags across interrupted dispatch/retry, and recipient history exposes no subscription keys. Opt-out cannot recall a provider-accepted message; an in-flight bounded send may complete before its row lock releases.
-- [ ] Complete actual CSV download verification, desktop/mobile reset/deep-link walk-through, connected role/session/reconnect checks, BM/accessibility and target low-memory phone acceptance. Existing large speech/WASM assets remain a device-performance risk.
+- [x] SQL checks verify expiry/opt-out suppression, stable tags across lease reclaim and private subscription boundaries. Provider-accepted messages cannot be recalled; actual device receipt is still open.
+- [x] Actual filtered CSV, representative desktop reset/deep links, connected sign-in/logout and Realtime transport verified.
+- [ ] Finish target-phone/localisation/accessibility/memory acceptance; large speech/WASM assets remain a hardware-performance risk.
 
 Setup is recorded for later in [USER_ACTIONS.md](docs/USER_ACTIONS.md). No credentials are needed for the advanced fixture preview. No push permission, agency/company action, SMS/email/payment, deployment or live database change was performed. Phase 10 is locally built but **not fully accepted** until the unchecked device/database/browser gates pass.
 
@@ -741,13 +905,17 @@ Local Phase 11 build batch implemented: `/demo/presentation` studio and business
 **Remaining Phase 11 work / acceptance:**
 
 - [x] Add guarded core catalog/account/membership seed scaffold in `scripts/phase11_seed.py`; it is unexecuted and preserves existing rows/audits.
-- [ ] Complete full commerce/partner history and guarded reset-to-today, then execute complete Phase 11 provisioning against the disposable project. Direct DB is unreachable; fixture counts are not connected counts.
-- [ ] Execute fixture-versus-SQL scenario parity, repeated connected seed deduplication and non-demo reset refusal after configuration. Do not treat skipped live tests or syntax parsing as database acceptance.
+- [x] Build full commerce/partner history and guarded reset-to-today. New runs preserve old preparation timestamps, audit rows and financial history; historical stock is separate. Build completed 7 October; runtime acceptance is separate below.
+- [x] Full replacement-target provisioning/current-generation counts, repeat seed, preserved-history reset and scoped memberships verified.
+- [x] Actual key advisory parity, repeat-seed and guarded reset/refusal checks passed.
 - [ ] Supply consented human BM/Manglish/English evaluation clips and actual paired listing times as described in Phase 6; 24 labelled scripts exist, not 24 measured recordings. No synthetic pilot/video data enters Evaluation.
-- [ ] Finish complete core/full-vision walkthroughs on desktop and phone, actual filtered export download and target-device/localisation/accessibility acceptance. Browser evidence/limitations are recorded below when available.
-- [ ] When user images arrive, validate/optimise each of the 100 supplied files and record provenance/licence. Described slots satisfy the current user instruction; actual image files remain absent.
+- [x] Representative desktop core/business journeys and actual filtered export verified; evidence recorded.
+- [ ] Finish complete target-phone scripts, localisation/accessibility and hardware acceptance.
+- [x] Validate/optimise the reduced 12 supplied originals and integrate matching subjects; retain legacy 100 logical slots and unmatched placeholders. Source/output hashes and sizes are recorded.
+- [ ] Obtain image generation metadata/public-use rights confirmation; do not infer missing provenance.
 - [ ] Replace localhost QR origin with an approved deployed preview, review posters with the organiser and obtain explicit distribution instruction. Nothing is posted or sent automatically.
-- [ ] Complete prior live acceptance, including genuine opted-in Phase 10 push and connected permissions/transaction races before calling the full demo accepted.
+- [x] Prior representative connected permission, stock race, media and workflow gates passed.
+- [ ] Observe genuine opted-in device push before calling all device acceptance complete.
 
 No keys, remote migration/reset, hosting, agency/company messages or paid service used during this build. Technology: React/TypeScript/Vite, deterministic Python/JSON seeds, existing domain engines, local Pillow/imageio-ffmpeg rendering and qrcode SVG metadata. Guides: [demo guide](docs/demo-guide.md), [pilot plan](docs/pilot-plan.md), [asset manifest](docs/asset-manifest.json). Phase 11 is locally built; full connected/human/device acceptance remains pending.
 
@@ -771,17 +939,30 @@ Complete prefilling, described image placeholders (user-provided imagery later),
 
 Authoritative remaining jobs and user inputs: [docs/REMAINING_JOBS.md](docs/REMAINING_JOBS.md). No deployment is authorised by this planning amendment. Supabase credentials enable disposable connected acceptance; they do not complete missing provisioning or prove permission correctness. Current image placeholders remain valid until the user's files arrive.
 
-- [ ] Configure localhost web/FastAPI with the disposable Supabase project and guarded operator settings; apply ordered migrations and test account/session behaviour.
-- [ ] Finish full connected Phase 11 datasets/memberships/reset and execute repeat-seed, refusal and fixture/SQL parity checks.
-- [ ] Implement a backend-only Morpheus extraction adapter; select the model against actual availability, BM/Manglish quality and the account's free allowance. Add schema validation, confidence/confirmation, timeout/quota handling and manual fallback. Retain local inference; freshness stays deterministic.
-- [ ] Complete connected gates from Phases 2–9: RLS/Storage/Realtime, weather/closing agent, voice/retention, reports/media, commerce stock/sponsor checks and partner privacy/collections. Run dispatch locally now; Railway dispatch activation is deferred to Phase 12.
-- [ ] Complete Phase 10 actual consenting desktop push plus lease/retry/revocation/privacy tests locally; explicitly track phone secure-origin constraints.
-- [ ] Add PWA manifest/icons/app-shell cache/offline/update handling locally, without private/API/tile caching.
-- [ ] Complete desktop/phone core/full-vision scripts, actual CSV downloads, copy/accessibility/security/failure paths and low-memory/network checks.
+- [x] Localhost web/FastAPI configured; replacement target migrated, seeded and connected sign-in observed.
+- [x] Full Phase 11 datasets/memberships/reset implemented and executed; repeat/refusal/advisory parity gates passed.
+- [x] Implement backend-only Morpheus `qwen35-9b` extraction with schema validation, evidence/confidence, confirmation, timeout/quota/concurrency boundaries and manual/local fallback. Three actual fictional text samples passed; human quality and account free allowance remain unmeasured.
+- [x] Execute representative Phase 2–9 RLS/Storage/Realtime/advisory/voice/community/commerce/partner gates and local dispatch. Hosted activation remains Phase 12.
+- [x] Execute actual SQL lease/retry/revocation/privacy boundaries.
+- [ ] Observe consenting desktop notification receipt; phone acceptance requires a trusted secure origin.
+- [x] Add PWA manifest/icon/public app-shell cache/offline/update handling locally, without private/API/tile caching. Supported-device installation/offline/low-memory acceptance is separate.
+- [x] Representative desktop workflows, actual CSV and automated security/failure boundaries verified.
+- [ ] Finish target-phone complete scripts, localisation/accessibility and low-memory/network acceptance.
 - [ ] Obtain consented human recordings and paired timing measurements; keep Evaluation unmeasured until actual evidence exists.
-- [ ] Prepare local launch/recovery and deployment/migration/backup/rollback instructions and configuration files; publishing remains later.
-- [ ] Validate user-provided images/provenance when supplied; do not generate replacement artwork.
-- [ ] Run one final local regression/acceptance batch after implementation; record real results before deployment. Focused failure repairs only.
+- [x] Prepare local launch/recovery, guarded seed/reset/worker commands, environment/migration/backup/rollback instructions and Vercel/Railway/Docker configuration files. See `docs/local-operations.md` and `docs/deployment.md`; publishing remains later.
+- [x] Validate/optimise/integrate all 12 supplied originals locally with a provenance record; no replacement artwork was generated.
+- [ ] Confirm public-use rights and generation metadata for the supplied art.
+- [x] Completed the local regression/build gate and subsequent affected repair checks; actual results recorded without repeated full suites.
+
+### 7 October 2026 local completion checkpoint
+
+- [x] Apply the original 14 migrations to the original empty, guarded project through the Supabase connector; repair the previously unapplied Phase 5 duplicate draft-table creation. This is historical schema evidence, not acceptance of the replacement target.
+- [x] Save replacement Supabase settings privately and retire the old local target. Auth/markets now return HTTP 200; pooler is reachable.
+- [x] Build operator-only seed generations, 99-person roles/memberships, deterministic SQL advisory confirmations and conditional clearance, private reports, commercial ledgers/campaigns/subscriptions, partner stories/cases/permits/collections/trails, and 24 separate archived batches. Add actual connected reset/dedup/isolation test code; actual execution passed.
+- [x] Build loopback agent setup and minute-level local worker with hourly guarded media sweep; the hosted scheduler never calls localhost. Prepare ignored runtime secrets and VAPID keys; user explicitly approved notifications on this computer.
+- [x] Supplied Session pooler connected; guard/migrations/seeds/live gates and local dispatch/sweep executed. Actual device push remains open separately.
+- [ ] Complete human-recording and target-device evidence. Images remain described placeholders by user instruction; final images/provenance are deferred until supplied.
+- [x] Record completed build, connected and affected repair results plus browser/export/video evidence; no deployment performed.
 
 ## 15. Phase 12 — Final deployment and handoff
 

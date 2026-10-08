@@ -59,3 +59,25 @@ def test_endpoint_allowlist_and_own_revocation(database):
         ).fetchone()[0]
         == 0
     )
+
+
+def test_replacement_subscription_and_foreign_revoke_isolation(database):
+    c, ids = database
+    first = "https://fcm.googleapis.com/send/DEMO-" + str(uuid4())
+    second = "https://fcm.googleapis.com/send/DEMO-" + str(uuid4())
+    actor(c, ids["customer-a"])
+    c.execute("select public.push_enrol(%s,%s,%s)", (first, "A" * 87, "B" * 22))
+    c.execute("select public.push_enrol(%s,%s,%s)", (second, "C" * 87, "D" * 22))
+    actor(c, ids["customer-b"])
+    c.execute("select public.push_revoke()")
+    c.execute("reset role")
+    assert c.execute(
+        "select endpoint from private.test_push_subscriptions where owner_id=%s",
+        (ids["customer-a"],),
+    ).fetchall() == [(second,)]
+    actor(c, ids["customer-a"])
+    c.execute("select public.push_revoke()")
+    c.execute("reset role")
+    assert not c.execute(
+        "select 1 from private.test_push_subscriptions where owner_id=%s", (ids["customer-a"],)
+    ).fetchone()

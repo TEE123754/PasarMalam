@@ -2,7 +2,9 @@
 
 import os
 
+import psycopg
 import pytest
+from demo_db import target_configuration, verify_marker
 from demo_seed import stable
 from test_live_permissions import headers
 from test_live_permissions import live as live_fixture
@@ -89,3 +91,27 @@ def test_live_checkin_and_public_version_projection(live):
         ).status_code
         == 403
     )
+
+
+def test_noop_advisory_refresh_does_not_publish_realtime_loop(live):
+    _, _, _, _ = live
+    _, _, url = target_configuration()
+    with psycopg.connect(url, connect_timeout=10) as c:
+        verify_marker(c)
+        market = stable("market-a")
+
+        def version():
+            return c.execute(
+                "select version from public.discovery_versions where market_id=%s", (market,)
+            ).fetchone()[0]
+
+        before = version()
+        c.execute("update public.stalls set name=name where id=%s", (stable("stall-a"),))
+        assert version() == before
+        c.execute("update public.stalls set open=not open where id=%s", (stable("stall-a"),))
+        assert version() > before
+        c.execute("select public.refresh_discovery_advisories()")
+        refreshed = version()
+        c.execute("select public.refresh_discovery_advisories()")
+        assert version() == refreshed
+        c.rollback()

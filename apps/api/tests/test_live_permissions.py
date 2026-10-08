@@ -1,8 +1,8 @@
 """Real REST/API/Storage checks. Never replace an unavailable live gate with mocks."""
 
-import base64
 import os
 from datetime import datetime, timedelta, timezone
+from io import BytesIO
 from uuid import uuid4
 
 import httpx
@@ -13,6 +13,7 @@ from app.settings import get_settings
 from demo_db import target_configuration, verify_marker
 from demo_seed import PERSONAS, seed, stable
 from fastapi.testclient import TestClient
+from PIL import Image
 
 pytestmark = [
     pytest.mark.live,
@@ -23,7 +24,7 @@ pytestmark = [
 ]
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="session")
 def live():
     _, url, database = target_configuration()
     with psycopg.connect(database) as connection:
@@ -32,13 +33,17 @@ def live():
     tables = ["profiles", "markets", "stalls", "food_items", "reviews", "organisations"]
     with psycopg.connect(database) as connection:
         before = {
-            table: connection.execute(f"select count(*) from public.{table}").fetchone()[0]
+            table: connection.execute(
+                f"select count(*) from public.{table} where source_scenario='phase2'"
+            ).fetchone()[0]
             for table in tables
         }
     assert seed() == identities
     with psycopg.connect(database) as connection:
         after = {
-            table: connection.execute(f"select count(*) from public.{table}").fetchone()[0]
+            table: connection.execute(
+                f"select count(*) from public.{table} where source_scenario='phase2'"
+            ).fetchone()[0]
             for table in tables
         }
     assert before == after
@@ -177,19 +182,26 @@ def test_live_metadata_escalation_and_org_isolation(live):
 
 
 def test_live_public_and_private_storage(live):
-    direct, _, identities, sessions = live
-    png = base64.b64decode(
-        "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jB6kAAAAASUVORK5CYII="
-    )
+    direct, api, identities, sessions = live
+    output = BytesIO()
+    Image.new("RGB", (64, 64), "white").save(output, "PNG")
+    png = output.getvalue()
     suffix = f"phase2-{uuid4()}.png"
-    evidence = f"{identities['customer-a']}/{suffix}"
     owner = headers(sessions, "customer-a")
-    result = direct.post(
-        f"/storage/v1/object/complaint-evidence/{evidence}",
-        headers={**owner, "Content-Type": "image/png"},
-        content=png,
+    forged = f"{identities['customer-a']}/{suffix}"
+    assert (
+        direct.post(
+            f"/storage/v1/object/complaint-evidence/{forged}",
+            headers={**owner, "Content-Type": "image/png"},
+            content=png,
+        ).status_code
+        >= 400
     )
-    assert result.status_code in {200, 201}
+    result = api.post(
+        "/api/v1/community/evidence", headers={**owner, "Content-Type": "image/png"}, content=png
+    )
+    assert result.status_code == 200
+    evidence = result.json()["key"]
     assert direct.get(f"/storage/v1/object/public/complaint-evidence/{evidence}").status_code >= 400
     assert (
         direct.get(
@@ -212,11 +224,14 @@ def test_live_public_and_private_storage(live):
         == 200
     )
     listing = f"{stable('stall-a')}/{identities['vendor-a']}/{suffix}"
-    assert direct.post(
-        f"/storage/v1/object/listing-media/{listing}",
-        headers={**headers(sessions, "vendor-a"), "Content-Type": "image/png"},
-        content=png,
-    ).status_code >= 400
+    assert (
+        direct.post(
+            f"/storage/v1/object/listing-media/{listing}",
+            headers={**headers(sessions, "vendor-a"), "Content-Type": "image/png"},
+            content=png,
+        ).status_code
+        >= 400
+    )
     forbidden = f"{stable('stall-a')}/{identities['vendor-b']}/{suffix}"
     assert (
         direct.post(
@@ -226,39 +241,47 @@ def test_live_public_and_private_storage(live):
         ).status_code
         >= 400
     )
-    assert direct.get(f"/storage/v1/object/public/listing-media/{listing}").status_code == 200
+    assert direct.get(f"/storage/v1/object/public/listing-media/{listing}").status_code >= 400
 
 
 def test_live_report_rate_limits_and_privacy(live):
     direct, api, _, sessions = live
     auth = headers(sessions, "customer-b")
     created = []
-    for _ in range(3):
+    for i in range(3):
         report = api.post(
-            "/api/v1/complaints",
+            "/api/v1/community/command",
             headers=auth,
             json={
-                "stall_id": str(stable("stall-a")),
-                "body": "Fictional hygiene training report only.",
-                "evidence_keys": [],
+                "kind": "report",
+                "data": {
+                    "stall": str(stable("stall-a")),
+                    "body": "Fictional hygiene training report only.",
+                    "category": "hygiene",
+                    "incident": f"2000-01-01T00:0{i}:00Z",
+                    "evidence": [],
+                },
                 "request_id": str(uuid4()),
             },
         )
         assert report.status_code == 200
         created.append(report.json()["id"])
-    assert (
-        api.post(
-            "/api/v1/complaints",
-            headers=auth,
-            json={
-                "stall_id": str(stable("stall-a")),
+    report = api.post(
+        "/api/v1/community/command",
+        headers=auth,
+        json={
+            "kind": "report",
+            "data": {
+                "stall": str(stable("stall-a")),
                 "body": "Fourth synthetic report must be limited.",
-                "evidence_keys": [],
-                "request_id": str(uuid4()),
+                "category": "hygiene",
+                "incident": "2000-01-01T01:00:00Z",
+                "evidence": [],
             },
-        ).status_code
-        == 429
+            "request_id": str(uuid4()),
+        },
     )
+    assert report.status_code == 429
     assert (
         direct.get("/rest/v1/complaints?select=id", headers=headers(sessions, "vendor-a")).json()
         == []
@@ -266,9 +289,17 @@ def test_live_report_rate_limits_and_privacy(live):
     assert direct.get("/rest/v1/complaints?select=id").status_code >= 400
     assert (
         api.post(
-            f"/api/v1/complaints/{created[0]}/moderation",
+            "/api/v1/community/command",
             headers=headers(sessions, "vendor-a"),
-            json={"status": "triaged", "request_id": str(uuid4())},
+            json={
+                "kind": "triage",
+                "data": {
+                    "target": created[0],
+                    "reason": "Fictional triage",
+                    "summary": "Fictional approved summary",
+                },
+                "request_id": str(uuid4()),
+            },
         ).status_code
         == 403
     )

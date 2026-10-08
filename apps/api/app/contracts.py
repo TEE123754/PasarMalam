@@ -5,6 +5,9 @@ from uuid import UUID
 
 from pydantic import AwareDatetime, BaseModel, Field, StrictInt
 
+from .discovery_classifications import Category, PlantDiet
+from .listing_statements import AllergenStatement, BusinessDeclarations
+
 
 class Schedule(BaseModel):
     weekday: int = Field(ge=0, le=6)
@@ -29,11 +32,16 @@ class DietaryClaim(BaseModel):
 
 
 class MenuItem(BaseModel):
+    categoryId: Category | None = None
+    plantDiet: PlantDiet | None = None
+    plantDietRecordedAt: AwareDatetime | None = None
     id: str
     stallId: str
     name: str
     priceSen: int
     ingredients: list[str]
+    allergens: AllergenStatement | None = None
+    allergensRecordedAt: AwareDatetime | None = None
     photoUrl: str | None = None
 
 
@@ -57,6 +65,7 @@ class PublicReview(BaseModel):
 
 
 class Market(BaseModel):
+    kind: Literal["general", "farmers"] = "general"
     id: str
     name: str
     area: str
@@ -75,11 +84,16 @@ class Market(BaseModel):
 
 
 class Stall(BaseModel):
+    categoryId: Category | None = None
+    availabilityConfirmedAt: AwareDatetime | None = None
     id: str
     marketId: str
     name: str
     category: str
     specialty: str
+    description: str = ""
+    declarations: BusinessDeclarations | None = None
+    declarationsRecordedAt: AwareDatetime | None = None
     priceSen: int
     rating: float
     reviews: int

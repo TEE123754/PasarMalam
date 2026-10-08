@@ -14,6 +14,8 @@ from PIL import Image, ImageOps, UnidentifiedImageError
 from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, StrictInt, model_validator
 
 from .contracts import Money
+from .discovery_classifications import Category, PlantDiet
+from .listing_statements import AllergenStatement, BusinessDeclarations
 from .routes import Member, require
 
 router = APIRouter(prefix="/api/v1/vendor", tags=["vendor"])
@@ -24,8 +26,18 @@ class StallInput(BaseModel):
     id: UUID
     market_id: UUID
     name: str = Field(min_length=2, max_length=100)
+    category_id: Category | None = None
+    confirm_availability: bool = False
+    availability_confirmed_at: AwareDatetime | None = Field(default=None, exclude=True)
     category: str = Field(min_length=1, max_length=60)
     specialty: str = Field(min_length=1, max_length=150)
+    description: str = Field(default="", max_length=1000)
+    declarations: BusinessDeclarations = Field(
+        default_factory=lambda: BusinessDeclarations(
+            pork_free="unknown", alcohol_free="unknown", muslim_owned="unknown"
+        )
+    )
+    declarations_recorded_at: AwareDatetime | None = Field(default=None, exclude=True)
     price_sen: Money
     halal: Literal["declared", "non-halal", "not-declared"]
     open: bool
@@ -44,12 +56,21 @@ class StallInput(BaseModel):
 
 
 class FoodInput(BaseModel):
+    category_id: Category | None = None
+    plant_diet: PlantDiet | None = None
+    plant_diet_recorded_at: AwareDatetime | None = Field(default=None, exclude=True)
     model_config = ConfigDict(extra="forbid")
     id: UUID
     stall_id: UUID
     name: str = Field(min_length=2, max_length=100)
     price_sen: Money
     ingredients: list[str] = Field(max_length=40)
+    allergens: AllergenStatement = Field(
+        default_factory=lambda: AllergenStatement(
+            status="unknown", contains=[], cross_contact="unknown"
+        )
+    )
+    allergens_recorded_at: AwareDatetime | None = Field(default=None, exclude=True)
     photo: str | None = Field(max_length=150)
 
 
@@ -106,6 +127,16 @@ async def command(body: VendorCommand, member: Member) -> dict:
         data = model.model_validate(body.data).model_dump(mode="json", exclude_none=False)
     except ValueError as error:
         raise HTTPException(422, "Invalid vendor form") from error
+    for optional in (
+        "description",
+        "declarations",
+        "allergens",
+        "category_id",
+        "plant_diet",
+        "confirm_availability",
+    ):
+        if optional not in body.data:
+            data.pop(optional, None)
     # Optional action fields are absent in browser commands; canonical RPC input is stable.
     if body.kind == "action":
         data = {key: value for key, value in data.items() if value is not None}

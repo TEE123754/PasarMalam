@@ -658,6 +658,516 @@
         ]
       }
     },
+    "/api/v1/accounting/workspace": {
+      "get": {
+        "tags": [
+          "session-accounting"
+        ],
+        "summary": "Workspace",
+        "operationId": "workspace_api_v1_accounting_workspace_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "eta",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "integer",
+                  "maximum": 60,
+                  "minimum": 0
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Eta"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/accounting/command": {
+      "post": {
+        "tags": [
+          "session-accounting"
+        ],
+        "summary": "Command",
+        "operationId": "command_api_v1_accounting_command_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/app__accounting__Command"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/impact/command": {
+      "post": {
+        "tags": [
+          "impact"
+        ],
+        "summary": "Command",
+        "operationId": "command_api_v1_impact_command_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/app__impact__Command"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/impact/workspace": {
+      "get": {
+        "tags": [
+          "impact"
+        ],
+        "summary": "Workspace",
+        "operationId": "workspace_api_v1_impact_workspace_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/impact/report": {
+      "post": {
+        "tags": [
+          "impact"
+        ],
+        "summary": "Metrics",
+        "operationId": "metrics_api_v1_impact_report_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Period"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/impact/summary": {
+      "post": {
+        "tags": [
+          "impact"
+        ],
+        "summary": "Summary",
+        "operationId": "summary_api_v1_impact_summary_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SummaryInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/passports/qr": {
+      "get": {
+        "tags": [
+          "passports"
+        ],
+        "summary": "Qr",
+        "operationId": "qr_api_v1_passports_qr_get",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Origin"
+            }
+          },
+          {
+            "name": "mode",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "enum": [
+                "demo",
+                "sandbox",
+                "real"
+              ],
+              "type": "string",
+              "title": "Mode"
+            }
+          },
+          {
+            "name": "batch",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{1,100}$",
+              "title": "Batch"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/passports/{batch_id}/history": {
+      "get": {
+        "tags": [
+          "passports"
+        ],
+        "summary": "History",
+        "operationId": "history_api_v1_passports__batch_id__history_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "batch_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Batch Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/passports/{batch_id}/records": {
+      "post": {
+        "tags": [
+          "passports"
+        ],
+        "summary": "Record",
+        "operationId": "record_api_v1_passports__batch_id__records_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "batch_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Batch Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HandlingCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/passports/{batch_id}": {
+      "get": {
+        "tags": [
+          "passports"
+        ],
+        "summary": "Passport",
+        "operationId": "passport_api_v1_passports__batch_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "batch_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "title": "Batch Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/me/onboard": {
+      "post": {
+        "tags": [
+          "identity"
+        ],
+        "summary": "Onboard",
+        "operationId": "onboard_api_v1_me_onboard_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CustomerOnboarding"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
     "/api/v1/vendor/workspace": {
       "get": {
         "tags": [
@@ -1900,6 +2410,74 @@
         ]
       }
     },
+    "/api/v1/planning/forecast": {
+      "post": {
+        "tags": [
+          "planning"
+        ],
+        "summary": "Forecast",
+        "operationId": "forecast_api_v1_planning_forecast_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ForecastInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
+    "/api/v1/planning/photo": {
+      "post": {
+        "tags": [
+          "planning"
+        ],
+        "summary": "Photo",
+        "operationId": "photo_api_v1_planning_photo_post",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
     "/health": {
       "get": {
         "tags": [
@@ -1940,6 +2518,50 @@
             }
           }
         }
+      }
+    },
+    "/api/v1/voice/workflow-confirm": {
+      "post": {
+        "tags": [
+          "voice"
+        ],
+        "summary": "Confirm Workflow",
+        "operationId": "confirm_workflow_api_v1_voice_workflow_confirm_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WorkflowInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
       }
     }
   },
@@ -2023,6 +2645,54 @@
         ],
         "title": "Ad"
       },
+      "AllergenStatement": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "confirmed"
+            ],
+            "title": "Status"
+          },
+          "contains": {
+            "items": {
+              "type": "string",
+              "enum": [
+                "peanuts",
+                "tree-nuts",
+                "milk",
+                "eggs",
+                "soy",
+                "wheat",
+                "fish",
+                "shellfish",
+                "sesame",
+                "other"
+              ]
+            },
+            "type": "array",
+            "maxItems": 10,
+            "title": "Contains"
+          },
+          "cross_contact": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "possible"
+            ],
+            "title": "Cross Contact"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "status",
+          "contains",
+          "cross_contact"
+        ],
+        "title": "AllergenStatement"
+      },
       "Application": {
         "properties": {
           "kind": {
@@ -2098,6 +2768,45 @@
           "request_id"
         ],
         "title": "BatchInput"
+      },
+      "BusinessDeclarations": {
+        "properties": {
+          "pork_free": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "yes",
+              "no"
+            ],
+            "title": "Pork Free"
+          },
+          "alcohol_free": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "yes",
+              "no"
+            ],
+            "title": "Alcohol Free"
+          },
+          "muslim_owned": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "yes",
+              "no"
+            ],
+            "title": "Muslim Owned"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "pork_free",
+          "alcohol_free",
+          "muslim_owned"
+        ],
+        "title": "BusinessDeclarations"
       },
       "Campaign": {
         "properties": {
@@ -2448,6 +3157,37 @@
         ],
         "title": "Consent"
       },
+      "CustomerOnboarding": {
+        "properties": {
+          "display_name": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 2,
+            "title": "Display Name"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en",
+              "ms"
+            ],
+            "title": "Locale"
+          },
+          "accepted": {
+            "type": "boolean",
+            "const": true,
+            "title": "Accepted"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "display_name",
+          "locale",
+          "accepted"
+        ],
+        "title": "CustomerOnboarding"
+      },
       "Declaration": {
         "properties": {
           "request_id": {
@@ -2698,6 +3438,14 @@
             "minLength": 1,
             "title": "Transcript"
           },
+          "stalls": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "maxItems": 100,
+            "title": "Stalls"
+          },
           "menu": {
             "items": {
               "type": "string"
@@ -2745,6 +3493,47 @@
       },
       "FoodInput": {
         "properties": {
+          "category_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "rice",
+                  "skewers",
+                  "kuih",
+                  "drinks",
+                  "fried",
+                  "produce"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Category Id"
+          },
+          "plant_diet": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PlantDiet"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "plant_diet_recorded_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plant Diet Recorded At"
+          },
           "id": {
             "type": "string",
             "format": "uuid",
@@ -2775,6 +3564,21 @@
             "maxItems": 40,
             "title": "Ingredients"
           },
+          "allergens": {
+            "$ref": "#/components/schemas/AllergenStatement"
+          },
+          "allergens_recorded_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Allergens Recorded At"
+          },
           "photo": {
             "anyOf": [
               {
@@ -2799,6 +3603,40 @@
           "photo"
         ],
         "title": "FoodInput"
+      },
+      "ForecastInput": {
+        "properties": {
+          "stall": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Stall"
+          },
+          "target": {
+            "type": "string",
+            "format": "date",
+            "title": "Target"
+          },
+          "planned": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 100000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Planned"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "stall",
+          "target"
+        ],
+        "title": "ForecastInput"
       },
       "HTTPValidationError": {
         "properties": {
@@ -2837,6 +3675,122 @@
           "note"
         ],
         "title": "Handling"
+      },
+      "HandlingCommand": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/HandlingData"
+          },
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Request Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "data",
+          "request_id"
+        ],
+        "title": "HandlingCommand"
+      },
+      "HandlingData": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "storage",
+              "temperature"
+            ],
+            "title": "Kind"
+          },
+          "effective_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Effective At"
+          },
+          "storage": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "ambient",
+                  "chilled",
+                  "hot-held",
+                  "unknown"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Storage"
+          },
+          "value": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Value"
+          },
+          "unit": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "C",
+                  "F"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Unit"
+          },
+          "method": {
+            "type": "string",
+            "maxLength": 100,
+            "title": "Method",
+            "default": ""
+          },
+          "source": {
+            "type": "string",
+            "const": "manual",
+            "title": "Source",
+            "default": "manual"
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 250,
+            "title": "Note",
+            "default": ""
+          },
+          "supersedes": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Supersedes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "kind",
+          "effective_at"
+        ],
+        "title": "HandlingData"
       },
       "HealthResponse": {
         "properties": {
@@ -2886,6 +3840,15 @@
       },
       "Market": {
         "properties": {
+          "kind": {
+            "type": "string",
+            "enum": [
+              "general",
+              "farmers"
+            ],
+            "title": "Kind",
+            "default": "general"
+          },
           "id": {
             "type": "string",
             "title": "Id"
@@ -2994,6 +3957,47 @@
       },
       "MenuItem": {
         "properties": {
+          "categoryId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "rice",
+                  "skewers",
+                  "kuih",
+                  "drinks",
+                  "fried",
+                  "produce"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Categoryid"
+          },
+          "plantDiet": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/PlantDiet"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "plantDietRecordedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Plantdietrecordedat"
+          },
           "id": {
             "type": "string",
             "title": "Id"
@@ -3016,6 +4020,28 @@
             },
             "type": "array",
             "title": "Ingredients"
+          },
+          "allergens": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AllergenStatement"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "allergensRecordedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Allergensrecordedat"
           },
           "photoUrl": {
             "anyOf": [
@@ -3340,6 +4366,68 @@
         ],
         "title": "Payment"
       },
+      "Period": {
+        "properties": {
+          "start": {
+            "type": "string",
+            "format": "date",
+            "title": "Start"
+          },
+          "end": {
+            "type": "string",
+            "format": "date",
+            "title": "End"
+          },
+          "market": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Market"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "start",
+          "end"
+        ],
+        "title": "Period"
+      },
+      "PlantDiet": {
+        "properties": {
+          "vegetarian": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "yes",
+              "no"
+            ],
+            "title": "Vegetarian"
+          },
+          "vegan": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "yes",
+              "no"
+            ],
+            "title": "Vegan"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "vegetarian",
+          "vegan"
+        ],
+        "title": "PlantDiet"
+      },
       "Preferences": {
         "properties": {
           "radius": {
@@ -3508,6 +4596,12 @@
             },
             "type": "array",
             "title": "Capabilities"
+          },
+          "registration_policy": {
+            "type": "string",
+            "const": "invite-only",
+            "title": "Registration Policy",
+            "default": "invite-only"
           }
         },
         "type": "object",
@@ -3863,6 +4957,37 @@
       },
       "Stall": {
         "properties": {
+          "categoryId": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "rice",
+                  "skewers",
+                  "kuih",
+                  "drinks",
+                  "fried",
+                  "produce"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Categoryid"
+          },
+          "availabilityConfirmedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Availabilityconfirmedat"
+          },
           "id": {
             "type": "string",
             "title": "Id"
@@ -3882,6 +5007,33 @@
           "specialty": {
             "type": "string",
             "title": "Specialty"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description",
+            "default": ""
+          },
+          "declarations": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/BusinessDeclarations"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "declarationsRecordedAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Declarationsrecordedat"
           },
           "priceSen": {
             "type": "integer",
@@ -4002,6 +5154,26 @@
           "open"
         ],
         "title": "Stall"
+      },
+      "SummaryInput": {
+        "properties": {
+          "report": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Report"
+          },
+          "external_consent": {
+            "type": "boolean",
+            "title": "External Consent",
+            "default": false
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "report"
+        ],
+        "title": "SummaryInput"
       },
       "Trail": {
         "properties": {
@@ -4256,6 +5428,167 @@
         ],
         "title": "Weather"
       },
+      "WorkflowInput": {
+        "properties": {
+          "action": {
+            "type": "string",
+            "enum": [
+              "create_batch",
+              "update_food",
+              "update_stock"
+            ],
+            "title": "Action"
+          },
+          "food": {
+            "$ref": "#/components/schemas/FoodInput"
+          },
+          "batch": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NewBatch"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "batch_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Batch Id"
+          },
+          "expected_remaining": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 100000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Expected Remaining"
+          },
+          "remaining": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 100000.0,
+                "minimum": 0.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Remaining"
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "portion",
+              "unit",
+              "stick",
+              "pack"
+            ],
+            "title": "Unit"
+          },
+          "transcript": {
+            "type": "string",
+            "maxLength": 1000,
+            "title": "Transcript"
+          },
+          "history": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "maxItems": 30,
+            "title": "History"
+          },
+          "confirmed": {
+            "type": "boolean",
+            "const": true,
+            "title": "Confirmed"
+          },
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Request Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "action",
+          "food",
+          "unit",
+          "transcript",
+          "confirmed",
+          "request_id"
+        ],
+        "title": "WorkflowInput"
+      },
+      "app__accounting__Command": {
+        "properties": {
+          "batch": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Batch"
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "normal",
+              "giveaway",
+              "discard",
+              "close"
+            ],
+            "title": "Kind"
+          },
+          "units": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "maximum": 100000.0,
+                "minimum": 1.0
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Units"
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 250,
+            "minLength": 2,
+            "title": "Note"
+          },
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Request Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "batch",
+          "kind",
+          "note",
+          "request_id"
+        ],
+        "title": "Command"
+      },
       "app__commerce__Command": {
         "properties": {
           "action": {
@@ -4350,6 +5683,35 @@
           "tier"
         ],
         "title": "Subscription"
+      },
+      "app__impact__Command": {
+        "properties": {
+          "kind": {
+            "type": "string",
+            "maxLength": 30,
+            "minLength": 1,
+            "title": "Kind"
+          },
+          "data": {
+            "additionalProperties": true,
+            "type": "object",
+            "maxProperties": 12,
+            "title": "Data"
+          },
+          "request_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Request Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "kind",
+          "data",
+          "request_id"
+        ],
+        "title": "Command"
       },
       "app__partners__Command": {
         "properties": {

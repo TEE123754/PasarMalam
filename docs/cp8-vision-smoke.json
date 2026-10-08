@@ -1,0 +1,27 @@
+{
+  "suggestion": {
+    "dish": "satay",
+    "visible_categories": [
+      "grilled-skewers",
+      "rice",
+      "vegetable"
+    ],
+    "evidence": "Apparent food arranged on skewers; rice-like grains or blocks; vegetable-like shapes. Ingredients are unverified.",
+    "confidence": 1.0
+  },
+  "source": "morpheus-image-unverified",
+  "model": "gemma-4-31b",
+  "approval_required": true,
+  "stored": false,
+  "usage": {
+    "prompt_tokens": 395,
+    "completion_tokens": 85,
+    "total_tokens": 480
+  },
+  "date": "2026-10-08",
+  "input": "IMAGE/pm-05-chicken-satay.png",
+  "input_sha256": "cfc704243b96123ef05ee80c218429df2cd22dc440b2377a6810dcbcda55f86a",
+  "evidence_scope": "One supplied illustration; not an accuracy benchmark",
+  "billing": "Existing owner-authorised Morpheus credits; account settings unchanged",
+  "evidence_projection": "Final server appearance-only projection; model prose discarded"
+}

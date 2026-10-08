@@ -424,6 +424,7 @@ dependencies = [
     { name = "pyjwt", extra = ["crypto"] },
     { name = "python-dotenv" },
     { name = "pywebpush" },
+    { name = "qrcode" },
     { name = "uvicorn" },
 ]
 
@@ -432,7 +433,6 @@ dev = [
     { name = "imageio-ffmpeg" },
     { name = "pglast" },
     { name = "pytest" },
-    { name = "qrcode" },
     { name = "ruff" },
 ]
 
@@ -446,6 +446,7 @@ requires-dist = [
     { name = "pyjwt", extras = ["crypto"], specifier = ">=2.10,<3" },
     { name = "python-dotenv", specifier = ">=1.0,<2" },
     { name = "pywebpush", specifier = ">=2.0,<3" },
+    { name = "qrcode", specifier = "==8.2" },
     { name = "uvicorn", specifier = ">=0.34,<1" },
 ]
 
@@ -454,7 +455,6 @@ dev = [
     { name = "imageio-ffmpeg", specifier = ">=0.6.0" },
     { name = "pglast", specifier = ">=7,<8" },
     { name = "pytest", specifier = ">=8,<10" },
-    { name = "qrcode", specifier = ">=8.2" },
     { name = "ruff", specifier = ">=0.9,<1" },
 ]
 

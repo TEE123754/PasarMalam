@@ -1,3 +1,4 @@
+import { handlingGate } from '../passports/model'
 import policy from '../../../../contracts/advisory-policy.json'
 import type { VendorWorkspace, VendorBatch } from '../vendor/model'
 export interface Weather {temperature:number|null;humidity:number|null;observed:string;source:'fixture'|'open-meteo';id:string}
@@ -24,7 +25,7 @@ export function decide(b:VendorBatch,ingredients:string[],confirmed:boolean,weat
 export function closingAt(closes:string,opens:string,now:Date):number {const day=new Date(now.getTime()+8*3600000).toISOString().slice(0,10);let close=Date.parse(`${day}T${closes}:00+08:00`);if(closes<=opens&&new Date(now.getTime()+8*3600000).toISOString().slice(11,16)>=opens)close+=86400000;return close}
 export function tick(workspace:VendorWorkspace,original:FreshState,now:Date):{workspace:VendorWorkspace;state:FreshState} {
  const w=structuredClone(workspace),s=structuredClone(original);s.audit=s.audit.filter(a=>a.kind!=='voice-confirmed'||Date.parse(a.at)>now.getTime()-30*86400000);if(s.consentExpires&&Date.parse(s.consentExpires)<=now.getTime())s.consent=false
- for(const b of w.batches){const declaration=s.declarations[b.id];const d=decide(b,declaration?.ingredients??[],!!declaration?.confirmed,s.weather,now);const old=b.advisory_deadline;b.advisory_deadline=d.deadline;s.decisions[b.id]=d
+ for(const b of w.batches){const declaration=s.declarations[b.id];const d=decide(b,declaration?.ingredients??[],!!declaration?.confirmed,s.weather,now);if(handlingGate(w,b.id)){d.eligible=false;d.reasons.push('Storage history requires reviewed transition policy; clearance blocked')}const old=b.advisory_deadline;b.advisory_deadline=d.deadline;s.decisions[b.id]=d
   if(old!==d.deadline)s.audit.push({at:now.toISOString(),kind:'deadline-shortened',batch:b.id,details:{old,decision:d,weather:s.weather}})
   if(['active','needs-information','expired'].includes(b.status))b.status=d.eligible?'active':d.deadline&&Date.parse(d.deadline)<=now.getTime()?'expired':'needs-information'
   const food=w.foods.find(f=>f.id===b.food_item_id),stall=w.stalls.find(x=>x.id===food?.stall_id);const close=stall?closingAt(stall.closes,stall.opens,now):Infinity

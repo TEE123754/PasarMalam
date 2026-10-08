@@ -11,6 +11,7 @@ __pycache__/
 .pytest_cache/
 .ruff_cache/
 .local-voice/
+.local-evaluation/
 *.py[cod]
 *.tsbuildinfo
 supabase/.temp/
@@ -24,3 +25,16 @@ Thumbs.db
 
 .phase4-qa/
 .phase11-qa/
+.local-acceptance/
+.local-tools/
+output/
+tmp/
+apps/web/dist-native/
+apps/web/android/.gradle/
+apps/web/android/local.properties
+apps/web/android/**/build/
+apps/web/ios/App/DerivedData/
+apps/web/ios/App/App/public/
+apps/web/android/app/src/main/assets/public/
+*.keystore
+*.jks

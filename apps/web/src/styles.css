@@ -37,3 +37,13 @@
 .stall-card{align-items:stretch;flex-direction:column}.stall-card .food-art{width:100%;height:auto;min-height:120px;flex-basis:auto;background:#fff}.food-art .image-placeholder,.detail-symbol .image-placeholder{height:auto;min-height:120px;padding:10px}.detail-symbol{height:auto;min-height:120px;background:#fff}
 
 .pwa-status{margin:0;padding:12px 20px;background:#fff2d4;color:#122b29;font:inherit}.pwa-status button{padding:10px;border:1px solid;border-radius:6px;background:white}
+/* Explicit listing statements remain readable on narrow phones. */
+.listing-statements { margin: 1rem 0; padding: 1rem; border: 1px solid var(--border, #e7dfd3); border-radius: 16px; background: #faf7f1; }
+.listing-statements h3, .listing-statements h4 { margin-top: 0; }
+.listing-statements dl > div { display: flex; flex-wrap: wrap; gap: .4rem 1rem; margin: .5rem 0; }
+.listing-statements dd { margin-left: 0; font-weight: 650; }
+.allergen-editor { display: flex; flex-direction: column; gap: .65rem; padding: 1rem; border: 1px solid #e7dfd3; border-radius: 12px; }
+.allergen-editor .choice-row { min-height: 36px; }
+.registration-panel { margin-top: 1rem; }
+.registration-panel summary { cursor: pointer; font-weight: 650; padding: .75rem 0; }
+.registration-panel form { margin-top: 1rem; }

@@ -1,0 +1,56 @@
+{
+  "target": "2026-10-15",
+  "samples": 40,
+  "excluded": {
+    "future-or-target": 1
+  },
+  "planning_only": true,
+  "approval_required": true,
+  "definition": "Closed reconciled same-stall, same-weekday sessions; normal + clearance sales. Zero closing leftovers conservatively censor demand. No weather effect is inferred.",
+  "quantity": 30,
+  "likely_unsold": 0,
+  "interval": {
+    "lower": 27,
+    "upper": 32,
+    "nominal_coverage": 0.9,
+    "holdout_covered": 6,
+    "holdout_count": 8,
+    "empirical_coverage": 0.75,
+    "calibration_samples": 10,
+    "caveat": "Split residual interval; time-series exchangeability is not assured. Empirical test coverage is descriptive, not a guarantee."
+  },
+  "benchmark": {
+    "train": 16,
+    "validation": 6,
+    "calibration": 10,
+    "holdout": 8,
+    "boundaries": {
+      "train_end": "2026-04-23",
+      "validation_end": "2026-06-04",
+      "calibration_end": "2026-08-13",
+      "holdout_start": "2026-08-20",
+      "holdout_end": "2026-10-08"
+    },
+    "validation_mae": {
+      "historical-median": 3.0,
+      "historical-average": 3,
+      "bounded-trend": 0.9019607843137253
+    },
+    "holdout_mae": {
+      "historical-median": 7.0,
+      "historical-average": 7,
+      "bounded-trend": 1.0147058823529416
+    },
+    "selected_on_validation": "bounded-trend",
+    "release_method": "bounded-trend",
+    "release_gate": "Trend must improve the preselected baseline on holdout; otherwise display baseline. Holdout is used for this release decision, not training."
+  },
+  "state": "History-based planning forecast",
+  "method": "bounded-trend",
+  "planned": 30,
+  "recent_observation": null,
+  "recommendation": "Review the forecast and unsold estimate before choosing preparation; it does not change a batch or safety deadline.",
+  "source": "synthetic",
+  "input_sha256": "2129a5bba94e68ffd372c9080b784e8a01b1b6d425b835a04e70210a8eb5ee38",
+  "real_benchmark": "Not established"
+}

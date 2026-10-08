@@ -1,0 +1,15 @@
+.passport-panel{padding:clamp(20px,4vw,32px);margin:20px 0;overflow-wrap:anywhere}
+.passport-panel h2{font-size:1.5rem;font-weight:750;line-height:1.3;margin-bottom:12px}
+.passport-panel h3{font-size:1.1rem;font-weight:750;margin-bottom:10px}
+.passport-panel p{line-height:1.65;margin:12px 0;color:#605c55}
+.passport-panel dl{display:grid;grid-template-columns:minmax(140px,.7fr) minmax(0,1fr);gap:12px 24px;margin:24px 0;padding:20px;background:#faf6ee;border-radius:14px}
+.passport-panel dt{color:#71685e}.passport-panel dd{font-weight:650;margin:0}
+.passport-panel [role=alert]{padding:14px 18px;background:#fff0df;border-left:4px solid #c45014;border-radius:8px;color:#71340f}
+.passport-panel img{display:block;max-width:100%;height:auto;margin:20px 0}
+.passport-panel a{color:#b63e0a;text-decoration:underline;text-underline-offset:3px}
+.passport-panel fieldset{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;border:0;padding:12px 0;margin:0;min-width:0}
+.passport-panel label:not(.choice-row){display:flex;flex-direction:column;gap:8px;font-weight:650}
+.passport-panel input:not([type=checkbox]),.passport-panel select,.passport-panel textarea{width:100%;min-height:48px;max-width:100%;border:1px solid #d9d0c5;border-radius:10px;padding:12px;background:#fffdf9;color:#28241f;font:inherit}
+.passport-panel textarea{min-height:100px;resize:vertical}.passport-panel .choice-row{grid-column:1/-1;justify-content:flex-start;font-weight:500;line-height:1.6}
+.passport-panel .choice-row input{flex:0 0 22px}.passport-panel article{padding:22px 0;border-top:1px solid #e7dfd3}
+@media(max-width:600px){.passport-panel fieldset{grid-template-columns:1fr}.passport-panel dl{grid-template-columns:1fr;gap:6px}.passport-panel dd{margin-bottom:10px}.passport-panel h2{font-size:1.3rem}}

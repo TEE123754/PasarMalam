@@ -1,7 +1,10 @@
 {
   "supabase_jwks": 200,
-  "supabase_markets": 404,
+  "supabase_markets": 200,
   "morpheus_models_status": 200,
   "selected_model_available": true,
-  "database": "unreachable; verify connection endpoint/password/network"
+  "database": "connected",
+  "guard_present": true,
+  "public_tables": 73,
+  "auth_accounts": 104
 }

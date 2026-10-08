@@ -18,22 +18,28 @@ def main():
         raise ValueError(
             "Configure separate agent secret and database password (32+ characters)"
         )
+    local = parsed.scheme == "http" and parsed.hostname in {"127.0.0.1", "localhost"}
+    hosted = parsed.scheme == "https" and (parsed.hostname or "").endswith(
+        ".up.railway.app"
+    )
     if not (
-        parsed.scheme == "https"
-        and (parsed.hostname or "").endswith(".up.railway.app")
+        (local or hosted)
         and parsed.path == "/api/v1/agent/dispatch"
         and not parsed.query
         and not parsed.fragment
         and not parsed.username
+        and not parsed.password
     ):
-        raise ValueError("Set the explicit Railway HTTPS dispatcher URL")
-    with psycopg.connect(database) as connection:
+        raise ValueError(
+            "Use a loopback local dispatcher or the explicit Railway HTTPS URL"
+        )
+    with psycopg.connect(database, connect_timeout=10) as connection:
         verify_marker(connection)
         connection.execute(
             "insert into private.agent_config(singleton,secret,dispatch_url) "
             "values(true,%s,%s) on conflict(singleton) do update "
             "set secret=excluded.secret,dispatch_url=excluded.dispatch_url",
-            (secret, url),
+            (secret, None if local else url),
         )
         connection.execute(
             sql.SQL("alter role pasarmalam_agent login password {}").format(
@@ -41,13 +47,19 @@ def main():
             )
         )
         connection.execute("create extension if not exists pg_cron")
-        connection.execute("create extension if not exists pg_net")
+        if not local:
+            connection.execute("create extension if not exists pg_net")
         connection.execute(
             "select cron.schedule('pasarmalam-closing-agent','* * * * *',"
             "'select private.scheduled_agent()')"
         )
     print(
-        "Scoped role and minute-level job configured; perform Phase 5 live acceptance next."
+        "Scoped role and minute-level SQL tick configured. "
+        + (
+            "Start the local worker for dispatch and hourly media cleanup."
+            if local
+            else "Hosted wake configured."
+        )
     )
 
 

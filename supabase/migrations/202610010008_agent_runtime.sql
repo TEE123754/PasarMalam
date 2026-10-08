@@ -13,7 +13,7 @@ begin
  update public.alerts set current=false where batch_id=p_batch;
  if threshold is not null and ((decision->>'eligible')::boolean or threshold=0) then
   insert into public.alerts(owner_id,batch_id,threshold_minutes,dedup_key,policy_version) select m.user_id,p_batch,threshold,p_batch::text||':DEMO_ADVISORY_V2:'||threshold||':'||m.user_id::text,'DEMO_ADVISORY_V2' from public.stall_memberships m where m.stall_id=stall on conflict(dedup_key) do update set current=true;
-  if threshold=30 and (decision->>'eligible')::boolean then insert into public.clearance_drafts(batch_id) values(p_batch) on conflict(batch_id) do nothing;end if;
+  if threshold=30 and (decision->>'eligible')::boolean then insert into public.clearance_drafts(batch_id,stall_id,price_sen) select p_batch,stall,f.price_sen from public.batches b join public.food_items f on f.id=b.food_item_id where b.id=p_batch on conflict(batch_id) do nothing;end if;
  end if;
 end $$;
 create or replace function private.closing_tick() returns void language plpgsql security definer set search_path='' as $$ declare b record;started timestamptz=clock_timestamp();counted integer=0;begin

@@ -11,14 +11,16 @@ const secrets = fs.existsSync(envFile) ? fs.readFileSync(envFile, 'utf8').split(
   return match ? [match[1].trim().replace(/^['"]|['"]$/g, '')].filter((value) => value.length >= 12) : [];
 }) : [];
 let violations = 0;
-for (const file of files(path.join(root, 'apps/web/dist'))) {
+const bundle = process.argv.includes('--native') ? 'apps/web/dist-native' : 'apps/web/dist';
+for (const file of files(path.join(root, bundle))) {
   if (!/\.(?:js|html|css|json|map)$/.test(file)) continue;
   const data = fs.readFileSync(file, 'utf8');
   let unsafe = /sb_secret_[A-Za-z0-9_-]{10,}/.test(data) || secrets.some((secret) => data.includes(secret));
+  if (process.argv.includes('--native')) unsafe ||= /sb_publishable_[A-Za-z0-9_-]{10,}|https:\/\/[a-z]{20}\.supabase\.co/.test(data);
   for (const jwt of data.matchAll(/eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/g)) {
     try { unsafe ||= JSON.parse(Buffer.from(jwt[0].split('.')[1], 'base64url')).role === 'service_role'; } catch { /* Non-token strings are ignored. */ }
   }
   if (unsafe) { violations++; console.error(`Privileged credential detected in ${path.relative(root, file)}`); }
 }
 if (violations) process.exit(1);
-console.log('Frontend credential scan passed (configured private values and privileged token formats).');
+console.log(`${bundle} credential scan passed (configured private values and privileged token formats).`);

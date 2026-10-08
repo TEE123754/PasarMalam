@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">PasarMalam Demo</string>
+    <string name="title_activity_main">PasarMalam Demo</string>
+    <string name="package_name">com.pasarmalam.localdemo</string>
+    <string name="custom_url_scheme">com.pasarmalam.localdemo</string>
+</resources>

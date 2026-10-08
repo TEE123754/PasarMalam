@@ -1,0 +1,377 @@
+{
+  "source": "synthetic",
+  "description": "Fictional single-stall Thursday sessions; no real sales or pilot effect",
+  "target": "2026-10-15",
+  "planned": 30,
+  "sessions": [
+    {
+      "date": "2026-01-08",
+      "prepared": 25,
+      "normal": 18,
+      "clearance": 2,
+      "closing_leftovers": 5,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-01-15",
+      "prepared": 28,
+      "normal": 20,
+      "clearance": 2,
+      "closing_leftovers": 6,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-01-22",
+      "prepared": 26,
+      "normal": 17,
+      "clearance": 2,
+      "closing_leftovers": 7,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-01-29",
+      "prepared": 26,
+      "normal": 19,
+      "clearance": 2,
+      "closing_leftovers": 5,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-02-05",
+      "prepared": 27,
+      "normal": 19,
+      "clearance": 2,
+      "closing_leftovers": 6,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-02-12",
+      "prepared": 30,
+      "normal": 21,
+      "clearance": 2,
+      "closing_leftovers": 7,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-02-19",
+      "prepared": 25,
+      "normal": 18,
+      "clearance": 2,
+      "closing_leftovers": 5,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-02-26",
+      "prepared": 28,
+      "normal": 20,
+      "clearance": 2,
+      "closing_leftovers": 6,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-03-05",
+      "prepared": 29,
+      "normal": 20,
+      "clearance": 2,
+      "closing_leftovers": 7,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-03-12",
+      "prepared": 29,
+      "normal": 22,
+      "clearance": 2,
+      "closing_leftovers": 5,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-03-19",
+      "prepared": 27,
+      "normal": 19,
+      "clearance": 2,
+      "closing_leftovers": 6,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-03-26",
+      "prepared": 30,
+      "normal": 21,
+      "clearance": 2,
+      "closing_leftovers": 7,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-04-02",
+      "prepared": 28,
+      "normal": 21,
+      "clearance": 2,
+      "closing_leftovers": 5,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-04-09",
+      "prepared": 31,
+      "normal": 23,
+      "clearance": 2,
+      "closing_leftovers": 6,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-04-16",
+      "prepared": 29,
+      "normal": 20,
+      "clearance": 2,
+      "closing_leftovers": 7,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-04-23",
+      "prepared": 29,
+      "normal": 22,
+      "clearance": 2,
+      "closing_leftovers": 5,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-04-30",
+      "prepared": 30,
+      "normal": 22,
+      "clearance": 2,
+      "closing_leftovers": 6,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-05-07",
+      "prepared": 33,
+      "normal": 24,
+      "clearance": 2,
+      "closing_leftovers": 7,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-05-14",
+      "prepared": 28,
+      "normal": 21,
+      "clearance": 2,
+      "closing_leftovers": 5,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-05-21",
+      "prepared": 31,
+      "normal": 23,
+      "clearance": 2,
+      "closing_leftovers": 6,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-05-28",
+      "prepared": 32,
+      "normal": 23,
+      "clearance": 2,
+      "closing_leftovers": 7,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-06-04",
+      "prepared": 32,
+      "normal": 25,
+      "clearance": 2,
+      "closing_leftovers": 5,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-06-11",
+      "prepared": 30,
+      "normal": 22,
+      "clearance": 2,
+      "closing_leftovers": 6,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-06-18",
+      "prepared": 33,
+      "normal": 24,
+      "clearance": 2,
+      "closing_leftovers": 7,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-06-25",
+      "prepared": 31,
+      "normal": 24,
+      "clearance": 2,
+      "closing_leftovers": 5,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-07-02",
+      "prepared": 34,
+      "normal": 26,
+      "clearance": 2,
+      "closing_leftovers": 6,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-07-09",
+      "prepared": 32,
+      "normal": 23,
+      "clearance": 2,
+      "closing_leftovers": 7,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-07-16",
+      "prepared": 32,
+      "normal": 25,
+      "clearance": 2,
+      "closing_leftovers": 5,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-07-23",
+      "prepared": 33,
+      "normal": 25,
+      "clearance": 2,
+      "closing_leftovers": 6,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-07-30",
+      "prepared": 36,
+      "normal": 27,
+      "clearance": 2,
+      "closing_leftovers": 7,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-08-06",
+      "prepared": 31,
+      "normal": 24,
+      "clearance": 2,
+      "closing_leftovers": 5,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-08-13",
+      "prepared": 34,
+      "normal": 26,
+      "clearance": 2,
+      "closing_leftovers": 6,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-08-20",
+      "prepared": 35,
+      "normal": 26,
+      "clearance": 2,
+      "closing_leftovers": 7,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-08-27",
+      "prepared": 35,
+      "normal": 28,
+      "clearance": 2,
+      "closing_leftovers": 5,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-09-03",
+      "prepared": 33,
+      "normal": 25,
+      "clearance": 2,
+      "closing_leftovers": 6,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-09-10",
+      "prepared": 36,
+      "normal": 27,
+      "clearance": 2,
+      "closing_leftovers": 7,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-09-17",
+      "prepared": 34,
+      "normal": 27,
+      "clearance": 2,
+      "closing_leftovers": 5,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-09-24",
+      "prepared": 37,
+      "normal": 29,
+      "clearance": 2,
+      "closing_leftovers": 6,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-10-01",
+      "prepared": 35,
+      "normal": 26,
+      "clearance": 2,
+      "closing_leftovers": 7,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-10-08",
+      "prepared": 35,
+      "normal": 28,
+      "clearance": 2,
+      "closing_leftovers": 5,
+      "closed": true,
+      "reconciled": true
+    },
+    {
+      "date": "2026-10-15",
+      "prepared": 9999,
+      "normal": 9990,
+      "clearance": 0,
+      "closing_leftovers": 9,
+      "closed": true,
+      "reconciled": true
+    }
+  ]
+}

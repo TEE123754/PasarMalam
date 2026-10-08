@@ -2,7 +2,9 @@
 
 Version: 4.0 · Date: 1 October 2026 · Status: full-feature demo, agent and pilot specification
 
-Source: [original concept](PasarMalam.md). Execution guide: [implementation plan](IMPLEMENTATION_PLAN.md). Asset brief: [100 individual image prompts](IMAGE_GENERATION_PROMPTS.md).
+Source: [original concept](PasarMalam.md). Execution guide: [implementation plan](IMPLEMENTATION_PLAN.md). Current asset brief: [12 image prompts and user actions](docs/YOUR_ACTION_CHECKLIST.md). [100 older briefs](IMAGE_GENERATION_PROMPTS.md) remain optional references for existing logical slots.
+
+8 October 2026 UI amendment: use the supplied customer/hawker reference for warm cream/orange presentation, large readable headings, photo/category discovery and a selected-stall dashboard with voice-first quick actions. The 12 supplied originals are integrated as responsive, visibly labelled demo illustrations. Match actual subjects, retain placeholders for unmatched content, and keep immutable batch photos/private evidence separate. Art must not imply food safety or halal certification. See [implemented refresh and acceptance](docs/UI_UX_REFRESH.md).
 
 ## 1. Product definition
 
@@ -307,7 +309,7 @@ Synthetic numbers demonstrate UI behaviour, not adoption, real food rescued, or 
 | Structured extraction | Gemini structured-output adapter behind FastAPI; optional local Qwen/llama.cpp developer adapter | Actual transcript → JSON extraction for synthetic demo inputs, schema validation and editable confidence. Free quota/availability checked at setup. |
 | Weather | Open-Meteo HTTP API + market-level cache | Current modelled temperature/humidity, source time, conservative stale-data handling. |
 | Realtime/push | Supabase Realtime; service worker + pywebpush/VAPID | Live map invalidation and real push only to opted-in demo testers; simulation otherwise. |
-| Demo assets | Individual image prompts + committed generated assets; procedural SVG fallback and Sharp optimisation | 100 separately specified images; no paid runtime generation dependency. |
+| Demo assets | 12 supplied originals, responsive WebP, described fallbacks and provenance record | Matching subjects reused with demo labels; existing logical slots retained; public-use rights pending confirmation; no paid runtime generation dependency. |
 | Integration simulation | Typed TypeScript fixture adapters and FastAPI demo-provider adapters | Mock payment/ad/media/authority/delivery/notification/sensor services; deterministic events, fake references and controllable failures. |
 | Tooling | Git, npm, uv, Supabase CLI, Ruff, ESLint, Prettier | Reproducible development and migrations. |
 | Verification | Vitest + Testing Library, pytest, Playwright, axe-core | Focused phase-end unit/integration/browser/accessibility checks. |
@@ -372,7 +374,7 @@ Choose mode explicitly; never silently switch a failing connected write into a s
 | Food items and batches | 90 menu items; 150 batches covering all time and inventory states, including multiple batches of one dish. |
 | Reviews and complaints | 150 fictional reviews, 8 fictional private complaints with moderation states. |
 | Promotions/campaigns | 12 offers covering percentages, bundles and RM0 eligible surplus; 8 campaigns across approval/budget states; 6 distinct generated ad creatives. |
-| Generated media | 100 unique images: 2 hero, 10 markets, 30 stalls, 30 foods, 12 persona portraits, 6 partner scenes, 6 ads, 4 synthetic evidence/training scenes. Every image has its own prompt in IMAGE_GENERATION_PROMPTS.md. |
+| Generated media | Reduced brief: 12 originals (two market scenes, two stall scenes, eight matching food/drink subjects). One self-contained prompt per image in docs/YOUR_ACTION_CHECKLIST.md. Existing 100 logical slots may use representative matching art or described placeholders; portraits, logos, ad and evidence artwork are not required. |
 | Voice examples | 24 evaluation clips: 10 BM + 10 Manglish (the primary approximately-20-sample evaluation) + 4 English controls; human-labelled fields, ambiguity and noise cases. |
 | Evidence video | 2 short synthetic training clips with simulated time/location captions, derived from the training artwork or a simple animated scene; neither is presented as a real incident. |
 | Partner accounts | 12 fictional organisations and 18 scoped partner personas covering media, advertisers, authorities/councils, delivery, charity and waste collectors. |
@@ -382,7 +384,7 @@ Choose mode explicitly; never silently switch a failing connected write into a s
 | Circular economy | 8 collection jobs split across eligible surplus donation, composting and BSF destinations; fake weights and receipts. |
 | Notifications/advanced | 30 fake notifications; 3 sensor profiles with 48 readings each; 3 weather scenarios; 6 experimental/AI drafts, plus Tamil/Mandarin language examples clearly marked scripted. |
 
-User override: keep all 100 image slots as described placeholders; the user will provide image files later. The prompts remain optional one-image references. When images are supplied, validate and save each individually; never assume a paid subscription/API is free. When no such route is available, produce an original procedural illustration for that individual brief and identify its provenance. The image requirement remains in scope; only the production technique changes. Never substitute a collage/contact sheet for the 100 individual assets. Add “Generated demo image” as application text, and record prompt ID, filename, subject, alt text, generation method and license in the asset manifest. No image depicts a real vendor, actual complaint, official document or confirmed partnership. All people and organisations represented are fictional.
+User override, updated 8 October 2026: keep described placeholders until the user supplies images; reduce the recommended production list to **12 originals**. Generating the older 100 briefs is not required. Retain existing logical slot IDs; reuse art only for matching subjects and label it “Representative demo illustration”. Unmatched dishes and stalls stay placeholders rather than receiving misleading artwork. Use initials for personas and existing icons/text for partners, ads and synthetic evidence. Validate supplied files and record prompt ID, filename, subject, alt text, method and licence. Each prompt produces one standalone image, never a collage. Generated art does not depict a real vendor, actual complaint, official document, confirmed partnership or newly cooked batch. No paid generation service is required.
 
 Seed from stable IDs and a fixed random seed. Provide a frozen demo clock for repeatable scenarios and an explicit reset-to-today seed command for the connected demo. Demo time travel cannot affect a production environment.
 
@@ -457,7 +459,7 @@ The existing DISC, DIET, HAWK, BATCH, SAFE, ALERT, PROMO, LANG, VOICE, TRUST, AD
 | AI-01 Expanded assistance | Photo/extra-language scripted previews, distinct from real VOICE-01 transcript extraction; confidence/ambiguity/error states | 10 |
 | APP-01 Native mobile preview | Android/iOS styled screen frames, onboarding, permission and notification demos, functional deep links into existing PWA flows | 10 |
 | DATA-01 Analytics and premium tools | Multi-stall inventory, fake revenue/sales history, ad funnel, council/waste aggregates, date filters and demo CSV exports | 8–10 |
-| IMAGE-01 Generated image library | 100 individual assets, prompt-to-file manifest, alt text, generated labels and correct entity associations | 11 |
+| IMAGE-01 Demo image library | Up to 12 supplied originals, reusable matching-subject mappings, alt text and representative labels; existing logical placeholder slots retained | 11 |
 | AGENT-01 Closing-time actions | Scheduled observation → persisted draft/nudge → hawker confirmation → committed offer/outbox → opted-in notification | 5, 10 |
 | REALTIME-01 Live map | Realtime public-safe events, canonical refetch, reconnect snapshot and polling fallback | 3 |
 | PRIV-01 / INCL-01 | Voice deletion, coarse opt-in location, PDPA notice/rights, free basic tier and accessible chips | 1, 2, 6, 7 |

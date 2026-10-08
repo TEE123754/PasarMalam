@@ -1,5 +1,8 @@
 # Voice evaluation — Not measured
 
+**CP7 update (8 October 2026):** use the [expanded recording and measurement guide](CP7_MEASUREMENT_GUIDE.md) and [24-case pack](../contracts/cp7-recording-pack.json) for the final holdout. Original satay scripts remain development/practice material. Local preparation passed; actual participant/device results remain unmeasured. [Evidence](CP7_ACCEPTANCE.md).
+
+
 Updated: 1 October 2026. No human recordings or participant measurements supplied. Actual local LLM on three fictional texts and browser Whisper on one synthetic English WAV were exercised. These smoke checks do not establish human accuracy or listing speed.
 
 | Required evidence | Current status |

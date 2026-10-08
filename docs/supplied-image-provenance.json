@@ -1,0 +1,206 @@
+[
+  {
+    "source": "IMAGE/pm-01-night-market.png",
+    "sha256": "be052e1c664665c1263a4d74bec556d22906deaeafdc429dbf5767ee5cf12fd2",
+    "method": "user-supplied-demo-artwork; resized and metadata-stripped",
+    "generation_model": "Not provided",
+    "licence": "User supplied for local demo; public-use rights confirmation pending",
+    "outputs": [
+      {
+        "file": "pm-01-night-market.webp",
+        "bytes": 89926
+      },
+      {
+        "file": "pm-01-night-market-small.webp",
+        "bytes": 30372
+      }
+    ]
+  },
+  {
+    "source": "IMAGE/pm-02-day-market.png",
+    "sha256": "87ed9c351fd834436f98df43fc1de094ad18ee12c605c901645671afa750838f",
+    "method": "user-supplied-demo-artwork; resized and metadata-stripped",
+    "generation_model": "Not provided",
+    "licence": "User supplied for local demo; public-use rights confirmation pending",
+    "outputs": [
+      {
+        "file": "pm-02-day-market.webp",
+        "bytes": 133804
+      },
+      {
+        "file": "pm-02-day-market-small.webp",
+        "bytes": 41042
+      }
+    ]
+  },
+  {
+    "source": "IMAGE/pm-03-satay-stall.png",
+    "sha256": "7beb442cca9157aa7696b8846f8bf106bc6de46426ef7da3835880d922e4def1",
+    "method": "user-supplied-demo-artwork; resized and metadata-stripped",
+    "generation_model": "Not provided",
+    "licence": "User supplied for local demo; public-use rights confirmation pending",
+    "outputs": [
+      {
+        "file": "pm-03-satay-stall.webp",
+        "bytes": 100282
+      },
+      {
+        "file": "pm-03-satay-stall-small.webp",
+        "bytes": 36782
+      }
+    ]
+  },
+  {
+    "source": "IMAGE/pm-04-nasi-lemak-stall.png",
+    "sha256": "fbb92ec1122a41a34b72e8ea4736f3d48cb1338c2c1b4c31afc9a4f25d9da660",
+    "method": "user-supplied-demo-artwork; resized and metadata-stripped",
+    "generation_model": "Not provided",
+    "licence": "User supplied for local demo; public-use rights confirmation pending",
+    "outputs": [
+      {
+        "file": "pm-04-nasi-lemak-stall.webp",
+        "bytes": 110808
+      },
+      {
+        "file": "pm-04-nasi-lemak-stall-small.webp",
+        "bytes": 39154
+      }
+    ]
+  },
+  {
+    "source": "IMAGE/pm-05-chicken-satay.png",
+    "sha256": "cfc704243b96123ef05ee80c218429df2cd22dc440b2377a6810dcbcda55f86a",
+    "method": "user-supplied-demo-artwork; resized and metadata-stripped",
+    "generation_model": "Not provided",
+    "licence": "User supplied for local demo; public-use rights confirmation pending",
+    "outputs": [
+      {
+        "file": "pm-05-chicken-satay.webp",
+        "bytes": 146916
+      },
+      {
+        "file": "pm-05-chicken-satay-small.webp",
+        "bytes": 47350
+      }
+    ]
+  },
+  {
+    "source": "IMAGE/pm-06-nasi-lemak.png",
+    "sha256": "2488b981907f7e977624844b3134de73aac92e41a95540b3d95e62b75afe4206",
+    "method": "user-supplied-demo-artwork; resized and metadata-stripped",
+    "generation_model": "Not provided",
+    "licence": "User supplied for local demo; public-use rights confirmation pending",
+    "outputs": [
+      {
+        "file": "pm-06-nasi-lemak.webp",
+        "bytes": 144846
+      },
+      {
+        "file": "pm-06-nasi-lemak-small.webp",
+        "bytes": 45260
+      }
+    ]
+  },
+  {
+    "source": "IMAGE/pm-07-cendol.png",
+    "sha256": "122402100572bebb0dbae58bda72dc24f75b72ae5d7ceef8cb843d17cbe035be",
+    "method": "user-supplied-demo-artwork; resized and metadata-stripped",
+    "generation_model": "Not provided",
+    "licence": "User supplied for local demo; public-use rights confirmation pending",
+    "outputs": [
+      {
+        "file": "pm-07-cendol.webp",
+        "bytes": 108276
+      },
+      {
+        "file": "pm-07-cendol-small.webp",
+        "bytes": 35116
+      }
+    ]
+  },
+  {
+    "source": "IMAGE/pm-08-pork-noodles.png",
+    "sha256": "361d7787381b32341c10fe214c8e9d282ca765be1577a44419c240c8932c483e",
+    "method": "user-supplied-demo-artwork; resized and metadata-stripped",
+    "generation_model": "Not provided",
+    "licence": "User supplied for local demo; public-use rights confirmation pending",
+    "outputs": [
+      {
+        "file": "pm-08-pork-noodles.webp",
+        "bytes": 115656
+      },
+      {
+        "file": "pm-08-pork-noodles-small.webp",
+        "bytes": 35938
+      }
+    ]
+  },
+  {
+    "source": "IMAGE/pm-09-lime-drink.png",
+    "sha256": "3fe9647415f22730f4166e3b7ce9132f975185a6e74a8871f6cfca1dd609a534",
+    "method": "user-supplied-demo-artwork; resized and metadata-stripped",
+    "generation_model": "Not provided",
+    "licence": "User supplied for local demo; public-use rights confirmation pending",
+    "outputs": [
+      {
+        "file": "pm-09-lime-drink.webp",
+        "bytes": 92660
+      },
+      {
+        "file": "pm-09-lime-drink-small.webp",
+        "bytes": 28950
+      }
+    ]
+  },
+  {
+    "source": "IMAGE/pm-10-kuih-talam.png",
+    "sha256": "a35017d3f4b9b19cd14705441598971c4439259d1701388ef84fa7751e39e835",
+    "method": "user-supplied-demo-artwork; resized and metadata-stripped",
+    "generation_model": "Not provided",
+    "licence": "User supplied for local demo; public-use rights confirmation pending",
+    "outputs": [
+      {
+        "file": "pm-10-kuih-talam.webp",
+        "bytes": 87458
+      },
+      {
+        "file": "pm-10-kuih-talam-small.webp",
+        "bytes": 30284
+      }
+    ]
+  },
+  {
+    "source": "IMAGE/pm-11-vegetable-popia.png",
+    "sha256": "7d20398211946d7966fbdcf126496af9df822b0a0c8b77d726d4e1a59db13af5",
+    "method": "user-supplied-demo-artwork; resized and metadata-stripped",
+    "generation_model": "Not provided",
+    "licence": "User supplied for local demo; public-use rights confirmation pending",
+    "outputs": [
+      {
+        "file": "pm-11-vegetable-popia.webp",
+        "bytes": 138220
+      },
+      {
+        "file": "pm-11-vegetable-popia-small.webp",
+        "bytes": 46284
+      }
+    ]
+  },
+  {
+    "source": "IMAGE/pm-12-pisang-goreng.png",
+    "sha256": "15cc8c5b678cf4a70938a17255a0ecf1f5ae2afb967bd3c7735ada37e5dd8b99",
+    "method": "user-supplied-demo-artwork; resized and metadata-stripped",
+    "generation_model": "Not provided",
+    "licence": "User supplied for local demo; public-use rights confirmation pending",
+    "outputs": [
+      {
+        "file": "pm-12-pisang-goreng.webp",
+        "bytes": 143084
+      },
+      {
+        "file": "pm-12-pisang-goreng-small.webp",
+        "bytes": 44188
+      }
+    ]
+  }
+]

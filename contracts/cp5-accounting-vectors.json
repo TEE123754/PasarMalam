@@ -1,0 +1,108 @@
+{
+  "raw": {
+    "now": "2026-10-08T10:00:00Z",
+    "batches": [
+      {
+        "id": "b",
+        "food": "f",
+        "dish": "Rice",
+        "stall": "s",
+        "session": "2026-10-08",
+        "prepared": 30,
+        "transfer_in": 0,
+        "remaining": 20,
+        "status": "active",
+        "deadline": "2026-10-08T10:40:00Z",
+        "cutoff": "2026-10-08T10:25:00Z",
+        "eligible": true,
+        "held": 4
+      }
+    ],
+    "movements": [
+      {
+        "id": "normal",
+        "batch": "b",
+        "kind": "normal",
+        "units": 4,
+        "at": "2026-10-08T09:38:00Z",
+        "source": "vendor-reported",
+        "original_total": 2000,
+        "total": 2000,
+        "bundle": 1,
+        "basis": "unit",
+        "refunded": 0,
+        "disputed": false
+      },
+      {
+        "id": "o0",
+        "batch": "b",
+        "kind": "clearance",
+        "units": 2,
+        "at": "2026-10-08T09:40:00Z",
+        "source": "confirmed-collection",
+        "original_total": 1000,
+        "total": 500,
+        "bundle": 2,
+        "basis": "two-unit-bundle",
+        "refunded": 0,
+        "disputed": false
+      },
+      {
+        "id": "o1",
+        "batch": "b",
+        "kind": "clearance",
+        "units": 2,
+        "at": "2026-10-08T09:45:00Z",
+        "source": "confirmed-collection",
+        "original_total": 1000,
+        "total": 500,
+        "bundle": 2,
+        "basis": "two-unit-bundle",
+        "refunded": 0,
+        "disputed": false
+      },
+      {
+        "id": "o2",
+        "batch": "b",
+        "kind": "clearance",
+        "units": 2,
+        "at": "2026-10-08T09:50:00Z",
+        "source": "confirmed-collection",
+        "original_total": 1000,
+        "total": 500,
+        "bundle": 2,
+        "basis": "two-unit-bundle",
+        "refunded": 0,
+        "disputed": false
+      }
+    ],
+    "closings": []
+  },
+  "cases": [
+    {
+      "eta": 5,
+      "expected": {
+        "samples": 3,
+        "reliable": true,
+        "expected_sales": 4,
+        "suggested_discount": 50,
+        "unheld": 16
+      }
+    },
+    {
+      "eta": null,
+      "expected": {
+        "suggested_discount": null,
+        "eta_source": "unknown",
+        "expected_sales": null
+      }
+    },
+    {
+      "eta": 23,
+      "expected": {
+        "suggested_discount": null,
+        "eta_source": "shopper-entered"
+      }
+    }
+  ]
+}

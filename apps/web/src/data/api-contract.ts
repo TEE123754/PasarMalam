@@ -13,6 +13,12 @@ export interface Ad {
   event: "impression" | "click"
 }
 
+export interface AllergenStatement {
+  status: "unknown" | "confirmed"
+  contains: Array<"peanuts" | "tree-nuts" | "milk" | "eggs" | "soy" | "wheat" | "fish" | "shellfish" | "sesame" | "other">
+  cross_contact: "unknown" | "possible"
+}
+
 export interface Application {
   kind: "collaboration" | "permit" | "claim"
   stall: string
@@ -26,6 +32,12 @@ export interface BatchInput {
   quantity: number
   handling?: Record<string, unknown>
   request_id: string
+}
+
+export interface BusinessDeclarations {
+  pork_free: "unknown" | "yes" | "no"
+  alcohol_free: "unknown" | "yes" | "no"
+  muslim_owned: "unknown" | "yes" | "no"
 }
 
 export interface Campaign {
@@ -92,6 +104,12 @@ export interface Consent {
   market?: string | null
 }
 
+export interface CustomerOnboarding {
+  display_name: string
+  locale: "en" | "ms"
+  accepted: true
+}
+
 export interface Declaration {
   request_id: string
   batch: string
@@ -136,6 +154,7 @@ export interface ExplainInput {
 
 export interface ExtractInput {
   transcript: string
+  stalls?: Array<string>
   menu?: Array<string>
   fictional?: boolean
   external_consent?: boolean
@@ -147,12 +166,23 @@ export interface FavouriteInput {
 }
 
 export interface FoodInput {
+  category_id?: "rice" | "skewers" | "kuih" | "drinks" | "fried" | "produce" | null
+  plant_diet?: PlantDiet | null
+  plant_diet_recorded_at?: string | null
   id: string
   stall_id: string
   name: string
   price_sen: number
   ingredients: Array<string>
+  allergens?: AllergenStatement
+  allergens_recorded_at?: string | null
   photo: string | null
+}
+
+export interface ForecastInput {
+  stall: string
+  target: string
+  planned?: number | null
 }
 
 export interface HTTPValidationError {
@@ -162,6 +192,23 @@ export interface HTTPValidationError {
 export interface Handling {
   storage: "ambient" | "chilled" | "hot-held" | "unknown"
   note: string
+}
+
+export interface HandlingCommand {
+  data: HandlingData
+  request_id: string
+}
+
+export interface HandlingData {
+  kind: "storage" | "temperature"
+  effective_at: string
+  storage?: "ambient" | "chilled" | "hot-held" | "unknown" | null
+  value?: number | null
+  unit?: "C" | "F" | null
+  method?: string
+  source?: "manual"
+  note?: string
+  supersedes?: string | null
 }
 
 export interface HealthResponse {
@@ -176,6 +223,7 @@ export interface InventoryInput {
 }
 
 export interface Market {
+  kind?: "general" | "farmers"
   id: string
   name: string
   area: string
@@ -194,11 +242,16 @@ export interface Market {
 }
 
 export interface MenuItem {
+  categoryId?: "rice" | "skewers" | "kuih" | "drinks" | "fried" | "produce" | null
+  plantDiet?: PlantDiet | null
+  plantDietRecordedAt?: string | null
   id: string
   stallId: string
   name: string
   priceSen: number
   ingredients: Array<string>
+  allergens?: AllergenStatement | null
+  allergensRecordedAt?: string | null
   photoUrl?: string | null
 }
 
@@ -257,6 +310,17 @@ export interface Payment {
   scenario: "success" | "failure" | "timeout" | "late"
 }
 
+export interface Period {
+  start: string
+  end: string
+  market?: string | null
+}
+
+export interface PlantDiet {
+  vegetarian: "unknown" | "yes" | "no"
+  vegan: "unknown" | "yes" | "no"
+}
+
 export interface Preferences {
   radius: number
   start: string
@@ -289,6 +353,7 @@ export interface PublicConfigResponse {
   business_integration_mode: "simulated"
   data_environment?: "disposable-demo"
   capabilities: Array<string>
+  registration_policy?: "invite-only"
 }
 
 export interface PublicReview {
@@ -361,11 +426,16 @@ export interface ScheduleException {
 }
 
 export interface Stall {
+  categoryId?: "rice" | "skewers" | "kuih" | "drinks" | "fried" | "produce" | null
+  availabilityConfirmedAt?: string | null
   id: string
   marketId: string
   name: string
   category: string
   specialty: string
+  description?: string
+  declarations?: BusinessDeclarations | null
+  declarationsRecordedAt?: string | null
   priceSen: number
   rating: number
   reviews: number
@@ -380,6 +450,11 @@ export interface Stall {
   closes?: string | null
   latitude?: number | null
   longitude?: number | null
+}
+
+export interface SummaryInput {
+  report: string
+  external_consent?: boolean
 }
 
 export interface Trail {
@@ -419,6 +494,28 @@ export interface Weather {
   market: string
 }
 
+export interface WorkflowInput {
+  action: "create_batch" | "update_food" | "update_stock"
+  food: FoodInput
+  batch?: NewBatch | null
+  batch_id?: string | null
+  expected_remaining?: number | null
+  remaining?: number | null
+  unit: "portion" | "unit" | "stick" | "pack"
+  transcript: string
+  history?: Array<Record<string, unknown>>
+  confirmed: true
+  request_id: string
+}
+
+export interface app__accounting__Command {
+  batch: string
+  kind: "normal" | "giveaway" | "discard" | "close"
+  units?: number | null
+  note: string
+  request_id: string
+}
+
 export interface app__commerce__Command {
   action: unknown
   request_id: string
@@ -427,6 +524,12 @@ export interface app__commerce__Command {
 export interface app__commerce__Subscription {
   kind: "subscription"
   tier: "free" | "premium" | "renewal-failed"
+}
+
+export interface app__impact__Command {
+  kind: string
+  data: Record<string, unknown>
+  request_id: string
 }
 
 export interface app__partners__Command {

@@ -18,7 +18,7 @@ from .routes import Member, require
 from .vendor import FoodInput, NewBatch
 
 router = APIRouter(prefix="/api/v1/voice", tags=["voice"])
-PROMPT_VERSION = "LISTING_JSON_V2"
+PROMPT_VERSION = "LISTING_JSON_V3"
 limiter: dict[str, list[float]] = {}
 capacity = asyncio.Semaphore(2)
 
@@ -30,6 +30,9 @@ def local_headers():
 
 class Draft(BaseModel):
     model_config = ConfigDict(extra="forbid")
+    stall_reference: str | None = Field(default=None, max_length=100)
+    batch_reference: int | None = Field(default=None, ge=1, le=100000)
+    price_basis: Literal["unit", "bundle", "unknown"] = "unknown"
     dish: str | None = Field(max_length=100)
     quantity: StrictInt | None = Field(ge=1, le=100000)
     unit: Literal["portion", "unit", "stick", "pack"] | None
@@ -37,7 +40,7 @@ class Draft(BaseModel):
     ingredients: list[Annotated[str, Field(min_length=1, max_length=80)]] = Field(max_length=40)
     cook_time: AwareDatetime | None
     timezone: Literal["Asia/Kuala_Lumpur"]
-    action: Literal["create_batch", "update_food", "unsupported"]
+    action: Literal["create_batch", "update_food", "update_stock", "unsupported"]
     confidence: float = Field(ge=0, le=1)
     evidence: dict[str, list[str]]
 
@@ -45,6 +48,7 @@ class Draft(BaseModel):
 class ExtractInput(BaseModel):
     model_config = ConfigDict(extra="forbid")
     transcript: str = Field(min_length=1, max_length=1000)
+    stalls: list[str] = Field(default_factory=list, max_length=100)
     menu: list[str] = Field(default_factory=list, max_length=30)
     fictional: bool = False
     external_consent: bool = False
@@ -203,6 +207,22 @@ def check_result(draft: Draft, transcript: str, menu: list[str], now: datetime) 
     if re.search(r"ignore|system prompt|deadline|expiry|padam|delete|extend", transcript, re.I):
         draft.action = "unsupported"
         flags.append("Unsupported instruction: no write is allowed.")
+    if re.search(r"kuali kedua", transcript, re.I):
+        draft.action = "unsupported"
+        flags.append("Clarify the exact dish/batch; second pan does not imply Batch 2.")
+    if (
+        re.search(r"tinggal|remaining|baki|stok|stock", transcript, re.I)
+        and draft.action != "unsupported"
+    ):
+        draft.action = "update_stock"
+    if re.search(r"dua seringgit|two for|\d+\s*(?:for|untuk)\s*rm", transcript, re.I):
+        draft.price_basis = "bundle"
+        draft.price_sen = None
+        flags.append("Clarify bundle pricing; confirm the price for one menu unit.")
+    batch = re.search(r"(?:batch|kelompok)\s*(\d+)", transcript, re.I)
+    draft.batch_reference = int(batch[1]) if batch else None
+    if draft.stall_reference and draft.stall_reference.lower() not in transcript.lower():
+        draft.stall_reference = None
     fields = {
         "dish": draft.dish,
         "quantity": draft.quantity,
@@ -234,7 +254,9 @@ def check_result(draft: Draft, transcript: str, menu: list[str], now: datetime) 
     }
 
 
-async def extract_listing(text: str, menu: list[str], now: datetime, external_consent=False):
+async def extract_listing(
+    text: str, menu: list[str], now: datetime, external_consent=False, stalls=None
+):
     url, headers, model, source = extraction_provider()
     if source == "morpheus" and not external_consent:
         raise HTTPException(422, "Confirm transcript sharing with Morpheus first")
@@ -250,6 +272,10 @@ async def extract_listing(text: str, menu: list[str], now: datetime, external_co
         "means 20, dua belas means 12. Match dish to an exact menu name; satay ayam means "
         "Chicken satay. Keep ingredient names in the transcript's language. Ordinary newly "
         "prepared listings use action create_batch; update_food only for explicit menu-only "
+        "updates. Remaining-stock instructions use update_stock, never create_batch. "
+        "Suggest stall_reference only when quoted; batch_reference is the explicit number "
+        "after batch/kelompok. Kuali kedua is ambiguous, not Batch 2. Price_basis is unit, "
+        "bundle or unknown; dua seringgit needs clarification and null price_sen. "
         "updates. Set confidence to 0; the server computes scores. Evidence must quote the "
         "transcript verbatim for dish, quantity, price_sen, ingredients and cook_time. "
         "Return only schema JSON. Prompt version: " + PROMPT_VERSION
@@ -313,6 +339,7 @@ async def extract_listing(text: str, menu: list[str], now: datetime, external_co
                     {
                         "transcript": transcript,
                         "menu": menu,
+                        "owned_stall_names": stalls or [],
                         "server_now": now.isoformat(),
                         "malaysia_date": malaysia_date,
                     }
@@ -368,6 +395,7 @@ async def extract(body: ExtractInput, member: Member):
         [f["name"] for f in workspace["foods"]],
         datetime.fromisoformat(now),
         body.external_consent,
+        [s["name"] for s in workspace["stalls"]],
     )
 
 
@@ -382,7 +410,7 @@ async def demo_extract(body: ExtractInput, request: Request):
         raise HTTPException(429, "Demo quota reached; use quick entry")
     limiter[key].append(now)
     return await extract_listing(
-        body.transcript, body.menu, datetime.now(timezone.utc), body.external_consent
+        body.transcript, body.menu, datetime.now(timezone.utc), body.external_consent, body.stalls
     )
 
 
@@ -395,7 +423,15 @@ async def confirm(body: ConfirmInput, member: Member):
         "id": await member.repository.rpc(
             "confirm_voice_listing",
             {
-                "p_food": body.food.model_dump(mode="json"),
+                "p_food": body.food.model_dump(
+                    mode="json",
+                    exclude={
+                        "allergens",
+                        "allergens_recorded_at",
+                        "plant_diet",
+                        "plant_diet_recorded_at",
+                    },
+                ),
                 "p_batch": body.batch.model_dump(mode="json"),
                 "p_transcript": redact(body.transcript),
                 "p_request": str(body.request_id),

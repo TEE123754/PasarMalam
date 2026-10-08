@@ -39,34 +39,48 @@ def command(c, data, key=None):
 def commerce_database(live):
     _, _, identities, _ = live
     _, _, url = target_configuration()
-    food, batch, offer = uuid4(), uuid4(), uuid4()
+    food, batch, offer, schedule = uuid4(), uuid4(), uuid4(), uuid4()
     with psycopg.connect(url, autocommit=True) as c:
         verify_marker(c)
-        clock = c.execute("select private.clock_now()").fetchone()[0]
-        c.execute(
-            "insert into public.food_items(id,stall_id,name,price_sen,ingredients,published) "
-            "values(%s,%s,'DEMO commerce test',500,array['chicken'],true)",
-            (food, stable("stall-a")),
-        )
-        c.execute(
-            "insert into public.batches(id,food_item_id,batch_number,prepared_at,"
-            "original_quantity,remaining_quantity,handling,advisory_deadline,status,"
-            "request_id,request_hash) values(%s,%s,1,%s,10,10,"
-            "'{\"storage\":\"ambient\"}',%s,'active',%s,'DEMO')",
-            (batch, food, clock - timedelta(minutes=5), clock + timedelta(minutes=25), uuid4()),
-        )
-        c.execute(
-            "insert into public.batch_advisories(batch_id,ingredients,confirmed) "
-            "values(%s,array['chicken'],true)",
-            (batch,),
-        )
-        c.execute(
-            "insert into public.promotions(id,batch_id,title,price_sen,quantity_limit,"
-            "starts_at,ends_at,request_id,request_hash,bundle_units) "
-            "values(%s,%s,'DEMO test bundle',300,10,%s,%s,%s,'DEMO',2)",
-            (offer, batch, clock, clock + timedelta(minutes=8), uuid4()),
-        )
-        # Test fixture schedules are not mutated: the prior gate must seed an open market.
+        with c.transaction():
+            clock = c.execute("select private.clock_now()").fetchone()[0]
+            c.execute(
+                "insert into public.market_schedules(id,market_id,weekday,opens_at,closes_at,"
+                "closes_next_day,source_scenario) values(%s,%s,"
+                "extract(dow from %s::timestamptz at time zone 'Asia/Kuala_Lumpur'),"
+                "'00:00','00:00',true,'acceptance')",
+                (schedule, stable("market-a"), clock),
+            )
+            c.execute(
+                "insert into public.food_items(id,stall_id,name,price_sen,ingredients,"
+                "published,source_scenario) "
+                "values(%s,%s,'DEMO commerce test',500,array['chicken'],true,'acceptance')",
+                (food, stable("stall-a")),
+            )
+            c.execute(
+                "insert into public.batches(id,food_item_id,batch_number,prepared_at,"
+                "original_quantity,remaining_quantity,handling,advisory_deadline,status,"
+                "request_id,request_hash) values(%s,%s,1,%s,10,10,"
+                "'{\"storage\":\"ambient\"}',%s,'active',%s,'DEMO')",
+                (batch, food, clock - timedelta(minutes=5), clock + timedelta(minutes=25), uuid4()),
+            )
+            c.execute(
+                "insert into public.weather_snapshots(market_id,temperature_c,humidity_pct,"
+                "observed_at,provider) values(%s,28,75,%s,'fixture')",
+                (stable("market-a"), clock),
+            )
+            actor(c, identities["vendor-a"])
+            c.execute(
+                "select public.confirm_advisory(%s,array['chicken'],true,true,%s)", (batch, uuid4())
+            )
+            c.execute("reset role")
+            c.execute(
+                "insert into public.promotions(id,batch_id,title,price_sen,quantity_limit,"
+                "starts_at,ends_at,request_id,request_hash,bundle_units) "
+                "values(%s,%s,'DEMO test bundle',300,10,%s,%s,%s,'DEMO',2)",
+                (offer, batch, clock, clock + timedelta(minutes=8), uuid4()),
+            )
+        # A disposable additional schedule makes this independent of weekday/hour.
         actor(c, identities["customer-a"])
         try:
             yield c, identities, batch, offer, url
@@ -86,11 +100,20 @@ def commerce_database(live):
                 c.execute(
                     "delete from private.commerce_records where data->>'batch'=%s", (str(batch),)
                 )
+                c.execute(
+                    "delete from private.test_push_attempts where outbox_id in"
+                    "(select id from public.notification_outbox where promotion_id=%s)",
+                    (offer,),
+                )
+                c.execute("delete from public.notification_outbox where promotion_id=%s", (offer,))
+                c.execute("delete from public.alerts where batch_id=%s", (batch,))
+                c.execute("delete from public.clearance_drafts where batch_id=%s", (batch,))
                 c.execute("delete from public.promotions where id=%s", (offer,))
                 c.execute("delete from public.batch_events where batch_id=%s", (batch,))
                 c.execute("delete from public.batch_advisories where batch_id=%s", (batch,))
                 c.execute("delete from public.batches where id=%s", (batch,))
                 c.execute("delete from public.food_items where id=%s", (food,))
+                c.execute("delete from public.market_schedules where id=%s", (schedule,))
 
 
 def reservation(offer, quantity=2):
@@ -184,7 +207,7 @@ def test_unapproved_campaign_cannot_resume_or_leak(commerce_database):
                 "description": "DEMO placeholder",
             },
         )
-        with c.transaction(), pytest.raises(psycopg.Error):
+        with pytest.raises(psycopg.Error), c.transaction():
             command(c, {"kind": "moderate", "id": str(campaign), "action": "resume"})
         actor(c, identities["customer-a"])
         result = c.execute("select public.commerce_workspace()").fetchone()[0]
@@ -261,7 +284,7 @@ def test_delivery_isolation_and_organisation_campaign_scope(commerce_database):
         actor(c, identities["customer-b"])
         workspace = c.execute("select public.commerce_workspace()").fetchone()[0]
         assert str(campaign) not in [row["id"] for row in workspace["commerce"]["campaigns"]]
-        with c.transaction(), pytest.raises(psycopg.Error):
+        with pytest.raises(psycopg.Error), c.transaction():
             command(c, {"kind": "delivery", "id": str(order), "action": "arrived"})
         raise psycopg.Rollback()
 
@@ -271,7 +294,7 @@ def test_stock_guard_and_expiry_reject_late_success(commerce_database):
     with c.transaction():
         order = command(c, {**reservation(offer, 2), "payment": "future"})
         c.execute("reset role")
-        with c.transaction(), pytest.raises(psycopg.Error):
+        with pytest.raises(psycopg.Error), c.transaction():
             c.execute("update public.batches set remaining_quantity=1 where id=%s", (batch,))
         c.execute(
             "update private.commerce_records set data=jsonb_set(data,'{expires}',"
@@ -284,8 +307,8 @@ def test_stock_guard_and_expiry_reject_late_success(commerce_database):
             next(o["status"] for o in workspace["commerce"]["orders"] if o["id"] == str(order))
             == "expired"
         )
-        with c.transaction(), pytest.raises(psycopg.Error):
+        with pytest.raises(psycopg.Error), c.transaction():
             command(c, {"kind": "payment", "id": str(order), "scenario": "success"})
-        with c.transaction(), pytest.raises(psycopg.Error):
+        with pytest.raises(psycopg.Error), c.transaction():
             command(c, {**reservation(offer), "quantity": 1.5})
         raise psycopg.Rollback()

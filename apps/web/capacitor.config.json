@@ -1,0 +1,8 @@
+{
+  "appId": "com.pasarmalam.localdemo",
+  "appName": "PasarMalam Demo",
+  "webDir": "dist-native",
+  "server": { "hostname": "localhost", "androidScheme": "https", "iosScheme": "capacitor" },
+  "android": { "allowMixedContent": false },
+  "plugins": { "LocalNotifications": { "presentationOptions": ["banner", "list"] } }
+}

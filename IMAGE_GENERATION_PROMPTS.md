@@ -1,13 +1,15 @@
 # PasarMalam — Individual Image Generation Prompts
 
-Version: 1.0 · Asset brief for the full-feature demo
+Version: 1.0 · Optional legacy catalogue for the full-feature demo
+
+**8 October 2026 override:** All **12 supplied originals** are now integrated locally. No more image generation is requested. The self-contained prompts and filenames remain in [your action checklist](docs/YOUR_ACTION_CHECKLIST.md#5-supplied-images--local-integration-complete). These 100 older briefs are optional reference material for existing logical slot IDs, not a required production list. Keep unmatched slots as described placeholders. Some old filenames differ from the current seeded dish; the implemented mapping uses actual subjects. See [refresh evidence](docs/UI_UX_REFRESH.md) and [supplied provenance](docs/supplied-image-provenance.json).
 
 Related documents: [PRD](PRD.md) · [Implementation plan](IMPLEMENTATION_PLAN.md).
 
 ## How to use
 
 - **One prompt = one image.** Copy one complete prompt block into your chosen image generator and request one output. Every prompt is self-contained; do not combine multiple prompts into a collage or a single batch image.
-- These are prompts, not already-generated image files. This document contains **100 unique image briefs**. User instruction: do not generate these now. Keep described placeholders; the user will provide images later.
+- This optional catalogue contains **100 older image briefs**; the reduced set of 12 supplied originals is already integrated. Keep unmatched subjects as described placeholders.
 - Save the full-resolution result as the specified PNG filename. Create a matching optimised WebP for the app later. Suggested destination: `apps/web/public/demo/images/`.
 - Use an available free generation allowance or local generation route; no paid provider is assumed. If none is available, create a separate procedural illustration for each brief and record that production method.
 - Use one consistent editorial illustration style. Do not add text inside the artwork: the app supplies stall names, prices, ads, fake reference numbers, timestamps, dietary information and **Generated demo image** labels as accessible HTML.

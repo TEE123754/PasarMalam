@@ -1,0 +1,539 @@
+{
+  "version": "cp7-v1",
+  "status": "Collection template; NOT measured or frozen",
+  "reference_now": "2026-10-08T20:00:00+08:00",
+  "minimum_speakers": 5,
+  "development_ids": [
+    "bm-01",
+    "bm-02",
+    "bm-03",
+    "bm-04",
+    "manglish-01",
+    "en-01"
+  ],
+  "targets": {
+    "critical_accuracy_BM": 0.8,
+    "critical_accuracy_Manglish": 0.8,
+    "json_validity": 0.95
+  },
+  "samples": [
+    {
+      "id": "cp7-01",
+      "language": "BM",
+      "split": "holdout",
+      "planned_speaker": "S01",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "quiet",
+      "accent": null,
+      "reference_transcript": "Nasi lemak ayam, 12 bungkus, enam ringgit sebungkus. Bahan nasi, ayam, telur dan kacang. Siap pukul enam petang.",
+      "annotation_verified": false,
+      "expected": {
+        "dish": "Nasi lemak ayam",
+        "quantity": 12,
+        "unit": "pack",
+        "price_sen": 600,
+        "ingredients": [
+          "nasi",
+          "ayam",
+          "telur",
+          "kacang"
+        ],
+        "cook_time": "2026-10-08T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "cp7-02",
+      "language": "BM",
+      "split": "holdout",
+      "planned_speaker": "S02",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "quiet",
+      "accent": null,
+      "reference_transcript": "Satay ayam, 30 batang. Lima batang lima ringgit. Bahan ayam dan kacang, siap pukul tujuh malam.",
+      "annotation_verified": false,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 30,
+        "unit": "stick",
+        "bundle_quantity": 5,
+        "bundle_price_sen": 500,
+        "cook_time": "2026-10-08T19:00:00+08:00"
+      }
+    },
+    {
+      "id": "cp7-03",
+      "language": "BM",
+      "split": "holdout",
+      "planned_speaker": "S03",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "quiet",
+      "accent": null,
+      "reference_transcript": "Kuih talam, 20 potong, seringgit lima puluh satu. Bahan santan dan tepung beras. Siap pukul lima petang.",
+      "annotation_verified": false,
+      "expected": {
+        "dish": "Kuih talam",
+        "quantity": 20,
+        "unit": "piece",
+        "price_sen": 150,
+        "ingredients": [
+          "santan",
+          "tepung beras"
+        ],
+        "cook_time": "2026-10-08T17:00:00+08:00"
+      }
+    },
+    {
+      "id": "cp7-04",
+      "language": "BM",
+      "split": "holdout",
+      "planned_speaker": "S04",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "market-noise",
+      "accent": null,
+      "reference_transcript": "Popia sayur, 15 biji, dua ringgit satu. Bahan kubis, lobak dan kulit popia. Siap pukul enam setengah petang.",
+      "annotation_verified": false,
+      "expected": {
+        "dish": "Popia sayur",
+        "quantity": 15,
+        "unit": "piece",
+        "price_sen": 200,
+        "cook_time": "2026-10-08T18:30:00+08:00"
+      }
+    },
+    {
+      "id": "cp7-05",
+      "language": "BM",
+      "split": "holdout",
+      "planned_speaker": "S05",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "quiet",
+      "accent": null,
+      "reference_transcript": "Air limau, lapan cawan, tiga ringgit secawan. Bahan limau, air dan gula. Disediakan pukul tujuh malam.",
+      "annotation_verified": false,
+      "expected": {
+        "dish": "Fresh lime drink",
+        "quantity": 8,
+        "unit": "cup",
+        "price_sen": 300,
+        "cook_time": "2026-10-08T19:00:00+08:00"
+      }
+    },
+    {
+      "id": "cp7-06",
+      "language": "BM",
+      "split": "holdout",
+      "planned_speaker": "S01",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "quiet",
+      "accent": null,
+      "reference_transcript": "Pisang goreng, 24 biji. Tiga biji dua ringgit. Siap pukul tujuh lima belas malam.",
+      "annotation_verified": false,
+      "expected": {
+        "dish": "Pisang goreng",
+        "quantity": 24,
+        "unit": "piece",
+        "bundle_quantity": 3,
+        "bundle_price_sen": 200,
+        "cook_time": "2026-10-08T19:15:00+08:00"
+      }
+    },
+    {
+      "id": "cp7-07",
+      "language": "BM",
+      "split": "holdout",
+      "planned_speaker": "S02",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "quiet",
+      "accent": null,
+      "reference_transcript": "Untuk satay ayam kelompok dua, tinggal sembilan batang. Kelompok satu jangan ubah.",
+      "annotation_verified": false,
+      "expected": {
+        "action": "update-quantity",
+        "dish": "Chicken satay",
+        "batch_number": 2,
+        "remaining_quantity": 9
+      }
+    },
+    {
+      "id": "cp7-08",
+      "language": "BM",
+      "split": "holdout",
+      "planned_speaker": "S03",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "market-noise",
+      "accent": null,
+      "reference_transcript": "Tambah kelompok tiga nasi lemak ayam, sepuluh bungkus baru siap pukul tujuh empat puluh lima malam.",
+      "annotation_verified": false,
+      "expected": {
+        "action": "new-batch",
+        "dish": "Nasi lemak ayam",
+        "batch_number": 3,
+        "quantity": 10,
+        "cook_time": "2026-10-08T19:45:00+08:00"
+      }
+    },
+    {
+      "id": "cp7-09",
+      "language": "BM",
+      "split": "holdout",
+      "planned_speaker": "S04",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "quiet",
+      "accent": null,
+      "reference_transcript": "Popia sayur tinggal lima. Kelompok mana saya tak pasti, jangan simpan dahulu.",
+      "annotation_verified": false,
+      "expected": {
+        "action": "update-quantity",
+        "dish": "Popia sayur",
+        "remaining_quantity": 5,
+        "batch_number": null,
+        "needs_clarification": true
+      }
+    },
+    {
+      "id": "cp7-10",
+      "language": "BM",
+      "split": "holdout",
+      "planned_speaker": "S05",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "quiet",
+      "accent": null,
+      "reference_transcript": "Kuih talam sepuluh potong, harga nanti saya beritahu. Masa siap saya tak ingat.",
+      "annotation_verified": false,
+      "expected": {
+        "dish": "Kuih talam",
+        "quantity": 10,
+        "unit": "piece",
+        "price_sen": null,
+        "cook_time": null,
+        "needs_clarification": true
+      }
+    },
+    {
+      "id": "cp7-11",
+      "language": "Manglish",
+      "split": "holdout",
+      "planned_speaker": "S01",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "quiet",
+      "accent": null,
+      "reference_transcript": "Nasi lemak ayam twelve packs, six ringgit each lah. Rice, chicken, egg, peanuts. Cooked six pm.",
+      "annotation_verified": false,
+      "expected": {
+        "dish": "Nasi lemak ayam",
+        "quantity": 12,
+        "unit": "pack",
+        "price_sen": 600,
+        "cook_time": "2026-10-08T18:00:00+08:00"
+      }
+    },
+    {
+      "id": "cp7-12",
+      "language": "Manglish",
+      "split": "holdout",
+      "planned_speaker": "S02",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "quiet",
+      "accent": null,
+      "reference_transcript": "Satay ayam thirty sticks, five for five ringgit, siap seven pm.",
+      "annotation_verified": false,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 30,
+        "unit": "stick",
+        "bundle_quantity": 5,
+        "bundle_price_sen": 500,
+        "cook_time": "2026-10-08T19:00:00+08:00"
+      }
+    },
+    {
+      "id": "cp7-13",
+      "language": "Manglish",
+      "split": "holdout",
+      "planned_speaker": "S03",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "quiet",
+      "accent": null,
+      "reference_transcript": "Cendol ten cups, RM four fifty satu cup. Santan, gula Melaka, jelly. Made six thirty pm.",
+      "annotation_verified": false,
+      "expected": {
+        "dish": "Cendol",
+        "quantity": 10,
+        "unit": "cup",
+        "price_sen": 450,
+        "cook_time": "2026-10-08T18:30:00+08:00"
+      }
+    },
+    {
+      "id": "cp7-14",
+      "language": "Manglish",
+      "split": "holdout",
+      "planned_speaker": "S04",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "market-noise",
+      "accent": null,
+      "reference_transcript": "Pork noodles eight bowls, RM eight each. Pork and noodles, cooked seven pm. Halal status jangan infer.",
+      "annotation_verified": false,
+      "expected": {
+        "dish": "Pork noodles",
+        "quantity": 8,
+        "unit": "bowl",
+        "price_sen": 800,
+        "cook_time": "2026-10-08T19:00:00+08:00"
+      }
+    },
+    {
+      "id": "cp7-15",
+      "language": "Manglish",
+      "split": "holdout",
+      "planned_speaker": "S05",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "quiet",
+      "accent": null,
+      "reference_transcript": "Kuih talam twenty pieces, satu fifty each, ready five pm.",
+      "annotation_verified": false,
+      "expected": {
+        "dish": "Kuih talam",
+        "quantity": 20,
+        "unit": "piece",
+        "price_sen": 150,
+        "cook_time": "2026-10-08T17:00:00+08:00"
+      }
+    },
+    {
+      "id": "cp7-16",
+      "language": "Manglish",
+      "split": "holdout",
+      "planned_speaker": "S01",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "quiet",
+      "accent": null,
+      "reference_transcript": "Pisang goreng twenty four pieces, three for two ringgit. Siap seven fifteen pm.",
+      "annotation_verified": false,
+      "expected": {
+        "dish": "Pisang goreng",
+        "quantity": 24,
+        "unit": "piece",
+        "bundle_quantity": 3,
+        "bundle_price_sen": 200,
+        "cook_time": "2026-10-08T19:15:00+08:00"
+      }
+    },
+    {
+      "id": "cp7-17",
+      "language": "Manglish",
+      "split": "holdout",
+      "planned_speaker": "S02",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "quiet",
+      "accent": null,
+      "reference_transcript": "Satay ayam batch two tinggal nine sticks. Batch one keep same okay.",
+      "annotation_verified": false,
+      "expected": {
+        "action": "update-quantity",
+        "dish": "Chicken satay",
+        "batch_number": 2,
+        "remaining_quantity": 9
+      }
+    },
+    {
+      "id": "cp7-18",
+      "language": "Manglish",
+      "split": "holdout",
+      "planned_speaker": "S03",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "market-noise",
+      "accent": null,
+      "reference_transcript": "New batch three nasi lemak ayam, ten packs, just cooked seven forty five pm.",
+      "annotation_verified": false,
+      "expected": {
+        "action": "new-batch",
+        "dish": "Nasi lemak ayam",
+        "batch_number": 3,
+        "quantity": 10,
+        "cook_time": "2026-10-08T19:45:00+08:00"
+      }
+    },
+    {
+      "id": "cp7-19",
+      "language": "Manglish",
+      "split": "holdout",
+      "planned_speaker": "S04",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "quiet",
+      "accent": null,
+      "reference_transcript": "Air limau eight cups, three ringgit each. Ready just now, actually tak ingat time.",
+      "annotation_verified": false,
+      "expected": {
+        "dish": "Fresh lime drink",
+        "quantity": 8,
+        "unit": "cup",
+        "price_sen": 300,
+        "cook_time": null,
+        "needs_clarification": true
+      }
+    },
+    {
+      "id": "cp7-20",
+      "language": "Manglish",
+      "split": "holdout",
+      "planned_speaker": "S05",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "quiet",
+      "accent": null,
+      "reference_transcript": "Popia sayur tinggal five, batch mana not sure. Please ask me first.",
+      "annotation_verified": false,
+      "expected": {
+        "action": "update-quantity",
+        "dish": "Popia sayur",
+        "remaining_quantity": 5,
+        "batch_number": null,
+        "needs_clarification": true
+      }
+    },
+    {
+      "id": "cp7-21",
+      "language": "English",
+      "split": "holdout",
+      "planned_speaker": "S01",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "quiet",
+      "accent": null,
+      "reference_transcript": "Vegetable popia, fifteen pieces at two ringgit each, prepared at six thirty pm.",
+      "annotation_verified": false,
+      "expected": {
+        "dish": "Popia sayur",
+        "quantity": 15,
+        "unit": "piece",
+        "price_sen": 200,
+        "cook_time": "2026-10-08T18:30:00+08:00"
+      }
+    },
+    {
+      "id": "cp7-22",
+      "language": "English",
+      "split": "holdout",
+      "planned_speaker": "S02",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "quiet",
+      "accent": null,
+      "reference_transcript": "Chicken satay, thirty sticks, five sticks for five ringgit, cooked at seven pm.",
+      "annotation_verified": false,
+      "expected": {
+        "dish": "Chicken satay",
+        "quantity": 30,
+        "unit": "stick",
+        "bundle_quantity": 5,
+        "bundle_price_sen": 500,
+        "cook_time": "2026-10-08T19:00:00+08:00"
+      }
+    },
+    {
+      "id": "cp7-23",
+      "language": "English",
+      "split": "holdout",
+      "planned_speaker": "S03",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "market-noise",
+      "accent": null,
+      "reference_transcript": "Update chicken satay batch two to nine remaining sticks. Do not change batch one.",
+      "annotation_verified": false,
+      "expected": {
+        "action": "update-quantity",
+        "dish": "Chicken satay",
+        "batch_number": 2,
+        "remaining_quantity": 9
+      }
+    },
+    {
+      "id": "cp7-24",
+      "language": "English",
+      "split": "holdout",
+      "planned_speaker": "S04",
+      "speaker": null,
+      "consented": false,
+      "audio": null,
+      "audio_sha256": null,
+      "condition": "quiet",
+      "accent": null,
+      "reference_transcript": "New batch of nasi lemak ayam, ten packs. I do not know the cooking time. Ask before saving.",
+      "annotation_verified": false,
+      "expected": {
+        "action": "new-batch",
+        "dish": "Nasi lemak ayam",
+        "quantity": 10,
+        "cook_time": null,
+        "needs_clarification": true
+      }
+    }
+  ]
+}

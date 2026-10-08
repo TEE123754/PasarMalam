@@ -3,6 +3,7 @@ import { NavLink } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { LockKeyhole } from 'lucide-react'
 import { useAuth } from './context'
+import { RegistrationPanel } from './RegistrationPanel'
 
 export function AuthCard() {
   const { t } = useTranslation()
@@ -31,6 +32,7 @@ export function AuthCard() {
         {failed && <p role="alert">{t('signInFailed')}</p>}
         <button className="button primary" disabled={busy || auth.status === 'loading'}>{t(busy ? 'signingIn' : 'signIn')}</button>
       </form>}
+    {!auth.actor && auth.configured && <RegistrationPanel/>}
   </section>
 }
 

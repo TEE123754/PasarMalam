@@ -1,0 +1,66 @@
+[
+  {
+    "id": "rice",
+    "en": "Rice & noodles",
+    "ms": "Nasi & mi",
+    "aliases": [
+      "Rice",
+      "Rice and noodles",
+      "Rice & noodles",
+      "Noodles",
+      "Nasi",
+      "Mi",
+      "Mee"
+    ]
+  },
+  {
+    "id": "skewers",
+    "en": "BBQ & skewers",
+    "ms": "BBQ & sate",
+    "aliases": [
+      "Skewers",
+      "BBQ",
+      "Satay",
+      "Sate"
+    ]
+  },
+  {
+    "id": "kuih",
+    "en": "Kuih & pastries",
+    "ms": "Kuih & pastri",
+    "aliases": [
+      "Desserts",
+      "Bread",
+      "Kuih",
+      "Pastries"
+    ]
+  },
+  {
+    "id": "drinks",
+    "en": "Drinks",
+    "ms": "Minuman",
+    "aliases": [
+      "Drinks",
+      "Minuman"
+    ]
+  },
+  {
+    "id": "fried",
+    "en": "Fried food",
+    "ms": "Makanan goreng",
+    "aliases": [
+      "Fried food",
+      "Goreng"
+    ]
+  },
+  {
+    "id": "produce",
+    "en": "Fresh produce",
+    "ms": "Hasil segar",
+    "aliases": [
+      "Fresh produce",
+      "Produce",
+      "Sayur"
+    ]
+  }
+]

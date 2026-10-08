@@ -79,13 +79,13 @@ def test_media_scope_publication_retry_and_direct_write(database):
     assert str(entry) not in json.dumps(
         c.execute("select public.partners_workspace()").fetchone()[0]["entries"]
     )
-    with c.transaction(), pytest.raises(psycopg.Error):
+    with pytest.raises(psycopg.Error), c.transaction():
         command(c, {"kind": "transition", "id": str(entry), "action": "approve"})
     actor(c, ids["vendor-b"])
     command(c, {"kind": "transition", "id": str(entry), "action": "approve"})
     command(c, {"kind": "transition", "id": str(entry), "action": "publish"})
     assert str(entry) in json.dumps(c.execute("select public.partners_public()").fetchone()[0])
-    with c.transaction(), pytest.raises(psycopg.Error):
+    with pytest.raises(psycopg.Error), c.transaction():
         c.execute("select * from private.partner_records")
 
 
@@ -97,7 +97,7 @@ def test_referral_consent_and_private_source_boundary(database):
         (org,),
     )
     actor(c, ids["admin"])
-    with c.transaction(), pytest.raises(psycopg.Error):
+    with pytest.raises(psycopg.Error), c.transaction():
         command(
             c,
             {
@@ -108,7 +108,7 @@ def test_referral_consent_and_private_source_boundary(database):
                 "consent": False,
             },
         )
-    with c.transaction(), pytest.raises(psycopg.Error):
+    with pytest.raises(psycopg.Error), c.transaction():
         c.execute("select * from private.partner_links")
 
 

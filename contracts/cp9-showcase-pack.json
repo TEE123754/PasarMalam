@@ -1,0 +1,104 @@
+{
+  "version": "1.0",
+  "date": "2026-10-08",
+  "status": "Preparation only; student recording and competition acceptance pending",
+  "duration_seconds": 300,
+  "duration_basis": "Provisional five-minute target; official limit unverified",
+  "guide": "docs/CP9_SHOWCASE_GUIDE.md",
+  "evidence_map": "docs/CP9_EVIDENCE_PACK.md",
+  "privacy": "Fictional demo routes only; no credentials, real reports, participant names or account screens",
+  "chapters": [
+    {
+      "id": "problem",
+      "start": 0,
+      "end": 30,
+      "title": "Problem and customer discovery",
+      "route": "/demo/discover",
+      "scenario": "fresh",
+      "caption": "FICTIONAL DATA · LOCAL PWA",
+      "narration": "PasarMalam connects shoppers with informal food stalls and helps hawkers review batches and surplus offers. This local prototype uses fictional stalls, reviews and prices. These representative images are illustrations, not evidence of when a batch was cooked. We serve stalls that may have no point-of-sale inventory system.",
+      "check": "Demo banner visible; open a stall and show declared versus certified halal labels without inferring religion."
+    },
+    {
+      "id": "voice",
+      "start": 30,
+      "end": 85,
+      "title": "Speech draft, clarification and human confirmation",
+      "route": "/demo/hawker/voice",
+      "scenario": null,
+      "caption": "SCRIPTED OR TYPED REHEARSAL · HUMAN VOICE ACCURACY NOT MEASURED",
+      "narration": "Hawkers can speak in Malay, English or mixed language, then inspect an editable draft. In this rehearsal I use a labelled typed sample, so I am not claiming microphone or speech accuracy. An ambiguous cooking time requires a date and AM or PM. I review the dish, quantity, unit price and declared ingredients, then confirm. A failed model request leaves quick entry available. The hawker has the final say.",
+      "check": "Use scripted sample or local quick entry; show unresolved date clarification; complete Malaysia date/time, inspect all fields and explicitly confirm a new batch. If using actual consented speech later, change the caption only after recording that run."
+    },
+    {
+      "id": "batch",
+      "start": 85,
+      "end": 130,
+      "title": "Independent batch audit",
+      "route": "/demo/hawker/batches",
+      "scenario": null,
+      "caption": "SIMULATED MALAYSIA TIME · DEMO ADVISORY POLICY",
+      "narration": "A new preparation creates another batch. The earlier batch keeps its original preparation time and advisory deadline. Photo upload time is separate. Handling observations and corrections retain an audit trail. This advisory is not a safe-food badge: weather is not food temperature, and the current demonstration policy still needs qualified review before a real-food pilot.",
+      "check": "Compare the same dish's earlier and newly confirmed batch; show preparation/deadline separately from upload time. Do not reset the studio between these two chapters."
+    },
+    {
+      "id": "clearance",
+      "start": 130,
+      "end": 185,
+      "title": "Reminder, hawker approval and customer offer",
+      "route": "/demo/hawker/promotions",
+      "scenario": "clearance",
+      "caption": "FICTIONAL CLEARANCE · HAWKER APPROVAL REQUIRED",
+      "narration": "As an advisory window approaches its end, the closing-time workflow can prepare a clearance draft. Stock, collection time and eligibility restrict the offer. The hawker reviews and approves an eligible draft. The customer then sees a labelled offer. This scenario reset replaces the fictional workspace; it does not preserve the new batch from the previous scene. Sponsored placement cannot bypass dietary or expiry restrictions.",
+      "check": "At the clearance scenario's 30-minute warning select an eligible pending draft without an existing active offer; approve it manually and follow Offers to show it. The reminder scenario is at the 15-minute creation cutoff and must block new offers. Never extend a deadline."
+    },
+    {
+      "id": "stop",
+      "start": 185,
+      "end": 220,
+      "title": "Expiry and uncertainty hard stops",
+      "route": "/demo/offers",
+      "scenario": "expired",
+      "caption": "SIMULATED CLOCK ADVANCE · EXPIRED FOOD CANNOT BE OFFERED",
+      "narration": "Here I advance the fictional clock past the advisory window. Expired offers disappear from customer discovery and cannot be revived through a discount. In a separate missing-handling scenario, uncertainty blocks eligibility. The prototype does not certify safety or route expired food for consumption.",
+      "check": "Capture offers before/after expired scenario, then inspect missing-handling eligibility in the hawker portal. Each scenario reseeds local fiction; it is not the same confirmed offer's continuous audit."
+    },
+    {
+      "id": "evidence",
+      "start": 220,
+      "end": 260,
+      "title": "Evidence and limitations",
+      "route": "/demo/evaluation",
+      "scenario": null,
+      "caption": "HUMAN METRICS NOT MEASURED · FORECAST DATA SYNTHETIC",
+      "narration": "The software has local and guarded connected acceptance checks, but real hawker interviews, recorded-language accuracy and target-phone trials are still pending. Photo assistance completed one supplied-illustration inference; this is not an accuracy benchmark. Forecasting has chronological baselines and interval coverage. Its current example is synthetic: observed coverage was six of eight, below the nominal ninety percent. We show that limitation rather than claiming a validated result.",
+      "check": "Show Not measured on Evaluation; optionally show labelled planning report. Never substitute unit-test pass counts for human accuracy or synthetic RM/kg for pilot outcomes."
+    },
+    {
+      "id": "next",
+      "start": 260,
+      "end": 300,
+      "title": "Business hypothesis and next validation",
+      "route": "/demo/presentation",
+      "scenario": null,
+      "caption": "BUSINESS HYPOTHESES · PARTNERS AND PILOT FIGURES ARE FICTIONAL",
+      "narration": "Basic use remains free. The business hypotheses are labelled ads, commission on completed clearance collections, organiser analytics and optional demand planning. Pay at stall avoids implementing real payments now. Our proposed pilot is one market, ten stalls and four weekly market nights, measuring net ringgit recovered per stall-night and food diverted. Those results are not yet measured. Next steps are consenting users, reviewed food policy and real evidence. Student eligibility, prior-version history and the competition's requirements will be confirmed before submission.",
+      "check": "Keep synthetic pilot label visible. Do not claim real partners, measured impact, an awarded TRL or deployment. No submission is performed."
+    }
+  ],
+  "pending_inputs": [
+    "Official competition name, dated rules and entry requirements",
+    "Participating students, eligibility and academic supervisor",
+    "Previous SantanSafe version/history or explicit no-prior-version confirmation",
+    "CP7 measured recordings/interviews/trials and reviewed costs",
+    "Reviewed TRL mapping against official criteria",
+    "Actual student-narrated full video and presentation-device rehearsal",
+    "Supplied-image generator/date/public-use rights before publication"
+  ],
+  "fallbacks": [
+    "Speech/model unavailable: visibly labelled typed quick entry; no live speech claim",
+    "Photo unavailable: manual dish entry; no scripted example presented as inference",
+    "Network unavailable: use an already captured reviewed backup locally; do not claim an unobserved offline-phone test",
+    "Offer rejected: show actual eligibility reason; do not reset preparation time to force acceptance"
+  ]
+}

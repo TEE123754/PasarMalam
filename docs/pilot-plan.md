@@ -1,5 +1,8 @@
 # PasarMalam pilot plan — one market, 10 stalls, four weeks
 
+**CP7 update (8 October 2026):** use the [expanded recording and measurement guide](CP7_MEASUREMENT_GUIDE.md) and [24-case pack](../contracts/cp7-recording-pack.json) for the final holdout. Original satay scripts remain development/practice material. Local preparation passed; actual participant/device results remain unmeasured. [Evidence](CP7_ACCEPTANCE.md).
+
+
 This is a proposed organiser-approved pilot, not a trial already conducted. The app's studio shows a synthetic example at fictional Seri Pelita. Choose one actual weekly market and ten consenting stalls only after handling-policy, moderation, privacy/retention, dietary-claim and provider eligibility review.
 
 | Week | Activity | Evidence to collect |

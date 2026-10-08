@@ -21,7 +21,7 @@ def stable(name: str) -> UUID:
     return uuid5(NAMESPACE_DNS, f"pasarmalam.demo.phase2.{name}")
 
 
-def provision(connection: psycopg.Connection, url: str) -> dict[str, UUID]:
+def provision(connection: psycopg.Connection, url: str, people=None) -> dict[str, UUID]:
     secret = os.getenv("SUPABASE_SECRET_KEY", "")
     password = os.getenv("DEMO_SEED_PASSWORD", "")
     if not secret or len(password) < 16:
@@ -30,7 +30,7 @@ def provision(connection: psycopg.Connection, url: str) -> dict[str, UUID]:
         )
     identities = {}
     with httpx.Client(timeout=15, follow_redirects=False) as client:
-        for key, (name, _) in PERSONAS.items():
+        for key, (name, _) in (PERSONAS if people is None else people).items():
             email = f"{key}@pasarmalam.invalid"
             row = connection.execute(
                 "select id from auth.users where email=%s", (email,)
@@ -71,7 +71,7 @@ def provision(connection: psycopg.Connection, url: str) -> dict[str, UUID]:
 
 def seed(reset: bool = False) -> dict[str, UUID]:
     _, url, database = target_configuration()
-    with psycopg.connect(database) as connection:
+    with psycopg.connect(database, connect_timeout=10) as connection:
         verify_marker(connection)
         identities = provision(connection, url)
         # No auth deletion, schema reset or truncate. Reject reset once live journeys exist.

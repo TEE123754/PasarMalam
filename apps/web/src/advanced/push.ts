@@ -7,7 +7,10 @@ export async function enableTestPush(){
  const config=await call('config') as {enabled:boolean;public_key:string}
  if(!config.enabled)throw new Error('Configure private VAPID keys and enrolled-test mode first.')
  if(Notification.permission==='denied')throw new Error('Notification permission denied. Browsing still works; change permission in browser settings if desired.')
- if(await Notification.requestPermission()!=='granted')throw new Error('No notification permission. Browsing still works.')
+ let permissionTimer:ReturnType<typeof setTimeout>|undefined
+ let permission:NotificationPermission
+ try{permission=await Promise.race([Notification.requestPermission(),new Promise<never>((_,reject)=>{permissionTimer=setTimeout(()=>reject(new Error('Notification permission did not respond. Use a supported browser or keep browsing without notifications.')),30000)})])}finally{clearTimeout(permissionTimer)}
+ if(permission!=='granted')throw new Error('No notification permission. Browsing still works.')
  const registration=await navigator.serviceWorker.register('/app-sw.js',{scope:'/'})
  await navigator.serviceWorker.ready
  const key=Uint8Array.from(atob(config.public_key.replaceAll('-','+').replaceAll('_','/')),c=>c.charCodeAt(0))

@@ -1,3 +1,5 @@
+import { trackConfirmedBatches } from '../impact/gateway'
+import { capture } from '../accounting/model'
 import { heldUnits } from '../vendor/holds'
 import { connectedRequest } from '../auth/client'
 import { fixtureClock } from '../app/clock'
@@ -7,7 +9,7 @@ import type { AppMode } from '../data/types'
 import type { VendorWorkspace } from '../vendor/model'
 export interface FreshWorkspace {server_now:string;workspace:VendorWorkspace;state:FreshState}
 async function demo<T>(fn:(w:VendorWorkspace,s:FreshState,now:Date)=>{workspace:VendorWorkspace;state:FreshState;result:T}):Promise<T> {
- return navigator.locks.request(DEMO_KEY,()=>{const w=readDemo();const now=fixtureClock.now();const s=w.freshness??emptyFresh(now);if(!w.freshness)for(const b of w.batches)if(b.handling.note==='Fictional prepared batch')s.declarations[b.id]={ingredients:['chicken','peanuts'],confirmed:true,ambient:true};const next=fn(w,s,now);next.workspace.freshness=next.state;localStorage.setItem(DEMO_KEY,JSON.stringify(next.workspace));return next.result})
+ return navigator.locks.request(DEMO_KEY,()=>{const w=readDemo();const now=fixtureClock.now();const s=w.freshness??emptyFresh(now);if(!w.freshness)for(const b of w.batches)if(b.handling.note==='Fictional prepared batch')s.declarations[b.id]={ingredients:['chicken','peanuts'],confirmed:true,ambient:true};const before=structuredClone(w);const next=fn(w,s,now);next.workspace.freshness=next.state;localStorage.setItem(DEMO_KEY,JSON.stringify(capture(before,next.workspace,now)));return next.result})
 }
 export async function freshness(mode:AppMode):Promise<FreshWorkspace> {if(mode==='fixture')return demo((w,s,now)=>{const t=tick(w,s,now);return {...t,result:{server_now:now.toISOString(),...t}}});const r=await connectedRequest('/api/v1/freshness/workspace');if(!r.ok)throw new Error('Advisory workspace unavailable');return r.json()}
 export async function freshAction(mode:AppMode,kind:string,data:Record<string,unknown>,request:string=crypto.randomUUID()):Promise<void> {
@@ -22,7 +24,7 @@ export async function freshAction(mode:AppMode,kind:string,data:Record<string,un
   else if(kind==='weather'){s.weather={id:crypto.randomUUID(),temperature:Number(data.temperature),humidity:Number(data.humidity),observed:now.toISOString(),source:'fixture'}}
   else throw new Error('Unknown action')
   const end=tick(w,s,now);return {...end,result:undefined}
- });return}
+ });if(kind==='confirm'&&data.confirmed===true)await trackConfirmedBatches(String(data.batch));return}
  const r=await connectedRequest(`/api/v1/freshness/${kind}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({...data,request_id:request})});if(!r.ok)throw new Error('Action rejected or service unavailable. Retry the same request.');
 }
 

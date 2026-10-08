@@ -1,4 +1,10 @@
+import { cp6Ms } from './cp6'
+import { cp5Ms } from './cp5'
+import { cp4Ms } from './cp4'
+import { cp3Ms } from './cp3'
 import i18n from './i18n'
+import { cp2Ms } from './cp2'
+import { cp1Ms } from './cp1'
 import { phase6Ms } from './phase6'
 import { phase7Ms } from './phase7'
 const ms:Record<string,string>={
@@ -68,7 +74,7 @@ const more:Record<string,string>={
 export function ui(text:string,values:Record<string,string|number>={}):string{
  const evidence=text.match(/^(\w+): no matching transcript evidence; fix or confirm manually\.$/)
  if(evidence)return ui('{field}: no matching transcript evidence; fix or confirm manually.',{field:ui(evidence[1])})
- const localized=i18n.language.startsWith('ms')?(ms[text]??more[text]??phase6Ms[text]??phase7Ms[text]??text):text
+ const localized=i18n.language.startsWith('ms')?(ms[text]??more[text]??phase6Ms[text]??phase7Ms[text]??cp6Ms[text]??cp5Ms[text]??cp4Ms[text]??cp3Ms[text]??cp2Ms[text]??cp1Ms[text]??text):text
  return localized.replace(/\{(\w+)\}/g,(token,key)=>values[key]===undefined?token:String(values[key]))
 }
 export function errorText(error:unknown,fallback='Check required fields and try again.'):string{

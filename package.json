@@ -9,6 +9,9 @@
     "node": ">=24 <25"
   },
   "scripts": {
+    "native:build": "npm run native:build -w @pasarmalam/web",
+    "native:sync": "npm run native:sync -w @pasarmalam/web",
+    "native:preview": "npm run native:preview -w @pasarmalam/web",
     "dev": "npm run dev -w @pasarmalam/web",
     "build": "npm run build -w @pasarmalam/web",
     "typecheck": "npm run typecheck -w @pasarmalam/web",
@@ -38,6 +41,12 @@
     "phase10:live": "uv run --project apps/api python scripts/phase10_live.py",
     "phase11:check": "npm run lint && npm run typecheck && npm run build && npm run test -w @pasarmalam/web && uv run --project apps/api ruff check --config apps/api/pyproject.toml apps/api/app apps/api/tests scripts && uv run --project apps/api pytest apps/api/tests -q --basetemp .phase11-qa && node scripts/check-web-secrets.cjs",
     "phase11:catalog": "uv run --project apps/api python scripts/build_demo_catalog.py",
-    "phase11:media": "uv run --project apps/api python scripts/render_demo_media.py"
+    "phase11:media": "uv run --project apps/api python scripts/render_demo_media.py",
+    "local:setup": "uv run --project apps/api python scripts/local_setup.py",
+    "local:worker": "uv run --project apps/api python scripts/local_worker.py",
+    "local:worker-once": "uv run --project apps/api python scripts/local_worker.py --once",
+    "phase11:seed": "uv run --project apps/api python scripts/phase11_seed.py",
+    "phase11:reset": "uv run --project apps/api python scripts/phase11_seed.py --reset-to-today",
+    "local:connected-check": "uv run --project apps/api python scripts/connected_acceptance.py"
   }
 }

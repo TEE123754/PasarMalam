@@ -18,7 +18,9 @@ alter table public.batch_advisories enable row level security;
 revoke all on public.batch_advisories from anon,authenticated;
 grant select on public.batch_advisories to authenticated;
 create policy advisory_read on public.batch_advisories for select to authenticated using(exists(select 1 from public.batches b join public.food_items f on f.id=b.food_item_id where b.id=batch_id and private.owns_stall(f.stall_id)));
-create table public.clearance_drafts(id uuid primary key default gen_random_uuid(),batch_id uuid not null unique references public.batches(id),state text not null default 'pending',created_at timestamptz not null default now());
+-- Evolve the Phase 2 draft table rather than creating the same relation twice.
+alter table public.clearance_drafts add column state text not null default 'pending';
+create unique index clearance_drafts_one_per_batch on public.clearance_drafts(batch_id);
 alter table public.clearance_drafts enable row level security;
 revoke all on public.clearance_drafts from anon,authenticated;
 grant select on public.clearance_drafts to authenticated;
@@ -95,7 +97,7 @@ begin
   update public.alerts set current=false where batch_id=b.id;
   if threshold is not null and ((decision->>'eligible')::boolean or threshold=0) then
    insert into public.alerts(owner_id,batch_id,threshold_minutes,dedup_key,policy_version) select m.user_id,b.id,threshold,b.id::text||':DEMO_ADVISORY_V2:'||threshold||':'||m.user_id::text,'DEMO_ADVISORY_V2' from public.stall_memberships m where m.stall_id=b.stall_id on conflict(dedup_key) do update set current=true;
-   if threshold=30 and (decision->>'eligible')::boolean then insert into public.clearance_drafts(batch_id) values(b.id) on conflict(batch_id) do nothing;end if;
+   if threshold=30 and (decision->>'eligible')::boolean then insert into public.clearance_drafts(batch_id,stall_id,price_sen) select b.id,f.stall_id,f.price_sen from public.food_items f where f.id=b.food_item_id on conflict(batch_id) do nothing;end if;
   end if;counted=counted+1;
  end loop;
  update public.promotions set status='expired' where status='active' and ends_at<=private.clock_now();

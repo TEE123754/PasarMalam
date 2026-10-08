@@ -1,0 +1,15 @@
+.git
+.env*
+**/.env*
+**/.venv
+**/node_modules
+**/__pycache__
+**/dist
+.uv-cache
+.npm-cache
+.local-voice
+.local-tools
+.local-acceptance
+.phase*-qa
+test-results
+docs/screenshots

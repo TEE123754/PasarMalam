@@ -44,7 +44,7 @@ export const phase6Ms:Record<string,string>={
  'Offline: draft kept on this device. No batch was saved.':'Luar talian: draf kekal pada peranti ini. Tiada kelompok disimpan.',
  'This browser cannot safely coordinate demo writes. Use a browser with Web Locks.':'Pelayar ini tidak dapat menyelaras simpanan demo. Gunakan pelayar yang menyokong Web Locks.',
  '°C ·':'°C ·','RM0':'RM0','Delivery is simulated in the demo.':'Penghantaran ialah simulasi dalam demo.',
- 'Real push delivery is not enabled yet.':'Penghantaran push sebenar belum diaktifkan.',
+ 'Enable test Web Push in Advanced services after nearby consent.':'Aktifkan Web Push ujian dalam perkhidmatan lanjutan selepas persetujuan kawasan berdekatan.',
  'Visit Alerts to confirm batch ingredients and view advisory windows.':'Buka Peringatan untuk mengesahkan bahan kelompok dan melihat tempoh nasihat.',
  'Retry conflict':'Cubaan semula bercanggah',
  'Batch is not eligible: more than 15 minutes must remain':'Kelompok tidak layak: mesti berbaki lebih daripada 15 minit',

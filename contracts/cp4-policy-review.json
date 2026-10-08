@@ -1,0 +1,24 @@
+{
+  "version": "CP4_REVIEW_PACKAGE_V1",
+  "status": "pending-qualified-review",
+  "operational_policy": "DEMO_ADVISORY_V2",
+  "operational_approval": "synthetic-demo-only",
+  "transition_gate": "CP4_REVIEW_REQUIRED",
+  "cumulative_exposure": null,
+  "reviewer": null,
+  "approved_at": null,
+  "approved_cases": [],
+  "approved_vectors": [],
+  "input_bounds_not_food_thresholds": {
+    "measurement_c_min": -100,
+    "measurement_c_max": 300
+  },
+  "requirements": [
+    "Reviewed food classes and handling modes",
+    "Cumulative exposure accounting for each transition",
+    "Missing, contradictory and backdated measurements",
+    "Non-increasing deadlines and correction policy",
+    "SQL/browser parity vectors",
+    "Qualified reviewer identity, scope, provenance and limitations"
+  ]
+}

@@ -45,6 +45,27 @@ def new_batch():
     }
 
 
+def test_live_stall_edit_roundtrip_and_retry(live):
+    _, api, _, sessions = live
+    workspace = api.get(
+        "/api/v1/vendor/workspace", headers=headers(sessions, "vendor-a")
+    ).json()
+    original = next(s for s in workspace["stalls"] if s["id"] == str(stable("stall-a")))
+    edited = {**original, "specialty": "Fictional edit acceptance"}
+    request = str(uuid4())
+    try:
+        first = send(api, sessions, "stall", edited, request)
+        assert first.status_code == 200
+        assert send(api, sessions, "stall", edited, request).json() == first.json()
+        current = api.get(
+            "/api/v1/vendor/workspace", headers=headers(sessions, "vendor-a")
+        ).json()
+        assert next(s for s in current["stalls"] if s["id"] == original["id"]) == edited
+        assert send(api, sessions, "stall", edited, persona="vendor-b").status_code == 403
+    finally:
+        assert send(api, sessions, "stall", original).status_code == 200
+
+
 def test_live_earlier_correction_and_earliest_deadline(live):
     _, api, _, sessions = live
     data = new_batch()

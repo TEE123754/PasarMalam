@@ -52,9 +52,9 @@ def test_review_rpc_retry_and_pending_exclusion(community_database):
 
 def test_member_cannot_moderate_or_read_private_audit(community_database):
     c = community_database
-    with c.transaction(), pytest.raises(psycopg.Error):
+    with pytest.raises(psycopg.Error), c.transaction():
         c.execute("select * from private.community_audit")
-    with c.transaction(), pytest.raises(psycopg.Error):
+    with pytest.raises(psycopg.Error), c.transaction():
         c.execute(
             "select public.community_command('flag',%s::jsonb,%s)",
             (json.dumps({"stall": str(stable("stall-a")), "reason": "Fake decision"}), uuid4()),
@@ -64,13 +64,13 @@ def test_member_cannot_moderate_or_read_private_audit(community_database):
 def test_direct_review_and_raw_complaint_writes_denied(community_database):
     c = community_database
     for sql in ["update public.reviews set status='published'", "delete from public.complaints"]:
-        with c.transaction(), pytest.raises(psycopg.Error):
+        with pytest.raises(psycopg.Error), c.transaction():
             c.execute(sql)
 
 
 def test_direct_evidence_attestation_forgery_denied(community_database):
     c = community_database
-    with c.transaction(), pytest.raises(psycopg.Error):
+    with pytest.raises(psycopg.Error), c.transaction():
         c.execute(
             "select public.authorize_community_evidence(%s,'authorize','forged')",
             (f"{uuid4()}/{uuid4()}.jpg",),
