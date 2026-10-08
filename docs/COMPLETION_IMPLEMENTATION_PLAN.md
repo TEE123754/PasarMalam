@@ -1,5 +1,7 @@
 # PasarMalam — remaining-work implementation plan
 
+Local demo experience update, 9 October 2026: complete sample listings, running food countdowns, clearance offers, all matching market pins, customer reviews/private reports, agency workspaces, sponsored ads and mobile layouts are implemented and browser-checked. See [the completed demo update and verification](DEMO_EXPERIENCE_UPDATE.md). External acceptance items below remain separate, and deployment stays on hold.
+
 Version 1.11 · 8 October 2026 · CP1/CP3 code/gates, CP2, CP4 passport/recording work, CP5 and CP6 complete; human registration/privacy acceptance pending.
 
 This plan addresses the **27 remaining unchecked requirements** (57 at the planning baseline) in the [consolidated checklist](CONSOLIDATED_FEATURES_CHECKLIST.md). The [full partial/pending inventory](PARTIAL_AND_PENDING_JOBS.md) maps every requirement to exactly one primary completion phase. IDs such as `C05-04` mean checklist section 5, item 4, including checked items when counting positions.

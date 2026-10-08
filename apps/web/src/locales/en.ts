@@ -17,7 +17,7 @@ export const en = {
     scenario_success: 'Success', scenario_pending: 'Pending', scenario_rejected: 'Rejected', scenario_timeout: 'Timeout',
     scenarioChoose: 'Choose a response to preview it.', simulationLabel: 'Simulation',
     brand: 'PasarMalam', tagline: 'Good food. Good neighbours. Less waste.',
-    customer: 'Explore markets', hawker: 'Hawker space', admin: 'Admin',
+    customer: 'Customer', hawker: 'Hawker', admin: 'Admin',
     discover: 'Discover', offers: 'Offers', saved: 'Saved', profile: 'Profile',
     dashboard: 'Dashboard', stall: 'My stall', batches: 'Menu & batches', promotions: 'Promotions', alerts: 'Alerts',
     demoBanner: 'Fictional demo · Changes stay in this browser', connectedBanner: 'Connected demo · Fictional records · Account permissions enforced',

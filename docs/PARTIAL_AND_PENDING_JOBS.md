@@ -1,6 +1,6 @@
 # PasarMalam — all partial and pending requirements
 
-Updated **8 October 2026**. This inventory lists every one of the **27 unchecked items** from the [consolidated checklist](CONSOLIDATED_FEATURES_CHECKLIST.md), preserving its wording and status explanation. The current **124 checked items** include three listing requirements closed by CP1, seven discovery requirements by CP2, three voice requirements by CP3, three passport/recording requirements by CP4, four clearance/accounting requirements by CP5 and seven community/impact requirements by CP6, plus three photo/fallback requirements by CP8.
+Reviewed **9 October 2026** against the consolidated checklist and recorded acceptance. This inventory lists every one of the **27 unchecked items** from the [consolidated checklist](CONSOLIDATED_FEATURES_CHECKLIST.md), preserving its wording and status explanation. The current **124 checked items** include three listing requirements closed by CP1, seven discovery requirements by CP2, three voice requirements by CP3, three passport/recording requirements by CP4, four clearance/accounting requirements by CP5 and seven community/impact requirements by CP6, plus three photo/fallback requirements by CP8.
 
 IDs count every checkbox in the original section: `C05-04` is section 5, item 4. Every open requirement has exactly one primary completion phase in the [phase-by-phase plan](COMPLETION_IMPLEMENTATION_PLAN.md). Dependencies and acceptance conditions are in that plan. CP1 code and its focused gate are complete; registration-policy and human acceptance remain pending. CP3 code and gate are complete; see [CP3 evidence](CP3_ACCEPTANCE.md). See [CP1 evidence](CP1_ACCEPTANCE.md) and [CP2 evidence](CP2_ACCEPTANCE.md).
 
@@ -27,7 +27,7 @@ IDs count every checkbox in the original section: `C05-04` is section 5, item 4.
 ## 1. User Accounts & App Modes
 
 - [ ] **C01-03 · CP1** — **P0:** Registration, login, profile management, and switching between modes. — **CP1 acceptance pending:** invitation/confirmation handling and customer-only admission are coded and tested; public signup is disabled pending owner policy, actual email/password journey and human privacy review.
-- [ ] **C01-07 · CP11** — **P2:** Dedicated Android and iOS apps. — **Roadmap:** interactive native-style web previews exist; no Android/iOS native binaries or store releases.
+- [ ] **C01-07 · CP11** — **P2:** Dedicated Android and iOS apps. — **Partial — CP11 source preparation complete:** Capacitor Android/iOS projects and isolated fictional bundle are delivered; recorded software checks passed. APK/iOS compilation, physical-device acceptance and connected native setup remain pending; device testing was skipped at the owner's request. [Evidence](CP11_ACCEPTANCE.md).
 
 ## 2. Market Discovery & Maps
 

@@ -27,6 +27,7 @@ export const discoverySchema = z.object({
     claims: z.array(z.object({ foodItemId: z.string().nullable().default(null), status: z.enum(['declared','certified','non-halal','not-declared']), expiresAt: z.string().datetime({offset:true}).nullable().default(null), reviewedAt: z.string().datetime({offset:true}).nullable().default(null), evidence: z.boolean().default(false) })).default([]),
   })),
   offers: z.array(z.object({
+    batchId: z.string().optional(), foodItemId: z.string().optional(),
     id: z.string(), stallId: z.string(), title: z.string(), priceSen: z.number().int().nonnegative(),
     originalPriceSen: z.number().int().nonnegative(), endsAt: z.string(),
   })),

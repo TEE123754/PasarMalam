@@ -1,4 +1,5 @@
 const scenarioKey = 'pasarmalam:scenario-clock'
+const startedKey = 'pasarmalam:scenario-started'
 
 export interface AppClock {
   now(): Date
@@ -23,11 +24,16 @@ export function closingScenarioTimestamp(date = systemClock.now()): string {
 export const fixtureClock: AppClock = {
   now() {
     const value = sessionStorage.getItem(scenarioKey)
-    return value ? new Date(value) : new Date()
+    if (!value) return new Date()
+    const started = sessionStorage.getItem(startedKey)
+    const valid = started !== null && Number.isFinite(Number(started))
+    if (!valid) sessionStorage.setItem(startedKey, String(Date.now()))
+    const elapsed = valid ? Math.max(0, Date.now() - Number(started)) : 0
+    return new Date(Date.parse(value) + elapsed)
   },
   setScenario(value) {
-    if (value) sessionStorage.setItem(scenarioKey, value)
-    else sessionStorage.removeItem(scenarioKey)
+    if (value) { sessionStorage.setItem(scenarioKey, value); sessionStorage.setItem(startedKey, String(Date.now())) }
+    else { sessionStorage.removeItem(scenarioKey); sessionStorage.removeItem(startedKey) }
   },
   scenario: () => sessionStorage.getItem(scenarioKey),
 }

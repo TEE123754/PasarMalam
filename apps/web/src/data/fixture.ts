@@ -9,6 +9,7 @@ import { fixtureClock } from '../app/clock'
 import type { DataGateway, ScenarioAdapter, ScenarioResult } from './types'
 import { readCommunity } from '../community/gateway'
 import { publicCommunity } from '../community/model'
+import { marketName } from '../presentation/seed'
 
 export const fixtureGateway: DataGateway = {
   mode: 'fixture',
@@ -31,9 +32,9 @@ export const fixtureGateway: DataGateway = {
     const ownedIds=new Set(vendor.stalls.map(s=>s.id))
     const active=vendor.batches.filter(b=>b.status==='active'&&b.advisory_deadline&&Date.parse(b.advisory_deadline)>fixtureClock.now().getTime()&&b.remaining_quantity!==null&&available(vendor,b.id)>0)
     const parsed=discoverySchema.parse({ ...sample,
-      markets:[...sample.markets,cp2Market].map(m => ({...m,popularity:m.popularity+(visits[m.id] ?? 0)})),
-      stalls:[...sample.stalls.filter(s=>!ownedIds.has(s.id)),...vendor.stalls.map(s=>({...sample.stalls.find(x=>x.id===s.id),id:s.id,marketId:s.market_id,name:s.name,categoryId:s.category_id??categoryId(s.category),availabilityConfirmedAt:s.availability_confirmed_at,category:s.category,specialty:s.specialty,description:s.description,declarations:s.declarations,declarationsRecordedAt:s.declarations_recorded_at,priceSen:s.price_sen,halal:s.halal,open:s.open,rating:sample.stalls.find(x=>x.id===s.id)?.rating??0,reviews:sample.stalls.find(x=>x.id===s.id)?.reviews??0,image:'🍴',photoUrl:s.photo,lot:s.lot,opens:s.opens,closes:s.closes,latitude:s.latitude,longitude:s.longitude}))],
-      offers:[...fresh.state.promotions.filter(p=>p.state==='active'&&Date.parse(p.ends)>fixtureClock.now().getTime()).map(p=>({id:p.id,stallId:p.stall,title:p.title,priceSen:p.price,originalPriceSen:p.original,endsAt:p.ends})),...sample.offers.filter(o=>!ownedIds.has(o.stallId))].filter(o=>!ownedIds.has(o.stallId)||active.some(b=>vendor.foods.some(f=>f.id===b.food_item_id&&f.stall_id===o.stallId))),
+      markets:[...sample.markets,cp2Market].map((m,i) => ({...m,name:marketName(m.name),area:marketName(m.area),days:marketName(m.days),latitude:m.latitude??3.08+i*0.006,longitude:m.longitude??101.58+i*0.006,popularity:m.popularity+(visits[m.id] ?? 0)})),
+      stalls:[...sample.stalls.filter(s=>!ownedIds.has(s.id)),...vendor.stalls.map(s=>({...sample.stalls.find(x=>x.id===s.id),id:s.id,marketId:s.market_id,name:s.name,categoryId:s.category_id??categoryId(s.category),availabilityConfirmedAt:s.availability_confirmed_at,category:s.category,specialty:s.specialty,description:s.description,declarations:s.declarations,declarationsRecordedAt:s.declarations_recorded_at,priceSen:s.price_sen,claims:[],halal:s.halal,open:s.open,rating:sample.stalls.find(x=>x.id===s.id)?.rating??0,reviews:sample.stalls.find(x=>x.id===s.id)?.reviews??0,image:'🍴',photoUrl:s.photo,lot:s.lot,opens:s.opens,closes:s.closes,latitude:s.latitude,longitude:s.longitude}))],
+      offers:[...fresh.state.promotions.filter(p=>p.state==='active'&&Date.parse(p.ends)>fixtureClock.now().getTime()).map(p=>({id:p.id,stallId:p.stall,title:p.title,priceSen:p.price,originalPriceSen:p.original,endsAt:p.ends,batchId:p.batch,foodItemId:vendor.batches.find(b=>b.id===p.batch)?.food_item_id})),...sample.offers.filter(o=>!ownedIds.has(o.stallId))].filter(o=>!ownedIds.has(o.stallId)||active.some(b=>vendor.foods.some(f=>f.id===b.food_item_id&&f.stall_id===o.stallId))),
       menu:[...sample.menu.filter(f=>!ownedIds.has(f.stallId)),...vendor.foods.map(f=>({id:f.id,stallId:f.stall_id,name:f.name,categoryId:f.category_id??categoryId(vendor.stalls.find(s=>s.id===f.stall_id)?.category),plantDiet:f.plant_diet,plantDietRecordedAt:f.plant_diet_recorded_at,priceSen:f.price_sen,ingredients:f.ingredients,allergens:f.allergens,allergensRecordedAt:f.allergens_recorded_at,photoUrl:f.photo}))],
       batches:active.map(b=>({id:b.id,foodItemId:b.food_item_id,batchNumber:b.batch_number,preparedAt:b.prepared_at,uploadedAt:b.uploaded_at,remaining:available(vendor,b.id),deadline:b.advisory_deadline,photoUrl:b.photo,correctedPreparedAt:b.corrected_prepared_at})),
       publicReviews:visible.reviews.map(r=>({id:r.id,stallId:r.stall,rating:r.rating,body:r.body})),

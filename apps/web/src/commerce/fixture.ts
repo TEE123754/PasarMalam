@@ -6,6 +6,14 @@ export function commerceFixture(now:Date,w?:VendorWorkspace):Commerce {
  for(const o of s.orders){if(o.status==='completed'){s.ledger.push({id:`collection:${o.id}`,order:o.id,kind:'collection',amount:o.total,at:created});if(o.refunded)s.ledger.push({id:`refund:${o.id}`,order:o.id,kind:'refund',amount:-o.refunded,at:created});if(o.commission)s.ledger.push({id:`commission:${o.id}`,order:o.id,kind:'commission',amount:o.commission,at:created})}s.events.push(`DEMO payment-attempt-${o.id}: ${o.paid?'historical fictional success':o.status==='failed'?'fictional failure':'pending / no payment'}`)}
  for(let n=0;n<8;n++){const status=(['approved','pending','rejected','paused'] as const)[n%4];s.campaigns.push({id:`DEMO-CAMPAIGN-${n}`,owner:'brand-a',stall:'bara-senja',market:'seri-pelita',category:'Skewers',radius:5,start:now.toISOString(),end:new Date(now.getTime()+86400000).toISOString(),budget:1000,spent:n===4?1000:n===0?105:0,status,placement:(['sponsored','banner','native','interstitial'] as const)[n%4],description:`AD-${n%6+1} · Fictional lantern-lit stall artwork; user image pending`,approved:status==='approved',impressions:n===0?80:0,clicks:n===0?5:0})}
  for(let n=0;n<8;n++)s.subscriptions[n===0?'hawker-a':`DEMO-subscriber-${n}`]=(['free','premium','renewal-failed'] as const)[n%3]
+ s.advertisers={ 'brand-a':{name:'Farah Lim',business:'Rasa Senja Brands'}, 'hawker-a':{name:'Aiman',business:'Bara Senja Satay'} }
+ s.subscriptions['hawker-a']='premium'; s.subscriptions['council-a']='premium'
+ s.balance['shopper-a']=100000; s.balance['shopper-b']=75000
+ for(const [i,c] of s.campaigns.entries()) {
+   c.description='Evening satay, small batches and neighbourhood flavour.'
+   c.category=w?.stalls.find(stall=>stall.id===c.stall)?.category??c.category
+   if(i<4){c.status='approved';c.approved=true}
+ }
  return s
 }
 

@@ -36,7 +36,7 @@ export default function MarketMap({ markets, onBounds, sponsors }: { markets: Ma
       points.push(point)
       const link = document.createElement('a')
       const sponsored=sponsors?.has(market.id)??false
-      const label=`${market.name} · ${ui(market.kind==='farmers'?'Farmers’ market':'General market')}${sponsored?' · DEMO sponsored':''}`
+      const label=`${market.name} · ${ui(market.kind==='farmers'?'Farmers’ market':'General market')}${sponsored?' · Sponsored':''}`
       link.href = appPath(`/markets/${encodeURIComponent(market.id)}`); link.textContent = label
       L.marker(point, {title:label,alt:label,icon:L.divIcon({className:'market-pin',html:sponsored?'Ad':market.kind==='farmers'?'🌱':market.type === 'night' ? '☾' : '☀',iconSize:[36,36],iconAnchor:[18,18]})}).bindPopup(link).addTo(pins.current)
     }
@@ -47,8 +47,10 @@ export default function MarketMap({ markets, onBounds, sponsors }: { markets: Ma
     }
   }, [markets,sponsors])
   return <section className="map-panel panel" aria-label={t('mapView')}>
+    <div className="map-heading"><div><span className="eyebrow">{ui('FIND YOUR NEXT STOP')}</span><h2>{ui('Markets on the map')}</h2></div><span>{markets.length} {ui('market pins')}</span></div>
     <div ref={host} className="market-map" aria-label={t('mapView')}/>
-    {failed && <p role="status">{t('tilesUnavailable')}</p>}
+    {failed && <p role="status">{ui('Explore the market pins while the background map reconnects.')}</p>}
+    <div className="map-legend"><span>☾ {t('night')}</span><span>☀ {t('day')}</span><span>🌱 {ui('Farmers’ market')}</span><span>Ad · {ui('Sponsored')}</span></div>
     <div className="button-row"><button className="button secondary" onClick={() => {
       const b = map.current?.getBounds(); if (b) onBounds({south:b.getSouth(),west:b.getWest(),north:b.getNorth(),east:b.getEast()})
     }}>{t('searchMap')}</button><button className="button secondary" onClick={() => onBounds(null)}>{t('clearBounds')}</button></div>

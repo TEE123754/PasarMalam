@@ -11,8 +11,11 @@ import './ui-refresh.css'
 import './native/native.css'
 import { prepareNativeDemoRoute, nativeDemoBuild } from './native/policy'
 import { NativeRuntime } from './native/NativeRuntime'
+import { prepareMarketExperience } from './app/experience'
+import './market-experience.css'
 
 prepareNativeDemoRoute()
+prepareMarketExperience()
 
 const root = document.getElementById('root')
 if (!root) throw new Error('App root is missing')

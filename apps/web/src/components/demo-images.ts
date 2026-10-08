@@ -1,8 +1,8 @@
 export const demoImages = {
  night: {file:'pm-01-night-market',alt:'Illustrated Malaysian night market at dusk'},
  day: {file:'pm-02-day-market',alt:'Illustrated Malaysian morning market'},
- satayStall: {file:'pm-03-satay-stall',alt:'Illustrated fictional satay stall'},
- riceStall: {file:'pm-04-nasi-lemak-stall',alt:'Illustrated fictional nasi lemak stall'},
+ satayStall: {file:'pm-03-satay-stall',alt:'Malaysian satay stall'},
+ riceStall: {file:'pm-04-nasi-lemak-stall',alt:'Malaysian nasi lemak stall'},
  satay: {file:'pm-05-chicken-satay',alt:'Chicken satay with peanut sauce'},
  rice: {file:'pm-06-nasi-lemak',alt:'Nasi lemak with chicken, egg and sambal'},
  cendol: {file:'pm-07-cendol',alt:'Cendol with coconut milk and palm sugar'},

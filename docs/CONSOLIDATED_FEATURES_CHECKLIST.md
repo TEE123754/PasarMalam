@@ -1,8 +1,8 @@
 # PasarMalam — Consolidated Features Checklist
 
-Updated **8 October 2026** against the current local implementation and recorded acceptance. Original checklist wording, priorities, examples and competition mapping are preserved from your pasted document.
+Reviewed **9 October 2026** against the current source and recorded local/connected acceptance. Original checklist wording, priorities, examples and competition mapping are preserved from your pasted document.
 
-**Status: 124/151 items checked; 27 remain unchecked.** This is a local feature review, not competition certification or production readiness.
+**Status: 124/151 items checked in the local scope; 27 remain unchecked.** Checked items include explicitly labelled simulations and implemented features with outstanding device/human acceptance. This is not 124 production-ready features or competition certification.
 
 CP6 closed seven community/impact requirements. [CP6 acceptance](CP6_ACCEPTANCE.md) records the connected phase gate and filtered organiser CSV evidence; CP7 human/device evidence stays pending. CP8 closed three photo/fallback requirements; four real-history requirements remain.
 
@@ -36,7 +36,7 @@ Priorities are recommendations, not mandatory competition features.
 - [x] **P0:** Mobile-friendly PWA. — **Implemented:** responsive PWA shell/update/cache acknowledgement; physical-phone installation and successful disconnected reload acceptance remain open.
 - [x] **P0:** Simple interface with large buttons, readable contrast, and minimal typing. — **Implemented:** refreshed controls, focus/contrast and responsive layouts; low-literacy user and target-phone validation remain open.
 - [x] **P1:** Customer access to reviews and complaint submission.
-- [ ] **P2:** Dedicated Android and iOS apps. — **Roadmap:** interactive native-style web previews exist; no Android/iOS native binaries or store releases.
+- [ ] **P2:** Dedicated Android and iOS apps. — **Partial — CP11 source preparation complete:** Capacitor Android/iOS projects, isolated fictional native bundle, lifecycle/permission controls and the recorded 57-case software gate are delivered. APK/iOS compilation, physical-device acceptance and connected native setup remain pending; device testing was skipped at the owner's request. [Evidence](CP11_ACCEPTANCE.md).
 
 ## 2. Market Discovery & Maps
 
@@ -206,8 +206,8 @@ The app extracts the details, clarifies missing information, and creates the bat
 - [x] **P0:** Calculate clearance revenue and customer savings from completed sales. — **Implemented in CP5:** immutable sale-time unit/bundle price snapshots produce completed-clearance revenue and retained customer savings, with refunds, free/BOGO, disputes and missing-price exclusions. Deduplicated source ledger and session CSVs match; fictional totals are not real impact evidence.
 - [x] **P0:** Compare leftovers per 100 portions across comparable baseline and trial sessions. — **Implemented in CP6:** Closed reconciled Malaysia preparation-date sessions show denominator, exclusions and leftovers per 100; comparable baseline/trial filters do not claim causal improvement. [Evidence](CP6_ACCEPTANCE.md).
 - [x] **P0:** Separate measured results from estimates and projections. — **Implemented:** estimated/reported/synthetic weighed totals and unmeasured human results are explicitly distinguished.
-- [x] **P0:** Track batch posting time, active users, and reported safety concerns. — **Implemented in CP6:** Food-specific measured samples produce labelled estimates; actual weighed completed routes retain uncertainty/date/sample count and source deduplication. [Evidence](CP6_ACCEPTANCE.md).
-- [x] **P1:** Estimate food weight using measured portion weights. — **Implemented in CP6:** Owned/assigned-market aggregates and CSV exports suppress small groups before RPC output; concern counts remain unverified. [Evidence](CP6_ACCEPTANCE.md).
+- [x] **P0:** Track batch posting time, active users, and reported safety concerns. — **Implemented in CP6:** Opt-in, deduplicated events report confirmed batch posting/ingestion delay and distinct consenting accounts per market/day/event type. Scoped concern aggregates suppress small groups and label reports as unverified; ingestion delay is not measured human task time. [Evidence](CP6_ACCEPTANCE.md).
+- [x] **P1:** Estimate food weight using measured portion weights. — **Implemented in CP6:** Food-specific weighed portion samples support labelled quantity-based estimates; actually weighed completed routes stay separate. Method, sample date/count, uncertainty and source deduplication accompany the result. Samples are entered data, not independent instrument verification. [Evidence](CP6_ACCEPTANCE.md).
 - [x] **P1:** Export anonymised pilot and impact reports. — **Implemented:** scoped CSV/print exports with fictional pilot rows and small-group suppression; actual filtered Week 2 CSV was verified. Real pilot data collection remains pending.
 
 **Measurement requirements**
@@ -223,7 +223,7 @@ The app extracts the details, clarifies missing information, and creates the bat
 - [ ] **P0:** Create a held-out voice test set covering Malay, English, mixed speech, accents, and market noise. — **Human data pending:** 24 labelled scripts and a recording guide exist; no held-out consented accent/noise recordings.
 - [ ] **P0:** Measure extraction accuracy for prices, quantities, preparation times, and batch references. — **Unmeasured:** evaluation tooling exists; no human price/quantity/time/batch-reference accuracy results.
 - [ ] **P0:** Compare manual entry against voice-assisted entry for speed, errors, and corrections. — **Unmeasured:** paired live timing/corrections tooling exists; no consenting participant measurements.
-- [x] **P0:** Test ambiguous times, missing information, incorrect batch references, and AI failures. — **Verified current schema:** ambiguous/conflicting clocks, missing evidence, invalid/foreign food/batch identifiers, unsupported commands and provider failure guards are covered; conversational existing-batch references are not supported.
+- [x] **P0:** Test ambiguous times, missing information, incorrect batch references, and AI failures. — **Verified current schema:** ambiguous/conflicting clocks, missing evidence, invalid/foreign food/batch identifiers, unsupported commands and provider failure guards are covered. CP3 adds exact owned existing-batch resolution and stock updates; ambiguous second-pan/timer-change instructions remain blocked. [Evidence](CP3_ACCEPTANCE.md).
 - [x] **P0:** Verify batch separation, promotion shutdown, and persistence after app reloads.
 - [ ] **P0:** Measure response time, failed requests, and AI cost per successful update. — **Partial:** technical smoke duration and bounded request/failure handling exist; no complete per-success latency/failure/cost measurement report.
 - [x] **P0:** Document models, inputs, outputs, policy logic, and human confirmation steps. — **Documented:** pinned Whisper/local Qwen history, current Morpheus qwen35-9b, contracts, evidence/confidence, deterministic policy and manual confirmation.
@@ -235,7 +235,7 @@ The app extracts the details, clarifies missing information, and creates the bat
 ## 15. Competition Demonstration & Readiness
 
 - [x] **P0:** Demonstrate an actual working MVP with persistent data. — **Verified local MVP:** browser-local persistence plus guarded connected Supabase provisioning/permissions/runtime; no deployment claimed.
-- [x] **P0:** Show speech → extraction → clarification → confirmed batch → customer listing. — **Technical smoke/demo:** actual synthetic English speech inference, corrected draft/extraction/confirmation and customer data flow were exercised; no human BM/Manglish demonstration or conversational clarification claim.
+- [x] **P0:** Show speech → extraction → clarification → confirmed batch → customer listing. — **Technical smoke/demo:** actual synthetic English speech inference, corrected draft/extraction/confirmation and customer data flow were exercised; CP3 adds field-specific clarification and exact owned targets; held-out human BM/Manglish performance remains unmeasured. [Evidence](CP3_ACCEPTANCE.md).
 - [x] **P0:** Create Batch 2 and show that Batch 1 retains its original timer.
 - [x] **P0:** Trigger a holding-time warning, approve a promotion, and show the customer offer. — **Verified fictional scenario:** deterministic warning, hawker approval and customer clearance flow; not a real-food safety demonstration.
 - [x] **P0:** Demonstrate automatic offer removal and uncertain-input handling.
@@ -275,26 +275,45 @@ The app extracts the details, clarifies missing information, and creates the bat
 
 [CP5 accounting and recommendation evidence](CP5_ACCEPTANCE.md).
 
+## Current-version audit — 9 October 2026
+
+Reconciled all 151 checkboxes against current source, CP1–CP11 acceptance records and the pending-requirement inventory. No new acceptance evidence closes the 27 open requirements. Corrected stale section totals (previously 121/30), CP11 native-source status, mismatched telemetry/weight descriptions and obsolete voice-reference limitations. Existing checkbox states remain supported in their explicitly stated local/demo scope.
+
+| Priority | Checked locally | Open | Total |
+| --- | ---: | ---: | ---: |
+| P0 | 73 | 14 | 87 |
+| P1 | 44 | 6 | 50 |
+| P2 | 7 | 7 | 14 |
+| **Total** | **124** | **27** | **151** |
+
+**Implemented groups:** discovery/maps/filters, stall/menu/photo management, independent batches and QR passports, confirmed voice updates and clarification, advisory alerts/clearance/reservations, reviews/moderation, accounting/impact reports and local business simulations.
+
+**Open groups:** registration acceptance (1); held-out local-expression acceptance (1); approved food rules and cumulative exposure (2); real partnership/data/rollout requirements (6); real forecasting acceptance (3); human evaluation/measurement and forecasting benchmark (7); student evidence/video/showcase readiness (6); native binary/device acceptance (1).
+
+Advertising, sponsorship purchasing, subscriptions and authority dashboards have labelled local simulations; checked boxes do not mean real billing, ad-network activation or authority deployment. Web Push code exists but actual device notification receipt remains open. PWA/physical-phone/offline acceptance and image public-use evidence remain additional release checks. Deployment remains on hold.
+
+This review inspected source and existing recorded gates; it did not rerun the app, human/device tests or completed phase suites. Documentation-only changes do not provide new runtime evidence.
+
 ## Reviewed totals by section
 
-| Section | Checked | Unchecked |
+| Section | Checked locally | Unchecked |
 | --- | ---: | ---: |
 | 1 | 5 | 2 |
 | 2 | 9 | 0 |
 | 3 | 11 | 0 |
 | 4 | 9 | 0 |
-| 5 | 9 | 3 |
+| 5 | 11 | 1 |
 | 6 | 11 | 0 |
 | 7 | 12 | 2 |
 | 8 | 15 | 0 |
 | 9 | 12 | 0 |
 | 10 | 8 | 0 |
 | 11 | 1 | 6 |
-| 12 | 2 | 4 |
+| 12 | 3 | 3 |
 | 13 | 7 | 0 |
 | 14 | 4 | 7 |
 | 15 | 6 | 6 |
-| **Total** | **121** | **30** |
+| **Total** | **124** | **27** |
 
 CP10 update (8 October 2026): all six section 11 external requirements remain unchecked. Local evidence preparation and simulated contract/privacy regressions are complete; no genuine endorsement, authority submission, official permit, collector partnership or real rollout is claimed. [Acceptance](CP10_ACCEPTANCE.md).
 
