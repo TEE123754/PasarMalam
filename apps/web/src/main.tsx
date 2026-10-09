@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { BrowserRouter } from 'react-router'
 import App from './app/App'
+import { IntroCurtain } from './app/IntroCurtain'
 import { PwaStatus } from './app/PwaStatus'
 import { AuthProvider } from './auth/AuthProvider'
 import './locales/i18n'
@@ -15,6 +16,7 @@ import { prepareMarketExperience } from './app/experience'
 import './market-experience.css'
 import './discovery-brand.css'
 import './pasarmalam-brand.css'
+import './intro-curtain.css'
 
 prepareNativeDemoRoute()
 prepareMarketExperience()
@@ -30,7 +32,13 @@ createRoot(root).render(
   <StrictMode>
     {!nativeDemoBuild() && <PwaStatus />}
     <QueryClientProvider client={queryClient}>
-      <AuthProvider><BrowserRouter basename={/^\/demo(?:\/|$)/.test(window.location.pathname) ? "/demo" : /^\/sandbox(?:\/|$)/.test(window.location.pathname) ? "/sandbox" : "/"}><NativeRuntime/><App /></BrowserRouter></AuthProvider>
+      <AuthProvider>
+        <BrowserRouter basename={/^\/demo(?:\/|$)/.test(window.location.pathname) ? "/demo" : /^\/sandbox(?:\/|$)/.test(window.location.pathname) ? "/sandbox" : "/"}>
+          <NativeRuntime />
+          <App />
+          {!nativeDemoBuild() && <IntroCurtain />}
+        </BrowserRouter>
+      </AuthProvider>
     </QueryClientProvider>
   </StrictMode>,
 )
