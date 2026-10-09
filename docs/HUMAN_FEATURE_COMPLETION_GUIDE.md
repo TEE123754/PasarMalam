@@ -19,9 +19,9 @@ Use fictional batches for app testing. Record real participant observations hone
 
 **Feature:** registration, email verification, login, profiles and roles.
 
-- [ ] Choose **invitation-only** or **public signup**. Invitation-only fits the existing controlled test setup.
-- [ ] Tell the developer which mode you want so the matching configuration can be prepared.
-- [ ] Provide a consenting tester with an email address they control. Let the tester set their own password.
+- [x] Choose **public signup**. Selected by the owner on 9 October 2026; supersedes invitation-only.
+- [x] Tell the developer which mode you want; Supabase signup, frontend signup and public customer admission are enabled. Email confirmation stays ON pending the email-sender choice.
+- [x] Provide an owner-controlled test email. That existing account is email-confirmed; owner password setup/sign-in remains pending.
 - [ ] Complete the actual invitation/signup and email-verification flow.
 - [ ] Log in, edit the profile, switch the visible mode, sign out and log back in.
 - [ ] Use a separately assigned hawker account to open a stall and confirm that customer accounts cannot gain hawker access by changing the visible mode.
@@ -29,7 +29,9 @@ Use fictional batches for app testing. Record real participant observations hone
 
 **Provide:** selected registration mode, test date, steps that worked/failed and errors with private details removed.
 
-**After your action:** configuration or account-flow repairs can be completed. See [account acceptance](CP1_ACCEPTANCE.md) for the existing implementation scope.
+**Do next:** follow [the public signup instructions](STEP1_PUBLIC_SIGNUP_SETUP.md). New users choose Create account; existing users choose Sign in or Forgot password. Clicking the email button returns to the app. Public email delivery still needs an SMTP sender or an explicit choice of instant demo signup. The owner's complete password/login journey stays unchecked until they finish it.
+
+**After your action:** any remaining account-flow repairs can be completed. See [account acceptance](CP1_ACCEPTANCE.md) for the existing implementation scope.
 
 ## Step 2 - Recruit speakers, hawkers and customers
 

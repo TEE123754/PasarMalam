@@ -298,13 +298,7 @@ def test_verified_customer_bootstrap_ignores_metadata_privileges(connected):
         c.execute("reset role")
         c.execute("update auth.users set email_confirmed_at=now() where id=%s", (user,))
         actor()
-        with pytest.raises(psycopg.Error) as no_invite:
-            with c.transaction():
-                c.execute("select public.onboard_customer('Fictional customer','ms')")
-        assert no_invite.value.sqlstate == "42501"
-        c.execute("reset role")
-        c.execute("update auth.users set invited_at=now() where id=%s", (user,))
-        actor()
+        # Public signup admits a confirmed customer without an organiser invitation.
         assert (
             c.execute("select public.onboard_customer('Fictional customer','ms')").fetchone()[0]
             == user

@@ -49,9 +49,37 @@ Build warnings were existing Zod annotation removal and a large bundle; pytest r
 
 ## Still open before registration/real-data acceptance
 
-- [ ] Owner decides whether registration should remain organiser-invited or offer public self-registration on a future approved isolated target. No public signup is currently available.
+- [x] Owner selected public signup on 9 October 2026, superseding invitation-only. Public Auth signup and customer admission are enabled on the existing controlled sandbox; email confirmation stays ON pending the sender choice.
 - [ ] On that approved target, confirm Auth email verification, allowed redirect/template settings and the production data boundary. A frontend flag alone is insufficient; this disposable backend deliberately cannot advertise public production registration.
 - [ ] A consenting tester completes an actual invitation/confirmation email → profile → password setup → sign-in journey and verifies expiry/error UX. The tester must enter/set their own password. Automated token cases and transactional SQL admission are already tested; they are not an email-delivery claim.
 - [ ] Human owner/privacy review of the [draft](CP1_PRIVACY_REVIEW.md), including sensitive voluntary ownership declarations, provider arrangements and new audit retention, before real participants or businesses are collected.
 
-For the current fictional sandbox, a verified invitation hash is entered under **Profile → New account or invitation**. The UI accepts `token_hash` from an email link and keeps it in memory only; it does not consume arbitrary URL session tokens or store passwords. No API keys or deployment action are required to continue CP2.
+For the current fictional sandbox, an invitation hash or the original Supabase invitation link is entered under **Profile → New account or invitation**. The link must match the configured project, verification endpoint and selected email type. Its token stays in memory only; the UI does not consume arbitrary URL session tokens or store passwords. No API keys or deployment action are required to continue CP2.
+
+## Owner invitation follow-up — 9 October 2026
+
+The owner requested invitation-only access and supplied their own email. Supabase accepted one invitation for sending; the guarded database confirmed `invited_at` is set and email confirmation is still pending. No password, verified status or privileged role was assigned by the developer. The address and delivery record are kept in ignored private local evidence, outside this public document.
+
+The Supabase signup switch was saved OFF and remained OFF after reloading the dashboard; Confirm email remained ON. Existing app/server invitation checks remain in place. The app now accepts either a raw verification hash or the original verification link, including the default email's `token` parameter. Wrong-project, wrong-endpoint, recovery-type and ambiguous links are refused before contacting Auth. The default SMTP service does not allow template edits without custom SMTP; its template was preserved. Email inbox delivery, actual verification and password/login acceptance remain unclaimed.
+
+Focused verification: registration tests **6 passed**; lint, production build (including TypeScript) and built credential scan passed. Browser confirmed the new link field on the connected sandbox profile. Existing Zod annotation and bundle-size build warnings remain. A separate Auth-settings HTTP recheck timed out; saved state was verified through a dashboard reload instead.
+
+![Saved invitation-only Auth settings](screenshots/step1-invitation-only.jpg)
+
+This invitation-only stage was superseded by the owner's public-signup request below. Feature counts remain unchanged because the human journey is incomplete.
+
+## Public signup repair — current state, 9 October 2026
+
+Owner explicitly changed the mode to public signup. The API now reports `public`; the frontend flag is enabled on the matching sandbox. Supabase signup was already ON when checked following the owner's change. Site URL was corrected from `localhost:3000` to `http://127.0.0.1:5174/sandbox/profile`. New confirmation/reset emails return to that account screen. Supabase's SDK handles the email callback on profile routes and clears the URL fragment; sessions remain in memory. Demo routes cannot register or authenticate real accounts.
+
+The new `20261009063000_public_customer_signup.sql` migration removes only the organiser-invitation requirement. Anonymous/unconfirmed admission remains denied. Newly admitted profiles receive customer only; metadata, mode switching and signup cannot grant vendor/admin roles. Existing roles and records are preserved. A missing profile now bootstraps automatically after authenticated sign-in, using bounded display-name/language metadata only, then fetches the protected identity again.
+
+The account screen offers Create account, Sign in and Forgot password. Recovery callbacks show a password/confirmation form; the owner enters and submits their own password. A collapsed email-link fallback identifies its type automatically. It is no longer the default journey.
+
+Focused checks: registration **10 passed**; backend/connected gate **21 passed**; lint, TypeScript/build, configured Ruff and built credential scan passed. Browser sign-in/sign-out with an existing fictional customer succeeded. A new temporary confirmed/uninvited Auth account also signed in through the browser: `/me` initially had no profile, onboarding created it, and the screen showed its submitted display name and customer role only despite forged admin/vendor metadata. The temporary Auth account, profile and private test password were removed afterwards. This test's email was confirmed by test setup; it is not an email-delivery claim. Default SMTP still limits delivery to project-team addresses. Owner was asked to choose custom SMTP with confirmation or instant signup for this demo; confirmation remains ON until they answer.
+
+![New account automatically receives a customer profile](screenshots/public-signup-new-customer.jpg)
+
+The all-history local migration runner found three pre-existing checksum mismatches (`20261006183620_vendor_photo_binding.sql`, `20261006183801_voice_retention_tick.sql`, `20261006184041_voice_retention_restore.sql`). The Supabase connector also refused migration-write permission. Only the new account migration was applied through the configured database connection after verifying the disposable guard, and its checksum was recorded. Prior migration files/checksums were preserved. This is not a claim that the older history mismatch was repaired.
+
+Continue with [the current public signup instructions](STEP1_PUBLIC_SIGNUP_SETUP.md). No deployment or owner-password change was performed.

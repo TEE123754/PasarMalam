@@ -38,7 +38,7 @@ class PublicConfigResponse(BaseModel):
     business_integration_mode: Literal["simulated"]
     data_environment: Literal["disposable-demo"] = "disposable-demo"
     capabilities: list[str]
-    registration_policy: Literal["invite-only"] = "invite-only"
+    registration_policy: Literal["invite-only", "public"] = "invite-only"
 
 
 app = FastAPI(title="PasarMalam API", version="0.1.0")
@@ -83,6 +83,7 @@ def public_config() -> PublicConfigResponse:
         api_version="v1",
         supported_locales=["en", "ms"],
         business_integration_mode="simulated",
+        registration_policy=get_settings().registration_policy,
         capabilities=["fixture-discovery", "public-health"]
         + (["connected-discovery", "authenticated-rpc"] if get_settings().configured else []),
     )

@@ -1,4 +1,4 @@
-"""Customer-only onboarding after Auth verification; project signup stays closed."""
+"""Customer-only onboarding after Auth verification; roles remain database-controlled."""
 
 from typing import Literal
 

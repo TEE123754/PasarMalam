@@ -16,7 +16,7 @@ export function getAuthClient(): SupabaseClient | null {
     } catch { throw new Error('A publishable key is required') }
   }
   client = createClient(url, key, {
-    auth: { persistSession: false, autoRefreshToken: true, detectSessionInUrl: false },
+    auth: { persistSession: false, autoRefreshToken: true, detectSessionInUrl: /^\/(?:sandbox\/)?profile\/?$/.test(window.location.pathname) },
   })
   return client
 }

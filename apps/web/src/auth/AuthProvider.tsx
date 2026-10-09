@@ -6,12 +6,14 @@ import { getAuthClient, connectedRequest } from './client'
 import { AuthContext, type AuthState } from './context'
 import type { Actor } from '../data/api-contract'
 import { actorSchema } from '../data/schemas'
+import { customerProfile } from './registration'
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null)
   const [actor, setActor] = useState<Actor | null>(null)
   const [status, setStatus] = useState<AuthState['status']>('loading')
   const [notice, setNotice] = useState<AuthState['notice']>(null)
+  const [recovery, setRecovery] = useState(() => new URLSearchParams(window.location.hash.slice(1)).get('type') === 'recovery')
   const queryClient = useQueryClient()
   const connected = selectedMode() === 'connected'
   const [client] = useState(() => {
@@ -27,7 +29,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const { data } = client.auth.onAuthStateChange((event, next) => {
       if (!alive) return
       setSession(next)
+      if (event === 'PASSWORD_RECOVERY') setRecovery(true)
       if (event === 'SIGNED_OUT') {
+        setRecovery(false)
         setActor(null)
         queryClient.removeQueries({ queryKey: ['discovery', 'connected'] })
         queryClient.removeQueries({ queryKey: ['personal'] })
@@ -44,9 +48,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setActor(null)
       setStatus('loading')
       try {
-        const response = await connectedRequest('/api/v1/me', {
-          headers: { Authorization: `Bearer ${session.access_token}` }, signal: controller.signal,
-        })
+        const request = { headers: { Authorization: `Bearer ${session.access_token}` }, signal: controller.signal }
+        let response = await connectedRequest('/api/v1/me', request)
+        if (response.status === 403 && !controller.signal.aborted) {
+          const bootstrap = await connectedRequest('/api/v1/me/onboard', {
+            ...request, method: 'POST', headers: { ...request.headers, 'Content-Type': 'application/json' },
+            body: JSON.stringify(customerProfile(session.user.user_metadata)),
+          })
+          if (!bootstrap.ok) throw new Error('Profile unavailable')
+          response = await connectedRequest('/api/v1/me', request)
+        }
         if (controller.signal.aborted) return
         if (response.status === 401) {
           setNotice('expired'); setActor(null)
@@ -80,7 +91,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => { clearTimeout(timer); window.removeEventListener('focus', expire) }
   }, [client, session])
 
-  return <AuthContext.Provider value={{ actor, status, notice, configured: !!client,
+  return <AuthContext.Provider value={{ actor, status, notice, configured: !!client, recovery: recovery && !!session,
     async signIn(email, password) {
       if (!client) return false
       const { error } = await client.auth.signInWithPassword({ email, password })

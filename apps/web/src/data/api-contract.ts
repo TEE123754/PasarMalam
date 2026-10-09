@@ -353,7 +353,7 @@ export interface PublicConfigResponse {
   business_integration_mode: "simulated"
   data_environment?: "disposable-demo"
   capabilities: Array<string>
-  registration_policy?: "invite-only"
+  registration_policy?: "invite-only" | "public"
 }
 
 export interface PublicReview {

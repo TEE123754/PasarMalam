@@ -32,7 +32,7 @@ Priorities are recommendations, not mandatory competition features.
 
 - [x] **P0:** Hawker/vendor mode for managing stalls, food listings, batches, and promotions.
 - [x] **P0:** Customer mode for discovering markets, browsing food, and viewing offers.
-- [ ] **P0:** Registration, login, profile management, and switching between modes. — **CP1 acceptance pending:** assigned login/profile/mode switching, guarded invitation verification and customer-only onboarding are implemented/tested. Public signup stays disabled; owner policy, human email/password journey and privacy review remain open.
+- [ ] **P0:** Registration, login, profile management, and switching between modes. — **CP1 acceptance pending:** owner selected public signup on 9 October 2026, superseding invitations. Public customer admission, simple signup, email return handling, automatic profile creation and Forgot password are implemented/tested. Email confirmation remains ON; public email delivery needs an SMTP sender or explicit instant-demo choice. Owner password/login journey and privacy review remain open. [Step 1 setup](STEP1_PUBLIC_SIGNUP_SETUP.md).
 - [x] **P0:** Mobile-friendly PWA. — **Implemented:** responsive PWA shell/update/cache acknowledgement; physical-phone installation and successful disconnected reload acceptance remain open.
 - [x] **P0:** Simple interface with large buttons, readable contrast, and minimal typing. — **Implemented:** refreshed controls, focus/contrast and responsive layouts; low-literacy user and target-phone validation remain open.
 - [x] **P1:** Customer access to reviews and complaint submission.

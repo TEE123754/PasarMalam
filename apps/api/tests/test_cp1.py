@@ -4,6 +4,7 @@ import pytest
 from app.listing_statements import AllergenStatement, BusinessDeclarations
 from app.main import app
 from app.onboarding import CustomerOnboarding
+from app.settings import get_settings
 from app.vendor import FoodInput, StallInput
 from fastapi.testclient import TestClient
 from pydantic import ValidationError
@@ -47,7 +48,10 @@ def test_claims_and_profile_never_accept_inferred_identity_or_roles():
         .status_code
         == 401
     )
-    assert TestClient(app).get("/api/v1/config").json()["registration_policy"] == "invite-only"
+    assert (
+        TestClient(app).get("/api/v1/config").json()["registration_policy"]
+        == get_settings().registration_policy
+    )
 
 
 def test_readonly_confirmation_time_does_not_enter_rpc_input():

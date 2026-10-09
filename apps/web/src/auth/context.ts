@@ -6,6 +6,7 @@ export interface AuthState {
   status: 'loading' | 'ready' | 'unavailable'
   notice: 'expired' | 'unavailable' | null
   configured: boolean
+  recovery: boolean
   signIn(email: string, password: string): Promise<boolean>
   signOut(): Promise<void>
 }

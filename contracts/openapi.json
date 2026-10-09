@@ -4599,7 +4599,10 @@
           },
           "registration_policy": {
             "type": "string",
-            "const": "invite-only",
+            "enum": [
+              "invite-only",
+              "public"
+            ],
             "title": "Registration Policy",
             "default": "invite-only"
           }

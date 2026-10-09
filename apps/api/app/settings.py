@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from functools import lru_cache
 from os import getenv
 from pathlib import Path
+from typing import Literal
 from urllib.parse import urlparse
 
 from dotenv import load_dotenv
@@ -37,6 +38,7 @@ class Settings:
     publishable_key: str = ""
     local_jwt_secret: str = ""
     issuer: str = ""
+    registration_policy: Literal["invite-only", "public"] = "invite-only"
 
     @property
     def configured(self) -> bool:
@@ -62,4 +64,7 @@ def get_settings() -> Settings:
         if jwt.decode(key, options={"verify_signature": False}).get("role") != "anon":
             raise ValueError("Only a legacy anon key may be used by the request client")
     secret = getenv("SUPABASE_JWT_SECRET", "") if url.startswith("http://") else ""
-    return Settings(url, key, secret, getenv("SUPABASE_JWT_ISSUER", ""))
+    policy = getenv("REGISTRATION_POLICY", "invite-only")
+    if policy not in {"invite-only", "public"}:
+        raise ValueError("Unexpected registration policy")
+    return Settings(url, key, secret, getenv("SUPABASE_JWT_ISSUER", ""), policy)
