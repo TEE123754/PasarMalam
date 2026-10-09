@@ -9,10 +9,10 @@ import type { DiscoverySnapshot } from '../data/types'
 import type { Filters } from './engine'
 
 export function DiscoveryIntro({data,filters}:{data?:DiscoverySnapshot;filters:Filters}) {
- const {i18n}=useTranslation()
+ const {i18n,t}=useTranslation()
  const bm=i18n.language.startsWith('ms')
  const market=data?.markets.find(m=>m.id===filters.market)
- return <header className="discovery-hero"><div className="discovery-hero-copy"><div className="location-kicker"><MapPin size={17}/><span>{market?`${market.name} · ${market.area}`:bm?'Pasar tempatan · Malaysia':'Local markets · Malaysia'}</span></div><span className="eyebrow">{bm?'MAKANAN ENAK. KOMUNITI MESRA.':'GOOD FOOD. GREAT NEIGHBOURS.'}</span><h1>{bm?<>Temui hidangan<br/>kegemaran anda<span>.</span></>:<>Find your next<br/>favourite bite<span>.</span></>}</h1><p>{bm?'Rasa tempatan. Penjaja pilihan. Tawaran sebelum pasar tutup.':'Fresh flavours. Local favourites. A good deal before closing.'}</p><NavLink className="hero-offer-link" to="/offers">{bm?'Terokai tawaran semasa':'Explore current offers'}<ArrowUpRight size={18}/></NavLink></div><DemoImage image={filters.type==='day'?'day':'night'} description={bm?'Suasana pasar tempatan':'Local market scene'} priority className="discovery-hero-art"/></header>
+ return <header className="discovery-hero"><div className="discovery-hero-copy"><span className="eyebrow">{t('discoverEyebrow')}</span><h1>{t('discoverTitle').replace(/\.$/,'')}<span>.</span></h1><p>{t('discoverBody')}</p><div className="discovery-hero-details"><div className="location-kicker"><MapPin size={16}/><span>{market?`${market.name} · ${market.area}`:bm?'Pasar tempatan · Malaysia':'Local markets · Malaysia'}</span></div><NavLink className="hero-offer-link" to="/offers">{t('browseOffers')}<ArrowUpRight size={17}/></NavLink></div></div><DemoImage image={filters.type==='day'?'day':'night'} description={bm?'Suasana pasar tempatan':'Local market scene'} priority className="discovery-hero-art"/></header>
 }
 
 export function DiscoveryCategories({data,selected,onChange}:{data:DiscoverySnapshot;selected:string;onChange:(category:string)=>void}) {

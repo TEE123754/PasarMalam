@@ -1,0 +1,495 @@
+/* PasarMalam discovery refresh — editorial market warmth with a quiet food-doodle ground. */
+.app-shell:has(.discovery-hero) {
+  --discover-paper: #f4f1e7;
+  --discover-card: #fbfaf5;
+  --discover-ink: #10362d;
+  --discover-muted: #687f75;
+  --discover-green: #164b3e;
+  --discover-orange: #bd5634;
+  --discover-line: #dfded3;
+  position: relative;
+  isolation: isolate;
+  color: var(--discover-ink);
+  background: var(--discover-paper);
+}
+
+.app-shell:has(.discovery-hero)::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background-image: url('/demo/images/food-doodle-pattern.svg');
+  background-repeat: repeat;
+  background-size: 192px 192px;
+  opacity: .22;
+  pointer-events: none;
+}
+
+.app-shell:has(.discovery-hero) .mode-banner.connected {
+  background: var(--discover-green);
+  color: #f4f1e7;
+  border-color: #164b3e;
+}
+
+.app-shell:has(.discovery-hero) .site-header {
+  background: rgb(248 246 238 / 94%);
+  border-color: var(--discover-line);
+  backdrop-filter: blur(10px);
+}
+
+.app-shell:has(.discovery-hero) .brand,
+.app-shell:has(.discovery-hero) .brand-mark {
+  color: var(--discover-green);
+}
+
+.app-shell:has(.discovery-hero) .brand-mark {
+  background: var(--discover-green);
+  color: #f3c56e;
+}
+
+.app-shell:has(.discovery-hero) .nav-link.active {
+  color: var(--discover-green);
+  background: #e6eee4;
+}
+
+.main-content:has(.discovery-hero) {
+  position: relative;
+  z-index: 0;
+  --ink: var(--discover-ink);
+  --muted: var(--discover-muted);
+  --accent: var(--discover-orange);
+  --accent-soft: #f8e9dc;
+  --line: var(--discover-line);
+  --paper: var(--discover-card);
+}
+
+.main-content:has(.discovery-hero) .discovery-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.06fr);
+  min-height: 356px;
+  margin: 0 0 26px;
+  overflow: hidden;
+  border: 1px solid #e6e1d5;
+  border-radius: 28px;
+  background: #f4f1e7;
+  box-shadow: 0 14px 38px #2145350d;
+}
+
+.main-content:has(.discovery-hero) .discovery-hero-copy {
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 38px clamp(28px, 4vw, 54px);
+}
+
+.main-content:has(.discovery-hero) .discovery-hero-copy > .eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 12px;
+  color: var(--discover-orange);
+  font-size: 11px;
+  letter-spacing: .14em;
+}
+
+.main-content:has(.discovery-hero) .discovery-hero-copy > .eyebrow::before {
+  content: "";
+  display: block;
+  width: 26px;
+  height: 2px;
+  background: currentColor;
+}
+
+.main-content:has(.discovery-hero) .discovery-hero h1 {
+  max-width: 570px;
+  margin: 0 0 15px;
+  color: var(--discover-ink);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.55rem, 4.2vw, 4.35rem);
+  font-weight: 700;
+  line-height: .99;
+  letter-spacing: -.055em;
+}
+
+.main-content:has(.discovery-hero) .discovery-hero h1 > span {
+  color: var(--discover-orange);
+}
+
+.main-content:has(.discovery-hero) .discovery-hero-copy > p {
+  max-width: 480px;
+  margin: 0 0 18px;
+  color: #627970;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.main-content:has(.discovery-hero) .discovery-hero-details {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 18px;
+}
+
+.main-content:has(.discovery-hero) .location-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  max-width: 100%;
+  margin: 0;
+  padding: 7px 10px;
+  border: 1px solid #e3ded0;
+  border-radius: 999px;
+  background: #fbfaf5c9;
+  color: #60776d;
+  font-size: 11px;
+  line-height: 1.35;
+}
+
+.main-content:has(.discovery-hero) .location-kicker svg {
+  flex: 0 0 auto;
+  color: var(--discover-green);
+}
+
+.main-content:has(.discovery-hero) .hero-offer-link {
+  min-height: 38px;
+  color: var(--discover-green);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.main-content:has(.discovery-hero) .hero-offer-link:hover {
+  color: var(--discover-orange);
+}
+
+.main-content:has(.discovery-hero) .discovery-hero-art {
+  position: relative;
+  height: 100%;
+  min-height: 356px;
+  margin-left: -22px;
+  overflow: hidden;
+  border-radius: 0;
+  background: #d5c09a;
+}
+
+.main-content:has(.discovery-hero) .discovery-hero-art img {
+  width: 100%;
+  height: 100%;
+  min-height: 356px;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: center;
+}
+
+.main-content:has(.discovery-hero) .discovery-hero-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #f4f1e7 0%, #f4f1e7d9 8%, #f4f1e74d 33%, transparent 64%);
+  pointer-events: none;
+}
+
+.main-content:has(.discovery-hero) .search-wrap {
+  position: relative;
+  z-index: 3;
+  width: min(820px, 100%);
+  height: 60px;
+  margin: -31px auto 18px;
+  padding: 0 20px;
+  border: 1px solid #e4e1d7;
+  border-radius: 999px;
+  background: #fffefa;
+  box-shadow: 0 10px 26px #1b413013;
+  color: var(--discover-green);
+}
+
+.main-content:has(.discovery-hero) .search-wrap input {
+  min-width: 0;
+  background: transparent;
+  color: var(--discover-ink);
+  font-size: 14px;
+}
+
+.main-content:has(.discovery-hero) .search-wrap input::placeholder {
+  color: #7d9188;
+}
+
+.main-content:has(.discovery-hero) .discovery-action-bar {
+  justify-content: flex-start;
+  gap: 10px;
+  margin: 0 0 18px;
+}
+
+.main-content:has(.discovery-hero) .discovery-action-bar > .button.secondary {
+  border-color: #e2ded2;
+  background: #f0eee4;
+  color: var(--discover-green);
+  box-shadow: none;
+}
+
+.main-content:has(.discovery-hero) .discovery-action-bar > .button.secondary:hover {
+  border-color: #c9d6c9;
+  background: #e8eee4;
+}
+
+.main-content:has(.discovery-hero) .browse-tabs {
+  padding: 4px;
+  border: 1px solid #e1dfd4;
+  border-radius: 999px;
+  background: #eeece2;
+}
+
+.main-content:has(.discovery-hero) .browse-tabs button {
+  min-height: 42px;
+  border-radius: 999px;
+  color: #526b60;
+  font-size: 12px;
+}
+
+.main-content:has(.discovery-hero) .browse-tabs button.active {
+  background: var(--discover-green);
+  box-shadow: 0 2px 7px #10362d24;
+  color: #fff;
+}
+
+.main-content:has(.discovery-hero) .discovery-action-bar button[aria-expanded="true"] > svg:last-of-type {
+  transform: rotate(180deg);
+}
+
+.main-content:has(.discovery-hero) .discovery-action-bar button > svg:last-of-type {
+  transition: transform .18s ease;
+}
+
+.main-content:has(.discovery-hero) .discovery-controls {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: 0 0 28px;
+  padding: 23px;
+  border-color: #e1dfd5;
+  border-radius: 20px;
+  background: rgb(251 250 245 / 94%);
+  box-shadow: 0 10px 28px #28433409;
+}
+
+.main-content:has(.discovery-hero) .discovery-controls label {
+  min-width: 0;
+  color: #2d4d41;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.main-content:has(.discovery-hero) .discovery-controls select,
+.main-content:has(.discovery-hero) .discovery-controls input:not([type="checkbox"]) {
+  width: 100%;
+  min-height: 46px;
+  border: 1px solid #deddd3;
+  border-radius: 12px;
+  background: #fffefa;
+  color: #2a463c;
+  font-size: 13px;
+}
+
+.main-content:has(.discovery-hero) .discovery-controls .choice-row {
+  border-color: #ebe8de;
+}
+
+.main-content:has(.discovery-hero) .discovery-controls .choice-row input {
+  accent-color: var(--discover-green);
+}
+
+.main-content:has(.discovery-hero) .discovery-controls .button.secondary {
+  border-color: #dce0d5;
+  background: #f0f1e9;
+  color: var(--discover-green);
+  box-shadow: none;
+}
+
+.main-content:has(.discovery-hero) .discovery-controls .small.muted {
+  align-self: center;
+  margin: 0;
+  color: #7c8d83;
+  font-size: 11px;
+}
+
+.main-content:has(.discovery-hero) .fresh-food-section,
+.main-content:has(.discovery-hero) .discovery-categories {
+  margin-top: 28px;
+}
+
+.main-content:has(.discovery-hero) .section-heading h2 {
+  color: var(--discover-ink);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.main-content:has(.discovery-hero) .market-summary,
+.main-content:has(.discovery-hero) .stall-card,
+.main-content:has(.discovery-hero) .fresh-food-card,
+.main-content:has(.discovery-hero) .category-tile {
+  border-color: #e4e0d5;
+  background: #fbfaf5;
+  box-shadow: 0 6px 20px #1d392809;
+}
+
+.main-content:has(.discovery-hero) .market-summary h3,
+.main-content:has(.discovery-hero) .stall-content h3 {
+  color: var(--discover-ink);
+}
+
+.main-content:has(.discovery-hero) .status-pill.open {
+  background: #e8efe3;
+  color: #31563e;
+}
+
+.main-content:has(.discovery-hero) .category-tile.selected {
+  outline-color: var(--discover-green);
+  background: #f4eee1;
+}
+
+.main-content:has(.discovery-hero) .site-footer,
+.app-shell:has(.discovery-hero) .site-footer {
+  border-top-color: #0c382f;
+  background: #103b32;
+  color: #c5d4c9;
+}
+
+.app-shell:has(.discovery-hero) .site-footer span:first-child {
+  color: #f0d8a6;
+}
+
+@media (max-width: 800px) {
+  .main-content:has(.discovery-hero) .discovery-hero {
+    grid-template-columns: minmax(0, 1fr) minmax(0, .84fr);
+    min-height: 320px;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-hero-copy {
+    padding: 28px 25px;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-hero-art,
+  .main-content:has(.discovery-hero) .discovery-hero-art img {
+    min-height: 320px;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-hero h1 {
+    font-size: clamp(2.35rem, 5.4vw, 3.4rem);
+  }
+
+  .main-content:has(.discovery-hero) .discovery-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 18px;
+  }
+}
+
+@media (max-width: 580px) {
+  .app-shell:has(.discovery-hero)::before {
+    background-size: 164px 164px;
+    opacity: .19;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-hero {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: 0;
+    margin-bottom: 20px;
+    border-radius: 22px;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-hero-art {
+    grid-row: 1;
+    height: 184px;
+    min-height: 184px;
+    margin: 0;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-hero-art img {
+    min-height: 184px;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-hero-art::after {
+    background: linear-gradient(180deg, transparent 55%, #f4f1e7 100%);
+  }
+
+  .main-content:has(.discovery-hero) .discovery-hero-copy {
+    grid-row: 2;
+    padding: 8px 22px 24px;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-hero-copy > .eyebrow {
+    font-size: 9px;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-hero h1 {
+    max-width: 100%;
+    margin-bottom: 12px;
+    font-size: clamp(2.35rem, 10vw, 3rem);
+    line-height: 1.02;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-hero-copy > p {
+    font-size: 13px;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-hero-details {
+    gap: 4px 10px;
+  }
+
+  .main-content:has(.discovery-hero) .search-wrap {
+    height: 56px;
+    margin: -27px auto 16px;
+    padding: 0 16px;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-action-bar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 8px;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-action-bar > .browse-tabs {
+    grid-row: 2;
+    grid-column: 1 / -1;
+    display: flex;
+  }
+
+  .main-content:has(.discovery-hero) .browse-tabs button {
+    flex: 1;
+    padding-inline: 10px;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-action-bar > .button.secondary {
+    min-height: 44px;
+    justify-content: center;
+    padding: 9px 11px;
+    font-size: 12px;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    padding: 15px;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-controls .button-row {
+    gap: 7px;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-controls .button {
+    min-height: 42px;
+    padding: 9px 11px;
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 380px) {
+  .main-content:has(.discovery-hero) .discovery-controls {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .main-content:has(.discovery-hero) .discovery-action-bar button > svg:last-of-type {
+    transition: none;
+  }
+}

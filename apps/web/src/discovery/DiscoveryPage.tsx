@@ -82,7 +82,7 @@ export function DiscoveryPage({ gateway }: { gateway: DataGateway }) {
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(0)
   const [showMap, setShowMap] = useState(true)
-  const [filtersOpen,setFiltersOpen] = useState(false)
+  const [filtersOpen,setFiltersOpen] = useState(true)
   const [locationMessage, setLocationMessage] = useState('manualLocation')
   const [geoExpires, setGeoExpires] = useState(0)
   const [mapLookup, setMapLookup] = useState('')
@@ -126,7 +126,7 @@ export function DiscoveryPage({ gateway }: { gateway: DataGateway }) {
   const data = query.data
   const advertisements=useQuery({queryKey:['commerce-ads',gateway.mode],queryFn:connectedAds,enabled:gateway.mode==='connected',refetchInterval:10000})
   const result = data ? discover(data,filters,now,page) : null
-  return <><div className="discovery-intro-accent"><DiscoveryIntro data={data} filters={filters}/><AccentMark/></div>{data&&<FreshFoodSection data={data} now={now}/>}
+  return <><div className="discovery-intro-accent"><DiscoveryIntro data={data} filters={filters}/><AccentMark/></div>
     <div className="search-wrap"><Search size={20}/><label className="sr-only" htmlFor="market-search">{t('findFood')}</label><input id="market-search" value={search} onChange={e => setSearch(e.target.value)} placeholder={t('findFood')}/></div>
     {data && <QuickPicks data={data}/>}
     <div className="discovery-action-bar"><button className="button secondary" aria-expanded={filtersOpen} aria-controls="discovery-filter-panel" onClick={()=>setFiltersOpen(!filtersOpen)}><SlidersHorizontal size={18}/>{t('discoveryFilters')}<ChevronDown size={16}/>{(filters.marketKind||filters.plantDiet||filters.maxPriceSen!=null||filters.category||filters.dietary||filters.type||filters.promotion||filters.market)&&<span className="filter-applied">•</span>}</button><div className="browse-tabs" role="group" aria-label={t('sortResults')}><button className={filters.sort==='rating'?'active':''} aria-pressed={filters.sort==='rating'} onClick={()=>change({sort:'rating'})}>{t('bestReviewed')}</button><button className={filters.sort==='popularity'?'active':''} aria-pressed={filters.sort==='popularity'} onClick={()=>change({sort:'popularity'})}>{t('popularity')}</button><button className={filters.sort==='nearest'?'active':''} aria-pressed={filters.sort==='nearest'} disabled={!filters.origin} onClick={()=>change({sort:'nearest'})}>{t('nearest')}</button></div><button className="button secondary" aria-pressed={showMap} onClick={()=>setShowMap(!showMap)}><MapPin size={17}/>{t(showMap?'hideMap':'showMap')}</button></div>
@@ -151,6 +151,7 @@ export function DiscoveryPage({ gateway }: { gateway: DataGateway }) {
       <div className="button-row"><button className="button secondary" onClick={locate}><MapPin size={16}/>{t('useLocation')}</button><button className="button secondary" onClick={() => {setSearch('');change(defaultFilters);setAreaChoice('');setGeoExpires(0);setLocationMessage('manualLocation')}}>{t('resetFilters')}</button></div>
       <p role="status" className="small muted">{t(locationMessage)}{mapLookup && gateway.mode === 'connected' && filters.origin ? ` · ${t(mapLookup)}` : ''} {t('marketDistance')}</p>
     </section>
+    {data&&<FreshFoodSection data={data} now={now}/>}
     {data&&<DiscoveryCategories data={data} selected={filters.category} onChange={category=>change({category})}/>}
     {!data || !result ? <State query={query} gateway={gateway}/> : <><Freshness query={query} gateway={gateway}/>{page === 0 && result.markets[0] && <FeaturedMarketCard market={result.markets[0]} now={now} distance={filters.origin && result.markets[0].latitude !== null && result.markets[0].longitude !== null ? distanceKm(filters.origin,{latitude:result.markets[0].latitude,longitude:result.markets[0].longitude}) : undefined}/>}<div className="section-heading discovery-results-heading"><h2>{t('allMarkets')}</h2><span>{t('resultsCount',{count:result.total})}</span></div>
       {showMap && <Suspense fallback={<p role="status">{t('loading')}</p>}><MarketMap markets={discover(data,filters,now,0,10000).markets} sponsors={new Set(sponsored(data,filters,now,gateway.mode==='fixture'?undefined:advertisements.data??[]).map(c=>c.market))} onBounds={bounds => change({bounds})}/></Suspense>}
