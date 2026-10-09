@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192" fill="none">
+  <g stroke="#987c5c" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity=".58">
+    <!-- Satay skewers -->
+    <g transform="translate(17 17) rotate(-24 28 24)">
+      <path d="M7 5l44 42"/>
+      <path d="M13 10l8-4 8 9-7 6-9-11Zm13 13 8-5 8 9-7 7-9-11Zm13 13 8-5 8 9-7 7-9-11Z"/>
+      <path d="M4 2l5 5"/>
+    </g>
+    <!-- Steaming market noodle bowl -->
+    <g transform="translate(112 20)">
+      <path d="M8 29c0 11 7 18 19 18s19-7 19-18H8Z"/>
+      <path d="M5 29h44M14 24c-3-4 3-5 0-9m12 9c-3-4 3-5 0-10m12 10c-3-4 3-5 0-9"/>
+      <path d="M16 52h24m-20 4h16"/>
+    </g>
+    <!-- Curry puff / folded pastry -->
+    <g transform="translate(37 105) rotate(8 25 20)">
+      <path d="M4 30C8 18 18 7 31 5c8-1 15 3 17 10 3 10-7 21-17 25-12 5-24 1-27-10Z"/>
+      <path d="M8 30l7-1 1 6 7-2 2 6m-2-32 3 6 6-2 3 6 7-1"/>
+    </g>
+    <!-- Chili -->
+    <g transform="translate(132 111) rotate(-28 19 17)">
+      <path d="M6 11c9-8 21-8 29-3-4 13-12 24-23 27-7 2-11-4-8-11l2-5Z"/>
+      <path d="M30 8c3-5 7-6 11-5m-8 9c-3 7-9 13-16 16"/>
+    </g>
+    <!-- Iced drink -->
+    <g transform="translate(80 126) rotate(8 16 20)">
+      <path d="M5 13h28l-3 31H9L5 13Z"/>
+      <path d="m21 13 8-10m-15 20 6 5 6-7m-12 11 7 5"/>
+      <path d="M9 49h20"/>
+    </g>
+  </g>
+</svg>
