@@ -625,3 +625,51 @@ th {
     transition: none;
   }
 }
+
+
+/* Shared branded footer lockup. */
+.footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.footer-brand-mark {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: #f5f1e5;
+  color: #bd9251;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 27px;
+}
+
+.footer-brand-copy {
+  display: flex;
+  flex-direction: column;
+  color: #fbf7ed;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.footer-brand-copy strong > span {
+  color: #e88a58;
+}
+
+.footer-brand-copy small {
+  margin-top: 4px;
+  color: #c5d4c9;
+  font-family: Inter, "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.footer-tier {
+  color: #d1ddd4;
+  font-size: 11px;
+}

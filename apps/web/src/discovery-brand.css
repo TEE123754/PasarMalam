@@ -493,3 +493,579 @@
     transition: none;
   }
 }
+
+
+/* Reference-matched front page: full-bleed market hero, floating search, and market-paper controls. */
+.app-shell:has(.discovery-hero) .desktop-nav {
+  display: none;
+}
+
+.app-shell:has(.discovery-hero) .site-header {
+  min-height: 74px;
+  height: 74px;
+  padding-inline: 4.2vw;
+}
+
+.app-shell:has(.discovery-hero) .header-actions {
+  margin-left: auto;
+  gap: 10px;
+}
+
+.main-content:has(.discovery-hero) {
+  width: 100%;
+  max-width: none;
+  padding: 0 0 58px;
+}
+
+.main-content:has(.discovery-hero) .discovery-hero {
+  position: relative;
+  display: block;
+  min-height: 386px;
+  margin: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.main-content:has(.discovery-hero) .discovery-hero-copy {
+  position: absolute;
+  z-index: 2;
+  inset: 36px auto auto 0;
+  display: flex;
+  width: min(53%, 610px);
+  padding: 0 0 0 clamp(28px, 6.8vw, 84px);
+  justify-content: flex-start;
+}
+
+.main-content:has(.discovery-hero) .discovery-hero-copy > .eyebrow {
+  margin-bottom: 11px;
+  font-size: 11px;
+  letter-spacing: .14em;
+}
+
+.main-content:has(.discovery-hero) .discovery-hero h1 {
+  max-width: 600px;
+  margin-bottom: 12px;
+  font-size: clamp(2.8rem, 4.6vw, 4.15rem);
+  line-height: .98;
+}
+
+.main-content:has(.discovery-hero) .discovery-hero-copy > p {
+  max-width: 470px;
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.main-content:has(.discovery-hero) .discovery-hero-art {
+  position: absolute;
+  inset: 0 0 auto auto;
+  width: 57%;
+  height: 386px;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 0 0 48% 28% / 0 0 12% 9%;
+  background: #263e32;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 21%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, #000 21%, #000 100%);
+}
+
+.main-content:has(.discovery-hero) .discovery-hero-art img {
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: cover;
+  object-position: center 46%;
+}
+
+.main-content:has(.discovery-hero) .discovery-hero-art::after {
+  background: linear-gradient(90deg, #f4f1e7 0%, #f4f1e7ad 13%, transparent 48%);
+}
+
+.main-content:has(.discovery-hero) .search-wrap {
+  width: min(820px, calc(100% - 13.4vw));
+  height: 52px;
+  margin: -140px 0 28px 6.7vw;
+  padding-inline: 19px;
+  border: 1px solid #e7e4da;
+  border-radius: 999px;
+  background: #fffefa;
+  box-shadow: 0 7px 22px #203c2f12;
+}
+
+.main-content:has(.discovery-hero) .search-wrap input {
+  font-size: 14px;
+}
+
+.main-content:has(.discovery-hero) .discovery-action-bar {
+  min-height: 44px;
+  width: 91.6%;
+  margin: 0 auto 21px;
+  justify-content: flex-start;
+}
+
+.main-content:has(.discovery-hero) .browse-tabs {
+  display: inline-flex;
+  gap: 4px;
+  padding: 3px;
+  border: 0;
+  border-radius: 999px;
+  background: #eeece2;
+}
+
+.main-content:has(.discovery-hero) .browse-tabs button {
+  min-width: 112px;
+  min-height: 42px;
+  padding: 9px 21px;
+  border-radius: 999px;
+  color: #25483c;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.main-content:has(.discovery-hero) .browse-tabs button.active {
+  background: #123e34;
+  color: #fffefa;
+  box-shadow: 0 3px 9px #123e3422;
+}
+
+.main-content:has(.discovery-hero) .discovery-controls {
+  position: relative;
+  isolation: isolate;
+  width: min(1110px, 91.2%);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-areas:
+    "market area type"
+    "category dietary sort"
+    "radius promotion promotion"
+    "actions actions actions"
+    "help help help"
+    "advanced advanced advanced";
+  gap: 18px 22px;
+  margin: 0 auto 28px;
+  padding: 25px 34px 20px;
+  overflow: hidden;
+  border: 1px solid #e1dfd5;
+  border-radius: 20px;
+  background: rgb(251 250 245 / 95%);
+  box-shadow: 0 10px 28px #28433409;
+}
+
+.main-content:has(.discovery-hero) .discovery-controls::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  right: -28px;
+  bottom: -52px;
+  width: 210px;
+  height: 210px;
+  background: url('/demo/images/batch-john-1.webp') center / cover no-repeat;
+  opacity: .58;
+  -webkit-mask-image: radial-gradient(ellipse at 65% 56%, #000 33%, transparent 76%);
+  mask-image: radial-gradient(ellipse at 65% 56%, #000 33%, transparent 76%);
+  pointer-events: none;
+}
+
+.main-content:has(.discovery-hero) .discovery-controls > * {
+  position: relative;
+  z-index: 1;
+}
+
+.main-content:has(.discovery-hero) .discovery-controls > label {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 8px;
+  color: #24463a;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.main-content:has(.discovery-hero) .filter-market { grid-area: market; }
+.main-content:has(.discovery-hero) .filter-area { grid-area: area; }
+.main-content:has(.discovery-hero) .filter-type { grid-area: type; }
+.main-content:has(.discovery-hero) .filter-category { grid-area: category; }
+.main-content:has(.discovery-hero) .filter-dietary { grid-area: dietary; }
+.main-content:has(.discovery-hero) .filter-sort { grid-area: sort; }
+.main-content:has(.discovery-hero) .filter-radius { grid-area: radius; }
+.main-content:has(.discovery-hero) .filter-promotion { grid-area: promotion; align-self: center; }
+.main-content:has(.discovery-hero) .filter-actions { grid-area: actions; margin: 0; }
+.main-content:has(.discovery-hero) .filter-help { grid-area: help; margin: -7px 0 0; }
+
+.main-content:has(.discovery-hero) .discovery-controls select,
+.main-content:has(.discovery-hero) .discovery-controls input:not([type="checkbox"]) {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 15px;
+  border: 1px solid #deddd3;
+  border-radius: 12px;
+  background-color: #fffefa;
+  color: #2a463c;
+  font-size: 13px;
+}
+
+.main-content:has(.discovery-hero) .discovery-controls .choice-row {
+  display: flex;
+  min-height: 46px;
+  justify-content: space-between;
+  border: 0;
+  color: #24463a;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.main-content:has(.discovery-hero) .discovery-controls .choice-row input {
+  width: 22px;
+  height: 22px;
+  accent-color: #174b3d;
+}
+
+.main-content:has(.discovery-hero) .filter-actions .button {
+  min-height: 44px;
+  padding-inline: 20px;
+  font-size: 13px;
+}
+
+.main-content:has(.discovery-hero) .filter-actions .button.primary {
+  background: #123e34;
+  box-shadow: none;
+}
+
+.main-content:has(.discovery-hero) .filter-actions .button.secondary {
+  background: #efede3;
+  color: #23483c;
+}
+
+.main-content:has(.discovery-hero) .filter-help {
+  color: #859188;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.main-content:has(.discovery-hero) .filter-advanced {
+  grid-area: advanced;
+  border-top: 1px solid #ece9df;
+  padding-top: 11px;
+}
+
+.main-content:has(.discovery-hero) .filter-advanced summary {
+  width: fit-content;
+  color: #31594a;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.main-content:has(.discovery-hero) .filter-advanced-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: 16px 22px;
+  padding-top: 16px;
+}
+
+.main-content:has(.discovery-hero) .filter-advanced-grid > label,
+.main-content:has(.discovery-hero) .filter-advanced-grid > div > label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #24463a;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.main-content:has(.discovery-hero) .filter-advanced-grid > p {
+  align-self: center;
+  margin: 0;
+  color: #7c8d83;
+  font-size: 11px;
+}
+
+.main-content:has(.discovery-hero) .discovery-state-panel {
+  display: grid;
+  grid-template-columns: minmax(280px, .72fr) minmax(0, 1.28fr);
+  width: min(1110px, 91.2%);
+  min-height: 205px;
+  margin: 28px auto 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #e1dfd5;
+  border-radius: 18px;
+  background: rgb(251 250 245 / 95%);
+  box-shadow: 0 8px 24px #203c2f0c;
+}
+
+.main-content:has(.discovery-hero) .discovery-state-art {
+  width: 100%;
+  height: 100%;
+  min-height: 205px;
+  overflow: hidden;
+  background: #eadbc1;
+}
+
+.main-content:has(.discovery-hero) .discovery-state-art img {
+  width: 100%;
+  height: 100%;
+  min-height: 205px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.main-content:has(.discovery-hero) .discovery-state-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px clamp(25px, 5vw, 60px);
+}
+
+.main-content:has(.discovery-hero) .discovery-state-copy .eyebrow {
+  width: 38px;
+  height: 2px;
+  margin: 0 0 12px;
+  overflow: hidden;
+  color: transparent;
+  background: #bd5634;
+}
+
+.main-content:has(.discovery-hero) .discovery-state-copy h2 {
+  margin: 0 0 8px;
+  color: #12372e;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.65rem, 2.6vw, 2.15rem);
+  letter-spacing: -.04em;
+}
+
+.main-content:has(.discovery-hero) .discovery-state-copy p {
+  margin: 0 0 17px;
+  color: #6b7f75;
+}
+
+.main-content:has(.discovery-hero) .discovery-state-copy .button-row {
+  gap: 10px;
+}
+
+.app-shell:has(.discovery-hero) .site-footer {
+  min-height: 148px;
+  padding: 26px 4.2vw;
+  align-items: center;
+}
+
+.app-shell:has(.discovery-hero) .footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.app-shell:has(.discovery-hero) .footer-brand-mark {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: #f5f1e5;
+  color: #bd9251;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 27px;
+}
+
+.app-shell:has(.discovery-hero) .footer-brand-copy {
+  display: flex;
+  flex-direction: column;
+  color: #fbf7ed;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.app-shell:has(.discovery-hero) .footer-brand-copy strong > span {
+  color: #e88a58;
+}
+
+.app-shell:has(.discovery-hero) .footer-brand-copy small {
+  margin-top: 4px;
+  color: #c5d4c9;
+  font-family: Inter, "Segoe UI", ui-sans-serif, system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.app-shell:has(.discovery-hero) .footer-tier {
+  color: #d1ddd4;
+  font-size: 11px;
+}
+
+@media (max-width: 800px) {
+  .main-content:has(.discovery-hero) .discovery-hero {
+    min-height: 370px;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-hero-copy {
+    top: 33px;
+    width: 61%;
+    padding-left: 5.5vw;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-hero-art {
+    width: 58%;
+    height: 370px;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "market area"
+      "type category"
+      "dietary sort"
+      "radius promotion"
+      "actions actions"
+      "help help"
+      "advanced advanced";
+    width: 91.2%;
+    padding: 21px;
+  }
+
+  .main-content:has(.discovery-hero) .filter-advanced-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 580px) {
+  .app-shell:has(.discovery-hero) .site-header {
+    min-height: 68px;
+    height: 68px;
+    padding-inline: 16px;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-hero {
+    min-height: 365px;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-hero-art {
+    width: 100%;
+    height: 250px;
+    border-radius: 0 0 0 30%;
+    -webkit-mask-image: linear-gradient(180deg, #000 5%, #000 54%, transparent 100%);
+    mask-image: linear-gradient(180deg, #000 5%, #000 54%, transparent 100%);
+  }
+
+  .main-content:has(.discovery-hero) .discovery-hero-art::after {
+    background: linear-gradient(180deg, transparent 35%, #f4f1e7 98%);
+  }
+
+  .main-content:has(.discovery-hero) .discovery-hero-copy {
+    top: 145px;
+    width: 100%;
+    padding: 0 22px;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-hero-copy > .eyebrow {
+    font-size: 9px;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-hero h1 {
+    max-width: 100%;
+    font-size: clamp(2.35rem, 10vw, 3rem);
+  }
+
+  .main-content:has(.discovery-hero) .discovery-hero-copy > p {
+    max-width: 32rem;
+    font-size: 13px;
+  }
+
+  .main-content:has(.discovery-hero) .search-wrap {
+    width: calc(100% - 32px);
+    height: 50px;
+    margin: -46px 16px 19px;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-action-bar {
+    width: calc(100% - 32px);
+    margin-bottom: 15px;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-controls {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "market"
+      "area"
+      "type"
+      "category"
+      "dietary"
+      "sort"
+      "radius"
+      "promotion"
+      "actions"
+      "help"
+      "advanced";
+    width: calc(100% - 32px);
+    gap: 13px;
+    padding: 17px;
+  }
+
+  .main-content:has(.discovery-hero) .filter-advanced-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 13px;
+  }
+
+  .main-content:has(.discovery-hero) .filter-actions {
+    flex-wrap: wrap;
+  }
+
+  .main-content:has(.discovery-hero) .filter-actions .button {
+    flex: 1 1 145px;
+    justify-content: center;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-state-panel {
+    grid-template-columns: minmax(0, 1fr);
+    width: calc(100% - 32px);
+  }
+
+  .main-content:has(.discovery-hero) .discovery-state-art,
+  .main-content:has(.discovery-hero) .discovery-state-art img {
+    height: 170px;
+    min-height: 170px;
+  }
+
+  .main-content:has(.discovery-hero) .discovery-state-copy {
+    padding: 22px;
+  }
+
+  .app-shell:has(.discovery-hero) .site-footer {
+    min-height: 120px;
+    padding: 22px 16px;
+  }
+
+  .app-shell:has(.discovery-hero) .footer-brand-mark {
+    width: 46px;
+    height: 46px;
+  }
+
+  .app-shell:has(.discovery-hero) .footer-tier {
+    max-width: 120px;
+    text-align: right;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .main-content:has(.discovery-hero) .browse-tabs button {
+    transition: none;
+  }
+}
+
+
+/* Final reference details: no technical banner above the public-facing header; keep checkbox inline. */
+.app-shell:has(.discovery-hero) .mode-banner.connected {
+  display: none;
+}
+
+.main-content:has(.discovery-hero) .discovery-controls > .filter-promotion {
+  flex-direction: row;
+  align-items: center;
+}
