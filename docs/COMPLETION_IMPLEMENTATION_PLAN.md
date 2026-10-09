@@ -1,20 +1,22 @@
 # PasarMalam — remaining-work implementation plan
 
+**Current product scope — prototype, 9 October 2026:** the owner requested visibly fictional future integration/certification examples. Use [the prototype checklist](PROTOTYPE_FEATURES_CHECKLIST.md) and [demo walkthrough](PROTOTYPE_DEMO_GUIDE.md). Real authority/creator access, authentic certificates, participant studies and real business data below are future rollout requirements; they do not block this prototype. Existing real-evidence counts are preserved rather than treating simulated proof as genuine.
+
 Batch photo update, 9 October 2026: 51 generated stall/context images, three batch-camera views per subject, responsive assets, complete sample image slots and preservation of existing timestamps/uploads are delivered. See [the batch photo checklist, prompts and verification](BATCH_PHOTO_UPDATE.md). Deployment and external acceptance remain separate.
 
 Local demo experience update, 9 October 2026: complete sample listings, running food countdowns, clearance offers, all matching market pins, customer reviews/private reports, agency workspaces, sponsored ads and mobile layouts are implemented and browser-checked. See [the completed demo update and verification](DEMO_EXPERIENCE_UPDATE.md). External acceptance items below remain separate, and deployment stays on hold.
 
-Version 1.11 · 8 October 2026 · CP1/CP3 code/gates, CP2, CP4 passport/recording work, CP5 and CP6 complete; human registration/privacy acceptance pending.
+Updated 9 October 2026: instant public signup/profile editing, automatic request measurements, verified rules and TRL documentation completed. [Batch evidence](LOCAL_FEATURE_COMPLETION.md). Privacy/real-data acceptance remains separate.
 
-This plan addresses the **27 remaining unchecked requirements** (57 at the planning baseline) in the [consolidated checklist](CONSOLIDATED_FEATURES_CHECKLIST.md). The [full partial/pending inventory](PARTIAL_AND_PENDING_JOBS.md) maps every requirement to exactly one primary completion phase. IDs such as `C05-04` mean checklist section 5, item 4, including checked items when counting positions.
+This plan addresses the **25 remaining unchecked requirements** (57 at the planning baseline) in the [consolidated checklist](CONSOLIDATED_FEATURES_CHECKLIST.md). The [full partial/pending inventory](PARTIAL_AND_PENDING_JOBS.md) maps every requirement to exactly one primary completion phase. IDs such as `C05-04` mean checklist section 5, item 4, including checked items when counting positions.
 
-Use **CP1–CP12** for these completion phases. They extend the original implementation plan; they do not restart its completed Phases 1–11. CP12 is the eventual original Phase 12 deployment, still on hold. Current feature counts are **124 checked / 27 unchecked** after CP1 closed three listing requirements and CP2 closed seven discovery requirements and CP3 closed three voice requirements and CP4 closed three passport/recording requirements and CP5 closed four clearance/accounting requirements; CP6 closed seven community/impact requirements; CP8 closed three photo/fallback requirements. Completed demo simulations do not establish live partnerships, human accuracy or expert-approved food rules.
+Use **CP1–CP12** for these completion phases. They extend the original implementation plan; they do not restart its completed Phases 1–11. CP12 is the eventual original Phase 12 deployment, still on hold. Current feature counts are **126 checked / 25 unchecked** after CP1 closed three listing requirements and CP2 closed seven discovery requirements and CP3 closed three voice requirements and CP4 closed three passport/recording requirements and CP5 closed four clearance/accounting requirements; CP6 closed seven community/impact requirements; CP8 closed three photo/fallback requirements. Completed demo simulations do not establish live partnerships, human accuracy or expert-approved food rules.
 
 ## Phase overview
 
 | Phase | Main outcome | Open items now | Prerequisites / external input |
 | --- | --- | ---: | --- |
-| CP1 | Registration acceptance; listing code complete | 1 | Existing app; signup-policy decision for live acceptance |
+| CP1 | Complete locally — instant signup, profiles/listings | 0 | Owner password/recovery/privacy are separate release actions |
 | CP2 | Complete locally — market discovery and filters | 0 | [Acceptance](CP2_ACCEPTANCE.md) |
 | CP3 | Code/gate complete; human expression acceptance pending | 1 | [Evidence](CP3_ACCEPTANCE.md); recordings in CP7 |
 | CP4 | Passports/recording complete; approved policy/accounting pending | 2 | [Review package](CP4_POLICY_REVIEW.md); qualified rules |
@@ -22,11 +24,11 @@ Use **CP1–CP12** for these completion phases. They extend the original impleme
 | CP6 | Complete locally — community and impact | 0 | [Acceptance](CP6_ACCEPTANCE.md) |
 | CP7 | Human/device evaluation and measured evidence | 7 | Core CP1–CP6; consenting participants/devices |
 | CP8 | Local photo/planning complete; real forecast evidence pending | 4 | Consented reconciled history; existing credits authorised |
-| CP9 | Preparation complete; student/rules/video acceptance pending | 5 | Measured CP7 evidence; CP8 if included |
+| CP9 | Rules/TRL documentation complete; student/video pending | 4 | Measured CP7 evidence; CP8 if included |
 | CP10 | Real partner/data agreements and expansion readiness | 6 | Explicit agreements/approved external targets |
 | CP11 | Dedicated Android/iOS local builds | 1 | Accepted web core; Android device; Mac for iOS |
 | CP12 | Final deployment and operational handoff | Separate | Later deployment instruction and readiness review |
-| **Total in CP1–CP11** | | **27** | |
+| **Total in CP1–CP11** | | **25** | |
 
 CP1–CP6 are the main local coding sequence. Start recruiting/recording and requesting human review early, without sending messages on the user's behalf. Code-only work in later phases can proceed while external inputs are pending, but acceptance boxes remain open. CP8–CP11 are enhancements or external activation work and must not prevent a clear core-demo handoff.
 
@@ -36,7 +38,7 @@ Reuse the existing React/TypeScript/Vite PWA, React Router, TanStack Query, Reac
 
 Use SQL and Python for deterministic eligibility, ledger aggregation and transparent forecasting. Reuse the existing QR/export/media tooling. Use Vitest, pytest, TypeScript, ESLint, Ruff and browser checks at phase boundaries. CP11 proposes Capacitor to reuse the web app, with Android Studio/SDK and Xcode on macOS; verify compatible versions before introducing dependencies. CP12 retains Vercel frontend, Railway backend and Supabase database targets.
 
-Existing database/AI settings are already private. No new keys are needed for current local text/demo workflows. Vision, native hardware, reviewed policies and real partner endpoints have separate prerequisites. Use free local tools and existing Morpheus credits explicitly authorised by the owner on 8 October 2026; do not assume free cloud vision, live agency APIs, paid app-store distribution or unlimited AI usage. No purchase, hosting activation, public signup-policy change, real referral, partner outreach or external publishing is authorised by this planning request.
+Existing database/AI settings are already private. No new keys are needed for current local text/demo workflows. Vision, native hardware, reviewed policies and real partner endpoints have separate prerequisites. Use free local tools and existing Morpheus credits explicitly authorised by the owner on 8 October 2026; do not assume free cloud vision, live agency APIs, paid app-store distribution or unlimited AI usage. No purchase, hosting activation, real referral, partner outreach or external publishing is authorised. Later owner instructions explicitly selected instant public signup; that change is now accepted.
 
 All 12 supplied images are already integrated. Reuse them and existing placeholders; do not request another 100 images. They remain representative illustrations, never evidence of a newly prepared batch, a certification or a complaint.
 
@@ -54,7 +56,7 @@ CP1 used one focused phase-end batch; see [commands/results and limitations](CP1
 
 ## CP1 — Registration, listing details and transparent declarations
 
-**Requirements:** `C01-03`, `C03-07`, `C04-01`, `C04-09`. **Status:** local code and focused gate complete; registration-policy/human acceptance pending. **Owner:** engineering; owner decision for signup acceptance.
+**Requirements:** `C01-03`, `C03-07`, `C04-01`, `C04-09`. **Status:** local code and instant-signup/profile acceptance complete; real-data privacy/recovery acceptance remains separate. **Owner:** engineering; owner decision for signup acceptance.
 
 **Tools:** existing React forms/Zod/i18next, FastAPI/Pydantic, Supabase Auth/RLS and additive SQL migrations.
 
@@ -62,17 +64,17 @@ CP1 used one focused phase-end batch; see [commands/results and limitations](CP1
 - [x] Add explicit vendor-confirmed allergen records: identified allergens, declaration source/time and unknown/unconfirmed states. Ingredient text is not automatic allergy certification or a complete negative-allergen guarantee.
 - [x] Separate halal certificate/evidence/expiry from optional self-declared business/dietary statements. Pork-free/alcohol-free/owner declaration must not satisfy a certified-halal filter. Never infer identity from stall names or photos; any owner declaration is voluntary and needs privacy review.
 - [x] Implement registration/confirmation/error/invite handling behind a configuration flag. Default new accounts to customer; vendor access needs protected organiser/admin approval. Never grant roles from a browser-selected mode.
-- [x] Preserve invite-only admission in the current disposable project. Newly provisioned profiles require a verified email and organiser invitation; roles never come from user metadata.
-- [ ] Owner agrees invite-based versus public registration and accepts an actual email/password journey on an approved target. Public signup remains disabled; provider/redirect settings and production-boundary acceptance are still pending.
+- [x] Apply the owner-selected public customer policy and instant signup. Protected roles remain database-controlled; metadata/mode cannot grant privileges.
+- [x] Owner selected instant public signup; actual generated customer signup/sign-in/profile persistence and privilege-denial acceptance passed. Owner personal password/recovery and privacy remain additional release actions. [Evidence](LOCAL_FEATURE_COMPLETION.md).
 - [x] Update fixture scenarios, connected contracts, English/BM labels and migration notes together.
 - [x] Prepare [owner-reviewable privacy/provider/retention notice](CP1_PRIVACY_REVIEW.md) and English/BM onboarding notice.
 - [ ] Obtain human privacy/provider/retention review before real participant/pilot collection. Fictional local workflows continue without claiming approval.
 
-**Phase-end gate:** valid/invalid description and declaration input; own/foreign edit denial; declaration/certification filter separation; duplicate email, expired invitation and verification failure; default-role and vendor escalation denial. Walk through registration/profile and stall detail once. Code may pass locally while a disabled public-signup acceptance remains pending.
+**Phase-end gate:** valid/invalid description and declaration input; own/foreign edit denial; declaration/certification filter separation; duplicate email, expired invitation and verification failure; default-role and vendor escalation denial. Walk through registration/profile and stall detail once. Instant public signup is now accepted on the controlled sandbox.
 
 **Done when:** the listing/declaration fields work in both adapters, and the agreed registration journey has actual acceptance evidence. A deliberately disabled public journey cannot be reported as publicly available.
 
-**Completed gate:** lint, TypeScript/build, 78 selected frontend tests, 21 selected backend tests (including 4 connected CP1 tests), Ruff, credential scan and browser journey passed. Two additive migrations applied; prior migrations preserved. Evidence and remaining acceptance: [CP1 acceptance](CP1_ACCEPTANCE.md). No further CP1 code task is pending; owner-policy, actual email/password and privacy acceptance remain open.
+**Completed gate:** lint, TypeScript/build, 78 selected frontend tests, 21 selected backend tests (including 4 connected CP1 tests), Ruff, credential scan and browser journey passed. Two additive migrations applied; prior migrations preserved. Evidence and remaining acceptance: [CP1 acceptance](CP1_ACCEPTANCE.md). Instant signup/profile acceptance now closes C01-03; see [current batch](LOCAL_FEATURE_COMPLETION.md). Owner password/recovery/privacy remain release acceptance.
 
 ## CP2 — Complete market discovery and filters
 
@@ -198,7 +200,7 @@ CP1 used one focused phase-end batch; see [commands/results and limitations](CP1
 - [x] Evaluation-page pack download; legacy importer/timers clearly separated from the CP7 holdout.
 - [x] Preparation gate: 15 distinct Python scorer tests, six frontend timing tests, final lint/types/build/Ruff, credential and actual browser-download comparison passed. Synthetic fixtures are excluded from human evidence.
 
-[Guide](CP7_MEASUREMENT_GUIDE.md) · [Preparation evidence and remaining work](CP7_ACCEPTANCE.md). **CP7 acceptance jobs left: seven feature requirements**, covering all human/device tasks below. No participant results have been supplied. The CP7 preparation checkpoint was 121 checked / 30 open; after CP8, the current overall count is 124 checked / 27 open. No deployment.
+[Guide](CP7_MEASUREMENT_GUIDE.md) · [Preparation evidence and remaining work](CP7_ACCEPTANCE.md). **CP7 acceptance jobs left: seven feature requirements**, covering all human/device tasks below. No participant results have been supplied. The CP7 preparation checkpoint was 121 checked / 30 open; after CP8, the current overall count is 126 checked / 25 open. No deployment.
 
 ### Human/device acceptance still pending
 
@@ -238,25 +240,25 @@ CP1 used one focused phase-end batch; see [commands/results and limitations](CP1
 
 ## CP9 — Competition evidence and rehearsed student showcase
 
-**Requirements:** C15-08, C15-09, C15-10, C15-11, C15-12. **Status:** local preparation and focused technical gate complete; all five human/competition acceptance requirements remain open. **Tools:** Markdown/JSON evidence/storyboard, React/TypeScript studio download, existing fixture/clock controls, Python private templates, Vitest/pytest/Ruff/ESLint and browser; participating student/local recorder for the final deliverable. No deployment/submission.
+**Requirements:** C15-08, C15-09, C15-10, C15-11, C15-12. **Status:** local preparation and focused technical gate complete; four human/competition acceptance requirements remain open; C15-10 documentation is complete. **Tools:** Markdown/JSON evidence/storyboard, React/TypeScript studio download, existing fixture/clock controls, Python private templates, Vitest/pytest/Ruff/ESLint and browser; participating student/local recorder for the final deliverable. No deployment/submission.
 
-- [x] Prepare a claim-to-evidence map with actual CP1–CP8 records, missing human/device evidence and a provisional TRL reviewer matrix. No readiness level assigned.
+- [x] Prepare a claim-to-evidence map with actual CP1–CP8 records, missing human/device evidence and [documented TRL supporting evidence](TRL4_EVIDENCE.md). TRL 4 is a bounded engineering inference for the core prototype, not certification.
 - [x] Prepare conditional prior-version/no-prior-version drafts and private team/supervisor/rules fields; unconfirmed facts remain blank.
 - [x] Prepare seven contiguous English scenes and captions spanning 300 provisional seconds. Official video limit remains unverified; measured human claims remain pending.
 - [x] Add actual downloadable CP9 pack to the studio and non-overwriting private rehearsal/video-review templates.
 - [x] Add earlier clearance and explicit expired scenarios. Existing reminder is at the 15-minute new-offer cutoff; do not weaken it.
 - [x] Execute desktop technical rehearsal: scripted draft/date clarification/confirmed Batch 3 versus old Batch 1, eligible approval/customer offer, same-workspace clock advance/delisting, missing-handling block and Not measured evidence.
 - [x] Finish preparation gate: nine distinct frontend and one Python case, lint/types/build/Ruff, credential/template-ignore checks and browser-download parity. Affected selection/scenario retries only; no database/provider call or migration.
-- [ ] Confirm official competition name/rules/track/eligibility/duration/evidence/TRL criteria.
+- [x] Verify the supplied official rules, eligibility constraints, duration, dates and rubric. The PDF specifies TRL 4+ without an assessment method. [Verified rules](COMPETITION_RULES_VERIFIED.md).
 - [ ] C15-11: obtain actual participating students, eligibility and academic supervision.
 - [ ] C15-09: confirm prior SantanSafe history and review an evidence-backed advancement declaration.
-- [ ] C15-10: complete reviewer assessment against official TRL definitions and actual evidence.
+- [x] C15-10: document integrated prototype/controlled validation supporting TRL 4, with explicit limits. [Evidence](TRL4_EVIDENCE.md).
 - [ ] C15-08: record and review a complete participating-student English video, observed duration and captions.
 - [ ] C15-12: complete intended-device student live rehearsal and full backup recording/playback review.
 - [ ] Obtain supplied-image generator/date/public-use rights before future publication; no additional images needed.
 - [ ] Add CP7 actual measurements/costs and CP8 real-history results if making those performance claims.
 
-**Remaining:** five combined requirements. The local technical rehearsal/screenshots and existing diagram animations are not a student-narrated backup video. Overall remains 124 checked / 27 open. [Acceptance](CP9_ACCEPTANCE.md) · [Recording guide](CP9_SHOWCASE_GUIDE.md) · [Evidence/declaration pack](CP9_EVIDENCE_PACK.md). Optional user input for rules/team/history is pending; no missing answer treated as confirmation.
+**Remaining:** four combined requirements. The local technical rehearsal/screenshots and existing diagram animations are not a student-narrated backup video. Overall is now 126 checked / 25 open. [Acceptance](CP9_ACCEPTANCE.md) · [Recording guide](CP9_SHOWCASE_GUIDE.md) · [Evidence/declaration pack](CP9_EVIDENCE_PACK.md). Actual team/history input is pending; supplied rules are verified; no missing answer treated as confirmation.
 
 ## CP10 — Real partnership, authority and expansion activation readiness
 

@@ -1,14 +1,17 @@
 import type { Draft } from './model'
 import type { VendorWorkspace } from '../vendor/model'
-import { number, redact } from './model'
+import { number, numberPattern, redact } from './model'
 export type Intent={stall:string|null;dish:string|null;batchNumber:number|null;bundle:boolean;unsupported:boolean;stock:boolean;quantity:number|null}
 export function intent(text:string,w:VendorWorkspace):Intent {
  const t=redact(text).toLowerCase()
  const stalls=w.stalls.filter(s=>t.includes(s.name.toLowerCase()))
  const foods=w.foods.filter(f=>t.includes(f.name.toLowerCase()))
- const batch=t.match(/(?:batch|kelompok)\s*(\d+|satu|dua|tiga|empat|lima)/)
- const q=t.match(/(?:tinggal|remaining|baki|stok)\s+(dua puluh|\d+|sepuluh|sembilan|lapan|tujuh|enam|lima|empat|tiga|dua|satu|kosong|dua puluh)(?:\s+(bungkus|pack|portion|unit|batang))?/)
- return {stall:stalls.length===1?stalls[0].id:null,dish:foods.length===1?foods[0].id:null,batchNumber:batch?number(batch[1]):null,bundle:/dua seringgit|two for|\d+\s*(?:for|untuk)\s*rm|dua\s*(?:untuk|for)\s*(?:rm|ringgit)/.test(t),unsupported:/kuali kedua|deadline|expiry|extend|padam|delete|safe badge|ignore|system prompt/.test(t),stock:/tinggal|remaining|baki|stok|stock/.test(t),quantity:q?(q[1]==='kosong'?0:number(q[1])):null}
+ const batches=[...t.matchAll(new RegExp(`(?:batch|kelompok)\\s+(${numberPattern})`,'g'))].filter(m=>!/(?:do not change|jangan ubah)\s*$/.test(t.slice(0,m.index))&&!/^\s+(?:keep|jangan|do not|unchanged)/.test(t.slice(m.index!+m[0].length)))
+ const batchNumbers=[...new Set(batches.map(m=>number(m[1])).filter(n=>n!==null))]
+ const quantities=[...t.matchAll(new RegExp(`(?:tinggal|remaining|baki|stok|stock(?:\\s+to)?|to)\\s+(${numberPattern})(?:\\s+remaining)?(?:\\s+(bungkus|packs?|portions?|units?|batang|sticks?))?`,'g'))].map(m=>number(m[1])).filter(n=>n!==null)
+ const counts=[...new Set(quantities)]
+ const bundle=new RegExp(`${numberPattern}\\s*(?:batang|sticks?|biji|pieces?)?\\s*(?:for|untuk)\\s*(?:rm\\s*)?${numberPattern}\\s*(?:ringgit)?`).test(t)||/dua seringgit/.test(t)||new RegExp(`${numberPattern}\\s+(?:batang|biji|sticks?|pieces?)\\s+${numberPattern}\\s+ringgit`).test(t)
+ return {stall:stalls.length===1?stalls[0].id:null,dish:foods.length===1?foods[0].id:null,batchNumber:batchNumbers.length===1?batchNumbers[0]:null,bundle,unsupported:/kuali kedua|deadline|expiry|extend|padam|delete|safe badge|ignore|system prompt/.test(t),stock:/tinggal|remaining|baki|stok|stock/.test(t),quantity:counts.length===1?counts[0]:null}
 }
 export type Review={stall:string;food:string;batch:string;action:Draft['action'];quantity:number|null;unit:Draft['unit'];price:number|null;ingredients:string[];cooked:string|null;priceResolved:boolean;dateResolved:boolean}
 export function questions(v:Review,w:VendorWorkspace,now:Date,h:Intent):string[]{

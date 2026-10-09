@@ -6,8 +6,9 @@ from datetime import datetime, timezone
 
 import httpx
 import pytest
-from app import voice
 from fastapi import HTTPException
+
+from app import voice
 
 
 @pytest.fixture
@@ -71,7 +72,7 @@ def test_valid_response_is_still_evidence_checked(provider, monkeypatch):
     assert result["draft"]["quantity"] is None
     assert result["draft"]["confidence"] == 0
     assert seen[0]["model"] == "qwen35-9b"
-    assert seen[0]["max_tokens"] == 800
+    assert seen[0]["max_tokens"] == 1200
     assert seen[0]["reasoning"] == {"enabled": False}
     assert "tools" not in seen[0]
 
@@ -81,6 +82,7 @@ def test_valid_response_is_still_evidence_checked(provider, monkeypatch):
     [
         httpx.Response(429),
         httpx.Response(302, headers={"Location": "https://evil.example"}),
+        httpx.Response(200, json=[]),
         httpx.Response(200, json={"choices": [{"message": {"content": "x" * 21000}}]}),
     ],
 )

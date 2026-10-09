@@ -6,15 +6,16 @@ from uuid import UUID
 import httpx
 import jwt
 import pytest
+from cryptography.hazmat.primitives.asymmetric import rsa
+from fastapi import HTTPException
+from fastapi.testclient import TestClient
+from pydantic import ValidationError
+
 from app import routes, security
 from app.contracts import BatchInput, DiscoverySnapshot, InventoryInput, PromotionInput
 from app.main import app
 from app.repository import Repository
 from app.settings import Settings, validate_project_url
-from cryptography.hazmat.primitives.asymmetric import rsa
-from fastapi import HTTPException
-from fastapi.testclient import TestClient
-from pydantic import ValidationError
 
 USER = UUID("11111111-1111-4111-8111-111111111111")
 SECRET = "only-a-synthetic-unit-test-secret-not-a-deployment-key"
@@ -40,6 +41,19 @@ def token(**changes):
 
 def test_valid_local_signature():
     assert security.verify_token(token(), SETTINGS) == USER
+
+
+def test_small_signin_clock_skew_allowed():
+    assert security.verify_token(token(iat=int(time.time()) + 1), SETTINGS) == USER
+
+
+@pytest.mark.parametrize(
+    "changes", [{"iat": int(time.time()) + 10}, {"exp": int(time.time()) - 10}]
+)
+def test_clock_tolerance_is_bounded(changes):
+    with pytest.raises(HTTPException) as error:
+        security.verify_token(token(**changes), SETTINGS)
+    assert error.value.status_code == 401
 
 
 @pytest.mark.parametrize(

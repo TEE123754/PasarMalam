@@ -12,6 +12,8 @@ __pycache__/
 .ruff_cache/
 .local-voice/
 .local-evaluation/
+audio.zip
+audio/
 *.py[cod]
 *.tsbuildinfo
 supabase/.temp/

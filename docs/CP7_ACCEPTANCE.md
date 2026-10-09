@@ -1,5 +1,7 @@
 # CP7 preparation gate — human acceptance pending
 
+**9 October accuracy update:** The best full desktop development run now reaches BM 90%, Manglish 86%, English 95% critical-field accuracy with 24/24 valid drafts. Browser-compatible ONNX turbo reached BM 86% / Manglish 70% on desktop CPU; actual browser/phone accuracy is not inferred from that run. The original CP7 text pack was used for development and replaced for independent collection by [holdout v2](../contracts/cp7-holdout-v2.json). Human/live/device/cost acceptance remains pending. See [improvements and complete comparisons](VOICE_ACCURACY_IMPROVEMENTS.md). Current count stays 124 checked / 27 open; deployment held.
+
 8 October 2026. The user selected **prepare the recording and measurement pack first**. Local collection/scoring preparation is complete. CP7 itself is **not complete**: its seven requirements need actual recordings, participants, devices and cost/usage evidence. Overall feature counts stay **121 checked / 30 open**. Deployment remains held.
 
 ## Prepared

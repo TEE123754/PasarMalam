@@ -9,6 +9,7 @@ export interface AuthState {
   recovery: boolean
   signIn(email: string, password: string): Promise<boolean>
   signOut(): Promise<void>
+  updateProfile(displayName: string, locale: 'en' | 'ms'): Promise<boolean>
 }
 export const AuthContext = createContext<AuthState | null>(null)
 export function useAuth() {

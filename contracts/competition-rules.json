@@ -1,0 +1,67 @@
+{
+  "version": "ai-expo-2026-supplied-rules-v1",
+  "checked_on": "2026-10-09",
+  "source": {
+    "kind": "owner-supplied-pdf",
+    "title": "AI EXPO 2026 Competition & Submission Guidelines",
+    "issuer": "Faculty of Artificial Intelligence, Universiti Teknologi Malaysia",
+    "pages": 4,
+    "sha256": "a9e39936204cc5d15b0e3ce03780a5d6aceb41c096c043ee1022dbfd4b1504fa",
+    "newer_announcements_checked": false
+  },
+  "eligibility": {
+    "all_students_current_FAI": true,
+    "UG_student_count": {
+      "min": 2,
+      "max": 3
+    },
+    "PG_student_count": {
+      "min": 1,
+      "max": 3
+    },
+    "mixed_UG_PG_allowed": false,
+    "academic_supervisor_min": 1,
+    "supervisor_counts_as_student": false,
+    "working_MVP_required": true,
+    "meaningful_AI_required": true,
+    "minimum_TRL": 4,
+    "TRL_definition_in_pdf": null,
+    "prior_version_declaration_required": true
+  },
+  "video": {
+    "heading_minutes": 5,
+    "maximum_minutes": 8,
+    "language": "English",
+    "student_presenter_or_narrator_required": true,
+    "visible_working_MVP_required": true,
+    "hosting_options": [
+      "YouTube",
+      "Google Drive"
+    ],
+    "accessible_through_screening": true,
+    "production_quality_scored": false
+  },
+  "dates": {
+    "submission": "2026-10-15",
+    "submission_time": null,
+    "submission_timezone": null,
+    "screening_start": "2026-10-16",
+    "screening_end": "2026-10-29",
+    "finalist_announcement": "2026-11-05",
+    "briefing": "2026-11-07",
+    "showcase": "2026-11-12",
+    "prize_giving": "2026-11-13"
+  },
+  "finalist_overall_minutes": 15,
+  "rubric_weights": {
+    "problem": 10,
+    "innovation": 15,
+    "AI_integration": 25,
+    "MVP": 20,
+    "validation": 10,
+    "value": 10,
+    "impact_scalability": 10
+  },
+  "suggested_track": "AI for Sustainability & Smart Living",
+  "submission_performed": false
+}

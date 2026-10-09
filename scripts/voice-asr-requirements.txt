@@ -1,0 +1,8 @@
+# Optional desktop evaluation runtime; isolated from the production API.
+# Decode with the project's FFmpeg to avoid PyAV metadata API incompatibilities.
+faster-whisper==1.2.1
+ctranslate2==4.8.2
+numpy==2.5.3
+huggingface-hub==1.33.0
+onnxruntime==1.31.0
+tokenizers==0.23.2

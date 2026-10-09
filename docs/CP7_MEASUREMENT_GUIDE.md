@@ -1,24 +1,24 @@
 # CP7 recording and measurement pack
 
-Prepared 8 October 2026. **Collection ready; human results not measured.** This supplements the [original recording guide](VOICE_RECORDING_GUIDE.md). Use the new CP7 scripts for the final holdout; the original satay scripts remain development/practice material. Nothing here deploys the app or sends recordings to a provider.
+Updated 9 October 2026. **Fresh v2 collection ready; human results not measured.** The original CP7 scripts were used for extraction development and cannot serve as an independent holdout. Use [holdout v2](../contracts/cp7-holdout-v2.json) for new recordings. The original satay recordings and CP7 scripts remain development material. See [accuracy improvements and measured comparisons](VOICE_ACCURACY_IMPROVEMENTS.md). This supplements the [original recording guide](VOICE_RECORDING_GUIDE.md). Nothing here deploys the app or sends recordings to a provider.
 
 ## 1. Files and tools
 
 | File | Purpose |
 | --- | --- |
-| [Recording pack](../contracts/cp7-recording-pack.json) | 24 distinct cases: 10 BM, 10 Manglish, four English; six dishes/drink types, bundle prices, batch references, ambiguity and five planned noise cases |
-| `.local-evaluation/cp7/manifest.json` | Private editable collection copy, created locally; actual anonymous speaker, consent receipt, audio path/hash, accent and verified annotation |
-| `.local-evaluation/cp7/measurements.json` | Empty actual inference, paired timing and request/billing records |
+| [Recording pack](../contracts/cp7-holdout-v2.json) | 24 distinct cases: 10 BM, 10 Manglish, four English; six dishes/drink types, bundle prices, batch references, ambiguity and five planned noise cases |
+| `.local-evaluation/cp7-v2/manifest.json` | Private editable collection copy, created locally; actual anonymous speaker, consent receipt, audio path/hash, accent and verified annotation |
+| `.local-evaluation/cp7-v2/measurements.json` | Empty actual inference, paired timing and request/billing records |
 | [Scorer](../scripts/cp7_measure.py) | Python standard library; collection initialisation, freeze integrity and aggregate scoring; no API calls or uploads |
 | [Interview template](cp7-interviews.csv), [trial template](cp7-trial.csv), [device matrix](cp7-devices.csv) | Empty CSV headers for human findings and actual device observations |
 
-The private folder is ignored by Git. Keep original audio and consent receipts there; never add them to the public demo or commit them. The scorer writes a private aggregate JSON report; review it and publish only anonymous totals/findings when actual evidence is ready. No new API key, paid recorder or model subscription is requested. Speech uses the existing on-device Whisper route; extraction uses the configured backend Morpheus route only after the participant agrees to transcript processing. Do not assume its price or free allowance.
+The private folder is ignored by Git. Keep original audio and consent receipts there; never add them to the public demo or commit them. The scorer writes a private aggregate JSON report; review it and publish only anonymous totals/findings when actual evidence is ready. No new API key, paid recorder or model subscription is requested. Speech uses the chosen browser Whisper model or optional local desktop helper; extraction uses the configured backend Morpheus route only after the participant agrees to transcript processing. Do not assume its price or free allowance.
 
 ## 2. Recruit and record
 
 Obtain voluntary recording consent from at least five adult speakers. Follow the original guide's consent wording, separate Morpheus consent and withdrawal/deletion instructions. Use `S01`–`S05`; the pack's planned assignments are suggestions, not participants. Do not collect names, contact details, ethnicity or inferred religion in results. Accent is optional self-description; `not specified by participant` is acceptable. Interview participation and live task consent are separate from recording consent.
 
-Read the pack's `reference_transcript` naturally, one file per case, e.g. `audio/cp7-01.wav`. Scripts use fictional facts and the fixed interpretation clock **8 October 2026, 20:00 Malaysia time**. Do not apply these old times to a real sale. Keep all evaluation updates in isolated fictional scenarios. Before batch-reference tasks create the named dish and two distinct test batches; observe that the other batch remains unchanged. If a case cannot be executed by the actual workflow, retain it as `unsupported`, rather than manually substituting a successful JSON draft.
+Read the pack's `reference_transcript` naturally, one file per case, e.g. `audio/cp7b-01.wav`. Scripts use fictional facts and the fixed interpretation clock **9 October 2026, 20:00 Malaysia time**. Do not apply these old times to a real sale. Keep all evaluation updates in isolated fictional scenarios. Before batch-reference tasks create the named dish and two distinct test batches; observe that the other batch remains unchanged. If a case cannot be executed by the actual workflow, retain it as `unsupported`, rather than manually substituting a successful JSON draft.
 
 For the five `market-noise` cases, use a controlled low-volume background source without recording bystanders; note how it was created and any consent. Do not claim natural market-noise robustness from quiet recordings or artificial noise. Record actual device, format, duration, condition and speaker-described accent in your private collection notes. Avoid cloud recorder synchronisation unless separately agreed.
 
@@ -31,27 +31,29 @@ Fill each private manifest sample with:
   "speaker": "S01",
   "consented": true,
   "consent_receipt": "consent/S01.txt",
-  "audio": "audio/cp7-01.wav",
+  "audio": "audio/cp7b-01.wav",
   "audio_sha256": "ACTUAL_SHA256_FROM_GET_FILE_HASH",
   "accent": "participant description or not specified by participant",
   "annotation_verified": true
 }
 ```
 
-This snippet is a template; never set consent true before obtaining it. Put the actual receipt in the stated private file. Compute hashes with `Get-FileHash -Algorithm SHA256 .local-evaluation/cp7/audio/cp7-01.wav`; store the lowercase hash. Keep the actual consent deletion date and withdrawal contact privately.
+This snippet is a template; never set consent true before obtaining it. Put the actual receipt in the stated private file. Compute hashes with `Get-FileHash -Algorithm SHA256 .local-evaluation/cp7-v2/audio/cp7b-01.wav`; store the lowercase hash. Keep the actual consent deletion date and withdrawal contact privately.
 
 ## 3. Freeze before testing
 
-The private templates already exist. To prepare a separate collection directory, run from the repository root:
+Create a fresh private v2 collection directory from the repository root:
+
+The empty `.local-evaluation/cp7-v2` templates are already prepared on this computer. Use them directly and skip initialisation if they exist. For another collection, choose a new folder name; initialisation refuses to overwrite files.
 
 ```powershell
-uv run --project apps/api python scripts/cp7_measure.py init --folder .local-evaluation/cp7-second
+uv run --project apps/api python scripts/cp7_measure.py init --folder .local-evaluation/cp7-v2
 ```
 
 Initialisation never overwrites existing files. After all 24 files, five actual speakers, verified annotations and receipts are present:
 
 ```powershell
-uv run --project apps/api python scripts/cp7_measure.py freeze
+uv run --project apps/api python scripts/cp7_measure.py freeze --folder .local-evaluation/cp7-v2
 ```
 
 Freeze validates language counts, disjoint development IDs, anonymous speakers, separate audio hashes, bounded local files, consent receipts and annotation approval, then creates `freeze.json`. Do not tune prompts/model rules against these holdout results and still call them held out. If a frozen annotation needs correction, record the reason/version before any rerun; create a new collection folder and a newly frozen set. A file hash establishes integrity, not authenticity or independent human review.
@@ -64,7 +66,7 @@ Each actual `measurements.json.results` entry follows:
 
 ```json
 {
-  "id": "cp7-01",
+  "id": "cp7b-01",
   "source": "real-inference",
   "status": "ok",
   "run_evidence": "private run log reference",
@@ -88,7 +90,7 @@ For the expanded scripts, use a stopwatch/observer until the legacy task picker 
 ```json
 {
   "pair": "P01",
-  "clip": "cp7-01",
+  "clip": "cp7b-01",
   "speaker": "S01",
   "mode": "voice",
   "order": "voice-first",
@@ -139,11 +141,15 @@ Provide the target phone model/OS/browser when available. Trusted local HTTPS fo
 ## 8. Score and review
 
 ```powershell
-uv run --project apps/api python scripts/cp7_measure.py report
+uv run --project apps/api python scripts/cp7_measure.py report --folder .local-evaluation/cp7-v2
 ```
 
-This writes `.local-evaluation/cp7/report.json`. Review anonymous findings separately before incorporating them into [evaluation report](evaluation-report.md). WER uses lowercase Unicode words with punctuation removed; its denominator includes only clips with actual transcripts and is shown. JSON validity means an actual JSON object with finite numeric values, **not full provider-schema compliance**. Critical-field accuracy scores exact annotated fields, treats explicit unknowns correctly, and includes the full planned-set field denominator; absent/failed/unsupported runs cannot improve accuracy by disappearing. Per-field counts show executed denominators. Ingredient equality uses case-insensitive sets; timestamps compare aware instants. Human correction/clarification flags remain operator observations requiring evidence review.
+This writes `.local-evaluation/cp7-v2/report.json`. Review anonymous findings separately before incorporating them into [evaluation report](evaluation-report.md). WER uses lowercase Unicode words with punctuation removed; its denominator includes only clips with actual transcripts and is shown. JSON validity means an actual JSON object with finite numeric values, **not full provider-schema compliance**. Critical-field accuracy scores exact annotated fields, treats explicit unknowns correctly, and includes the full planned-set field denominator; absent/failed/unsupported runs cannot improve accuracy by disappearing. Per-field counts show executed denominators. Ingredient equality uses case-insensitive sets; timestamps compare aware instants. Human correction/clarification flags remain operator observations requiring evidence review.
 
 Predeclared software evaluation targets: at least **80% full-set critical-field accuracy in BM and Manglish separately**, and **95% JSON-object validity**. These targets do not establish food safety. Report denominator, confidence limitations, failed tasks and unsupported features even if a target passes. Do not tune to the heldout set; fixes require a fresh independent holdout plus an unchanged regression sample. Interviews, actual devices, receipt/consent checks and operating costs remain separate acceptance conditions.
 
 **Next handoff:** provide the private local folder path and actual phone details. CP7's seven feature requirements stay unchecked until that evidence exists. Deployment remains excluded.
+
+## Automatic request evidence — 9 October 2026
+
+[Request measurement guide](AI_REQUEST_MEASUREMENT_GUIDE.md): Evaluation now records browser request times, failures/cancellations/retries, available provider tokens and confirmed-save links in the same tab. Export privately after tasks. Costs remain unknown without dated billing/allowance evidence. These technical observations do not establish live participant timing or independent accuracy. See [actual one-request smoke](LOCAL_FEATURE_COMPLETION.md).

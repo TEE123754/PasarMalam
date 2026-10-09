@@ -46,6 +46,8 @@ def verify_token(token: str, settings: Settings) -> UUID:
             algorithms=[algorithm],
             audience="authenticated",
             issuer=settings.jwt_issuer,
+            # Auth and this host can differ by a fraction of a second at sign-in.
+            leeway=2,
             options={"require": ["sub", "exp", "iat", "iss", "aud"]},
         )
         if claims.get("role") != "authenticated":

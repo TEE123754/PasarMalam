@@ -1,0 +1,64 @@
+{
+  "kind": "Script-only development regression, actual Morpheus inference; no ASR",
+  "runs": [
+    {
+      "kind": "Script-only development regression, actual Morpheus inference; no ASR",
+      "prompt_version": "LISTING_JSON_V4",
+      "total": 24,
+      "valid": 15,
+      "groups": {
+        "BM": {
+          "clips": 10,
+          "correct_fields": 38,
+          "fields": 54,
+          "accuracy": 0.7037037037037037,
+          "all_correct": 6
+        },
+        "Manglish": {
+          "clips": 10,
+          "correct_fields": 31,
+          "fields": 52,
+          "accuracy": 0.5961538461538461,
+          "all_correct": 5
+        },
+        "English": {
+          "clips": 4,
+          "correct_fields": 11,
+          "fields": 20,
+          "accuracy": 0.55,
+          "all_correct": 2
+        }
+      }
+    },
+    {
+      "kind": "Script-only development regression, actual Morpheus inference; no ASR",
+      "prompt_version": "LISTING_JSON_V4",
+      "total": 24,
+      "valid": 24,
+      "groups": {
+        "BM": {
+          "clips": 10,
+          "correct_fields": 53,
+          "fields": 54,
+          "accuracy": 0.9814814814814815,
+          "all_correct": 9
+        },
+        "Manglish": {
+          "clips": 10,
+          "correct_fields": 51,
+          "fields": 52,
+          "accuracy": 0.9807692307692307,
+          "all_correct": 9
+        },
+        "English": {
+          "clips": 4,
+          "correct_fields": 20,
+          "fields": 20,
+          "accuracy": 1.0,
+          "all_correct": 4
+        }
+      },
+      "run_label": "missing-ingredients-fix"
+    }
+  ]
+}

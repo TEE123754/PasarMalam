@@ -3,10 +3,11 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import pytest
-from app.voice import Draft, check_result, local_url, redact, verify_paraphrase
 from fastapi import HTTPException
 from pglast import parse_sql
 from pydantic import ValidationError
+
+from app.voice import Draft, check_result, local_url, provider_draft, redact, verify_paraphrase
 
 
 def draft(**changes):
@@ -84,6 +85,35 @@ def test_matching_quote_cannot_support_wrong_malaysia_clock(phrase):
     assert value["draft"]["cook_time"] is None
     assert value["field_confidence"]["cook_time"] == 0
     assert any("conflicts with transcript" in flag for flag in value["flags"])
+
+
+def test_unrecognized_provider_unit_requires_clarification_without_guessing():
+    value = draft(quantity=10).model_dump(mode="json")
+    value["unit"] = "batal"
+    parsed, flags = provider_draft(json.dumps(value))
+    assert parsed.unit is None
+    assert parsed.quantity == 10
+    assert flags == ["Quantity unit was not recognized; choose it manually."]
+    value["deadline"] = "2099-01-01"
+    with pytest.raises(ValidationError):
+        provider_draft(value)
+
+
+def test_null_provider_ingredients_become_empty_without_guessing_recipe():
+    value = draft().model_dump(mode="json")
+    value["ingredients"] = None
+    parsed, flags = provider_draft(value)
+    assert parsed.ingredients == []
+    assert flags == ["Ingredients were not supplied; review them manually."]
+
+
+@pytest.mark.parametrize("phrase", ["Cooked at 6pm", "Cooked at 6 pm", "Siap pukul 6 petang"])
+def test_explicit_compact_time_is_not_mistaken_for_missing_am_pm(phrase):
+    value = check_result(
+        draft(evidence={"cook_time": [phrase]}), phrase, ["Chicken satay"],
+        datetime(2026, 10, 1, 12, tzinfo=timezone.utc),
+    )
+    assert value["draft"]["cook_time"] == "2026-10-01T18:00:00+08:00"
 
 
 def test_correct_offset_clock_remains_and_conflicting_times_block():

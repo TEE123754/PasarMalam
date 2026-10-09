@@ -45,8 +45,12 @@ This was a technical sequence, not a timed five-minute student delivery or full 
 
 - [ ] **C15-08:** actual participating-student English narration/presentation video, readable captions and observed duration reviewed against official rules.
 - [ ] **C15-09:** owner/student confirmation of any prior SantanSafe version and evidence-backed advancement declaration; no-prior-version is also unconfirmed.
-- [ ] **C15-10:** verified competition TRL definition and reviewed evidence assessment; no level assigned from code/test counts.
+- [x] **C15-10:** supporting TRL documentation complete on 9 October; controlled integration/validation mapped to a bounded engineering TRL 4 inference. [Evidence](TRL4_EVIDENCE.md). No organiser-certified level.
 - [ ] **C15-11:** actual team/student eligibility and academic-supervision evidence.
 - [ ] **C15-12:** actual participating-student live rehearsal on the intended device plus a complete reviewed backup recording and observed playback.
 
-Additional dependencies: official rules/name/link; CP7 actual user/performance/cost evidence for measured claims; CP8 consented real history if claiming forecast performance; supplied-image generator/date/public-use rights before future publication. No extra images or API keys are required for the preparation pack. The optional input question remains pending; missing answers were not treated as confirmations.
+Additional dependencies: actual student/history facts; supplied official rules are now verified; CP7 actual user/performance/cost evidence for measured claims; CP8 consented real history if claiming forecast performance; supplied-image generator/date/public-use rights before future publication. No extra images or API keys are required for the preparation pack. The optional input question remains pending; missing answers were not treated as confirmations.
+
+## Current update — 9 October 2026
+
+[Supplied rules verified](COMPETITION_RULES_VERIFIED.md); [TRL documentation delivered](TRL4_EVIDENCE.md). Four CP9 human requirements remain: C15-08/09/11/12. Earlier eight-October observations remain historical; 24 supplied development recordings and automatic request metrics now exist, without independent user/phone/billing acceptance. Overall 126 checked / 25 open.

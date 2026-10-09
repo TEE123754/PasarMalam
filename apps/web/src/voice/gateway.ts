@@ -6,17 +6,20 @@ import { fixtureClock } from '../app/clock'
 import { draftSchema, fallback, redact, type Extraction } from './model'
 import type { AppMode } from '../data/types'
 import { nativeDemoBuild } from '../native/policy'
+import { recordRequest, type RequestContext } from './requestMetrics'
 export class VoiceSaveError extends Error {constructor(message:string,readonly definite:boolean){super(message)}}
-export async function extract(mode:AppMode,text:string,menu:VendorFood[],signal:AbortSignal,externalConsent=false,stalls:{name:string}[]=[]):Promise<Extraction>{
+export async function extract(mode:AppMode,text:string,menu:VendorFood[],signal:AbortSignal,externalConsent=false,stalls:{name:string}[]=[],measurementContext?:RequestContext):Promise<Extraction>{
  if(nativeDemoBuild())throw new Error('Packaged demo has no connected extraction service. Use text and quick-entry chips.')
  const transcript=redact(text),body=JSON.stringify({transcript,menu:menu.map(f=>f.name).slice(0,30),stalls:stalls.map(s=>s.name).slice(0,100),fictional:mode==='fixture',external_consent:externalConsent});const url='/api/v1/voice/'+(mode==='fixture'?'demo-extract':'extract')
  const timeout=new AbortController(),timer=setTimeout(()=>timeout.abort(),22000);const cancel=()=>timeout.abort();signal.addEventListener('abort',cancel,{once:true});if(signal.aborted)timeout.abort()
  const request={method:'POST',headers:{'Content-Type':'application/json'},body,signal:timeout.signal}
+ const started=performance.now();let failed=true,status:number|null=null,data:Extraction|null=null
  try {
  const response=mode==='fixture'?await fetch(`${import.meta.env.VITE_API_BASE_URL??'http://127.0.0.1:8000'}${url}`,request):await connectedRequest(url,request)
+ status=response.status
  if(!response.ok)throw new Error('Extraction unavailable; use quick entry.')
- const data=await response.json() as Extraction;data.draft=draftSchema.parse(data.draft);return data
- }finally{clearTimeout(timer);signal.removeEventListener('abort',cancel)}
+ data=await response.json() as Extraction;data.draft=draftSchema.parse(data.draft);failed=false;return data
+ }finally{clearTimeout(timer);signal.removeEventListener('abort',cancel);if(measurementContext)recordRequest(mode,measurementContext,{elapsed:performance.now()-started,failed,cancelled:signal.aborted||timeout.signal.aborted,status,measurement:data?.measurement,model:data?.model})}
 }
 export async function confirm(mode:AppMode,food:VendorFood,batch:NewBatch|null,text:string,request:string){
  if(!navigator.onLine)throw new Error('Offline: no listing saved; retry while online.')

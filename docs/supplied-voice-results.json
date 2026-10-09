@@ -1,0 +1,242 @@
+{
+  "date": "2026-10-09",
+  "kind": "Script-relative development baseline; not independent CP7 holdout",
+  "suppliedClips": 24,
+  "speakers": 5,
+  "languages": {
+    "BM": 10,
+    "Manglish": 10,
+    "English": 4
+  },
+  "referenceVerification": "Owner confirmed assigned scripts; spoken deviations not independently annotated",
+  "timings": "Live voice/typing, phone performance and billing cost not measured",
+  "runs": [
+    {
+      "file": "measured-results-small-morpheus-compact-time.json",
+      "model": "@huggingface/transformers@4.3.0; onnx-community/whisper-small@36050c46d777d46dc4b5f43f6d90574fc38f8732; q8; CPU; Morpheus qwen35-9b",
+      "clips": 4,
+      "missing": 20,
+      "groups": {
+        "BM": {
+          "clips": 1,
+          "validDrafts": 1,
+          "criticalCorrect": 5,
+          "criticalFields": 5,
+          "criticalAccuracy": 1,
+          "wer": 0.35714285714285715,
+          "allCorrect": 1
+        },
+        "English": {
+          "clips": 3,
+          "validDrafts": 3,
+          "criticalCorrect": 11,
+          "criticalFields": 15,
+          "criticalAccuracy": 0.7333333333333333,
+          "wer": 0.42857142857142855,
+          "allCorrect": 0
+        }
+      }
+    },
+    {
+      "file": "measured-results-small-morpheus-enhanced-extraction.json",
+      "model": "@huggingface/transformers@4.3.0; onnx-community/whisper-small@36050c46d777d46dc4b5f43f6d90574fc38f8732; q8; CPU; Morpheus qwen35-9b",
+      "clips": 24,
+      "missing": 0,
+      "groups": {
+        "BM": {
+          "clips": 10,
+          "validDrafts": 6,
+          "criticalCorrect": 24,
+          "criticalFields": 50,
+          "criticalAccuracy": 0.48,
+          "wer": 0.4142857142857143,
+          "allCorrect": 0.4
+        },
+        "English": {
+          "clips": 4,
+          "validDrafts": 4,
+          "criticalCorrect": 12,
+          "criticalFields": 20,
+          "criticalAccuracy": 0.6,
+          "wer": 0.5535714285714286,
+          "allCorrect": 0.25
+        },
+        "Manglish": {
+          "clips": 10,
+          "validDrafts": 9,
+          "criticalCorrect": 18,
+          "criticalFields": 50,
+          "criticalAccuracy": 0.36,
+          "wer": 0.5933333333333334,
+          "allCorrect": 0
+        }
+      }
+    },
+    {
+      "file": "measured-results-small-morpheus-repair.json",
+      "model": "@huggingface/transformers@4.3.0; onnx-community/whisper-small@36050c46d777d46dc4b5f43f6d90574fc38f8732; q8; CPU; Morpheus qwen35-9b",
+      "clips": 4,
+      "missing": 20,
+      "groups": {
+        "BM": {
+          "clips": 3,
+          "validDrafts": 3,
+          "criticalCorrect": 10,
+          "criticalFields": 15,
+          "criticalAccuracy": 0.6666666666666666,
+          "wer": 0.42857142857142855,
+          "allCorrect": 0
+        },
+        "Manglish": {
+          "clips": 1,
+          "validDrafts": 0,
+          "criticalCorrect": 0,
+          "criticalFields": 5,
+          "criticalAccuracy": 0,
+          "wer": 0.5333333333333333,
+          "allCorrect": 0
+        }
+      }
+    },
+    {
+      "file": "measured-results-small-morpheus.json",
+      "model": "@huggingface/transformers@4.3.0; onnx-community/whisper-small@36050c46d777d46dc4b5f43f6d90574fc38f8732; q8; CPU; Morpheus qwen35-9b",
+      "clips": 24,
+      "missing": 0,
+      "groups": {
+        "BM": {
+          "clips": 10,
+          "validDrafts": 7,
+          "criticalCorrect": 28,
+          "criticalFields": 50,
+          "criticalAccuracy": 0.56,
+          "wer": 0.4142857142857143,
+          "allCorrect": 0.4
+        },
+        "English": {
+          "clips": 4,
+          "validDrafts": 4,
+          "criticalCorrect": 8,
+          "criticalFields": 20,
+          "criticalAccuracy": 0.4,
+          "wer": 0.5535714285714286,
+          "allCorrect": 0
+        },
+        "Manglish": {
+          "clips": 10,
+          "validDrafts": 9,
+          "criticalCorrect": 17,
+          "criticalFields": 50,
+          "criticalAccuracy": 0.34,
+          "wer": 0.5933333333333334,
+          "allCorrect": 0
+        }
+      }
+    },
+    {
+      "file": "measured-results-turbo-morpheus-app-enhanced.json",
+      "model": "@huggingface/transformers@4.3.0; onnx-community/whisper-large-v3-turbo@360ebcde2559d60bb474678be3c1de9ef347d01a; q8; CPU; Morpheus qwen35-9b",
+      "clips": 24,
+      "missing": 0,
+      "groups": {
+        "BM": {
+          "clips": 10,
+          "validDrafts": 9,
+          "criticalCorrect": 43,
+          "criticalFields": 50,
+          "criticalAccuracy": 0.86,
+          "wer": 0.3,
+          "allCorrect": 0.7
+        },
+        "English": {
+          "clips": 4,
+          "validDrafts": 4,
+          "criticalCorrect": 18,
+          "criticalFields": 20,
+          "criticalAccuracy": 0.9,
+          "wer": 0.48214285714285715,
+          "allCorrect": 0.5
+        },
+        "Manglish": {
+          "clips": 10,
+          "validDrafts": 9,
+          "criticalCorrect": 35,
+          "criticalFields": 50,
+          "criticalAccuracy": 0.7,
+          "wer": 0.36666666666666664,
+          "allCorrect": 0.2
+        }
+      }
+    },
+    {
+      "file": "measured-results-turbo-morpheus-local-enhanced.json",
+      "model": "mobiuslabsgmbh/faster-whisper-large-v3-turbo@0a363e9161cbc7ed1431c9597a8ceaf0c4f78fcf; faster-whisper 1.2.1; CPU int8; Morpheus qwen35-9b",
+      "clips": 24,
+      "missing": 0,
+      "groups": {
+        "BM": {
+          "clips": 10,
+          "validDrafts": 10,
+          "criticalCorrect": 45,
+          "criticalFields": 50,
+          "criticalAccuracy": 0.9,
+          "wer": 0.2,
+          "allCorrect": 0.6
+        },
+        "English": {
+          "clips": 4,
+          "validDrafts": 4,
+          "criticalCorrect": 19,
+          "criticalFields": 20,
+          "criticalAccuracy": 0.95,
+          "wer": 0.4107142857142857,
+          "allCorrect": 0.5
+        },
+        "Manglish": {
+          "clips": 10,
+          "validDrafts": 10,
+          "criticalCorrect": 43,
+          "criticalFields": 50,
+          "criticalAccuracy": 0.86,
+          "wer": 0.25333333333333335,
+          "allCorrect": 0.5
+        }
+      }
+    },
+    {
+      "file": "measured-results.json",
+      "model": "@huggingface/transformers@4.3.0; onnx-community/whisper-tiny@ff4177021cc41f7db950912b73ea4fdf7d01d8e7; q8; CPU; llama.cpp b11146; Qwen2.5-1.5B-Instruct q5_k_m",
+      "clips": 24,
+      "missing": 0,
+      "groups": {
+        "BM": {
+          "clips": 10,
+          "validDrafts": 9,
+          "criticalCorrect": 6,
+          "criticalFields": 50,
+          "criticalAccuracy": 0.12,
+          "wer": 1.9,
+          "allCorrect": 0
+        },
+        "English": {
+          "clips": 4,
+          "validDrafts": 0,
+          "criticalCorrect": 0,
+          "criticalFields": 20,
+          "criticalAccuracy": 0,
+          "wer": 8.553571428571429,
+          "allCorrect": 0
+        },
+        "Manglish": {
+          "clips": 10,
+          "validDrafts": 9,
+          "criticalCorrect": 6,
+          "criticalFields": 50,
+          "criticalAccuracy": 0.12,
+          "wer": 3.7466666666666666,
+          "allCorrect": 0
+        }
+      }
+    }
+  ]
+}

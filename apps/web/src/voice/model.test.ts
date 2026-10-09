@@ -5,7 +5,7 @@ import corpus from '../../../../contracts/voice-evaluation.json'
 const now=new Date('2026-10-01T12:00:00Z'),menu=[{name:'Chicken satay'}]
 const sentence='Satay ayam dua puluh batang RM 6.00, bahan ayam, kacang. Siap pukul 6 petang.'
 describe('untrusted multilingual listing drafts',()=>{
- it.each([['dua puluh',20],['dua belas',12],['ten',10],['sebelas',null],['-2',null]])('parses %s without guessing',(text,n)=>expect(number(text as string)).toBe(n))
+ it.each([['dua puluh',20],['dua belas',12],['ten',10],['sebelas',11],['twenty four',24],['dua puluh lima belas',null],['-2',null]])('parses %s without guessing',(text,n)=>expect(number(text as string)).toBe(n))
  it('extracts BM forms as a labelled fallback with immutable time context',()=>{const r=fallback(sentence,menu,now);expect(r.source).toBe('quick-entry');expect(r.draft.quantity).toBe(20);expect(r.draft.price_sen).toBe(600);expect(r.draft.cook_time).toBe('2026-10-01T18:00:00+08:00');expect(r.draft.confidence).toBeLessThan(1);expect(r.draft.ingredients).toEqual(['ayam','kacang'])})
  it('requires explicit final confirmation',()=>{const d=fallback(sentence,menu,now).draft;expect(canConfirm(d,now,false,1)).toBe(false);expect(canConfirm(d,now,true,1)).toBe(true);expect(canConfirm(d,now,true,2)).toBe(false)})
  it('preserves missing price, quantity and time as null',()=>{const d=fallback('Chicken satay',menu,now).draft;expect([d.quantity,d.price_sen,d.cook_time]).toEqual([null,null,null]);expect(canConfirm(d,now,true,1)).toBe(false)})

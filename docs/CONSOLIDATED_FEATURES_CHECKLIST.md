@@ -1,12 +1,23 @@
 # PasarMalam — Consolidated Features Checklist
 
+**Current product scope — prototype, 9 October 2026:** the owner requested visibly fictional future integration/certification examples. Use [the prototype checklist](PROTOTYPE_FEATURES_CHECKLIST.md) and [demo walkthrough](PROTOTYPE_DEMO_GUIDE.md). Real authority/creator access, authentic certificates, participant studies and real business data below are future rollout requirements; they do not block this prototype. Existing real-evidence counts are preserved rather than treating simulated proof as genuine.
+
 Reviewed **9 October 2026** against the current source and recorded local/connected acceptance. Original checklist wording, priorities, examples and competition mapping are preserved from your pasted document.
 
-**Status: 124/151 items checked in the local scope; 27 remain unchecked.** Checked items include explicitly labelled simulations and implemented features with outstanding device/human acceptance. This is not 124 production-ready features or competition certification.
+**Status: 126/151 items checked in the local scope; 25 remain unchecked.** Checked items include explicitly labelled simulations and implemented features with outstanding device/human acceptance. This is not 126 production-ready features or competition certification.
+
+**Latest update:** instant public signup is enabled and accepted on the controlled sandbox; connected display-name/language editing and a small sign-in clock-tolerance repair are complete. Automatic AI request measurements/private exports and verified competition-rule/TRL evidence are delivered. Fresh human/device/billing/partner acceptance remains open. [Completion report](LOCAL_FEATURE_COMPLETION.md).
+
+| Latest voice development run | Malay | Manglish | English | Valid drafts |
+| --- | ---: | ---: | ---: | ---: |
+| Local desktop turbo + Morpheus, 24 supplied clips | 90% | 86% | 95% | 24/24 |
+| Browser-compatible ONNX turbo on desktop CPU, same clips | 86% | 70% | 90% | 22/24 |
+
+Percentages measure critical-field accuracy against assigned scripts. Spoken references have not been independently verified, and this corpus was used for development. Desktop CPU results do not establish browser/phone performance. Fresh independent voice testing remains open. [Complete comparisons and evidence](VOICE_ACCURACY_IMPROVEMENTS.md).
 
 CP6 closed seven community/impact requirements. [CP6 acceptance](CP6_ACCEPTANCE.md) records the connected phase gate and filtered organiser CSV evidence; CP7 human/device evidence stays pending. CP8 closed three photo/fallback requirements; four real-history requirements remain.
 
-All 27 open requirements are listed with stable IDs in [partial/pending jobs](PARTIAL_AND_PENDING_JOBS.md) and mapped to [completion phases CP1–CP11](COMPLETION_IMPLEMENTATION_PLAN.md). CP12 remains final deployment, on hold. CP1 closed three listing requirements; CP2 closed seven discovery requirements; CP3 closed three voice-workflow requirements; CP4 closed three passport/recording requirements; CP5 closed four clearance/accounting requirements. Registration acceptance remains partial. See [CP1 evidence](CP1_ACCEPTANCE.md) and [CP2 evidence](CP2_ACCEPTANCE.md). [CP3 evidence](CP3_ACCEPTANCE.md) separates implementation from pending human expression results.
+All 25 open requirements are listed with stable IDs in [partial/pending jobs](PARTIAL_AND_PENDING_JOBS.md) and mapped to [completion phases CP1–CP11](COMPLETION_IMPLEMENTATION_PLAN.md). CP12 remains final deployment, on hold. CP1 closed three listing requirements; CP2 closed seven discovery requirements; CP3 closed three voice-workflow requirements; CP4 closed three passport/recording requirements; CP5 closed four clearance/accounting requirements. Registration is accepted in the local scope; owner password/recovery/privacy acceptance remains separate. See [CP1 evidence](CP1_ACCEPTANCE.md) and [CP2 evidence](CP2_ACCEPTANCE.md). [CP3 evidence](CP3_ACCEPTANCE.md) separates implementation from pending human expression results.
 
 - `[x]` means implemented in the current local scope. Any **Demo only**, **Demo policy**, or **Unbenchmarked** qualification limits that tick; it does not establish real partnerships, payments, scientifically approved food rules or measured human performance.
 - `[ ]` means partial, missing, an external agreement/data source, a human deliverable or unverified acceptance. Each unchecked item states what remains.
@@ -14,7 +25,7 @@ All 27 open requirements are listed with stable IDs in [partial/pending jobs](PA
 
 Evidence: [feature coverage](feature-coverage.md), [connected/local acceptance](local-readiness-acceptance.md), [UI refresh and images](UI_UX_REFRESH.md), [voice evaluation](evaluation-report.md), [forecast evidence](phase10-acceptance.md), and [remaining human/device actions](YOUR_ACTION_CHECKLIST.md). All 12 supplied images are integrated locally; public-use metadata/rights remain separate. Deployment stays on hold and is not included in the completion count.
 
-The competition track, weights, video limit, eligibility and TRL statements below came from your supplied checklist; this update does not independently verify competition rules.
+Competition rules were checked against all four pages of the supplied PDF; see [verified rules](COMPETITION_RULES_VERIFIED.md). Student eligibility/history remain unconfirmed. [TRL supporting evidence](TRL4_EVIDENCE.md) is an engineering inference, not organiser certification.
 
 **Purpose:** Help customers discover Malaysian markets and food stalls while helping hawkers manage food batches, monitor holding times, sell surplus food, and reduce waste through multilingual AI.
 
@@ -32,9 +43,9 @@ Priorities are recommendations, not mandatory competition features.
 
 - [x] **P0:** Hawker/vendor mode for managing stalls, food listings, batches, and promotions.
 - [x] **P0:** Customer mode for discovering markets, browsing food, and viewing offers.
-- [ ] **P0:** Registration, login, profile management, and switching between modes. — **CP1 acceptance pending:** owner selected public signup on 9 October 2026, superseding invitations. Public customer admission, simple signup, email return handling, automatic profile creation and Forgot password are implemented/tested. Email confirmation remains ON; public email delivery needs an SMTP sender or explicit instant-demo choice. Owner password/login journey and privacy review remain open. [Step 1 setup](STEP1_PUBLIC_SIGNUP_SETUP.md).
+- [x] **P0:** Registration, login, profile management, and switching between modes. — **Accepted locally:** instant public signup, automatic customer profile, sign-in/out, editable display name/language and protected mode/role boundaries verified. Metadata/mode cannot grant privileges. Owner personal password, recovery-email delivery and real-data privacy acceptance remain additional release actions. [Evidence](LOCAL_FEATURE_COMPLETION.md).
 - [x] **P0:** Mobile-friendly PWA. — **Implemented:** responsive PWA shell/update/cache acknowledgement; physical-phone installation and successful disconnected reload acceptance remain open.
-- [x] **P0:** Simple interface with large buttons, readable contrast, and minimal typing. — **Implemented:** refreshed controls, focus/contrast and responsive layouts; low-literacy user and target-phone validation remain open.
+- [x] **P0:** Simple interface with large buttons, readable contrast, and minimal typing. — **Implemented:** refreshed controls, focus/contrast and responsive layouts, plus the current hero introduction and bottom navigation; low-literacy user and target-phone validation remain open.
 - [x] **P1:** Customer access to reviews and complaint submission.
 - [ ] **P2:** Dedicated Android and iOS apps. — **Partial — CP11 source preparation complete:** Capacitor Android/iOS projects, isolated fictional native bundle, lifecycle/permission controls and the recorded 57-case software gate are delivered. APK/iOS compilation, physical-device acceptance and connected native setup remain pending; device testing was skipped at the owner's request. [Evidence](CP11_ACCEPTANCE.md).
 
@@ -79,10 +90,10 @@ Priorities are recommendations, not mandatory competition features.
 ## 5. Malaysian Multilingual AI & Audio Updates
 
 - [x] **P0:** Support Bahasa Melayu and English.
-- [x] **P0:** Understand mixed Malay-English speech, including Manglish. — **Implemented, unbenchmarked:** multilingual transcription and BM/English/Manglish extraction pathways; consenting human accent/noise accuracy remains unmeasured.
+- [x] **P0:** Understand mixed Malay-English speech, including Manglish. — **Implemented; development measurements available:** explicit language selection, optional turbo speech models and transcript-grounded extraction. Best local desktop Manglish critical-field accuracy was 86%; ONNX desktop CPU was 70%. Independent accent/noise and browser/phone acceptance remain open. [Evidence](VOICE_ACCURACY_IMPROVEMENTS.md).
 - [x] **P0:** Allow hawkers to create and update listings using audio.
 - [x] **P0:** Extract stall names, food names, prices, quantities, preparation times, and batch updates. — **Implemented in CP3:** extracted stall/dish/batch suggestions resolve to exact owned IDs; distinct confirmed menu/new-batch/stock actions, atomic writes and idempotent retries. Stock changes preserve original preparation time and deadline.
-- [ ] **P0:** Understand local expressions such as “kuali kedua,” “tinggal sepuluh bungkus,” and “dua seringgit.” — **CP3 code complete; human acceptance pending:** deterministic remaining-stock phrases and explicit bundle clarification are implemented; ambiguous kuali kedua is blocked instead of resetting a timer. Held-out consenting BM/Manglish recordings and expression accuracy remain unmeasured for CP7.
+- [ ] **P0:** Understand local expressions such as “kuali kedua,” “tinggal sepuluh bungkus,” and “dua seringgit.” — **Partial; independent expression acceptance pending:** remaining-stock, bundle-price and batch-reference guards are implemented; ambiguous kuali kedua is blocked instead of resetting a timer. Development recordings and text regressions have been measured, but fresh verified holdout recordings covering these expressions remain required. [Guide](CP7_MEASUREMENT_GUIDE.md).
 - [x] **P0:** Let hawkers confirm or correct extracted information before publishing.
 - [x] **P0:** Ask short clarification questions when critical information is missing or ambiguous. — **Implemented in CP3:** short field-specific clarification questions for target IDs, stock, units, unit/bundle price, ingredients and Malaysia date/AM/PM; unresolved critical fields block saving. Original evidence and bounded correction history are retained.
 - [x] **P0:** Flag uncertain information rather than silently guessing prices, ingredients, or times.
@@ -220,14 +231,14 @@ The app extracts the details, clarifies missing information, and creates the bat
 
 - [ ] **P0:** Interview hawkers and customers to validate the problem and workflow. — **Human action pending:** no interview evidence supplied.
 - [ ] **P0:** Conduct a documented user trial and report participant numbers and limitations. — **Human action pending:** no documented real user trial or participant results supplied.
-- [ ] **P0:** Create a held-out voice test set covering Malay, English, mixed speech, accents, and market noise. — **Human data pending:** 24 labelled scripts and a recording guide exist; no held-out consented accent/noise recordings.
-- [ ] **P0:** Measure extraction accuracy for prices, quantities, preparation times, and batch references. — **Unmeasured:** evaluation tooling exists; no human price/quantity/time/batch-reference accuracy results.
+- [ ] **P0:** Create a held-out voice test set covering Malay, English, mixed speech, accents, and market noise. — **Partial:** 24 consented supplied recordings from five speaker folders are now development material. Fresh holdout v2 scripts exist, but independent recordings, verified spoken annotations and labelled accent/market-noise evidence remain missing. [Guide](CP7_MEASUREMENT_GUIDE.md).
+- [ ] **P0:** Measure extraction accuracy for prices, quantities, preparation times, and batch references. — **Partial; development measured:** complete supplied-recording and text-only results are recorded separately, including failures. Best desktop audio critical-field scores are 90% BM / 86% Manglish / 95% English, with 24/24 valid drafts. Independent verified holdout acceptance remains open; these are not phone or market-noise results. [Evidence](VOICE_ACCURACY_IMPROVEMENTS.md).
 - [ ] **P0:** Compare manual entry against voice-assisted entry for speed, errors, and corrections. — **Unmeasured:** paired live timing/corrections tooling exists; no consenting participant measurements.
 - [x] **P0:** Test ambiguous times, missing information, incorrect batch references, and AI failures. — **Verified current schema:** ambiguous/conflicting clocks, missing evidence, invalid/foreign food/batch identifiers, unsupported commands and provider failure guards are covered. CP3 adds exact owned existing-batch resolution and stock updates; ambiguous second-pan/timer-change instructions remain blocked. [Evidence](CP3_ACCEPTANCE.md).
 - [x] **P0:** Verify batch separation, promotion shutdown, and persistence after app reloads.
-- [ ] **P0:** Measure response time, failed requests, and AI cost per successful update. — **Partial:** technical smoke duration and bounded request/failure handling exist; no complete per-success latency/failure/cost measurement report.
-- [x] **P0:** Document models, inputs, outputs, policy logic, and human confirmation steps. — **Documented:** pinned Whisper/local Qwen history, current Morpheus qwen35-9b, contracts, evidence/confidence, deterministic policy and manual confirmation.
-- [x] **P0:** Use consented data and anonymise public demonstration records. — **Current demo implemented:** fictional public records, redacted/consented transcript sharing and private evaluation-consent workflow; actual human recordings remain pending.
+- [ ] **P0:** Measure response time, failed requests, and AI cost per successful update. — **Partial:** automatic request timings/failures/retries, available provider tokens and confirmed-save links are implemented and observed. Dated billing/free-allowance and complete evaluation evidence are still required for cost per success. [Guide](AI_REQUEST_MEASUREMENT_GUIDE.md).
+- [x] **P0:** Document models, inputs, outputs, policy logic, and human confirmation steps. — **Documented:** pinned tiny/small/turbo speech options, optional local desktop helper, historical local Qwen and current Morpheus qwen35-9b, contracts, transcript evidence, deterministic policy and manual confirmation. [Latest model/results record](VOICE_ACCURACY_IMPROVEMENTS.md).
+- [x] **P0:** Use consented data and anonymise public demonstration records. — **Implemented in current scope:** fictional public records, owner-confirmed consent for 24 supplied recordings, private audio/transcript storage and anonymised aggregate reports. Only explicitly approved redacted recognized text is sent to Morpheus; fresh holdout participant evidence remains pending. [Evidence](SUPPLIED_VOICE_ACCEPTANCE.md).
 - [ ] **P1:** Benchmark forecasting performance if the forecasting module is included. — CP8 synthetic benchmark complete; real benchmark pending. Frozen partitions, all errors, exclusions and actual coverage exported; no consented real benchmark. [Evidence](CP8_ACCEPTANCE.md).
 
 **Suggested starting point:** 20–30 held-out voice examples plus a small hawker/customer trial. These are evaluation targets, not achieved results.
@@ -239,11 +250,11 @@ The app extracts the details, clarifies missing information, and creates the bat
 - [x] **P0:** Create Batch 2 and show that Batch 1 retains its original timer.
 - [x] **P0:** Trigger a holding-time warning, approve a promotion, and show the customer offer. — **Verified fictional scenario:** deterministic warning, hawker approval and customer clearance flow; not a real-food safety demonstration.
 - [x] **P0:** Demonstrate automatic offer removal and uncertain-input handling.
-- [ ] **P0:** Present measured AI performance, user feedback, and operating costs. — **Human evidence pending:** accuracy, participant feedback and operating-cost report are incomplete.
+- [ ] **P0:** Present measured AI performance, user feedback, and operating costs. — **Partial:** development audio/text accuracy is now measured and documented. Independent voice acceptance, real participant feedback and a complete operating-cost report remain missing.
 - [x] **P0:** Label simulated time, sample data, and experimental features clearly.
 - [ ] **P0:** Prepare an English video narrated or presented by a participating student. — CP9 preparation complete: English storyboard/captions and recording guide exist; actual student-narrated full video remains pending. [Evidence](CP9_ACCEPTANCE.md).
 - [ ] **P0:** Declare any previous SantanSafe version and explain the implemented advancement. — CP9 conditional declarations prepared; actual prior-version/no-prior-version confirmation and reviewed advancement evidence remain pending. [Evidence](CP9_ACCEPTANCE.md).
-- [ ] **P0:** Document evidence supporting the required TRL 4 or above. — CP9 technical evidence/reviewer matrix prepared; official definition and reviewed TRL assessment remain pending. No level assigned. [Evidence](CP9_ACCEPTANCE.md).
+- [x] **P0:** Document evidence supporting the required TRL 4 or above. — **Documentation complete:** integrated components and controlled lab validation mapped to supporting TRL 4 software evidence. Engineering inference only; the supplied rules define no assessment method. No organiser-certified level or market/food-safety validation claimed. [Evidence](TRL4_EVIDENCE.md).
 - [ ] **P0:** Confirm team eligibility and academic supervision. — CP9 private review template prepared; actual student/team/supervisor evidence remains pending. [Evidence](CP9_ACCEPTANCE.md).
 - [ ] **P1:** Prepare a live showcase with a resettable demonstration and backup recording. — CP9 reset controls and desktop technical rehearsal passed; actual student intended-device rehearsal and full reviewed backup recording remain pending. [Evidence](CP9_ACCEPTANCE.md).
 
@@ -277,28 +288,47 @@ The app extracts the details, clarifies missing information, and creates the bat
 
 ## Current-version audit — 9 October 2026
 
-Reconciled all 151 checkboxes against current source, CP1–CP11 acceptance records and the pending-requirement inventory. No new acceptance evidence closes the 27 open requirements. Corrected stale section totals (previously 121/30), CP11 native-source status, mismatched telemetry/weight descriptions and obsolete voice-reference limitations. Existing checkbox states remain supported in their explicitly stated local/demo scope.
+Reconciled all 151 requirements after the completed engineering batch. C01-03 closes locally with instant signup/profile acceptance; C15-10 closes with documented TRL supporting evidence. AI request telemetry is implemented and observed, but independent participant/device/cost acceptance remains open. Current totals: **126 checked / 25 open**. [Changes, checks and limits](LOCAL_FEATURE_COMPLETION.md).
 
 | Priority | Checked locally | Open | Total |
 | --- | ---: | ---: | ---: |
-| P0 | 73 | 14 | 87 |
+| P0 | 75 | 12 | 87 |
 | P1 | 44 | 6 | 50 |
 | P2 | 7 | 7 | 14 |
-| **Total** | **124** | **27** | **151** |
+| **Total** | **126** | **25** | **151** |
 
 **Implemented groups:** discovery/maps/filters, stall/menu/photo management, independent batches and QR passports, confirmed voice updates and clarification, advisory alerts/clearance/reservations, reviews/moderation, accounting/impact reports and local business simulations.
 
-**Open groups:** registration acceptance (1); held-out local-expression acceptance (1); approved food rules and cumulative exposure (2); real partnership/data/rollout requirements (6); real forecasting acceptance (3); human evaluation/measurement and forecasting benchmark (7); student evidence/video/showcase readiness (6); native binary/device acceptance (1).
+**Open groups:** held-out expressions (1); approved food rules/exposure (2); real partners/data/rollout (6); real forecasting acceptance (3); human measurement/forecast benchmark (7); student declaration/eligibility/video/showcase (5); native binary/device acceptance (1).
+
+### What remains incomplete and the next action
+
+All 25 unchecked requirements are covered once below. IDs refer to the [complete pending inventory](PARTIAL_AND_PENDING_JOBS.md). Prepared code or templates alone do not finish an evidence-dependent requirement.
+
+| Incomplete work | Open IDs | Action needed to complete it |
+| --- | --- | --- |
+| Independent voice data, expressions and accuracy | C05-05, C14-03, C14-04 | Record fresh 24-case holdout v2 with at least five consenting speakers, including labelled accents/noise. Verify actual spoken annotations and freeze before inference; then report full-set accuracy and every failure. Existing recordings are development evidence. [Measurement guide](CP7_MEASUREMENT_GUIDE.md) |
+| Hawker/customer interviews and real user trial | C14-01, C14-02 | Recruit consenting hawkers/customers, conduct interviews and the trial, and retain anonymous participant counts, findings, failures and limitations. [Measurement guide](CP7_MEASUREMENT_GUIDE.md) |
+| Voice-versus-typing speed and operating cost | C14-05, C14-08 | Observe paired live tasks through correction/confirmation; download automatic request durations/failures/retries/available usage, and supply dated billing/free-allowance evidence. [Request guide](AI_REQUEST_MEASUREMENT_GUIDE.md). Produce per-success metrics without treating unknown costs as zero. [Measurement guide](CP7_MEASUREMENT_GUIDE.md) |
+| Competition performance/feedback/cost presentation | C15-06 | Combine independent accuracy, trial feedback, live timings and operating costs into the presentation, with development results and limitations labelled. |
+| Reviewed holding-time rules and cumulative exposure | C07-01, C07-13 | Obtain qualified policy approval and expected test cases. Then implement and verify interval accounting/transitions against those rules. Current advisory rules are synthetic and transitions remain blocked. [Policy package](CP4_POLICY_REVIEW.md) |
+| Real forecasting validation | C12-01, C12-04, C12-05, C14-11 | Supply at least 30 usable consented, reconciled same-weekday sessions for a stall; freeze chronological partitions and run prediction, uncertainty coverage and baseline comparisons. [Forecast guide](CP8_FORECAST_GUIDE.md) |
+| Student English video and complete showcase backup | C15-08, C15-12 | A participating student records the complete English demonstration, keeps a full backup and rehearses on the intended presentation device with observed pass/fail results. [Showcase guide](CP9_SHOWCASE_GUIDE.md) |
+| Previous-version declaration and eligibility | C15-09, C15-11 | Supply actual SantanSafe history (or confirm none), participating student/team details and academic supervisor evidence. Rules and TRL documentation are delivered; actual personal facts remain pending. [Evidence pack](CP9_EVIDENCE_PACK.md) |
+| Real partnerships, authority/licensing data and market expansion | C11-01, C11-02, C11-03, C11-05, C11-06, C11-07 | Secure creator/partner agreements and badge permission, an agreed authority referral process, authoritative permit data, a waste-collection partner and verified new-market details. Build/configure approved real adapters and validate activation. [Partner guide](CP10_PARTNER_GUIDE.md) |
+| Android/iOS binaries and native acceptance | C01-07 | When you resume deferred native work, provide Android build/device access and Mac/Xcode access for iOS; compile binaries, configure connected native auth/links and complete device acceptance. [Native guide](CP11_NATIVE_GUIDE.md) |
+
+**Additional acceptance on checked features:** owner enters their own password; validate recovery-email delivery and privacy before real participants; test actual phone microphone/model memory and touch journeys, PWA installation/update, a network-disconnected reload and an unvisited lazy route, displayed push notification/click, and supplied-image public-use metadata/rights. Real ad-network/billing activation is also outside the checked local simulations. These do not add to the 25-item count. Deployment remains deferred.
 
 Advertising, sponsorship purchasing, subscriptions and authority dashboards have labelled local simulations; checked boxes do not mean real billing, ad-network activation or authority deployment. Web Push code exists but actual device notification receipt remains open. PWA/physical-phone/offline acceptance and image public-use evidence remain additional release checks. Deployment remains on hold.
 
-This review inspected source and existing recorded gates; it did not rerun the app, human/device tests or completed phase suites. Documentation-only changes do not provide new runtime evidence.
+This update implemented and tested the available local work, changed the explicitly selected instant-signup setting, and verified actual browser/API flows. See [batch evidence](LOCAL_FEATURE_COMPLETION.md) for targeted test counts and limits. No deployment or external submission occurred.
 
 ## Reviewed totals by section
 
 | Section | Checked locally | Unchecked |
 | --- | ---: | ---: |
-| 1 | 5 | 2 |
+| 1 | 6 | 1 |
 | 2 | 9 | 0 |
 | 3 | 11 | 0 |
 | 4 | 9 | 0 |
@@ -312,8 +342,8 @@ This review inspected source and existing recorded gates; it did not rerun the a
 | 12 | 3 | 3 |
 | 13 | 7 | 0 |
 | 14 | 4 | 7 |
-| 15 | 6 | 6 |
-| **Total** | **124** | **27** |
+| 15 | 7 | 5 |
+| **Total** | **126** | **25** |
 
 CP10 update (8 October 2026): all six section 11 external requirements remain unchecked. Local evidence preparation and simulated contract/privacy regressions are complete; no genuine endorsement, authority submission, official permit, collector partnership or real rollout is claimed. [Acceptance](CP10_ACCEPTANCE.md).
 

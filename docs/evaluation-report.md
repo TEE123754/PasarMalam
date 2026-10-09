@@ -1,25 +1,26 @@
-# Voice evaluation — Not measured
+# Voice evaluation - supplied baseline measured; acceptance pending
 
-**CP7 update (8 October 2026):** use the [expanded recording and measurement guide](CP7_MEASUREMENT_GUIDE.md) and [24-case pack](../contracts/cp7-recording-pack.json) for the final holdout. Original satay scripts remain development/practice material. Local preparation passed; actual participant/device results remain unmeasured. [Evidence](CP7_ACCEPTANCE.md).
+**9 October accuracy update:** The best full desktop development run now reaches BM 90%, Manglish 86%, English 95% critical-field accuracy with 24/24 valid drafts. Browser-compatible ONNX turbo reached BM 86% / Manglish 70% on desktop CPU; actual browser/phone accuracy is not inferred from that run. The original CP7 text pack was used for development and replaced for independent collection by [holdout v2](../contracts/cp7-holdout-v2.json). Human/live/device/cost acceptance remains pending. See [improvements and complete comparisons](VOICE_ACCURACY_IMPROVEMENTS.md). Current count stays 124 checked / 27 open; deployment held.
 
+Updated 9 October 2026. The owner supplied 24 original satay recordings from five speaker folders and confirmed consent/script assignments. Actual local transcription and Morpheus interpretation were run. Detailed voices/transcripts/results stay private. [Anonymous measurements](supplied-voice-results.json) and [integration evidence](SUPPLIED_VOICE_ACCEPTANCE.md) record the results.
 
-Updated: 1 October 2026. No human recordings or participant measurements supplied. Actual local LLM on three fictional texts and browser Whisper on one synthetic English WAV were exercised. These smoke checks do not establish human accuracy or listing speed.
-
-| Required evidence | Current status |
+| Evidence | Current status |
 | --- | --- |
-| BM corpus | 10 annotated fictional scripts; zero consented recordings |
-| Manglish corpus | 10 annotated fictional scripts; zero consented recordings |
-| English controls | 4 annotated fictional scripts; zero consented recordings |
-| Speakers | Zero supplied; at least five consenting speakers required |
-| Accuracy, JSON validity, WER, ingredients, corrections | Not measured |
-| Paired voice/typing median and p90 | Not measured; automatic task instrumentation and valid-pair aggregation implemented |
-| Desktop model download | Loaded successfully; cold/warm duration not measured |
-| Desktop/Android microphone | Pending; no permission granted; synthetic file is separate |
-| Actual local LLM smoke | Executed English/BM/Manglish; errors retained in `phase6-llm-smoke.json`; conflicting times cleared |
-| Browser synthetic audio | Actual Whisper inference; dish/price required correction; excluded from human metrics |
+| Recording inventory | 10 BM, 10 Manglish, four English; valid Ogg/Opus; source bytes/hashes preserved |
+| Speaker/consent | Five anonymous folders; owner confirmation in chat; no invented signed receipts |
+| Speech recognition | All 24 processed with pinned tiny, small, ONNX turbo and local turbo models; failures preserved |
+| Morpheus interpretation | Actual qwen35-9b extraction of recognized text; original failures retained |
+| First full small + Morpheus critical accuracy | BM 56%, Manglish 34%, English 40%; target not met |
+| First full app-draft validity | 20/24 (83.3%); original baseline target not met |
+| Best full desktop development result | BM 90%, Manglish 86%, English 95%; 24/24 valid drafts; independent acceptance pending |
+| Unknown-unit repair | Three of four affected reruns returned valid drafts; one still failed |
+| Browser flow | Original extensionless file, actual WASM transcription, actual Morpheus draft and verified private JSON download |
+| Live microphone/typing median and p90 | Not measured; supplied files excluded |
+| Phone/memory, actual market noise and interviews/trial | Not measured |
+| Provider usage/billing cost | Not measured; no invented zero-cost claim |
 
-The current script set is a narrow satay baseline, not representative Malaysian menu coverage. Add more dishes, units, prices, ambiguous wording and background-noise cases before drawing broad conclusions. Keep audio/consent files private and separate from ordinary voice notes. Run actual inference using the pinned manifest, preserve failed attempts and denominators, alternate task order and include fixes/confirmation. Use the corpus reference clock and matching test menu; do not mark canned transcripts as inference.
+The accuracy/WER figures compare with assigned scripts. Spoken deviations need independent bilingual annotation before definitive recognition claims. The original satay set is development material, not the expanded independent CP7 holdout. No broad Malaysian-menu robustness, safety, live speedup or phone claim is made.
 
-The Evaluation screen accepts actual result records with device/network/model context, rejects scripted source labels and duplicate IDs, and computes per-language metrics. Operator-provided labels are not independent proof of inference; keep raw run evidence and consent receipts for review. Target at least 80% critical accuracy in BM and Manglish separately; if it fails, fix affected cases and rerun affected clips plus a small unchanged sample. Never fill this report with invented percentages or fake speedups.
+Use the [expanded recording and measurement guide](CP7_MEASUREMENT_GUIDE.md) and [24-case pack](../contracts/cp7-holdout-v2.json) for final CP7 acceptance. Keep current failure evidence. Verify annotations before inference on a fresh holdout; do not count this repaired development set as independent. Live paired tasks, devices and operating-cost evidence remain separate requirements.
 
-See [Phase 6 acceptance](phase6-acceptance.md) and `contracts/voice-evaluation.json` for the current schema, setup and remaining gates.
+The working feature is audio -> editable transcript -> Morpheus draft -> clarification -> explicit human confirmation. Audio stays local; transcript sharing remains explicit. Manual entry remains required for ambiguous or failed results. CP7 and deployment remain open.

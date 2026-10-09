@@ -12,6 +12,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def development_ids():
+    pack = json.loads((ROOT / "contracts/cp7-recording-pack.json").read_text(encoding="utf-8"))
+    return set(pack["development_ids"])
+
+
 def fingerprint(value):
     return hashlib.sha256(
         json.dumps(value, sort_keys=True, ensure_ascii=False).encode()
@@ -67,6 +72,9 @@ def freeze(manifest, folder):
     assert not set(manifest["development_ids"]) & {x["id"] for x in samples}, (
         "Split overlap"
     )
+    assert not development_ids() & {x["id"] for x in samples}, (
+        "Scripts used for development cannot be frozen as an independent holdout"
+    )
     assert len({x["speaker"] for x in samples}) >= 5, "Five actual speakers required"
     assert len({x["audio_sha256"] for x in samples}) == 24, (
         "Each clip needs its own recording"
@@ -102,6 +110,7 @@ def score(manifest, lock, measurements):
     samples = {x["id"]: x for x in manifest["samples"]}
     assert len(samples) == len(manifest["samples"]), "Duplicate manifest IDs"
     assert not set(samples) & set(manifest["development_ids"]), "Split overlap"
+    assert not set(samples) & development_ids(), "Development scripts are not a holdout"
     for key in [
         "device",
         "browser",
@@ -309,6 +318,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("action", choices=["init", "freeze", "report"])
     parser.add_argument("--folder", type=Path, default=ROOT / ".local-evaluation/cp7")
+    parser.add_argument("--pack", type=Path, default=ROOT / "contracts/cp7-holdout-v2.json")
     args = parser.parse_args()
     folder = args.folder.resolve()
     assert folder.is_relative_to((ROOT / ".local-evaluation").resolve()), (
@@ -317,7 +327,7 @@ def main():
     if args.action == "init":
         folder.mkdir(parents=True, exist_ok=True)
         manifest = json.loads(
-            (ROOT / "contracts/cp7-recording-pack.json").read_text(encoding="utf-8")
+            args.pack.read_text(encoding="utf-8")
         )
         data = {
             "device": "",

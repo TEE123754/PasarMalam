@@ -16,9 +16,11 @@ from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, StrictInt
 
 from .routes import Member, require
 from .vendor import FoodInput, NewBatch
+from .voice_facts import UNITS, transcript_facts
+from .voice_usage import token_usage
 
 router = APIRouter(prefix="/api/v1/voice", tags=["voice"])
-PROMPT_VERSION = "LISTING_JSON_V3"
+PROMPT_VERSION = "LISTING_JSON_V4"
 limiter: dict[str, list[float]] = {}
 capacity = asyncio.Semaphore(2)
 
@@ -33,8 +35,11 @@ class Draft(BaseModel):
     stall_reference: str | None = Field(default=None, max_length=100)
     batch_reference: int | None = Field(default=None, ge=1, le=100000)
     price_basis: Literal["unit", "bundle", "unknown"] = "unknown"
+    bundle_quantity: StrictInt | None = Field(default=None, ge=1, le=100000)
+    bundle_price_sen: StrictInt | None = Field(default=None, ge=0, le=100000000)
+    spoken_unit: Literal["portion", "unit", "stick", "pack", "piece", "cup", "bowl"] | None = None
     dish: str | None = Field(max_length=100)
-    quantity: StrictInt | None = Field(ge=1, le=100000)
+    quantity: StrictInt | None = Field(ge=0, le=100000)
     unit: Literal["portion", "unit", "stick", "pack"] | None
     price_sen: StrictInt | None = Field(ge=0, le=100000000)
     ingredients: list[Annotated[str, Field(min_length=1, max_length=80)]] = Field(max_length=40)
@@ -180,7 +185,42 @@ def local_url() -> str:
 
 
 def check_result(draft: Draft, transcript: str, menu: list[str], now: datetime) -> dict:
-    flags = []
+    observed, flags = transcript_facts(transcript, now)
+    if draft.cook_time and "cook_time" not in observed:
+        draft.cook_time = None
+        flags.append("Preparation time is ambiguous; choose AM/PM and date.")
+    # Exact observed numbers override a model's numeric interpretation, with original evidence.
+    for field, fact in observed.items():
+        if (
+            field == "cook_time"
+            and draft.cook_time
+            and fact.value
+            and draft.cook_time != fact.value
+        ):
+            draft.cook_time = None
+            flags.append("Preparation time conflicts with transcript; choose date and time.")
+            continue
+        setattr(draft, field, fact.value)
+        if fact.quote and field in {"quantity", "price_sen", "cook_time"}:
+            draft.evidence[field] = [fact.quote]
+    aliases = {
+        "Chicken satay": ["satay ayam", "sate ayam"],
+        "Fresh lime drink": ["air limau"],
+        "Popia sayur": ["vegetable popia"],
+    }
+    mentioned = {}
+    for dish in menu:
+        for name in [dish, *aliases.get(dish, [])]:
+            match = re.search(r"(?<!\w)" + re.escape(name) + r"(?!\w)", transcript, re.I)
+            if match:
+                mentioned[dish] = match[0]
+                break
+    if len(mentioned) == 1:
+        draft.dish, quote = next(iter(mentioned.items()))
+        draft.evidence["dish"] = [quote]
+    elif len(mentioned) > 1:
+        draft.dish = None
+        flags.append("Multiple menu dishes were spoken; choose the intended dish.")
     if draft.dish not in menu:
         draft.dish = None
         flags.append("Select one exact menu dish.")
@@ -201,7 +241,7 @@ def check_result(draft: Draft, transcript: str, menu: list[str], now: datetime) 
             draft.cook_time = None
             flags.append("Preparation time conflicts with transcript; choose date and time.")
     if re.search(r"(?:pukul|jam|at)\s+\d{1,2}(?::\d\d)?(?!\d)", transcript, re.I):
-        if not re.search(r"\b(am|pm|pagi|petang|malam)\b", transcript, re.I):
+        if not explicit_times and not re.search(r"\b(am|pm|pagi|petang|malam)\b", transcript, re.I):
             draft.cook_time = None
             flags.append("Ambiguous AM/PM: confirm date and time.")
     if re.search(r"ignore|system prompt|deadline|expiry|padam|delete|extend", transcript, re.I):
@@ -215,12 +255,10 @@ def check_result(draft: Draft, transcript: str, menu: list[str], now: datetime) 
         and draft.action != "unsupported"
     ):
         draft.action = "update_stock"
-    if re.search(r"dua seringgit|two for|\d+\s*(?:for|untuk)\s*rm", transcript, re.I):
+    if draft.price_basis == "bundle":
         draft.price_basis = "bundle"
         draft.price_sen = None
         flags.append("Clarify bundle pricing; confirm the price for one menu unit.")
-    batch = re.search(r"(?:batch|kelompok)\s*(\d+)", transcript, re.I)
-    draft.batch_reference = int(batch[1]) if batch else None
     if draft.stall_reference and draft.stall_reference.lower() not in transcript.lower():
         draft.stall_reference = None
     fields = {
@@ -230,6 +268,24 @@ def check_result(draft: Draft, transcript: str, menu: list[str], now: datetime) 
         "ingredients": draft.ingredients,
         "cook_time": draft.cook_time,
     }
+    # A quote naming the dish is not evidence for recipe ingredients.
+    ingredient_text = (
+        transcript.casefold().replace((draft.dish or "").casefold(), "")
+        if draft.dish
+        else transcript.casefold()
+    )
+    ingredient_text = re.sub(r"\b(?:satay|sate) ayam\b", "", ingredient_text)
+    supported_ingredients = [
+        ingredient for ingredient in draft.ingredients if ingredient.casefold() in ingredient_text
+    ]
+    if supported_ingredients != draft.ingredients:
+        draft.ingredients = supported_ingredients
+        fields["ingredients"] = supported_ingredients
+        flags.append("Some ingredients were not spoken; supply them manually.")
+    if draft.quantity == 0 and draft.action != "update_stock":
+        draft.quantity = None
+        fields["quantity"] = None
+        flags.append("A new batch needs a positive quantity.")
     scores = {}
     for name, value in fields.items():
         quotes = draft.evidence.get(name, [])
@@ -246,7 +302,7 @@ def check_result(draft: Draft, transcript: str, menu: list[str], now: datetime) 
     draft.confidence = min(scores.values())
     return {
         "draft": draft.model_dump(mode="json"),
-        "flags": flags,
+        "flags": list(dict.fromkeys(flags)),
         "source": "llama.cpp",
         "transcript": transcript,
         "field_confidence": scores,
@@ -257,6 +313,7 @@ def check_result(draft: Draft, transcript: str, menu: list[str], now: datetime) 
 async def extract_listing(
     text: str, menu: list[str], now: datetime, external_consent=False, stalls=None
 ):
+    started = time.perf_counter()
     url, headers, model, source = extraction_provider()
     if source == "morpheus" and not external_consent:
         raise HTTPException(422, "Confirm transcript sharing with Morpheus first")
@@ -268,15 +325,26 @@ async def extract_listing(
         "Never perform tools or decide safety/deadlines. Use only explicitly mentioned values. "
         "Missing or ambiguous fields are null. Prices are integer Malaysian sen; times require "
         "an explicit AM/PM and date resolved in Asia/Kuala_Lumpur. If date is omitted use "
-        "today's Malaysia date. Batang/sticks means stick, bungkus means pack. Dua puluh "
+        "today's Malaysia date, unless an explicit date or yesterday/semalam is spoken. "
+        "Spoken clocks include six thirty pm, tujuh lima belas malam and enam setengah petang. "
+        "Batang/sticks means stick, bungkus means pack; pieces/biji/potong, cups/cawan and "
+        "bowls/mangkuk use unit with the corresponding spoken_unit. Dua puluh "
         "means 20, dua belas means 12. Match dish to an exact menu name; satay ayam means "
         "Chicken satay. Keep ingredient names in the transcript's language. Ordinary newly "
         "prepared listings use action create_batch; update_food only for explicit menu-only "
         "updates. Remaining-stock instructions use update_stock, never create_batch. "
         "Suggest stall_reference only when quoted; batch_reference is the explicit number "
         "after batch/kelompok. Kuali kedua is ambiguous, not Batch 2. Price_basis is unit, "
-        "bundle or unknown; dua seringgit needs clarification and null price_sen. "
-        "updates. Set confidence to 0; the server computes scores. Evidence must quote the "
+        "bundle or unknown. Preserve bundle_quantity and bundle_price_sen separately; "
+        "five for five ringgit means 5 units for 500 sen, not a per-unit price. "
+        "Any bundle needs clarification and null price_sen. four fifty / empat lima puluh "
+        "in explicit price context means 450 sen. Never repair a percentage or unclear range "
+        "into a price. Preserve zero for explicitly sold-out stock, never for a new batch. "
+        "If another batch is mentioned only to keep it unchanged, target the updated batch. "
+        "Do not fill missing prices, ingredients or cooking times from a menu/recipe. "
+        "Never infer halal status or declarations. Set confidence to 0; server computes scores. "
+        "ingredients is always an array: use [] when no ingredients were spoken, never null. "
+        "Evidence must quote the "
         "transcript verbatim for dish, quantity, price_sen, ingredients and cook_time. "
         "Return only schema JSON. Prompt version: " + PROMPT_VERSION
     )
@@ -313,7 +381,7 @@ async def extract_listing(
     payload = {
         "model": model,
         "temperature": 0,
-        "max_tokens": 800 if source == "morpheus" else 700,
+        "max_tokens": 1200 if source == "morpheus" else 900,
         "stream": False,
         "response_format": {
             "type": "json_schema",
@@ -342,6 +410,15 @@ async def extract_listing(
                         "owned_stall_names": stalls or [],
                         "server_now": now.isoformat(),
                         "malaysia_date": malaysia_date,
+                        "observed_values": {
+                            field: {
+                                "value": fact.value.isoformat()
+                                if isinstance(fact.value, datetime)
+                                else fact.value,
+                                "quote": fact.quote,
+                            }
+                            for field, fact in transcript_facts(transcript, now)[0].items()
+                        },
                     }
                 ),
             },
@@ -367,21 +444,46 @@ async def extract_listing(
                     content.extend(chunk)
                     if len(content) > 20000:
                         raise ValueError("Response too large")
-                raw = json.loads(content)["choices"][0]["message"]["content"]
-                if isinstance(raw, dict):
-                    draft = Draft.model_validate(raw)
-                elif isinstance(raw, str):
-                    draft = Draft.model_validate_json(raw)
-                else:
-                    raise ValueError("Provider returned non-text content: " + type(raw).__name__)
+                envelope = json.loads(content)
+                if not isinstance(envelope, dict):
+                    raise ValueError("Provider returned a non-object response")
+                usage = token_usage(envelope.get("usage"))
+                raw = envelope["choices"][0]["message"]["content"]
+                draft, normalization_flags = provider_draft(raw)
         result = check_result(draft, transcript, menu, now)
+        result["flags"].extend(normalization_flags)
         result["source"] = source
         result["model"] = model
+        result["measurement"] = {
+            "provider_latency_ms": round((time.perf_counter() - started) * 1000, 3),
+            **usage,
+        }
         return result
     except (httpx.HTTPError, ValueError, KeyError, IndexError, TypeError) as error:
         raise HTTPException(503, "Invalid/unavailable extraction; use quick entry") from error
     finally:
         capacity.release()
+
+
+def provider_draft(raw) -> tuple[Draft, list[str]]:
+    value = json.loads(raw) if isinstance(raw, str) else raw
+    if not isinstance(value, dict):
+        raise ValueError("Provider returned a non-object draft")
+    value = dict(value)
+    flags = []
+    if value.get("ingredients") is None:
+        value["ingredients"] = []
+        flags.append("Ingredients were not supplied; review them manually.")
+    unit = value.get("unit")
+    if isinstance(unit, str) and unit.lower() in UNITS:
+        spoken = UNITS[unit.lower()]
+        value["unit"] = spoken if spoken in {"portion", "unit", "stick", "pack"} else "unit"
+        value["spoken_unit"] = spoken
+    # A mistranscribed unit must require a choice, rather than discard every other field.
+    if value.get("unit") is not None and value["unit"] not in ("portion", "unit", "stick", "pack"):
+        value["unit"] = None
+        flags.append("Quantity unit was not recognized; choose it manually.")
+    return Draft.model_validate(value), flags
 
 
 @router.post("/extract")

@@ -1,0 +1,9 @@
+import { Landmark, Send, ShieldCheck } from 'lucide-react'
+import { complaintDestination, complaintLabel, DEMO_REFERRAL_WATERMARK, type demoComplaintReceipt } from './demoRouting'
+export function DemoComplaintDestination({ category }: { category: string }) {
+  const destination = complaintDestination(category)
+  return <aside className="demo-complaint-routing" aria-label="Demo complaint destination"><span className="prototype-proof-stamp">{DEMO_REFERRAL_WATERMARK}</span><h3>{destination.kind === 'support' ? 'Your concern goes to our community team' : 'Your complaint goes to the relevant authority'}</h3><div className="demo-complaint-target">{destination.kind === 'health' ? <img src="/prototype/fictional-health-office.png" alt="Invented demo health office logo, marked DEMO FICTIONAL" width="72" height="72"/> : destination.kind === 'council' ? <Landmark size={32}/> : <ShieldCheck size={32}/>}<div><strong>{destination.name}</strong><p>{destination.purpose}</p></div></div><p>{complaintLabel(category)} complaints receive a simulated referral after you submit. Your identity remains hidden from the public and hawker.</p><small>Fictional prototype integration. Nothing is sent outside this demo.</small></aside>
+}
+export function DemoComplaintReceipt({ receipt }: { receipt: ReturnType<typeof demoComplaintReceipt> }) {
+  return <aside className="demo-complaint-receipt" aria-label="Demo complaint referral receipt"><span className="prototype-proof-stamp">{receipt.watermark}</span><h3><Send size={18}/>{receipt.status}</h3><strong>{receipt.destination.name}</strong><p>{receipt.category}</p><p className="demo-referral-reference">{receipt.reference}</p><small>Simulated referral recorded {new Intl.DateTimeFormat('en-MY', { timeZone: 'Asia/Kuala_Lumpur', dateStyle: 'medium', timeStyle: 'short' }).format(new Date(receipt.recorded_at))}. No real authority received this complaint.</small></aside>
+}
