@@ -1,0 +1,24 @@
+{
+  "buildPath": "code",
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-10-08T08:12:47.768Z",
+        "reason": "design-system decision: DESIGN.md v3 typography.family mandates Inter only (The Weight-Over-Width Rule), not an accidental default"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/styles.css"
+        ],
+        "createdAt": "2026-10-08T08:12:50.339Z",
+        "reason": "L5 .canopy::after border-left/border-right is a decorative hero-illustration umbrella rib shape (symmetric both sides), not a card side-accent-tab UI affordance"
+      }
+    ]
+  }
+}

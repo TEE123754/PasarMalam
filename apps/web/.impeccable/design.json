@@ -1,0 +1,211 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-08T00:00:00Z",
+  "title": "Design System: PasarMalam v3",
+  "extensions": {
+    "colorMeta": {
+      "forest-primary": { "role": "primary", "displayName": "Deep Forest Green", "canonical": "#1c5a45", "tonalRamp": ["#0c2620", "#123c33", "#174840", "#1c5a45", "#276452", "#3c7c67", "#6fa391", "#b7d4c7"] },
+      "forest-deep": { "role": "primary", "displayName": "Forest Deep", "canonical": "#174840" },
+      "forest-dusk": { "role": "primary", "displayName": "Forest Dusk", "canonical": "#17443e", "tonalRamp": ["#0a211d", "#113631", "#17443e", "#1f5850", "#2d7266", "#4c9484", "#82bba9", "#c3e0d4"] },
+      "forest-ink": { "role": "primary", "displayName": "Forest Ink", "canonical": "#18332f" },
+      "lantern-gold": { "role": "secondary", "displayName": "Lantern Gold", "canonical": "#f5be73", "tonalRamp": ["#5c3b12", "#8a591c", "#b87926", "#da9a45", "#f5be73", "#f8cf94", "#fae0b8", "#fdf0dc"] },
+      "warm-terracotta": { "role": "secondary", "displayName": "Warm Terracotta", "canonical": "#d97c40", "tonalRamp": ["#572c14", "#7e401c", "#a65527", "#c66935", "#d97c40", "#e49a68", "#eeb892", "#f7d9c0"] },
+      "lantern-amber": { "role": "tertiary", "displayName": "Lantern Amber", "canonical": "#ed9e57", "tonalRamp": ["#5e3912", "#8a5420", "#b56f2c", "#d6873f", "#ed9e57", "#f2b87c", "#f6d2a3", "#fbebcf"] },
+      "soft-cream": { "role": "neutral", "displayName": "Soft Cream", "canonical": "#f8f7f2", "tonalRamp": ["#302f28", "#5c5a4e", "#8c8977", "#bcb8a3", "#d9d6c7", "#ecebe2", "#f8f7f2", "#fdfcfa"] },
+      "muted-text": { "role": "neutral", "displayName": "Muted Sage", "canonical": "#7a8c83", "tonalRamp": ["#1c2320", "#303b36", "#455650", "#5c706a", "#7a8c83", "#9aaca3", "#bdcac3", "#e1e7e3"] },
+      "success-green": { "role": "semantic", "displayName": "Success Green", "canonical": "#287848" },
+      "warning-amber": { "role": "semantic", "displayName": "Warning Amber", "canonical": "#a15c2d" },
+      "closed-grey": { "role": "semantic", "displayName": "Closed Grey", "canonical": "#69756c" },
+      "sold-out-text": { "role": "semantic", "displayName": "Sold-out Text", "canonical": "#8a3a2d" },
+      "error-red": { "role": "semantic", "displayName": "Error Red", "canonical": "#c0392b" },
+      "recording-red": { "role": "semantic", "displayName": "Recording Red", "canonical": "#e74c3c" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero splash wordmark only." },
+      "hero-headline": { "displayName": "Hero Headline", "purpose": "App-header hero line, e.g. \"Find your next favourite bite.\"" },
+      "headline": { "displayName": "Headline", "purpose": "Stall name, section h2 headings." },
+      "title": { "displayName": "Title", "purpose": "Card and panel h3 titles." },
+      "body": { "displayName": "Body", "purpose": "Paragraph copy." },
+      "body-small": { "displayName": "Body Small", "purpose": "Card descriptions, secondary copy." },
+      "label": { "displayName": "Label", "purpose": "Eyebrows, status pills, mini-labels." },
+      "price": { "displayName": "Price", "purpose": "Product/offer prices — always terracotta." },
+      "caption": { "displayName": "Caption", "purpose": "Batch-time labels, mini captions." }
+    },
+    "shadows": [
+      { "name": "hover-lift", "value": "0 12px 25px #173a2e13", "purpose": "Card hover lift (product, category, market)." },
+      { "name": "anchor", "value": "0 18px 30px #173a2e14", "purpose": "Persistent page anchor, e.g. featured card." },
+      { "name": "modal", "value": "0 20px 60px #0e261d44", "purpose": "Dialog/modal and FAB popover, strongest shadow in the system." },
+      { "name": "active-pill", "value": "0 2px 6px #173d2730", "purpose": "Lift under active segmented-tab/role-switch state." },
+      { "name": "search-bar", "value": "0 13px 30px #2047341a", "purpose": "Floating search bar anchor shadow." },
+      { "name": "fab", "value": "0 8px 20px #d97c4055", "purpose": "FAB and active bottom-nav bump, terracotta-tinted glow." },
+      { "name": "floating-image", "value": "0 20px 30px #18332f33", "purpose": "Floating product photo breaking a card edge (featured/promo cards)." }
+    ],
+    "motion": [
+      { "name": "card-hover", "value": "transform 220ms cubic-bezier(0.2,0.8,0.2,1), box-shadow 220ms cubic-bezier(0.2,0.8,0.2,1)", "purpose": "Card lift-on-hover transition." },
+      { "name": "button-press", "value": "transform 80ms cubic-bezier(0.2,0.8,0.2,1), background-color 120ms ease", "purpose": "Button press feedback." },
+      { "name": "pill-active", "value": "background-color 120ms ease, color 120ms ease, box-shadow 120ms ease", "purpose": "Segmented-tab / filter-pill active state change." },
+      { "name": "page-enter", "value": "opacity 500ms cubic-bezier(0,0,0.2,1), transform 500ms cubic-bezier(0,0,0.2,1)", "purpose": "Page/route transition entrance." }
+    ],
+    "breakpoints": [
+      { "name": "md", "value": "1140px" },
+      { "name": "sm", "value": "800px" },
+      { "name": "xs", "value": "580px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main call-to-action button; forest-green, reserved for the splash screen and primary actions off the main interface.",
+      "html": "<button class=\"ds-btn-primary\">Reserve clearance</button>",
+      "css": ".ds-btn-primary { background: #1c5a45; color: #fff; border: 0; border-radius: 11px; min-height: 48px; padding: 12px 18px; font-weight: 800; } .ds-btn-primary:hover { background: #174840; } .ds-btn-primary:active { transform: scale(0.97); } .ds-btn-primary:disabled { opacity: 0.45; } .ds-btn-primary:focus-visible { outline: 3px solid #ed9e57; outline-offset: 3px; }"
+    },
+    {
+      "name": "Pill White Button",
+      "kind": "button",
+      "refersTo": "button-pill-white",
+      "description": "CTA on featured/promo gradient cards — white pill so it reads over a dark or warm background.",
+      "html": "<button class=\"ds-btn-pill-white\">See Offer</button>",
+      "css": ".ds-btn-pill-white { background: #ffffff; color: #18332f; border: 0; border-radius: 999px; min-height: 44px; padding: 12px 22px; font-weight: 800; }"
+    },
+    {
+      "name": "Status Pill",
+      "kind": "chip",
+      "refersTo": "status-pill-open / status-pill-upcoming / status-pill-closed / status-pill-sold-out",
+      "description": "Market/stall status indicator, 4 states.",
+      "html": "<span class=\"ds-status-pill ds-status-pill--open\">Open</span>",
+      "css": ".ds-status-pill { display: inline-flex; border-radius: 999px; padding: 6px 10px; font-size: .72rem; font-weight: 850; } .ds-status-pill--open { background: #e9f4e9; color: #287848; } .ds-status-pill--upcoming { background: #fff3df; color: #a15c2d; } .ds-status-pill--closed { background: #f1f0ea; color: #69756c; } .ds-status-pill--sold-out { background: #f5f0f0; color: #8a3a2d; }"
+    },
+    {
+      "name": "Product Card",
+      "kind": "card",
+      "refersTo": "card-product",
+      "description": "Square-photo product card with terracotta price and batch-time caption; hover lift.",
+      "html": "<a class=\"ds-product-card\" href=\"#\"><div class=\"ds-product-card-img\"></div><h3>Chicken satay</h3><p class=\"ds-product-card-price\">RM8.00</p><p class=\"ds-product-card-batch\">Batch closes 9pm</p></a>",
+      "css": ".ds-product-card { display: block; background: #fff; border: 1px solid #e5e9de; border-radius: 18px; padding: 12px; text-decoration: none; color: inherit; transition: transform 220ms cubic-bezier(0.2,0.8,0.2,1), box-shadow 220ms cubic-bezier(0.2,0.8,0.2,1); } .ds-product-card:hover { transform: translateY(-3px); box-shadow: 0 12px 25px #173a2e13; } .ds-product-card-img { aspect-ratio: 1/1; border-radius: 12px; background: #f1f0ea; } .ds-product-card-price { color: #d97c40; font-weight: 800; } .ds-product-card-batch { color: #7a8c83; font-size: .78rem; }"
+    },
+    {
+      "name": "Featured Market Card",
+      "kind": "card",
+      "refersTo": "featured-card",
+      "description": "Forest-gradient anchor card with a floating photo breaking the card edge, status + distance, white pill CTA.",
+      "html": "<div class=\"ds-featured-card\"><span class=\"ds-featured-card-eyebrow\">Tonight only</span><h3 class=\"ds-featured-card-headline\">Taman Jaya Night Market</h3><button class=\"ds-btn-pill-white\">See Offer</button></div>",
+      "css": ".ds-featured-card { background: linear-gradient(135deg, #17443e 0%, #1c5a45 100%); border-radius: 28px; padding: 24px; min-height: 220px; } .ds-featured-card-eyebrow { color: #f5be73; font-weight: 850; font-size: .72rem; } .ds-featured-card-headline { color: #fff; font-weight: 900; font-size: 1.5rem; }"
+    },
+    {
+      "name": "Promo Card (warm)",
+      "kind": "card",
+      "refersTo": "promo-card-warm",
+      "description": "Gold-to-terracotta gradient promo card, floating product image, white pill CTA labelled \"See Offer\".",
+      "html": "<div class=\"ds-promo-card-warm\"><h3>30% off closing batches</h3><button class=\"ds-btn-pill-white\">See Offer</button></div>",
+      "css": ".ds-promo-card-warm { background: linear-gradient(135deg, #f5be73 0%, #d97c40 100%); border-radius: 22px; padding: 20px; color: #18332f; } .ds-promo-card-warm h3 { font-weight: 800; font-size: 1.3rem; }"
+    },
+    {
+      "name": "Promo Card (dark)",
+      "kind": "card",
+      "refersTo": "promo-card-dark",
+      "description": "Near-black promo card with an ambient gold glow behind the product image; bold terracotta percentage in the CTA.",
+      "html": "<div class=\"ds-promo-card-dark\"><span class=\"ds-promo-card-dark-eyebrow\">Limited batch</span><h3>Save <span class=\"ds-promo-card-dark-bold\">30% off</span></h3></div>",
+      "css": ".ds-promo-card-dark { background: #18332f; border-radius: 22px; padding: 20px; } .ds-promo-card-dark-eyebrow { color: #ffffffaa; font-size: .8rem; } .ds-promo-card-dark h3 { color: #fff; font-weight: 800; font-size: 1.3rem; } .ds-promo-card-dark-bold { color: #d97c40; }"
+    },
+    {
+      "name": "Category Card",
+      "kind": "card",
+      "refersTo": "category-card",
+      "description": "Horizontal icon+text category card, 2-column grid, flat at rest.",
+      "html": "<a class=\"ds-category-card\" href=\"#\"><div class=\"ds-category-card-icon\"></div><div><h4>Rice & noodles</h4><p>12 stalls nearby</p></div></a>",
+      "css": ".ds-category-card { display: flex; gap: 12px; background: #fff; border: 1px solid #e5e9de; border-radius: 18px; padding: 16px; text-decoration: none; color: inherit; transition: transform 220ms ease, box-shadow 220ms ease; } .ds-category-card:hover { transform: translateY(-3px); box-shadow: 0 12px 25px #173a2e13; } .ds-category-card-icon { width: 35%; border-radius: 14px; background: #f1f0ea; } .ds-category-card h4 { color: #18332f; font-weight: 700; font-size: 1.18rem; } .ds-category-card p { color: #7a8c83; font-size: .85rem; }"
+    },
+    {
+      "name": "Segmented Tab",
+      "kind": "nav",
+      "refersTo": "segmented-tab",
+      "description": "Popular/Nearby segmented control, terracotta active fill on a cream track.",
+      "html": "<div class=\"ds-segmented-tab\"><button class=\"ds-segmented-tab-item ds-segmented-tab-item--active\">Popular</button><button class=\"ds-segmented-tab-item\">Nearby</button></div>",
+      "css": ".ds-segmented-tab { display: inline-flex; background: #f1f0ea; border-radius: 999px; padding: 4px; } .ds-segmented-tab-item { border-radius: 999px; padding: 10px 24px; font-weight: 600; color: #18332f; background: transparent; transition: background-color 120ms ease, color 120ms ease; } .ds-segmented-tab-item--active { background: #d97c40; color: #fff; font-weight: 800; }"
+    },
+    {
+      "name": "Search Bar",
+      "kind": "input",
+      "refersTo": "search-bar",
+      "description": "Floating pill search field under the app-header hero.",
+      "html": "<div class=\"ds-search-bar\"><input placeholder=\"Search stalls, dishes...\" /></div>",
+      "css": ".ds-search-bar { background: #fff; border: 1px solid #e9e9dd; border-radius: 999px; padding: 12px 20px; min-height: 48px; box-shadow: 0 13px 30px #2047341a; } .ds-search-bar input { border: 0; width: 100%; color: #18332f; } .ds-search-bar input::placeholder { color: #7a8c83; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input-default",
+      "description": "Standard form text input.",
+      "html": "<input class=\"ds-input\" placeholder=\"Chicken satay, 20 sticks\" />",
+      "css": ".ds-input { width: 100%; min-height: 48px; border: 1px solid #deded6; border-radius: 10px; padding: 12px 16px; background: #fff; color: #18332f; } .ds-input:focus-visible { outline: 3px solid #ed9e57; outline-offset: 3px; } .ds-input:disabled { opacity: 0.6; } .ds-input--error { border: 1px solid #c0392b; }"
+    },
+    {
+      "name": "Bottom Navigation",
+      "kind": "nav",
+      "refersTo": "bottom-nav",
+      "description": "Floating white pill bottom bar, raised terracotta bump with scalloped notch for the active item.",
+      "html": "<nav class=\"ds-bottom-nav\"><a class=\"ds-bottom-nav-item ds-bottom-nav-item--active\">Home</a><a class=\"ds-bottom-nav-item\">Document</a><a class=\"ds-bottom-nav-item\">Bell</a><a class=\"ds-bottom-nav-item\">Profile</a></nav>",
+      "css": ".ds-bottom-nav { display: flex; background: #fff; border-radius: 999px; height: 64px; margin: 0 20px 16px; box-shadow: 0 12px 30px #18332f22; } .ds-bottom-nav-item { color: #7a8c83; } .ds-bottom-nav-item--active { background: #d97c40; color: #fff; width: 56px; height: 56px; border-radius: 999px; transform: translateY(-16px); box-shadow: 0 8px 20px #d97c4055; }"
+    },
+    {
+      "name": "FAB",
+      "kind": "button",
+      "refersTo": "fab",
+      "description": "Hawker-side floating action button, expands to an Add food / New batch / More popover.",
+      "html": "<button class=\"ds-fab\">+</button>",
+      "css": ".ds-fab { position: fixed; right: 20px; bottom: 90px; width: 56px; height: 56px; border-radius: 999px; background: #d97c40; color: #fff; box-shadow: 0 8px 20px #d97c4055; }"
+    },
+    {
+      "name": "Freshness Ring",
+      "kind": "indicator",
+      "refersTo": "freshness-ring",
+      "description": "Circular countdown ring on batches; stroke color and pulse speed escalate from fresh to expired.",
+      "html": "<svg class=\"ds-freshness-ring ds-freshness-ring--fresh\" width=\"56\" height=\"56\"><circle class=\"ds-freshness-ring-track\" /><circle class=\"ds-freshness-ring-progress\" /></svg>",
+      "css": ".ds-freshness-ring-track { stroke: #e9e9dd; stroke-width: 5px; fill: none; } .ds-freshness-ring--fresh .ds-freshness-ring-progress { stroke: #287848; animation: ds-ring-pulse 2400ms cubic-bezier(0.4,0,0.6,1) infinite; } .ds-freshness-ring--warning .ds-freshness-ring-progress { stroke: #a15c2d; animation: ds-ring-pulse 1600ms cubic-bezier(0.4,0,0.6,1) infinite; } .ds-freshness-ring--urgent .ds-freshness-ring-progress { stroke: #d97c40; animation: ds-ring-pulse 900ms cubic-bezier(0.4,0,0.6,1) infinite; } .ds-freshness-ring--expired .ds-freshness-ring-progress { stroke: #69756c; animation: none; }"
+    },
+    {
+      "name": "Voice Record Button",
+      "kind": "button",
+      "refersTo": "voice-btn",
+      "description": "Voice-to-draft entry button; idle/recording/processing/done states, red pulsing ring while recording.",
+      "html": "<button class=\"ds-voice-btn ds-voice-btn--idle\" aria-label=\"Record a listing\"></button>",
+      "css": ".ds-voice-btn { width: 64px; height: 64px; border-radius: 999px; } .ds-voice-btn--idle { background: #1c5a45; color: #fff; } .ds-voice-btn--recording { background: #e74c3c; animation: ds-ring-pulse 900ms ease-in-out infinite; } .ds-voice-btn--processing { background: #17443e; color: #f5be73; animation: spin 800ms linear infinite; } .ds-voice-btn--done { background: #287848; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Lantern-Lit Market",
+    "overview": "PasarMalam's main interface reads as a night market stall glimpsed at dusk, but the metaphor now lives mostly in accents rather than in a wrapped canopy header. The header and content zone sit on a light, warm cream base (#f8f7f2) — never stark white — with forest-green reserved for the hero splash screen and primary buttons. Warm terracotta has grown into the app's primary interactive accent: it marks prices, active tabs, the active bottom-nav bump, the FAB, urgency badges, and the 'Malam' half of the wordmark. Gold/lantern accents stay rarer, used for the brand moon icon and featured-card eyebrows. The system stays warm and earthy rather than corporate: pill shapes for anything selectable, flat cards that lift only on hover, and large (44-48px) touch targets throughout for stall-side, one-handed use. Freshness rings and a four-state voice-recording control give the deterministic-advisory and voice-draft-entry features their own honest, non-decorative visual language. No stock-photo gloss; missing photography uses the labelled placeholder pattern.",
+    "keyCharacteristics": [
+      "Light, white/cream app header — the forest-green canopy no longer wraps it; green is reserved for the hero splash and primary CTA buttons",
+      "Warm terracotta as the primary interactive accent across the main interface — prices, active tab, active nav bump, FAB, urgency badges",
+      "Soft cream base (#f8f7f2), never stark white, for a warmer 'market floor' feel",
+      "Pill shapes everywhere interaction happens (segmented tabs, search bar, filter/sort pills, status pills, bottom nav, buttons)",
+      "Flat-by-default cards; depth appears only on hover, focus, modal, or fixed-anchor position",
+      "Freshness ring and voice-recording states are drawn from the product's real deterministic-advisory and voice-draft-entry features, not generic decoration"
+    ],
+    "rules": [
+      { "name": "The One Lantern Rule", "body": "Gold stays rare — the brand moon icon and featured-card eyebrow only. Terracotta is the interactive accent for the main interface: prices, active/selected states, links, badges, the FAB. Neither ever becomes a background fill for large surfaces; large surfaces stay green (splash, primary buttons) or cream.", "section": "colors" },
+      { "name": "The Weight-Over-Width Rule", "body": "Hierarchy comes from font-weight and negative tracking on headings, not from switching typefaces. Inter only.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "Cards and panels are flat at rest; a shadow only appears as a response to hover, focus, elevation (dialogs/FAB popover), or fixed anchor position (search bar, featured card) — never as resting decoration.", "section": "elevation" },
+      { "name": "The Pill-For-Choice Rule", "body": "Any control representing a selectable state — segmented tab, status pill, filter/sort pill, bottom-nav item, button — is pill-shaped. Rectangular radii are reserved for containers that hold content (cards, panels).", "section": "shapes" },
+      { "name": "The Honest-Placeholder Rule", "body": "Never fake missing food photography with stock imagery or gradients; use the labelled ImagePlaceholder pattern so the gap is visible rather than disguised.", "section": "content" }
+    ],
+    "dos": [
+      "Do treat warm-terracotta as the interactive accent for the main interface — prices, active states, links, badges, FAB.",
+      "Do keep forest-green for the hero splash and primary buttons only.",
+      "Do keep the app header white/cream — the canopy green no longer wraps it.",
+      "Do use the floating pill bottom nav with a raised active bump, not a flat full-width bar.",
+      "Do keep cards flat at rest, shadow only on hover/focus/modal.",
+      "Do keep touch targets at a 44-48px minimum everywhere."
+    ],
+    "donts": [
+      "Don't reintroduce the dark canopy header or wavy divider from v2 — superseded by the light header.",
+      "Don't use circular category pills — category cards are horizontal icon+text now.",
+      "Don't let forest-green compete with terracotta as an accent in the main interface — terracotta owns active/selected/price.",
+      "Don't fake food photos — use the labelled ImagePlaceholder pattern.",
+      "Don't invent a value not present in DESIGN.md — stop and ask."
+    ]
+  }
+}

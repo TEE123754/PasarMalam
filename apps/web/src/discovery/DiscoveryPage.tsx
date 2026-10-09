@@ -12,7 +12,7 @@ import { useQuery } from '@tanstack/react-query'
 import { NavLink, useParams } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { ArrowLeft, ArrowRight, Heart, MapPin, Search, Star } from 'lucide-react'
-import type { DataGateway, Market, Stall } from '../data/types'
+import type { DataGateway, DiscoverySnapshot, Market, Stall } from '../data/types'
 import { fixtureClock } from '../app/clock'
 import { DemoDialog } from '../app/DemoDialog'
 import { useAuth } from '../auth/context'
@@ -47,6 +47,33 @@ function Freshness({ query, gateway }: { query: ReturnType<typeof useDiscovery>;
 export function DiscoveryStallCard({ stall, market, now, distance }: { stall: Stall; market?: Market; now: Date; distance?: number }) {
   const { t } = useTranslation()
   return <NavLink className="stall-card card-link" to={`/stalls/${stall.id}`}><div className="food-art"><DemoImage image={foodImage(stall.specialty)} description={`${stall.specialty} from ${stall.name}`}/></div><div className="stall-content"><div className="eyebrow">{stall.category}</div><h3>{stall.name}</h3><PublicFlag stall={stall.id}/><EditorialBadge stall={stall.id}/><p className="muted">{stall.specialty} · {market?.name}</p><p className="dietary-label">{t(`diet_${dietaryStatus(stall,now)}`)}</p><p className="small muted">{t(stall.open ? 'vendorOpen' : 'vendorClosed')}{distance !== undefined ? ` · ${distance.toFixed(1)} km` : ''}</p><Availability at={stall.availabilityConfirmedAt} now={now}/><div className="stall-bottom"><span className="rating"><Star size={14}/>{stall.reviews ? `${stall.rating.toFixed(1)} (${stall.reviews})` : t('noReviews')}</span><span>RM {(stall.priceSen/100).toFixed(2)}</span></div></div></NavLink>
+}
+function AccentMark() {
+  return <svg className="accent-mark" width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M4 14 L9 9" stroke="#d97c40" strokeWidth="3" strokeLinecap="round"/><path d="M10 18 L15 13" stroke="#d97c40" strokeWidth="3" strokeLinecap="round"/><path d="M14 8 L19 3" stroke="#d97c40" strokeWidth="3" strokeLinecap="round"/></svg>
+}
+function QuickPicks({ data }: { data: DiscoverySnapshot }) {
+  const { t } = useTranslation()
+  const seenStalls = new Set<string>()
+  const items = data.menu.filter(item => seenStalls.has(item.stallId) ? false : (seenStalls.add(item.stallId),true)).slice(0,6)
+  if (!items.length) return null
+  return <nav className="quick-picks" aria-label={t('quickPicks')}>{items.map(item => { const stall = data.stalls.find(s => s.id === item.stallId)
+    return <NavLink className="quick-pick-chip" key={item.id} to={`/stalls/${item.stallId}`}><span className="quick-pick-icon"><DemoImage image={foodImage(item.name)} description={item.name}/></span><span className="quick-pick-name">{item.name}</span><span className="quick-pick-price">RM {(item.priceSen/100).toFixed(2)}</span>{stall && <span className="sr-only">{stall.name}</span>}</NavLink>
+  })}</nav>
+}
+
+function FeaturedMarketCard({ market, now, distance }: { market: Market; now: Date; distance?: number }) {
+  const { t } = useTranslation()
+  const status = scheduleStatus(market, now)
+  return <NavLink className="featured-market card-link" to={`/markets/${market.id}`}>
+    <div className="featured-market-text">
+      <span className="eyebrow">{t('featuredEyebrow')}</span>
+      <h3>{market.name}</h3>
+      <p className="featured-market-status"><span className={`status-dot ${status}`}/>{t(status)} · {market.hours}</p>
+      {distance !== undefined && <span className="featured-market-distance"><MapPin size={13}/>{distance.toFixed(1)} km</span>}
+    </div>
+    <div className="featured-market-art"><DemoImage image={market.type === 'day' ? 'day' : 'night'} description={`${market.name} market scene`}/></div>
+    <span className="button featured-market-cta">{t('exploreMarket')}</span>
+  </NavLink>
 }
 
 export function DiscoveryPage({ gateway }: { gateway: DataGateway }) {
@@ -99,8 +126,9 @@ export function DiscoveryPage({ gateway }: { gateway: DataGateway }) {
   const data = query.data
   const advertisements=useQuery({queryKey:['commerce-ads',gateway.mode],queryFn:connectedAds,enabled:gateway.mode==='connected',refetchInterval:10000})
   const result = data ? discover(data,filters,now,page) : null
-  return <><DiscoveryIntro data={data} filters={filters}/>{data&&<FreshFoodSection data={data} now={now}/>}
+  return <><div className="discovery-intro-accent"><DiscoveryIntro data={data} filters={filters}/><AccentMark/></div>{data&&<FreshFoodSection data={data} now={now}/>}
     <div className="search-wrap"><Search size={20}/><label className="sr-only" htmlFor="market-search">{t('findFood')}</label><input id="market-search" value={search} onChange={e => setSearch(e.target.value)} placeholder={t('findFood')}/></div>
+    {data && <QuickPicks data={data}/>}
     <div className="discovery-action-bar"><button className="button secondary" aria-expanded={filtersOpen} aria-controls="discovery-filter-panel" onClick={()=>setFiltersOpen(!filtersOpen)}><SlidersHorizontal size={18}/>{t('discoveryFilters')}<ChevronDown size={16}/>{(filters.marketKind||filters.plantDiet||filters.maxPriceSen!=null||filters.category||filters.dietary||filters.type||filters.promotion||filters.market)&&<span className="filter-applied">•</span>}</button><div className="browse-tabs" role="group" aria-label={t('sortResults')}><button className={filters.sort==='rating'?'active':''} aria-pressed={filters.sort==='rating'} onClick={()=>change({sort:'rating'})}>{t('bestReviewed')}</button><button className={filters.sort==='popularity'?'active':''} aria-pressed={filters.sort==='popularity'} onClick={()=>change({sort:'popularity'})}>{t('popularity')}</button><button className={filters.sort==='nearest'?'active':''} aria-pressed={filters.sort==='nearest'} disabled={!filters.origin} onClick={()=>change({sort:'nearest'})}>{t('nearest')}</button></div><button className="button secondary" aria-pressed={showMap} onClick={()=>setShowMap(!showMap)}><MapPin size={17}/>{t(showMap?'hideMap':'showMap')}</button></div>
     <section id="discovery-filter-panel" hidden={!filtersOpen} className="panel discovery-controls" aria-label={t('discoveryFilters')}>
       <label>{t('chooseMarket')}<select value={filters.market} onChange={e => change({market:e.target.value})}><option value="">{t('anyMarket')}</option>{data?.markets.map(m => <option key={m.id} value={m.id}>{m.name} · {m.area}</option>)}</select></label>
@@ -124,7 +152,7 @@ export function DiscoveryPage({ gateway }: { gateway: DataGateway }) {
       <p role="status" className="small muted">{t(locationMessage)}{mapLookup && gateway.mode === 'connected' && filters.origin ? ` · ${t(mapLookup)}` : ''} {t('marketDistance')}</p>
     </section>
     {data&&<DiscoveryCategories data={data} selected={filters.category} onChange={category=>change({category})}/>}
-    {!data || !result ? <State query={query} gateway={gateway}/> : <><Freshness query={query} gateway={gateway}/><div className="section-heading discovery-results-heading"><h2>{t('allMarkets')}</h2><span>{t('resultsCount',{count:result.total})}</span></div>
+    {!data || !result ? <State query={query} gateway={gateway}/> : <><Freshness query={query} gateway={gateway}/>{page === 0 && result.markets[0] && <FeaturedMarketCard market={result.markets[0]} now={now} distance={filters.origin && result.markets[0].latitude !== null && result.markets[0].longitude !== null ? distanceKm(filters.origin,{latitude:result.markets[0].latitude,longitude:result.markets[0].longitude}) : undefined}/>}<div className="section-heading discovery-results-heading"><h2>{t('allMarkets')}</h2><span>{t('resultsCount',{count:result.total})}</span></div>
       {showMap && <Suspense fallback={<p role="status">{t('loading')}</p>}><MarketMap markets={discover(data,filters,now,0,10000).markets} sponsors={new Set(sponsored(data,filters,now,gateway.mode==='fixture'?undefined:advertisements.data??[]).map(c=>c.market))} onBounds={bounds => change({bounds})}/></Suspense>}
       <div className="market-grid">{result.markets.map(m => <NavLink className="panel market-summary card-link" key={m.id} to={`/markets/${m.id}`}><DemoImage image={m.type==='day'?'day':'night'} description={`${m.name} · ${m.type}`}/><div className="market-summary-copy"><span className="eyebrow">{t(m.type)} · {ui(m.kind==='farmers'?'Farmers’ market':'General market')}</span><h3>{m.name}</h3><p><MapPin size={14}/>{m.area}</p><div className="market-card-meta"><span className={`status-pill ${scheduleStatus(m,now)}`}>{scheduleStatus(m,now)==='closing-soon'?ui('Closing soon'):t(scheduleStatus(m,now))}</span><span>{m.hours}</span></div><p className="small muted">{t('scheduleOnly')} · {m.days}</p></div></NavLink>)}</div>
       <div className="section-heading"><h2>{t('featuredStalls')}</h2></div><Sponsored data={data} filters={filters} now={now} campaigns={gateway.mode==='connected'?advertisements.data??[]:undefined}/><div className="stall-grid">{result.stalls.map(s => { const m = data.markets.find(m => m.id === s.marketId); return <DiscoveryStallCard key={s.id} stall={s} market={m} now={now} distance={filters.origin && m?.latitude !== null && m?.longitude !== null && m ? distanceKm(filters.origin,{latitude:m.latitude,longitude:m.longitude}) : undefined}/> })}</div>

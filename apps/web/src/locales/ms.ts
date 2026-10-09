@@ -25,6 +25,7 @@ export const ms = {
     discoverBody: 'Ikut aroma makanan. Jelajah pasar berdekatan, kenali peniaga dan cari tawaran sebelum pasar tutup.',
     exploreMarkets: 'Jelajah pasar', browseOffers: 'Lihat tawaran', findFood: 'Cari gerai atau hidangan',
     allMarkets: 'Pasar untuk diterokai', featuredStalls: 'Pilihan gerai', showAll: 'Lihat semua',
+    featuredEyebrow: 'PILIHAN MALAM INI', exploreMarket: 'Terokai pasar',
     open: 'Buka', upcoming: 'Akan dibuka', closed: 'Tutup', night: 'Pasar malam', day: 'Pasar pagi',
     from: 'Dari', reviews: 'ulasan', vendorDeclared: 'Halal diisytihar peniaga', nonHalal: 'Tidak halal', notDeclared: 'Tidak dinyatakan',
     offersTitle: 'Tawaran menarik, sementara ada.', offersBody: 'Tawaran terikat pada kelompok tertentu. Peniaga mengesahkan stok sebelum pengambilan sebenar.',
