@@ -5,11 +5,7 @@ import { DiscoveryPage, DiscoveryDetail, SavedPage, useNow } from '../discovery/
 import * as Dialog from '@radix-ui/react-dialog'
 import { NavLink, Navigate, Route, Routes, useNavigate } from 'react-router'
 import { useTranslation } from 'react-i18next'
-import {
-  Bell, Clock3, Compass, Heart, LayoutDashboard,
-  Menu, Moon, ShieldCheck, Sparkles, Store,
-  Tag, UserRound, Volume2, X,
-} from 'lucide-react'
+import { Clock3, Moon, ShieldCheck, Sparkles, UserRound, Volume2, X } from 'lucide-react'
 import { ui } from '../locales/phrases'
 import { changeLocale } from '../locales/i18n'
 import { selectedMode, openDemo } from './config'
@@ -21,6 +17,8 @@ import { useAuth } from '../auth/context'
 import type { DataGateway, DemoOffer, DiscoverySnapshot, PersonaRole } from '../data/types'
 
 import { DemoDialog } from './DemoDialog'
+import { HeroIntro } from './HeroIntro'
+import { BottomNav } from './BottomNav'
 import { FreshPage, DemoAdmin, NearbyConsent } from '../freshness/FreshPage'
 import { ImagePlaceholder } from '../components/ImagePlaceholder'
 import { VendorPage } from '../vendor/VendorPage'
@@ -32,19 +30,6 @@ const CommercePage=lazy(()=>import('../commerce/CommercePage'))
 const VoicePage=lazy(()=>import('../voice/VoicePage'))
 const EvaluationPage=lazy(()=>import('../voice/EvaluationPage'))
 const CommunityPage=lazy(()=>import('../community/CommunityPage'))
-const customerLinks = [
-  { to: '/discover', label: 'discover', icon: Compass },
-  { to: '/offers', label: 'offers', icon: Tag },
-  { to: '/saved', label: 'saved', icon: Heart },
-  { to: '/profile', label: 'profile', icon: UserRound },
-] as const
-const hawkerLinks = [
-  { to: '/hawker/dashboard', label: 'dashboard', icon: LayoutDashboard },
-  { to: '/hawker/stall', label: 'stall', icon: Store },
-  { to: '/hawker/batches', label: 'batches', icon: Menu },
-  { to: '/hawker/promotions', label: 'promotions', icon: Tag },
-  { to: '/hawker/alerts', label: 'alerts', icon: Bell },
-] as const
 
 function Content({ gateway, children }: { gateway: DataGateway; children: (data: DiscoverySnapshot) => React.ReactNode }) {
   const { t } = useTranslation()
@@ -94,10 +79,10 @@ export default function App() {
   const mode = selectedMode()
   const gateway = mode === 'fixture' ? fixtureGateway : connectedGateway
   const navigate = useNavigate()
+  const [showHero, setShowHero] = useState(() => sessionStorage.getItem('pasarmalam:hero-shown') !== 'yes')
   const [fixtureRole, setRole] = useState<PersonaRole>(() => mode === 'fixture' && localStorage.getItem('pasarmalam:demo:role') === 'hawker' ? 'hawker' : 'customer')
   const { actor } = useAuth()
   const role = mode === 'fixture' ? fixtureRole : actor?.roles.includes('vendor') ? 'hawker' : 'customer'
-  const links = role === 'customer' ? customerLinks : hawkerLinks
   function changeRole(next: PersonaRole) { if (mode !== 'fixture') return; localStorage.setItem('pasarmalam:demo:role', next); setRole(next); navigate(next === 'customer' ? '/discover' : '/hawker/dashboard') }
-  return <div className="app-shell"><div className={`mode-banner ${mode}`}><Sparkles size={14}/>{mode === 'fixture' ? t('demoBanner') : (/^\/sandbox(?:\/|$)/.test(window.location.pathname) ? ui('Connected sandbox · Fictional data · Permissions enforced') : ui('PasarMalam · Real app'))}</div><header className="site-header"><NavLink className="brand" to="/discover"><span className="brand-mark"><Moon size={20}/></span><span>Pasar<span>Malam</span><small>{t('tagline')}</small></span></NavLink><nav className="desktop-nav" aria-label={t('mainNavigation')}>{links.map(({to,label,icon:Icon}) => <NavLink key={to} to={to} className={({isActive}) => `nav-link ${isActive ? 'active' : ''}`}><Icon size={18}/>{t(label)}</NavLink>)}</nav><div className="header-actions">{mode === 'connected' ? <DemoDialog/> : <a className="button secondary" href="/discover"><X size={18}/>{ui('Exit demo')}</a>}{mode === 'connected' && <NavLink className="button secondary" to="/profile"><UserRound size={18}/>{t('profile')}</NavLink>}{mode === 'fixture' && <div className="role-switch" role="group" aria-label={t('demoRole')}><button className={role==='customer'?'active':''} onClick={() => changeRole('customer')} disabled={mode !== 'fixture'}>{t('customer')}</button><button className={role==='hawker'?'active':''} onClick={() => changeRole('hawker')} disabled={mode !== 'fixture'}>{t('hawker')}</button></div>}</div></header><main id="main" className="main-content"><Routes><Route path="/" element={<Navigate to="/discover" replace/>}/><Route path="/discover" element={<DiscoveryPage gateway={gateway}/>}/><Route path="/markets/:id" element={<DiscoveryDetail gateway={gateway} kind="market"/>}/><Route path="/stalls/:id" element={<DiscoveryDetail gateway={gateway} kind="stall"/>}/><Route path="/presentation" element={<Suspense fallback={<p>Loading…</p>}><PresentationPage/></Suspense>}/><Route path="/advanced" element={<Suspense fallback={<p>Loading…</p>}><AdvancedPage/></Suspense>}/><Route path="/partners" element={<Suspense fallback={<p>Loading…</p>}><PartnerPage/></Suspense>}/><Route path="/commerce" element={<Suspense fallback={<p>Loading…</p>}><CommercePage/></Suspense>}/><Route path="/offers" element={<Offers gateway={gateway}/>}/><Route path="/saved" element={<SavedPage gateway={gateway}/>}/><Route path="/profile" element={<Profile mode={mode}/>}/><Route path="/hawker/voice" element={<Suspense fallback={<p>{ui('Loading…')}</p>}><VoicePage mode={mode}/></Suspense>}/><Route path="/evaluation" element={<Suspense fallback={<p>{ui('Loading…')}</p>}><EvaluationPage/></Suspense>}/><Route path="/hawker/dashboard" element={<VendorPage mode={mode} view="dashboard"/>}/><Route path="/hawker/stall" element={<VendorPage mode={mode} view="stall"/>}/><Route path="/hawker/batches" element={<VendorPage mode={mode} view="batches"/>}/><Route path="/hawker/promotions" element={<FreshPage mode={mode}/>}/><Route path="/hawker/alerts" element={<FreshPage mode={mode}/>}/><Route path="/community" element={<Suspense fallback={<p>Loading…</p>}><CommunityPage key={mode==='fixture'?'fixture':actor?.id??'guest'}/></Suspense>}/><Route path="/community/:id" element={<Suspense fallback={<p>Loading…</p>}><CommunityPage key={mode==='fixture'?'fixture':actor?.id??'guest'}/></Suspense>}/><Route path="/admin/*" element={<DemoAdmin mode={mode}/>}/><Route path="*" element={<EmptyState/>}/></Routes></main><footer className="site-footer"><span>✳ PasarMalam</span><span>{mode === 'fixture' ? t('demoOnly') : ui('Community markets · Basic tier free')}</span></footer><nav className="mobile-nav" aria-label={t('mobileNavigation')}>{links.map(({to,label,icon:Icon}) => <NavLink key={to} to={to} className={({isActive}) => `mobile-link ${isActive?'active':''}`}><Icon size={21}/><span>{t(label)}</span></NavLink>)}</nav></div>
+  return <div className="app-shell">{showHero && <HeroIntro onDone={() => { sessionStorage.setItem('pasarmalam:hero-shown','yes'); setShowHero(false); navigate('/discover') }}/>}<div className={`mode-banner ${mode}`}><Sparkles size={14}/>{mode === 'fixture' ? t('demoBanner') : (/^\/sandbox(?:\/|$)/.test(window.location.pathname) ? ui('Connected sandbox · Fictional data · Permissions enforced') : ui('PasarMalam · Real app'))}</div><header className="site-header"><NavLink className="brand" to="/discover"><span className="brand-mark"><Moon size={20}/></span><span>Pasar<span>Malam</span><small>{t('tagline')}</small></span></NavLink><div className="header-actions">{mode === 'connected' ? <DemoDialog/> : <a className="button secondary" href="/discover"><X size={18}/>{ui('Exit demo')}</a>}{mode === 'connected' && <NavLink className="button secondary" to="/profile"><UserRound size={18}/>{t('profile')}</NavLink>}{mode === 'fixture' && <div className="role-switch" role="group" aria-label={t('demoRole')}><button className={role==='customer'?'active':''} onClick={() => changeRole('customer')} disabled={mode !== 'fixture'}>{t('customer')}</button><button className={role==='hawker'?'active':''} onClick={() => changeRole('hawker')} disabled={mode !== 'fixture'}>{t('hawker')}</button></div>}</div></header><main id="main" className="main-content"><Routes><Route path="/" element={<Navigate to="/discover" replace/>}/><Route path="/discover" element={<DiscoveryPage gateway={gateway}/>}/><Route path="/markets/:id" element={<DiscoveryDetail gateway={gateway} kind="market"/>}/><Route path="/stalls/:id" element={<DiscoveryDetail gateway={gateway} kind="stall"/>}/><Route path="/presentation" element={<Suspense fallback={<p>Loading…</p>}><PresentationPage/></Suspense>}/><Route path="/advanced" element={<Suspense fallback={<p>Loading…</p>}><AdvancedPage/></Suspense>}/><Route path="/partners" element={<Suspense fallback={<p>Loading…</p>}><PartnerPage/></Suspense>}/><Route path="/commerce" element={<Suspense fallback={<p>Loading…</p>}><CommercePage/></Suspense>}/><Route path="/offers" element={<Offers gateway={gateway}/>}/><Route path="/saved" element={<SavedPage gateway={gateway}/>}/><Route path="/profile" element={<Profile mode={mode}/>}/><Route path="/hawker/voice" element={<Suspense fallback={<p>{ui('Loading…')}</p>}><VoicePage mode={mode}/></Suspense>}/><Route path="/evaluation" element={<Suspense fallback={<p>{ui('Loading…')}</p>}><EvaluationPage/></Suspense>}/><Route path="/hawker/dashboard" element={<VendorPage mode={mode} view="dashboard"/>}/><Route path="/hawker/stall" element={<VendorPage mode={mode} view="stall"/>}/><Route path="/hawker/batches" element={<VendorPage mode={mode} view="batches"/>}/><Route path="/hawker/promotions" element={<FreshPage mode={mode}/>}/><Route path="/hawker/alerts" element={<FreshPage mode={mode}/>}/><Route path="/community" element={<Suspense fallback={<p>Loading…</p>}><CommunityPage key={mode==='fixture'?'fixture':actor?.id??'guest'}/></Suspense>}/><Route path="/community/:id" element={<Suspense fallback={<p>Loading…</p>}><CommunityPage key={mode==='fixture'?'fixture':actor?.id??'guest'}/></Suspense>}/><Route path="/admin/*" element={<DemoAdmin mode={mode}/>}/><Route path="*" element={<EmptyState/>}/></Routes></main><footer className="site-footer"><span>✳ PasarMalam</span><span>{mode === 'fixture' ? t('demoOnly') : ui('Community markets · Basic tier free')}</span></footer><BottomNav role={role}/></div>
 }
