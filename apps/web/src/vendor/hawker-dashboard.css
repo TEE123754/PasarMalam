@@ -59,6 +59,7 @@
     "top ."
     "stall quick"
     "attention quick"
+    "pulse quick"
     "products quick"
     "clearance clearance";
   gap: 20px;
@@ -183,7 +184,7 @@
 @media (max-width: 1000px) {
   .night-page.hawker-page .hawker-overview {
     grid-template-columns: 1fr;
-    grid-template-areas: "top" "stall" "quick" "attention" "products" "clearance";
+    grid-template-areas: "top" "stall" "quick" "attention" "pulse" "products" "clearance";
   }
   .night-page.hawker-page .hawker-top { max-width: none; }
 }
@@ -369,3 +370,8 @@
   .night-page .stall-ws-batches .batch-card > * { grid-column: 1; }
   .night-page .stall-ws-batches .batch-card > .batch-photo { grid-row: auto; height: 160px; }
 }
+
+/* First-menu onboarding choice */
+.night-page.hawker-page .stall-ws-menu-empty { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.night-page.hawker-page .stall-ws-menu-empty > p { flex-basis: 100%; margin: 0; }
+.night-page.hawker-page .stall-ws-menu-empty .button { display: inline-flex; align-items: center; gap: 7px; }

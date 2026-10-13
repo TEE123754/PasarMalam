@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { NavLink } from 'react-router'
 import { useTranslation } from 'react-i18next'
-import { Bell, ChevronRight, ClipboardList, Eye, Flame, Globe, Mic, Package, Pencil, Plus, Store, Tag, TrendingUp, UtensilsCrossed } from 'lucide-react'
+import { Bell, Camera, ChevronRight, ClipboardList, Eye, Flame, Globe, Mic, Package, Pencil, Plus, Store, Tag, TrendingUp, UtensilsCrossed } from 'lucide-react'
 import { ui } from '../locales/phrases'
 import { DemoImage } from '../components/DemoImage'
 import { foodImage } from '../components/demo-images'
@@ -27,7 +27,7 @@ export function AlertBanner({state}:{state?:FreshState}) {
 // Size/portion tag from the dish name suffix ("Chicken satay · small")
 function portion(name:string) { const m=name.match(/·\s*(small|sharing|large|regular)\s*$/i); return m?m[1][0].toUpperCase()+m[1].slice(1).toLowerCase():'Regular' }
 
-export function StallSections({state,stall,foods,batches,now,onEditStall,onAddFood,onEditFood,onNewBatch,batchList}:{state?:FreshState;stall:VendorStall;foods:VendorFood[];batches:VendorBatch[];now:Date;onEditStall:()=>void;onAddFood:()=>void;onEditFood:(id:string)=>void;onNewBatch:()=>void;batchList:ReactNode}) {
+export function StallSections({state,stall,foods,batches,now,onEditStall,onAddFood,onEditFood,onNewBatch,onStartPhotoSetup,showPhotoSetup,photoOnboarding,batchList}:{state?:FreshState;stall:VendorStall;foods:VendorFood[];batches:VendorBatch[];now:Date;onEditStall:()=>void;onAddFood:()=>void;onEditFood:(id:string)=>void;onNewBatch:()=>void;onStartPhotoSetup:()=>void;showPhotoSetup:boolean;photoOnboarding:ReactNode;batchList:ReactNode}) {
   const {i18n}=useTranslation()
   const time=(value:string)=>new Date(value).toLocaleTimeString(i18n.language.startsWith('ms')?'ms-MY':'en-MY',{hour:'numeric',minute:'2-digit',timeZone:'Asia/Kuala_Lumpur'})
   const live=(b:VendorBatch)=>['active','needs-information'].includes(b.status)&&(!b.advisory_deadline||Date.parse(b.advisory_deadline)>now.getTime())
@@ -81,9 +81,10 @@ export function StallSections({state,stall,foods,batches,now,onEditStall,onAddFo
           <details className="stall-ws-details"><summary>{ui('Ingredients & allergens')}</summary><p>{f.ingredients.join(', ')||ui('Ingredients not supplied')}</p><PlantStatement value={f.plant_diet} at={f.plant_diet_recorded_at}/><AllergenStatement value={f.allergens} at={f.allergens_recorded_at}/></details>
         </div>
         <div className="stall-ws-food-actions"><button type="button" className="button secondary" onClick={()=>onEditFood(f.id)}><Pencil size={15}/>{ui('Edit')}</button>{b?<NavLink className="button primary" to={`/passports/${b.id}`}><Eye size={15}/>{ui('View batch')}</NavLink>:<button type="button" className="button primary" onClick={onNewBatch}><Package size={15}/>{ui('New batch')}</button>}</div>
-      </article>})}</div>:<p className="stall-ws-empty">{ui('Add your first dish before creating a batch.')}</p>}
+      </article>})}</div>:<div className="stall-ws-empty stall-ws-menu-empty"><p>{ui('Add your first dish before creating a batch.')}</p>{showPhotoSetup&&<button type="button" className="button primary" onClick={onStartPhotoSetup}><Camera size={16}/>{ui('Set up my stall with a photo')}</button>}<button type="button" className="button secondary" onClick={onAddFood}><Plus size={16}/>{ui('Add food manually')}</button></div>}
     </section>
 
+    {photoOnboarding}
     {batchList}
   </>
 }
