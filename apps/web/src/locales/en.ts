@@ -19,7 +19,7 @@ export const en = {
     brand: 'PasarMalam', tagline: 'Good food. Good neighbours. Less waste.',
     customer: 'Customer', hawker: 'Hawker', admin: 'Admin',
     discover: 'Discover', offers: 'Offers', saved: 'Saved', profile: 'Profile',
-    dashboard: 'Dashboard', stall: 'My stall', batches: 'Menu & batches', promotions: 'Promotions', alerts: 'Alerts',
+    dashboard: 'Dashboard', stall: 'My stall', batches: 'Menu & batches', promotions: 'Promotions', alerts: 'Alerts', promotionsAlerts: 'Promotions and alerts',
     demoBanner: 'Fictional demo · Changes stay in this browser', connectedBanner: 'Connected demo · Fictional records · Account permissions enforced',
     discoverEyebrow: 'YOUR NEIGHBOURHOOD MARKET', discoverTitle: 'Find a little joy around the corner.',
     discoverBody: 'Follow the aroma. Explore nearby markets, meet local hawkers and catch a good offer before closing.',

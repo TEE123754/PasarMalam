@@ -45,7 +45,7 @@ function Prototype() {
     </section>
     <section className="panel"><span className="eyebrow">04 · EXPLORE THE COMPLETE PROTOTYPE</span><h2>One product, from hawker to customer.</h2><div className="prototype-feature-grid">{[
       ['/hawker/voice', 'Multilingual updates', 'BM, English and mixed speech → editable fields → exact batch confirmation. Scripted quick entry remains available.'],
-      ['/hawker/batches', 'Traceable batches', 'Preparation photos, independent batch numbers, original timestamps and audit history.'],
+      ['/hawker/stall#batches', 'Traceable batches', 'Preparation photos, independent batch numbers, original timestamps and audit history.'],
       ['/discover', 'Market discovery', 'Night/day/farmers markets, maps, dietary/category/budget filters, reviews and offers.'],
       ['/hawker/promotions', 'Food rescue', 'Hawker-approved clearance, collection cutoff, stock gating and automatic expired-offer removal.'],
       ['/hawker/planning', 'Forecasting & photo review', 'Synthetic history, uncertainty and baseline errors. Try planned portions without publishing a batch.'],

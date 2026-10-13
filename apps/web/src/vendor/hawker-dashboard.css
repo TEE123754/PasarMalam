@@ -4,7 +4,19 @@
 .night-page.hawker-page { --night-scrim: rgba(0, 0, 0, .68); }
 
 /* Solid dark navbar on hawker pages, orange-underlined active tab, separate workspace buttons */
-.app-shell:has(.night-page.hawker-page) > .site-header { background: rgba(10, 6, 2, .92); border-bottom: 1px solid rgba(255, 255, 255, .07); }
+/* Floating navbar: inset from the edges, rounded, translucent with blur so the photo shows around and through it */
+.app-shell:has(.night-page.hawker-page) > .site-header {
+  box-sizing: border-box;
+  width: min(1300px, calc(100% - 32px));
+  height: 72px;
+  margin: 12px auto 0;
+  padding: 0 20px;
+  background: rgba(15, 12, 7, .6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 14px;
+}
 .app-shell:has(.night-page.hawker-page) > .site-header .nav-link { color: rgba(255, 255, 255, .78); }
 .app-shell:has(.night-page.hawker-page) > .site-header .nav-link:hover { color: #fff; background: rgba(255, 255, 255, .08); }
 .app-shell:has(.night-page.hawker-page) > .site-header .nav-link.active { color: var(--accent-on-dark); background: rgba(200, 60, 8, .12); box-shadow: inset 0 -2px 0 var(--accent); }
@@ -182,4 +194,178 @@
   .night-page.hawker-page .dashboard-product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .night-page.hawker-page .hawker-clearance-empty { flex-direction: column; align-items: stretch; }
   .night-page.hawker-page .workspace-row select { min-width: 0; width: 100%; }
+}
+
+/* ── My stall (stall, menu and batches in one page) ─────────────────── */
+.night-page.stall-page { --night-scrim: rgba(0, 0, 0, .72); }
+.night-page.hawker-page:has(.stall-ws-hero) {
+  display: flex; flex-direction: column; gap: 20px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+.night-page.hawker-page:has(.stall-ws-hero) > * { margin: 0; }
+
+/* Hero sits on the page photo; a soft fade keeps the copy legible */
+.stall-ws-hero {
+  display: flex; flex-direction: column; justify-content: flex-end;
+  min-height: 320px;
+  padding: 40px 32px 32px;
+  border-radius: 16px;
+  background: linear-gradient(90deg, rgba(10, 6, 2, .78) 0%, rgba(10, 6, 2, .35) 55%, transparent 100%),
+    linear-gradient(to bottom, transparent 55%, rgba(10, 6, 2, .65) 100%);
+}
+.stall-ws-hero .eyebrow { color: var(--accent-on-dark); letter-spacing: .12em; }
+.stall-ws-hero h1 { margin: 8px 0 12px; color: #fff; font-family: Georgia, "Times New Roman", serif; font-size: clamp(2.4rem, 5vw, 3.6rem); line-height: 1.05; letter-spacing: -.03em; }
+.night-page .stall-ws-hero p { max-width: 520px; margin: 0; color: rgba(245, 240, 232, .75); font-size: 15px; line-height: 1.6; }
+.stall-ws-hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.stall-ws-hero-actions .button { border-radius: 10px; }
+.night-page .stall-ws-hero-actions .button.secondary { background: transparent; border: 1px solid rgba(255, 255, 255, .55); color: #fff; }
+
+/* Alert banner */
+.stall-ws-alerts {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 20px;
+  background: rgba(25, 17, 5, .85);
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 14px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #f5f0e8;
+  font-size: 14px; font-weight: 600;
+  transition: border-color .2s ease;
+}
+.stall-ws-alerts:hover { border-color: rgba(200, 60, 8, .45); }
+.stall-ws-alerts > svg:first-child { color: var(--accent-on-dark); flex-shrink: 0; }
+.stall-ws-chevron { margin-left: auto; flex-shrink: 0; color: rgba(245, 240, 232, .5); }
+
+/* Stall selector row: no card title or action row on this page */
+.night-page.stall-page .workspace-management { padding: 16px 20px; }
+
+/* Stats */
+.stall-ws-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.stall-ws-stat {
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px 20px;
+  background: rgba(25, 17, 5, .85);
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 14px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #f5f0e8;
+  transition: border-color .2s ease, transform .2s ease;
+}
+.stall-ws-stat:hover { border-color: rgba(200, 60, 8, .45); transform: translateY(-2px); }
+.stall-ws-stat-icon { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; border-radius: 12px; background: rgba(200, 60, 8, .18); color: var(--accent-on-dark); }
+.stall-ws-stat-copy { display: flex; flex-direction: column; min-width: 0; }
+.stall-ws-stat-copy strong { color: #fff; font-size: 26px; font-weight: 800; line-height: 1.1; }
+.stall-ws-stat-copy span { color: rgba(245, 240, 232, .5); font-size: 13px; }
+
+/* Section header (statements, menu) */
+.stall-ws-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; }
+.stall-ws-head-icon { display: grid; place-items: center; flex-shrink: 0; width: 42px; height: 42px; border-radius: 12px; background: rgba(200, 60, 8, .18); color: var(--accent-on-dark); }
+.stall-ws-head h2 { margin: 0; color: #fff; font-family: Georgia, "Times New Roman", serif; font-size: 22px; }
+.night-page .stall-ws-head p { margin: 3px 0 0; color: rgba(245, 240, 232, .5); font-size: 13px; }
+.stall-ws-head > div:nth-child(2) { flex: 1; min-width: 200px; }
+.stall-ws-link { display: inline-flex; align-items: center; gap: 4px; background: none; border: 0; padding: 4px 0; color: var(--accent-on-dark); font-size: 13px; font-weight: 750; cursor: pointer; }
+.stall-ws-link:hover { text-decoration: underline; }
+.stall-ws-head-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.stall-ws-head-actions .button, .stall-ws-food-actions .button, .stall-ws-yours-actions .button { border-radius: 10px; }
+
+/* Hawker statements: shared BusinessStatements as a row of pills */
+.night-page .stall-ws-statements .listing-statements { margin: 0; padding: 0; background: none; border: 0; }
+.stall-ws-statements .listing-statements > h3 { display: none; }
+.night-page .stall-ws-statements .listing-statements dl { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 12px; }
+.night-page .stall-ws-statements .listing-statements dl > div { display: flex; align-items: center; gap: 8px; padding: 8px 14px; background: rgba(255, 255, 255, .05); border: 1px solid rgba(255, 255, 255, .12); border-radius: 999px; }
+.night-page .stall-ws-statements dt { color: rgba(245, 240, 232, .6); font-size: 12px; }
+.night-page .stall-ws-statements dd { margin: 0; color: #fff; font-size: 12px; font-weight: 750; }
+.night-page .stall-ws-statements .listing-statements p { margin: 2px 0 0; color: rgba(245, 240, 232, .5); font-size: 12px; }
+
+/* Status bar */
+.night-page .stall-ws-status { display: flex; align-items: center; gap: 16px; padding: 16px 20px; background: rgba(200, 60, 8, .08); border-color: rgba(200, 60, 8, .3); }
+.stall-ws-status-icon { display: grid; place-items: center; flex-shrink: 0; width: 42px; height: 42px; border-radius: 50%; background: var(--accent); color: #fff; }
+.stall-ws-status > div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.stall-ws-status strong { color: #fff; font-size: 15px; }
+.stall-ws-status span { color: rgba(245, 240, 232, .55); font-size: 12px; }
+.stall-ws-status .button { margin-left: auto; flex-shrink: 0; border-radius: 10px; }
+
+/* Your stall */
+.night-page.hawker-page .stall-ws-yours.hawker-card { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) auto; align-items: center; gap: 28px; padding: 0; overflow: hidden; }
+.stall-ws-yours-photo { align-self: stretch; min-height: 220px; }
+.stall-ws-yours-photo .demo-artwork, .stall-ws-yours-photo .image-placeholder { width: 100%; height: 100%; min-height: 220px; flex: none; border-radius: 0; }
+.stall-ws-yours-photo img { height: 100%; aspect-ratio: auto; }
+.stall-ws-yours-copy { padding: 24px 0; }
+.stall-ws-label { display: inline-flex; align-items: center; gap: 6px; color: var(--accent-on-dark); font-size: 13px; font-weight: 750; }
+.stall-ws-yours h2 { margin: 6px 0 8px; color: #fff; font-family: Georgia, "Times New Roman", serif; font-size: 30px; }
+.night-page .stall-ws-yours-meta { margin: 2px 0; color: #f5f0e8; font-size: 14px; }
+.night-page .stall-ws-yours-meta.muted { color: rgba(245, 240, 232, .55); }
+.night-page .stall-ws-yours-desc { margin: 10px 0 0; color: rgba(245, 240, 232, .55); font-size: 13px; line-height: 1.55; }
+.stall-ws-yours-actions { display: flex; flex-direction: column; gap: 12px; padding: 24px 28px 24px 24px; border-left: 1px solid rgba(255, 255, 255, .08); }
+.stall-ws-yours-actions .button { min-width: 170px; justify-content: center; }
+
+/* Menu grid */
+.stall-ws-food-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.stall-ws-food { display: flex; flex-direction: column; background: rgba(12, 7, 1, .7); border: 1px solid rgba(255, 255, 255, .08); border-radius: 12px; overflow: hidden; }
+.stall-ws-food-photo { height: 150px; }
+.stall-ws-food-photo .demo-artwork, .stall-ws-food-photo .image-placeholder { width: 100%; height: 100%; min-height: 0; flex: none; border-radius: 0; }
+.stall-ws-food-photo img { height: 100%; aspect-ratio: auto; }
+.stall-ws-food-copy { flex: 1; display: flex; flex-direction: column; gap: 5px; padding: 14px 16px 10px; }
+.stall-ws-food h3 { margin: 0; color: #fff; font-size: 16px; font-weight: 800; }
+.stall-ws-price { color: var(--accent-on-dark); font-size: 16px; font-weight: 800; }
+.stall-ws-batch { display: inline-flex; align-items: center; gap: 5px; color: rgba(245, 240, 232, .55); font-size: 12px; }
+.stall-ws-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.stall-ws-tag { padding: 3px 10px; border: 1px solid rgba(255, 255, 255, .18); border-radius: 999px; color: rgba(245, 240, 232, .8); font-size: 11px; font-weight: 700; }
+.stall-ws-tag.halal { border-color: rgba(111, 191, 90, .55); background: rgba(111, 191, 90, .14); color: #b8e6ad; }
+.stall-ws-details { margin-top: 6px; font-size: 12px; }
+.stall-ws-details summary { cursor: pointer; color: rgba(245, 240, 232, .75); font-weight: 700; }
+.night-page .stall-ws-details p, .night-page .stall-ws-details .listing-statements { margin: 6px 0 0; padding: 0; background: none; border: 0; color: rgba(245, 240, 232, .55); font-size: 12px; }
+.night-page .stall-ws-details h4 { margin: 8px 0 2px; color: #f5f0e8; font-size: 12px; }
+.stall-ws-food-actions { display: grid; grid-template-columns: 1fr 1.4fr; gap: 10px; padding: 0 16px 16px; }
+.stall-ws-food-actions .button { min-height: 40px; padding: 8px 12px; justify-content: center; }
+.night-page .stall-ws-empty { margin: 0; padding: 18px; border: 1px dashed rgba(255, 255, 255, .15); border-radius: 12px; color: rgba(245, 240, 232, .6); }
+
+/* Batches (merged from the former Menu & batches page) */
+.stall-ws-batches { scroll-margin-top: 20px; }
+.night-page .stall-ws-batches > .vendor-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 6px; }
+.night-page .stall-ws-batches > .vendor-toolbar h2 { display: flex; align-items: center; gap: 10px; color: #fff; font-family: Georgia, "Times New Roman", serif; font-size: 22px; }
+.night-page .stall-ws-batches > .vendor-toolbar h2 svg { color: var(--accent-on-dark); }
+.night-page .stall-ws-batches .batch-card { margin-top: 14px; padding: 16px 18px; background: rgba(12, 7, 1, .6); border: 1px solid rgba(255, 255, 255, .08); border-radius: 12px; }
+.night-page .stall-ws-batches .batch-card h3 { color: #fff; }
+
+@media (max-width: 1000px) {
+  .stall-ws-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stall-ws-food-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .night-page .stall-ws-yours { grid-template-columns: 1fr; gap: 0; }
+  .stall-ws-yours-copy { padding: 20px 20px 0; }
+  .stall-ws-yours-actions { flex-direction: row; flex-wrap: wrap; padding: 16px 20px 20px; border-left: 0; }
+}
+@media (max-width: 640px) {
+  .stall-ws-hero { min-height: 260px; padding: 28px 18px 22px; }
+  .stall-ws-food-grid { grid-template-columns: 1fr; }
+  .night-page .stall-ws-status { flex-wrap: wrap; }
+  .stall-ws-status .button { margin-left: 0; width: 100%; justify-content: center; }
+  .stall-ws-yours-actions .button { flex: 1 1 auto; min-width: 0; }
+}
+
+/* Batch cards: photo thumbnail left, details and actions right */
+.night-page .stall-ws-batches .batch-card { display: grid; grid-template-columns: 180px minmax(0, 1fr); column-gap: 20px; row-gap: 6px; align-items: start; }
+.night-page .stall-ws-batches .batch-card > * { grid-column: 2; margin: 0; }
+.night-page .stall-ws-batches .batch-card > .batch-photo { grid-column: 1; grid-row: 1 / span 8; width: 100%; max-width: none; height: 140px; margin: 0; border-radius: 10px; overflow: hidden; }
+.night-page .stall-ws-batches .batch-card > .batch-photo img { height: 100%; aspect-ratio: auto; }
+.night-page .stall-ws-batches .batch-card > .vendor-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0 0 4px; }
+.night-page .stall-ws-batches .batch-card h3 { margin: 0; font-size: 16px; font-weight: 800; }
+.night-page .stall-ws-batches .batch-card .status-pill { padding: 3px 10px; font-size: 11px; }
+.night-page .stall-ws-batches .batch-card .vendor-toolbar .choice-row { flex-direction: row; gap: 8px; margin-left: auto; padding: 0; border: 0; color: rgba(245, 240, 232, .7); font-size: 13px; font-weight: 700; }
+.night-page .stall-ws-batches .batch-card .vendor-toolbar .choice-row input { width: 16px; height: 16px; min-height: 0; }
+.night-page .stall-ws-batches .batch-card > p { color: rgba(245, 240, 232, .65); font-size: 13px; }
+.night-page .stall-ws-batches .batch-card > p strong { color: #fff; }
+.night-page .stall-ws-batches .batch-card .button-row { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px; margin: 4px 0; }
+.night-page .stall-ws-batches .batch-card .button-row .button { min-height: 38px; padding: 7px 14px; font-size: 13px; border-radius: 9px; }
+.night-page .stall-ws-batches .batch-card .button-row label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; }
+.night-page .stall-ws-batches .batch-card .button-row input { width: 90px; min-height: 38px; padding: 6px 10px; }
+.night-page .stall-ws-batches .batch-card details { margin-top: 4px; font-size: 13px; }
+.night-page .stall-ws-batches .batch-card summary { cursor: pointer; color: var(--accent-on-dark); font-weight: 700; }
+@media (max-width: 640px) {
+  .night-page .stall-ws-batches .batch-card { grid-template-columns: 1fr; }
+  .night-page .stall-ws-batches .batch-card > * { grid-column: 1; }
+  .night-page .stall-ws-batches .batch-card > .batch-photo { grid-row: auto; height: 160px; }
 }

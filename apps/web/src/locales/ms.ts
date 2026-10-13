@@ -19,7 +19,7 @@ export const ms = {
     brand: 'PasarMalam', tagline: 'Makanan sedap. Komuniti rapat. Kurang pembaziran.',
     customer: 'Jelajah pasar', hawker: 'Ruang peniaga', admin: 'Pentadbir',
     discover: 'Jelajah', offers: 'Tawaran', saved: 'Disimpan', profile: 'Profil',
-    dashboard: 'Papan utama', stall: 'Gerai saya', batches: 'Menu & kelompok', promotions: 'Promosi', alerts: 'Peringatan',
+    dashboard: 'Papan utama', stall: 'Gerai saya', batches: 'Menu & kelompok', promotions: 'Promosi', alerts: 'Peringatan', promotionsAlerts: 'Promosi dan peringatan',
     demoBanner: 'Demo rekaan · Perubahan disimpan dalam pelayar ini', connectedBanner: 'Demo bersambung · Rekod rekaan · Kebenaran akaun dikuatkuasakan',
     discoverEyebrow: 'PASAR KEJIRANAN ANDA', discoverTitle: 'Temui hidangan sedap berdekatan.',
     discoverBody: 'Ikut aroma makanan. Jelajah pasar berdekatan, kenali peniaga dan cari tawaran sebelum pasar tutup.',
