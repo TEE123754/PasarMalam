@@ -1,60 +1,63 @@
 import { useEffect, type ElementType } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
-import { Sparkles, Mic, MapPin, Clock3, Leaf } from 'lucide-react'
+import { ArrowRight, Sparkles, Mic, MapPin, Clock3, Leaf } from 'lucide-react'
 import { ui } from '../locales/phrases'
 import { openDemo } from './config'
 import './DemoDialog.css'
 
+// Each card is a shortcut into the matching part of the demo
 const features = [
-  { Icon: Mic,   title: 'Just say it',    body: 'List food by voice in BM, English or Manglish.' },
-  { Icon: MapPin, title: 'Find your market', body: 'Discover markets and food stalls on the map.' },
-  { Icon: Clock3, title: 'Know your batch', body: 'See preparation times and advisory countdowns.' },
-  { Icon: Leaf,  title: 'Save a meal',    body: 'Reserve surplus food before its advisory window ends.' },
-]
+  { Icon: Mic,    title: 'Just say it',      body: 'List food by voice in BM, English or Manglish.',        path: '/demo/hawker/voice', role: 'hawker' },
+  { Icon: MapPin, title: 'Find your market', body: 'Discover markets and food stalls on the map.',          path: '/demo/discover',     role: 'customer' },
+  { Icon: Clock3, title: 'Know your batch',  body: 'See preparation times and advisory countdowns.',        path: '/demo/discover',     role: 'customer' },
+  { Icon: Leaf,   title: 'Save a meal',      body: 'Reserve surplus food before its advisory window ends.', path: '/demo/offers',       role: 'customer' },
+] as const
+
+const SLIDE_MS = 650 // matches the .65s html.demo-leaving slide-up
 
 // Shared splash markup; Radix Title/Description only work inside a Dialog, so the standalone page uses plain elements
 function Splash({ standalone = false }: { standalone?: boolean }) {
   const Title: ElementType = standalone ? 'h1' : Dialog.Title
   const Description: ElementType = standalone ? 'p' : Dialog.Description
 
-  // Back/forward cache can restore this page mid-fade; drop the exit class so it is visible again
+  // Back/forward cache can restore this page mid-slide; drop the exit class so it is visible again
   useEffect(() => {
     const restore = (e: PageTransitionEvent) => { if (e.persisted) document.documentElement.classList.remove('demo-leaving') }
     window.addEventListener('pageshow', restore)
     return () => window.removeEventListener('pageshow', restore)
   }, [])
 
-  function handleDemo() {
+  // Splash sweeps up and off screen, then the demo page rises in (see .arriving in discovery.css)
+  function enter(path = '/demo/discover', role: 'customer' | 'hawker' = 'customer') {
+    if (document.documentElement.classList.contains('demo-leaving')) return
     document.documentElement.classList.add('demo-leaving')
-    setTimeout(openDemo, 300) // match the .3s html.demo-leaving fade
+    // Only Discover plays the rise-in, so only flag the arrival when that is where we're going
+    if (path === '/demo/discover') try { sessionStorage.setItem('pasarmalam:arrive-from-landing', 'yes') } catch { /* entrance animation is optional */ }
+    setTimeout(() => openDemo(path, role), SLIDE_MS)
   }
 
   return (
-    <>
-      <Description className="demo-entry-strip">
-        {ui("MADE FOR MALAYSIA'S MARKET COMMUNITIES")}
-      </Description>
-
-      <div className="demo-entry-stage">
-        <Title className="demo-entry-title">
-          Pasar<span>Malam</span>
+    <div className="splash-stage">
+      <div className="splash-hero">
+        <Description className="splash-tagline">— {ui("MADE FOR MALAYSIA'S MARKET COMMUNITIES")} —</Description>
+        <Title className="splash-title">
+          <span className="title-pasar">PASAR</span><span className="title-malam">MALAM</span>
         </Title>
-
-        <button className="button primary demo-entry-cta" onClick={handleDemo}>
-          <Sparkles size={18}/>{ui('Try demo')}
+        <button type="button" className="button primary try-demo-btn" onClick={() => enter()}>
+          <Sparkles size={18}/>{ui('Try demo')}<ArrowRight size={18}/>
         </button>
-
-        <div className="demo-entry-features">
-          {features.map(({ Icon, title, body }) => (
-            <article className="demo-entry-card" key={title}>
-              <Icon size={16}/>
-              <h2>{ui(title)}</h2>
-              <p>{ui(body)}</p>
-            </article>
-          ))}
-        </div>
       </div>
-    </>
+
+      <nav className="splash-features" aria-label={ui('Explore the demo')}>
+        {features.map(({ Icon, title, body, path, role }) => (
+          <button type="button" className="splash-card" key={title} onClick={() => enter(path, role)}>
+            <span className="splash-card-top"><span className="splash-icon"><Icon size={20}/></span><ArrowRight className="splash-arrow" size={18} aria-hidden="true"/></span>
+            <span className="splash-card-title">{ui(title)}</span>
+            <span className="splash-card-body">{ui(body)}</span>
+          </button>
+        ))}
+      </nav>
+    </div>
   )
 }
 

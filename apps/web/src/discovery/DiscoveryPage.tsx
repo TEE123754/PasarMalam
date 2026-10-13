@@ -5,7 +5,7 @@ import { EditorialBadge } from '../partners/EditorialBadge'
 import { connectedAds } from '../commerce/connected'
 import { Sponsored, sponsored } from '../commerce/Sponsored'
 import { PublicFlag } from '../community/PublicFlag'
-import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { NavLink, useParams } from 'react-router'
 import { useTranslation } from 'react-i18next'
@@ -63,6 +63,11 @@ export function DiscoveryPage({ gateway }: { gateway: DataGateway }) {
   const now = useNow(gateway)
   const query = useDiscovery(gateway, data => discover(data,filters,now,page,PAGE_SIZE).markets.map(m => m.id))
   const mapRef = useRef<HTMLDivElement>(null)
+  // Rise in from below only when arriving from the landing splash's slide-up, not on every visit
+  const [arriving,setArriving] = useState(false)
+  useLayoutEffect(() => {
+    try { if (sessionStorage.getItem('pasarmalam:arrive-from-landing')) { sessionStorage.removeItem('pasarmalam:arrive-from-landing'); setArriving(true) } } catch { /* optional */ }
+  }, [])
   const change = (next: Partial<Filters>) => { setFilters(current => ({...current,...next})); setPage(0) }
   useEffect(() => {
     if (filters.search === search) return
@@ -106,7 +111,7 @@ export function DiscoveryPage({ gateway }: { gateway: DataGateway }) {
   const nearbyLabel = data?.markets.find(m=>m.id===areaChoice)?.area ?? (filters.origin ? ui('your location') : null)
   const filtersApplied = !!(filters.marketKind||filters.plantDiet||filters.maxPriceSen!=null||filters.category||filters.dietary||filters.type||filters.promotion||filters.market)
   function viewMap() { setShowMap(true); requestAnimationFrame(()=>mapRef.current?.scrollIntoView({behavior:'smooth',block:'center'})) }
-  return <div className="discover-dark night-page"><DiscoveryIntro data={data} filters={filters}/><ValueProps/>
+  return <div className={`discover-dark night-page ${arriving?'arriving':''}`}><DiscoveryIntro data={data} filters={filters}/><ValueProps/>
     <CategoryChips selected={filters.category} onChange={category=>change({category})}/>
     {data&&<PreparedToday data={data} now={now} gateway={gateway}/>}
     <div className="filter-card">

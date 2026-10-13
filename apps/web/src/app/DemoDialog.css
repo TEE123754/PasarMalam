@@ -1,31 +1,33 @@
-/* Demo entry screen — full-bleed takeover matching the Canva export (800×639 frame) */
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+/* Landing splash at "/" (and the same screen as the "Try demo" modal):
+   night-market photo, centred brush wordmark, four shortcut cards along the bottom */
 .dialog-content.demo-entry,
 .demo-entry-page {
-  /* Cream band behind the eyebrow; warmer than --paper (#fffdfa) */
-  --demo-strip-bg: #fbf0d9;
-  /* "Malam" wordmark — lighter, sunset orange than --accent, as rendered over the photo */
-  --demo-malam: #d9692e;
-  /* Feature card fill — near-white with a faint cool tint, not --paper */
-  --demo-card-bg: #f7fbfa;
   /* Splash keeps the PasarMalam orange regardless of the page theme */
   --accent: #c83c08;
+  --accent-on-dark: #ff8a4c;
 
   inset: 0;
   left: 0;
   top: 0;
   transform: none;
   width: 100%;
-  height: 100%;
   max-width: none;
+  height: 100dvh;
   padding: 0;
   border-radius: 0;
-  height: 100dvh;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
   box-shadow: none;
-  /* Looping aerial night-market GIF (mauve grade baked in); #2b2036 = dark mauve while it downloads */
-  background: #2b2036 url('/pasar-bg.gif') center / cover no-repeat;
+  /* Scrolls only if the viewport is too short for the content; never sideways */
+  overflow-x: hidden;
+  overflow-y: auto;
+  color: #fff;
+  /* 45% scrim for legibility, deepening toward the bottom where the cards sit */
+  background:
+    linear-gradient(rgba(0, 0, 0, .45), rgba(0, 0, 0, .45)),
+    linear-gradient(to bottom, transparent 45%, rgba(0, 0, 0, .55) 100%),
+    url('/landing-bg.gif') center / cover no-repeat, /* looping night-market GIF */
+    #0f0c07;
 }
 
 /* Standalone root-route splash: same full-viewport frame, no Radix positioning */
@@ -34,84 +36,119 @@
   z-index: 1;
 }
 
-/* Top eyebrow band */
-.demo-entry .demo-entry-strip {
-  flex-shrink: 0;
-  margin: 0;
-  padding: 7px 16px;
-  background: var(--demo-strip-bg);
-  color: var(--accent);
-  font-size: 19px;
-  font-weight: 800;
-  letter-spacing: .09em;
-  line-height: 24px;
-  text-align: center;
-  text-transform: uppercase;
+.splash-stage {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  box-sizing: border-box;
 }
 
-/* Vertically centred stack: wordmark → CTA → cards */
-.demo-entry-stage {
+/* Hero: tagline → brush wordmark → Try demo */
+.splash-hero {
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 24px 1.25vw;
+  padding: 60px 24px 32px;
+  text-align: center;
 }
-
-.demo-entry .demo-entry-title {
-  margin: 0 0 18px;
-  font-size: 16.6vw;
-  font-weight: 900;
-  letter-spacing: -.04em;
-  line-height: .8;
-  color: var(--ink);
-  white-space: nowrap;
-}
-.demo-entry-title span { color: var(--demo-malam); }
-
-.demo-entry .demo-entry-cta.button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
-.demo-entry .demo-entry-cta.button.primary:hover:not(:disabled) { background: #a72d04; border-color: #a72d04; }
-.demo-entry .demo-entry-cta { margin: 0; min-height: 44px; padding: 10px 18px; font-size: 15px; font-weight: 600; }
-
-/* Four cards spanning the full width, ~160px each at 800px */
-.demo-entry-features {
-  width: 100%;
-  margin-top: 18px;
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 5vw;
-  align-items: start;
-}
-.demo-entry-card {
-  background: var(--demo-card-bg);
-  border-radius: 10px;
-  padding: 10px 14px 12px;
-  box-shadow: 0 2px 8px #00000020;
-  text-align: left;
-}
-.demo-entry-card svg { display: block; color: var(--accent); margin-bottom: 3px; }
-.demo-entry .demo-entry-card h2 {
-  margin: 0 0 3px;
+.demo-entry .splash-tagline {
+  margin: 0 0 16px;
+  color: var(--accent-on-dark);
   font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0;
-  line-height: 1.25;
-  color: var(--ink);
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, .6);
 }
-.demo-entry .demo-entry-card p {
+.demo-entry .splash-title {
   margin: 0;
-  font-size: 9px;
-  line-height: 1.6;
-  color: var(--muted);
+  font-family: 'Permanent Marker', 'Comic Sans MS', cursive;
+  font-size: clamp(72px, 12vw, 160px);
+  font-weight: 400;
+  line-height: .9;
+  letter-spacing: -.01em;
+  white-space: nowrap;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, .45);
 }
+.splash-title .title-pasar { color: #fff; }
+.splash-title .title-malam { color: var(--accent); }
 
+.demo-entry .try-demo-btn.button.primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 32px;
+  min-height: 0;
+  padding: 16px 36px;
+  border: 0;
+  border-radius: 50px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  box-shadow: 0 4px 24px rgba(200, 60, 8, .35);
+  transition: transform .2s, box-shadow .2s, background .2s;
+}
+.demo-entry .try-demo-btn.button.primary:hover { background: #a72d04; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(200, 60, 8, .5); }
+.demo-entry .try-demo-btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+/* Shortcut cards */
+.splash-features {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 32px 32px;
+}
+.demo-entry .splash-card {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 22px 24px;
+  background: rgba(22, 14, 4, .82);
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #fff;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  transition: border-color .2s, transform .2s;
+}
+.demo-entry .splash-card:hover { border-color: rgba(200, 60, 8, .4); transform: translateY(-3px); }
+.demo-entry .splash-card:focus-visible { outline: 2px solid var(--accent-on-dark); outline-offset: 2px; }
+.splash-card-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.splash-icon {
+  display: flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: rgba(200, 60, 8, .18);
+  color: var(--accent-on-dark);
+}
+.splash-arrow { color: rgba(255, 255, 255, .4); transition: color .2s, transform .2s; }
+.demo-entry .splash-card:hover .splash-arrow { color: var(--accent-on-dark); transform: translateX(2px); }
+.splash-card-title { margin-top: 8px; color: #fff; font-size: 16px; font-weight: 700; }
+.splash-card-body { color: rgba(255, 255, 255, .5); font-size: 13px; line-height: 1.4; }
+
+@media (max-width: 900px) {
+  .splash-features { flex-wrap: wrap; }
+  .demo-entry .splash-card { flex: 1 1 calc(50% - 8px); min-width: 0; }
+}
 @media (max-width: 640px) {
-  .demo-entry .demo-entry-strip { font-size: 12px; line-height: 18px; }
-  .demo-entry-stage { padding: 24px 16px; }
-  .demo-entry .demo-entry-title { font-size: 15.5vw; }
-  .demo-entry-features { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-  .demo-entry .demo-entry-card p { font-size: 11px; }
+  .splash-hero { padding: 48px 16px 24px; }
+  .demo-entry .splash-tagline { font-size: 11px; letter-spacing: .12em; }
+  /* "PASARMALAM" must fit on one line on a phone */
+  .demo-entry .splash-title { font-size: clamp(40px, 14vw, 72px); }
+  .splash-features { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; padding: 0 16px 20px; }
+  .demo-entry .splash-card { min-width: 0; padding: 16px; }
+  .splash-card-title { font-size: 15px; }
+  .splash-card-body { font-size: 12px; }
 }
 
 /* ── Entry / exit animations ─────────────────────────────────────── */
@@ -119,12 +156,10 @@
   from { opacity: 0; transform: scale(0.96); }
   to   { opacity: 1; transform: scale(1); }
 }
-
 @keyframes overlayIn {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
-
 .dialog-content.demo-entry[data-state="open"] {
   animation: demoIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
@@ -132,9 +167,18 @@
   animation: overlayIn 0.18s ease both;
 }
 
-/* Page exit: fade the whole document out before openDemo() navigates */
-html.demo-leaving body {
-  opacity: 0;
-  transition: opacity .3s ease;
-  pointer-events: none;
+/* Exit: the splash sweeps up and off screen before openDemo() navigates.
+   An animation (not a transition) so it also overrides the modal's demoIn fill. */
+@keyframes landingSlideUp {
+  from { transform: translateY(0); opacity: 1; }
+  to   { transform: translateY(-100vh); opacity: 0; }
+}
+html.demo-leaving body { background: #0f0c07; pointer-events: none; }
+html.demo-leaving .demo-entry,
+html.demo-leaving .dialog-content.demo-entry[data-state="open"] {
+  animation: landingSlideUp .65s cubic-bezier(.76, 0, .24, 1) forwards;
+}
+html.demo-leaving .dialog-overlay { opacity: 0; transition: opacity .3s ease; }
+@media (prefers-reduced-motion: reduce) {
+  @keyframes landingSlideUp { from { opacity: 1; } to { opacity: 0; } }
 }

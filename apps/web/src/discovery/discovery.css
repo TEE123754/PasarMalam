@@ -533,3 +533,14 @@
   .discover-dark .filter-card .search-wrap { padding: 14px 16px; }
   .discover-dark .filter-card .discovery-action-bar { padding: 10px 12px; }
 }
+
+/* Arrival from the landing splash: content rises in from slightly below.
+   Children animate (not .discover-dark itself) so the fixed photo layer stays put. */
+@keyframes slideInFromBelow {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+.discover-dark.arriving > * { animation: slideInFromBelow .5s cubic-bezier(.22, 1, .36, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .discover-dark.arriving > * { animation-duration: .01ms; }
+}
