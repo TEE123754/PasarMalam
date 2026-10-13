@@ -1,0 +1,73 @@
+/* Landing page — full-viewport hero, dark branded background */
+
+/* Lock the shell to exactly one screen while the landing page is mounted;
+   the hero flexes into whatever height the banner/header/footer leave */
+.app-shell:has(.landing-market) {
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+.app-shell:has(.landing-market) .main-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.landing-market {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  overflow: hidden;
+}
+
+/* Hero: looping aerial night-market GIF, full cover */
+.landing-market .landing-hero {
+  position: relative;
+  background-color: var(--ink);
+  background-image: url('/pasar-bg.gif');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 16px;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Dark scrim over the GIF so the copy stays readable */
+.landing-market .landing-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 0;
+}
+.landing-market .landing-hero > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Text on dark background */
+.landing-market .landing-hero .eyebrow { color: #f6d19f; }
+.landing-market .landing-hero h1       { color: var(--paper); }
+.landing-market .landing-hero h1 span  { color: #f4a96a; }
+.landing-market .landing-hero p        { color: var(--paper); }
+
+/* Scale the copy with viewport height so the one-screen hero never clips its content */
+.landing-market .landing-hero {
+  justify-content: safe center;
+  padding-block: clamp(18px, 4vh, 50px);
+}
+.landing-market .landing-hero h1 { font-size: clamp(30px, 6.4vh, 64px); margin: clamp(8px, 2vh, 20px) 0; }
+.landing-market .landing-hero p  { line-height: 1.6; margin-bottom: clamp(10px, 2.4vh, 24px); }
+
+/* Ghost buttons on dark bg */
+.landing-market .landing-hero .button.secondary {
+  background: rgba(255,255,255,0.12) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255,255,255,0.30) !important;
+}
+.landing-market .landing-hero .button.secondary:hover {
+  background: rgba(255,255,255,0.22) !important;
+}

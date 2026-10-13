@@ -1,0 +1,169 @@
+/* Night-market theme shared by every customer page (Discover, Offers, Saved, Profile).
+   A page opts in with .night-page; Discover adds its own layout in discovery/discovery.css,
+   the simpler content pages add .content-page for the card treatment below. */
+
+.app-shell:has(.night-page) {
+  --page-bg: #0f0c07;      /* near-black with a warm tint */
+  --card-bg: rgba(30, 22, 8, .88);  /* #1e1608 at 88% — translucent so the photo glows through */
+  --tile-bg: rgba(26, 18, 8, .84);  /* #1a1208 at 84% — borderless "From the stalls" tiles */
+  --card-border: #33261a;  /* card edge, one step lighter than --card-bg */
+  --raised-bg: #3a2b17;    /* secondary buttons / inputs on cards */
+  --text-on-dark: #ffffff;
+  --text-2: #b8a898;       /* secondary text — 7.5:1 on --card-bg */
+  --value-bg: #1d2f22;     /* dark green bar + map card */
+  --value-border: #2c4733;
+  /* --accent (#c83c08) is only 3.5:1 on --card-bg, which passes for fills and
+     large bold prices but not small text; this lighter orange (7.7:1) is used for small orange text */
+  --accent-on-dark: #ff8a4c;
+  position: relative;
+  background-color: var(--page-bg); /* fallback while the page photo loads */
+  overflow-x: clip;
+}
+
+/* Transparent navbar over the photo — same look on every customer page.
+   It stays in normal flow here; Discover lifts it over its hero (discovery.css). */
+.app-shell:has(.night-page) > .site-header {
+  position: relative;
+  z-index: 20;
+  background: transparent;
+  border-bottom: 0;
+  box-shadow: none;
+}
+.app-shell:has(.night-page) > .site-header .brand { color: #fff; }
+.app-shell:has(.night-page) > .site-header .brand > span > span { color: var(--accent-on-dark); }
+.app-shell:has(.night-page) > .site-header .brand small { color: #e4dad0; }
+.app-shell:has(.night-page) > .site-header .nav-link { color: #fff; }
+.app-shell:has(.night-page) > .site-header .nav-link:hover,
+.app-shell:has(.night-page) > .site-header .nav-link.active { color: #fff; background: rgba(255, 255, 255, .16); }
+.app-shell:has(.night-page) > .site-header .header-actions > .button.secondary { background: rgba(255, 255, 255, .12); color: #fff; border: 1px solid rgba(255, 255, 255, .3); }
+.app-shell:has(.night-page) > .site-header .header-actions > .hawker-pill {
+  width: auto; min-width: 0;
+  min-height: 38px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+.app-shell:has(.night-page) > .site-footer {
+  position: relative;
+  z-index: 1;
+  background: rgba(15, 12, 7, .82);
+  border-top: 1px solid rgba(255, 255, 255, .08);
+  color: rgba(255, 255, 255, .6);
+}
+.app-shell:has(.night-page) > .site-footer span:first-child { color: var(--accent-on-dark); }
+
+/* Night-market photo fixed behind the whole page (not background-attachment: fixed,
+   which iOS Safari ignores). Swap --night-photo to change it everywhere. */
+.night-page {
+  --night-photo: url('/demo/images/pm-01-night-market.webp');
+  --night-scrim: rgba(0, 0, 0, .6);
+  position: relative;
+  color: var(--text-on-dark);
+}
+.night-page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    linear-gradient(var(--night-scrim), var(--night-scrim)),
+    var(--night-photo) center / cover no-repeat,
+    var(--page-bg);
+  pointer-events: none;
+}
+.night-page > * { position: relative; z-index: 1; }
+
+/* ── Content pages (Offers, Saved, Profile) ───────────────────────── */
+.content-page {
+  /* Re-point the light design tokens the shared components read */
+  --ink: #f5f0e8;
+  --muted: rgba(255, 255, 255, .55);
+  --line: rgba(255, 255, 255, .08);
+  --paper: rgba(30, 22, 8, .75);
+  --accent-soft: rgba(200, 60, 8, .18);
+  min-height: 60dvh;
+}
+.content-page h1,
+.content-page h2,
+.content-page h3,
+.content-page strong { color: #f5f0e8; }
+.content-page .muted,
+.content-page .small.muted,
+.content-page p { color: var(--muted); }
+.content-page .eyebrow { color: var(--accent-on-dark); }
+.content-page .page-intro h1 { color: #fff; }
+.content-page .page-intro .eyebrow { color: var(--accent-on-dark); }
+
+/* One card style for every panel, list row and tile */
+.content-page .panel,
+.content-page .stall-card {
+  background: rgba(30, 22, 8, .75);
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #f5f0e8;
+  box-shadow: none;
+}
+.content-page .card-link:hover { box-shadow: 0 12px 25px rgba(0, 0, 0, .35); border-color: rgba(255, 255, 255, .16); }
+.content-page .demo-artwork,
+.content-page .image-placeholder,
+.content-page .stall-card .food-art { background: var(--raised-bg); color: var(--text-2); border-color: var(--card-border); }
+
+/* Buttons: primary keeps --accent; secondary is a translucent white outline */
+.content-page .button.secondary {
+  background: rgba(255, 255, 255, .1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, .25);
+}
+.content-page .button.secondary:hover:not(:disabled) { background: rgba(255, 255, 255, .16); }
+.content-page .back-link { color: var(--accent-on-dark); }
+
+/* Form controls */
+.content-page input:not([type="checkbox"]):not([type="radio"]),
+.content-page select,
+.content-page textarea {
+  background: rgba(0, 0, 0, .35);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, .15);
+}
+.content-page select option { background: #1e1608; color: #fff; }
+.content-page label { color: #f5f0e8; }
+.content-page .choice-row { border-top-color: rgba(255, 255, 255, .08); }
+.content-page .choice-row input { accent-color: var(--accent); }
+.content-page .segmented { background: rgba(255, 255, 255, .06); }
+.content-page .segmented button { color: rgba(255, 255, 255, .7); }
+.content-page .segmented button.active { background: rgba(255, 255, 255, .16); color: #fff; box-shadow: none; }
+.content-page .privacy-notice { background: rgba(34, 49, 31, .85); color: #d6e6cf; }
+
+/* Empty / error states: white icon + white text */
+.content-page .state-panel > svg,
+.content-page .empty-state > svg { color: #fff; }
+.content-page .state-icon { background: rgba(255, 255, 255, .1); color: #fff; }
+.content-page .state-panel h2,
+.content-page .state-panel h3,
+.content-page .empty-state h3,
+.content-page .state-panel p,
+.content-page .empty-state p { color: #fff; }
+
+/* Offers */
+.content-page .offer-ribbon { background: var(--accent); color: #fff; border: 0; }
+.content-page .clearance-price strong { color: var(--accent-on-dark); }
+.content-page .clearance-price s { color: var(--muted); }
+.content-page .freshness-info { background: rgba(111, 191, 90, .12); border: 1px solid rgba(111, 191, 90, .3); color: #cfe8c6; }
+.content-page .freshness-info p,
+.content-page .freshness-info strong { color: #cfe8c6; }
+.content-page .freshness-info.time-short { background: rgba(216, 125, 40, .14); border-color: rgba(216, 125, 40, .4); color: #f6c99a; }
+.content-page .freshness-info.time-short p,
+.content-page .freshness-info.time-short strong { color: #f6c99a; }
+.content-page .freshness-track { background: rgba(255, 255, 255, .12); }
+
+/* Saved — stall rows */
+.content-page .stall-content .eyebrow { color: var(--accent-on-dark); }
+.content-page .stall-bottom { color: #f5f0e8; }
+.content-page .rating small { color: var(--muted); }
+
+/* Profile */
+.content-page .tool-icon { background: rgba(200, 60, 8, .18); color: var(--accent-on-dark); }
+.content-page .tool-arrow { color: rgba(255, 255, 255, .4); }
+.content-page .profile-identity p { color: var(--muted); }

@@ -1,0 +1,389 @@
+/* Discover page layout on top of the shared night theme (app/night-theme.css).
+   Everything is scoped to .discover-dark so other pages keep their own design. */
+
+.app-shell:has(.night-page.discover-dark) .main-content { padding-top: 0; }
+/* Over the hero, lift the shared transparent navbar out of flow. No explicit top: it stays at
+   its static position, i.e. 0 in the demo, or just under the connected-mode banner */
+.app-shell:has(.night-page.discover-dark) > .site-header { position: absolute; left: 0; right: 0; }
+/* The page renders its own dark footer */
+.app-shell:has(.night-page.discover-dark) > .site-footer { display: none; }
+
+.night-page.discover-dark { --night-scrim: rgba(0, 0, 0, .55); }
+.discover-dark:has(.discovery-hero.day) { --night-photo: url('/demo/images/pm-02-day-market.webp'); }
+.discover-dark .muted,
+.discover-dark .small.muted,
+.discover-dark .advisory-note { color: var(--text-2); }
+.discover-dark .eyebrow { color: var(--accent-on-dark); }
+/* Image frames show this while lazy photos load, instead of the light-theme cream */
+.discover-dark .demo-artwork,
+.discover-dark .image-placeholder { background: var(--raised-bg); color: var(--text-2); border-color: var(--card-border); }
+
+/* Shared section headings: white title left, orange link right */
+.discover-dark .section-heading { margin-bottom: 16px; }
+.discover-dark .section-heading h2 { color: var(--text-on-dark); font-size: 24px; font-weight: 800; letter-spacing: -.02em; }
+.discover-dark .section-heading > span { color: var(--text-2); font-size: 13px; font-weight: 600; }
+.discover-dark .section-heading > a,
+.discover-dark .section-heading .text-button {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: none; border: 0; padding: 4px 0;
+  color: var(--accent-on-dark); font-size: 13px; font-weight: 750;
+}
+.discover-dark .section-heading > a:hover,
+.discover-dark .section-heading .text-button:hover { text-decoration: underline; }
+
+/* Secondary buttons and panels re-tinted for the dark surface */
+.discover-dark .button.secondary { background: var(--raised-bg); color: var(--text-on-dark); border: 1px solid var(--card-border); }
+.discover-dark .button.secondary:hover:not(:disabled) { background: #4a3820; }
+.discover-dark .button:disabled { opacity: .45; }
+.discover-dark .panel { background: var(--card-bg); border-color: var(--card-border); color: var(--text-on-dark); }
+
+/* 1. Hero — full-bleed, starting at the very top behind the navbar; the photo comes from the page layer */
+.discover-dark .discovery-hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 70vh;
+  margin: 0 calc(50% - 50vw);
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  /* Transparent: the page-wide photo layer shows through, so hero and page are one continuous image */
+  background: transparent;
+  overflow: hidden;
+}
+/* Top fade keeps the navbar legible; left fade keeps the copy legible */
+.discover-dark .discovery-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(0, 0, 0, .5) 0%, transparent 40%),
+    linear-gradient(to right, rgba(0, 0, 0, .7) 0%, rgba(0, 0, 0, .3) 60%, transparent 100%);
+  pointer-events: none;
+}
+.discover-dark .discovery-hero-copy {
+  position: relative; z-index: 1;
+  width: min(1260px, 100%);
+  margin: 0 auto;
+  padding: 104px clamp(20px, 4vw, 64px) 44px;
+}
+.discover-dark .discovery-hero-copy > * { max-width: min(600px, 50vw); }
+.discover-dark .location-kicker { display: flex; align-items: center; gap: 6px; color: var(--text-on-dark); font-size: 13px; font-weight: 700; margin-bottom: 14px; }
+.discover-dark .hero-tags {
+  display: inline-block;
+  padding: 6px 13px;
+  border-radius: 999px;
+  border: 1px solid #ff8a4c66;
+  background: #c83c0826;
+  color: var(--accent-on-dark);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+.discover-dark .discovery-hero h1 {
+  color: var(--text-on-dark);
+  font-size: clamp(2.4rem, 5vw, 4.2rem);
+  line-height: 1.05;
+  letter-spacing: -.04em;
+  margin: 18px 0 14px;
+}
+.discover-dark .discovery-hero-copy > p { color: #e4dad0; font-size: 16px; line-height: 1.6; max-width: 460px; margin: 0 0 24px; }
+
+/* 2. Value props bar */
+.discover-dark .value-props {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin: 22px 0 30px;
+  padding: 18px 26px;
+  background: rgba(29, 47, 34, .9); /* --value-bg, translucent over the photo */
+  border: 1px solid var(--value-border);
+  border-radius: 16px;
+}
+.discover-dark .value-props > div { display: flex; align-items: center; gap: 13px; }
+.discover-dark .value-props svg { color: var(--text-on-dark); flex-shrink: 0; }
+.discover-dark .value-props strong { display: block; color: var(--text-on-dark); font-size: 14px; }
+.discover-dark .value-props span { display: block; color: var(--text-2); font-size: 12px; margin-top: 3px; }
+
+/* 3. Category filter chips */
+.discover-dark .category-chips { display: flex; gap: 12px; overflow-x: auto; padding: 2px 2px 10px; margin-bottom: 26px; }
+.discover-dark .category-chips button {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  flex: 1 0 92px;
+  background: none; border: 0; padding: 0 0 6px;
+  color: var(--text-2); font-size: 12px; font-weight: 700;
+  border-bottom: 2px solid transparent;
+}
+.discover-dark .chip-icon {
+  display: grid; place-items: center;
+  width: 58px; height: 58px;
+  border-radius: 14px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-on-dark);
+}
+.discover-dark .category-chips button:hover .chip-icon { border-color: #5a4426; }
+.discover-dark .category-chips button.active { color: var(--text-on-dark); border-bottom-color: var(--accent); }
+.discover-dark .category-chips button.active .chip-icon { background: #c83c0829; border-color: var(--accent); color: var(--accent-on-dark); }
+
+/* 4. Prepared today — 3-col grid, equal-height rows, bar pinned to each card's bottom edge */
+.discover-dark .dish-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.discover-dark .dish-card {
+  position: relative;
+  display: flex; flex-direction: column;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform .2s ease, border-color .2s ease;
+}
+.discover-dark .dish-card:hover { transform: translateY(-3px); border-color: #5a4426; }
+.discover-dark .dish-card:focus-within { outline: 2px solid var(--accent-on-dark); outline-offset: 2px; }
+.discover-dark .dish-photo { position: relative; height: 180px; flex-shrink: 0; }
+.discover-dark .dish-photo .batch-photo,
+.discover-dark .dish-photo .demo-artwork,
+.discover-dark .dish-photo .image-placeholder { width: 100%; height: 100%; min-height: 0; flex: none; border-radius: 0; }
+.discover-dark .dish-photo img { height: 100%; aspect-ratio: auto; }
+.discover-dark .dish-badge {
+  position: absolute; left: 12px; top: 12px; z-index: 2;
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 11px; font-weight: 800;
+}
+.discover-dark .dish-badge.popular { background: #ffd27a; color: #5c3500; }  /* amber */
+.discover-dark .dish-badge.best { background: #c9ecc4; color: #1d5219; }     /* green */
+.discover-dark .dish-badge.fresh { background: #bff0e8; color: #0c4f46; }    /* teal */
+.discover-dark .dish-badge.hot { background: var(--accent); color: #fff; }   /* orange-red */
+.discover-dark .dish-badge.chilled { background: #cfe2ff; color: #123d78; }  /* blue */
+.discover-dark .dish-save {
+  position: absolute; right: 12px; top: 12px; z-index: 3;
+  display: grid; place-items: center;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, .5);
+  border: 1px solid rgba(255, 255, 255, .3);
+  color: #fff;
+}
+.discover-dark .dish-save:hover { background: rgba(0, 0, 0, .7); }
+.discover-dark .dish-copy { flex: 1; padding: 14px 16px 14px; }
+.discover-dark .dish-copy h3 { margin: 0 0 4px; font-size: 16px; font-weight: 800; color: var(--text-on-dark); }
+.discover-dark .stretched-link { color: inherit; }
+/* Whole card is clickable; the save/add buttons sit above this layer */
+.discover-dark .stretched-link::after { content: ''; position: absolute; inset: 0; z-index: 1; }
+.discover-dark .dish-price { display: block; color: var(--accent); font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+.discover-dark .dish-meta { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 0 0 5px; color: var(--text-2); font-size: 12px; }
+.discover-dark .dish-meta span,
+.discover-dark .dish-portions { display: inline-flex; align-items: center; gap: 5px; }
+.discover-dark .dish-meta span:first-child svg { color: #f5b942; }
+.discover-dark .dish-portions { margin: 0; color: var(--text-2); font-size: 12px; }
+/* Fill scales from the left via transform (inline scaleX) so the per-second countdown never triggers layout */
+.discover-dark .dish-track { height: 4px; flex-shrink: 0; background: #33281a; overflow: hidden; }
+.discover-dark .dish-track > span { display: block; width: 100%; height: 100%; background: #6fbf5a; transform-origin: left center; transition: transform 1s linear; }
+.discover-dark .advisory-note { margin: 14px 0 0; font-size: 12px; }
+
+/* 5. Search + filter chips */
+.discover-dark .search-wrap {
+  width: 100%;
+  height: 56px;
+  margin: 40px 0 14px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 14px;
+  box-shadow: none;
+  color: var(--text-2);
+}
+.discover-dark .search-wrap input { background: transparent; color: var(--text-on-dark); }
+.discover-dark .search-wrap input::placeholder { color: var(--text-2); }
+.discover-dark .search-wrap:focus-within { border-color: var(--accent-on-dark); }
+.discover-dark .discovery-action-bar { justify-content: flex-start; gap: 10px; margin-bottom: 22px; }
+.discover-dark .filter-chip,
+.discover-dark .browse-tabs button {
+  display: inline-flex; align-items: center; gap: 7px;
+  min-height: 42px;
+  padding: 9px 16px;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-on-dark);
+  font-size: 13px; font-weight: 700;
+  box-shadow: none;
+}
+.discover-dark .filter-chip:hover,
+.discover-dark .browse-tabs button:hover:not(.active) { border-color: #5a4426; }
+.discover-dark .filter-chip[aria-expanded="true"],
+.discover-dark .filter-chip[aria-pressed="true"] { border-color: var(--accent-on-dark); }
+.discover-dark .discovery-action-bar > .filter-chip:last-child { margin-left: auto; }
+.discover-dark .browse-tabs { background: none; padding: 0; gap: 10px; flex-wrap: wrap; }
+.discover-dark .browse-tabs button.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.discover-dark .filter-applied { color: var(--accent-on-dark); }
+
+/* Expanded filter panel */
+.discover-dark .discovery-controls label { color: #e8ddd2; }
+.discover-dark .discovery-controls select,
+.discover-dark .discovery-controls input:not([type="checkbox"]) {
+  background: var(--page-bg);
+  color: var(--text-on-dark);
+  border: 1px solid var(--card-border);
+}
+.discover-dark .discovery-controls .choice-row { border-top-color: var(--card-border); }
+
+/* 6. What are you craving? */
+.discover-dark .discovery-categories { margin: 40px 0 0; }
+.discover-dark .category-strip { gap: 14px; }
+.discover-dark .category-tile {
+  flex: 0 0 160px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  box-shadow: none;
+  color: var(--text-on-dark);
+}
+.discover-dark .category-tile .demo-artwork { height: 120px; }
+.discover-dark .category-tile > span { color: var(--text-on-dark); font-size: 13px; }
+.discover-dark .category-tile .category-icon { display: grid; place-items: center; height: 120px; background: var(--raised-bg); color: var(--text-2); }
+.discover-dark .category-tile.selected { outline: 2px solid var(--accent-on-dark); background: #c83c0829; }
+
+/* 7. Markets to explore */
+.discover-dark .markets-explore { margin-top: 44px; }
+.discover-dark .markets-explore > .small { margin: -6px 0 12px; }
+.discover-dark .explore-card {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 7fr);
+  grid-template-areas: "panel map";
+  margin-bottom: 22px;
+}
+.discover-dark .explore-panel {
+  grid-area: panel;
+  display: flex; flex-direction: column; justify-content: center;
+  min-height: 320px;
+  padding: 32px;
+  background: #1a3828;
+  border-radius: 16px 0 0 16px;
+}
+.discover-dark .explore-panel .eyebrow { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-on-dark); }
+.discover-dark .explore-panel h3 { margin: 10px 0 8px; font-size: 24px; font-weight: 800; line-height: 1.2; color: var(--text-on-dark); }
+.discover-dark .explore-panel > p { margin: 0; color: #c9d6cc; font-size: 13px; line-height: 1.6; }
+.discover-dark .explore-panel .button { align-self: flex-start; margin-top: 16px; border-radius: 20px; }
+.discover-dark .explore-stats { display: flex; flex-wrap: wrap; align-items: center; margin-top: 14px !important; font-size: 12px !important; color: #c9d6cc !important; }
+.discover-dark .explore-stats span { display: inline-flex; align-items: center; gap: 4px; }
+.discover-dark .explore-stats span + span::before { content: '·'; margin: 0 8px; }
+.discover-dark .explore-stats svg { color: #f5b942; }
+.discover-dark .explore-map,
+.discover-dark .explore-map .map-panel { display: contents; }
+.discover-dark .explore-map .map-heading { display: none; }
+.discover-dark .explore-map .market-map,
+.discover-dark .explore-map > p {
+  grid-area: map;
+  height: auto;
+  min-height: 320px;
+  margin: 0;
+  border-radius: 0 16px 16px 0;
+  background: #1a3828;
+}
+.discover-dark .explore-map > p { display: grid; place-items: center; color: #c9d6cc; font-size: 14px; }
+/* Legend, "Search this map area" / "Clear map area" and the privacy note sit below the card */
+.discover-dark .explore-map .map-panel > :not(.market-map):not(.map-heading) { grid-column: 1 / -1; }
+.discover-dark .explore-map .map-legend { padding: 14px 0 0; color: var(--text-2); }
+.discover-dark .explore-map .map-panel > .button-row { margin: 10px 0 0; }
+.discover-dark .explore-map .map-panel > p { margin: 8px 0 0; }
+
+/* Popular night markets — four cards in one row; "See all" expands the full list */
+.discover-dark .popular-markets { margin-top: 44px; }
+.discover-dark .popular-market-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.discover-dark .popular-market {
+  display: flex; flex-direction: column;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  overflow: hidden;
+  color: var(--text-on-dark);
+  transition: transform .2s ease, border-color .2s ease;
+}
+.discover-dark .popular-market:hover { transform: translateY(-3px); border-color: #5a4426; }
+.discover-dark .popular-market > .demo-artwork,
+.discover-dark .popular-market > .image-placeholder { width: 100%; height: 130px; min-height: 0; flex: none; border-radius: 0; }
+.discover-dark .popular-market img { height: 100%; aspect-ratio: auto; }
+.discover-dark .popular-market-copy { display: flex; flex-direction: column; gap: 3px; flex: 1; padding: 12px 14px 14px; }
+.discover-dark .popular-market h3 { margin: 0; font-size: 16px; font-weight: 800; color: var(--text-on-dark); }
+.discover-dark .popular-market-kind { color: var(--text-2); font-size: 12px; }
+.discover-dark .popular-market-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 10px; }
+.discover-dark .distance-badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 9px; border-radius: 999px; background: var(--raised-bg); color: var(--text-on-dark); font-size: 11px; font-weight: 700; }
+.discover-dark .popular-market-rating { display: inline-flex; align-items: center; gap: 4px; color: var(--text-on-dark); font-size: 12px; font-weight: 700; }
+.discover-dark .popular-market-rating svg { color: #f5b942; }
+.discover-dark .see-all-open { transform: rotate(45deg); }
+
+/* 8. From the stalls — minimal borderless tiles */
+.discover-dark .from-stalls { margin-top: 44px; }
+.discover-dark .sponsored-row { background: var(--card-bg); border-color: var(--card-border); color: var(--text-on-dark); }
+.discover-dark .privacy-notice { background: #22311f; color: #d6e6cf; }
+.discover-dark .stall-tile-grid { margin-top: 18px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.discover-dark .stall-tile {
+  position: relative;
+  display: flex; flex-direction: column;
+  background: var(--tile-bg);
+  border: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform .2s ease;
+}
+.discover-dark .stall-tile:hover { transform: translateY(-3px); }
+.discover-dark .stall-tile:focus-within { outline: 2px solid var(--accent-on-dark); outline-offset: 2px; }
+.discover-dark .stall-tile-photo .demo-artwork,
+.discover-dark .stall-tile-photo .image-placeholder { width: 100%; height: 100px; min-height: 0; flex: none; border-radius: 0; }
+.discover-dark .stall-tile-photo img { height: 100%; aspect-ratio: auto; }
+.discover-dark .stall-tile-copy { display: flex; flex-direction: column; gap: 2px; flex: 1; padding: 10px 12px 12px; }
+.discover-dark .stall-tile h3 { margin: 0; font-size: 13px; font-weight: 800; color: var(--text-on-dark); }
+.discover-dark .stall-tile-cat { color: var(--text-2); font-size: 11px; }
+.discover-dark .stall-tile-foot { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 8px; }
+.discover-dark .stall-tile-foot strong { color: var(--accent-on-dark); font-size: 14px; font-weight: 800; }
+.discover-dark .stall-tile-add {
+  position: relative; z-index: 2;
+  display: grid; place-items: center;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--accent);
+  color: #fff;
+}
+.discover-dark .stall-tile-add:hover { background: #a72d04; }
+.discover-dark .stall-tile-add[aria-pressed="true"] { background: #3d6b3a; }
+
+.discover-dark .pagination { color: var(--text-on-dark); }
+
+/* 9. Footer */
+.discover-dark .discover-footer {
+  display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+  margin: 56px calc(50% - 50vw) 0;
+  padding: 28px max(clamp(20px, 4vw, 64px), calc(50vw - 630px + clamp(20px, 4vw, 64px)));
+  border-top: 1px solid var(--card-border);
+  background: #120c05;
+  color: var(--text-2);
+  font-size: 13px;
+}
+.discover-dark .discover-footer-brand { display: flex; align-items: center; gap: 12px; }
+.discover-dark .discover-footer-brand strong { display: block; color: var(--text-on-dark); font-size: 18px; font-weight: 900; letter-spacing: -.05em; }
+.discover-dark .discover-footer-brand strong span { color: var(--accent-on-dark); }
+.discover-dark .discover-footer-brand small { display: block; color: var(--text-2); font-size: 12px; margin-top: 3px; }
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .discover-dark .stall-tile-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .discover-dark .popular-market-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 900px) {
+  .discover-dark .dish-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .discover-dark .explore-card { grid-template-columns: 1fr; grid-template-areas: "panel" "map"; }
+  .discover-dark .explore-panel { min-height: 0; border-radius: 16px 16px 0 0; }
+  .discover-dark .explore-map .market-map,
+  .discover-dark .explore-map > p { border-radius: 0 0 16px 16px; }
+  .discover-dark .discovery-hero-copy > * { max-width: none; }
+  .discover-dark .value-props { grid-template-columns: 1fr; gap: 14px; }
+}
+@media (max-width: 600px) {
+  .discover-dark .discovery-hero { min-height: 60vh; }
+  .discover-dark .discovery-hero-copy { padding: 84px 20px 32px; }
+  .discover-dark .dish-grid { grid-template-columns: 1fr; }
+  .discover-dark .stall-tile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .discover-dark .category-chips button { flex: 0 0 80px; }
+  .discover-dark .discovery-action-bar > .filter-chip:last-child { margin-left: 0; }
+}
