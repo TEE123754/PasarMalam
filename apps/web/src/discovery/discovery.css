@@ -544,3 +544,6 @@
 @media (prefers-reduced-motion: reduce) {
   .discover-dark.arriving > * { animation-duration: .01ms; }
 }
+
+/* One-tap batch passport shortcut; lifted above the card's stretched stall link. */
+.discover-dark .dish-batch-shortcut{position:relative;z-index:2;display:inline-flex;align-items:center;gap:6px;max-width:100%;min-height:30px;margin-top:8px;padding:6px 9px;border:1px solid rgba(139,190,130,.3);border-radius:999px;background:rgba(52,105,57,.2);color:#c7e2bf;font-size:10px;font-weight:700;line-height:1.1;text-decoration:none;transition:background .16s ease,border-color .16s ease,transform .16s ease}.discover-dark .dish-batch-shortcut svg{flex:0 0 auto}.discover-dark .dish-batch-shortcut:hover{border-color:rgba(166,211,155,.52);background:rgba(66,127,71,.3);transform:translateY(-1px)}.discover-dark .dish-batch-shortcut:focus-visible{outline:2px solid var(--accent-on-dark);outline-offset:2px}

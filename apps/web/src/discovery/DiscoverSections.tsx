@@ -80,6 +80,7 @@ export function PreparedToday({data,now,gateway}:{data:DiscoverySnapshot;now:Dat
         <strong className="dish-price">RM {(f.priceSen/100).toFixed(2)}</strong>
         <p className="dish-meta"><span><Star size={13} aria-hidden="true"/>{stall.reviews?`${stall.rating.toFixed(1)} (${stall.reviews})`:bm?'Tiada ulasan':'No reviews'}</span><span><Clock3 size={13} aria-hidden="true"/>{batch?`${bm?'Hari ini':'Today'} · `:''}{hoursLabel(stall,market)}</span></p>
         <p className="dish-portions">{batch?<><Leaf size={13} aria-hidden="true"/>{batch.remaining} {bm?'hidangan tersedia':'portions available'} · {bm?'Baki':'Last'} {timeLeft(left,bm)}</>:bm?'Tiada kelompok dijual sekarang':'No batch on sale right now'}</p>
+        {batch&&<NavLink className="dish-batch-shortcut" to={`/passports/${batch.id}`} aria-label={bm?`Lihat butiran kelompok ${batch.batchNumber}`:`View batch details for batch ${batch.batchNumber}`}><Clock3 size={13} aria-hidden="true"/><span>{bm?'Segar':'Fresh'} · {timeLeft(left,bm)} {bm?'lagi':'left'}</span><ArrowRight size={12} aria-hidden="true"/></NavLink>}
       </div>
       <div className="dish-track" role="meter" aria-label={bm?'Baki hidangan':'Portions remaining'} aria-valuemin={0} aria-valuemax={100} aria-valuenow={pct}><span style={{transform:`scaleX(${pct/100})`}}/></div>
     </article>

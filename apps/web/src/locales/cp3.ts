@@ -1,6 +1,13 @@
 export const cp3Ms:Record<string,string>={
   "Clarify, read back, confirm": "Jelaskan, baca semula, sahkan",
   "References are suggestions. Choose exact IDs; you have the final say.": "Rujukan ialah cadangan. Pilih ID tepat; anda membuat keputusan akhir.",
+  "Confidence shown per field — you always confirm before saving": "Tahap keyakinan dipaparkan bagi setiap medan — anda sentiasa mengesahkan sebelum menyimpan",
+  "High": "Tinggi",
+  "Medium": "Sederhana",
+  "Low": "Rendah",
+  "Please verify": "Sila semak",
+  "On-device by default": "Pada peranti ini secara lalai",
+  "Your voice never leaves this device unless you choose to share a redacted transcript": "Suara anda tidak meninggalkan peranti ini melainkan anda memilih untuk berkongsi transkrip yang disunting",
   "Does dua seringgit mean two units for RM1? Confirm that meaning, then enter the price for ONE menu unit; no bundle offer is created here.": "Adakah dua seringgit bermaksud dua unit untuk RM1? Sahkan maksudnya, kemudian masukkan harga SATU item menu; tiada tawaran pakej dicipta di sini.",
   "Suggested batch number": "Cadangan nombor kelompok",
   "Exact stall": "Gerai tepat",

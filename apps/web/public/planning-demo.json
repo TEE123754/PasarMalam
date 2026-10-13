@@ -41,6 +41,9 @@
       "historical-average": 7,
       "bounded-trend": 1.0147058823529416
     },
+    "baseline_method": "historical-median",
+    "baseline_quantity": 22,
+    "trend_quantity": 30,
     "selected_on_validation": "bounded-trend",
     "release_method": "bounded-trend",
     "release_gate": "Trend must improve the preselected baseline on holdout; otherwise display baseline. Holdout is used for this release decision, not training."
@@ -51,6 +54,6 @@
   "recent_observation": null,
   "recommendation": "Review the forecast and unsold estimate before choosing preparation; it does not change a batch or safety deadline.",
   "source": "synthetic",
-  "input_sha256": "2129a5bba94e68ffd372c9080b784e8a01b1b6d425b835a04e70210a8eb5ee38",
+  "input_sha256": "4bde3a93610c2c487453e36903a681241f827a8fa6bae984d6b53dc114d66081",
   "real_benchmark": "Not established"
 }

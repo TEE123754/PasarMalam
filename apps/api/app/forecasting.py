@@ -116,7 +116,10 @@ def evaluate_history(rows, target, planned=None):
     residuals = sorted(abs(r["sold"] - prediction(released, r)) for r in calibration)
     rank = math.ceil((len(residuals) + 1) * 0.9)
     radius = residuals[rank - 1] if rank <= len(residuals) else None
-    p = prediction(released, {"date": target.isoformat()})
+    target_row = {"date": target.isoformat()}
+    p = prediction(released, target_row)
+    baseline_prediction = prediction(baseline, target_row)
+    trend_prediction = prediction("bounded-trend", target_row)
     covered = (
         sum(abs(r["sold"] - prediction(released, r)) <= radius for r in holdout)
         if radius is not None
@@ -159,6 +162,9 @@ def evaluate_history(rows, target, planned=None):
             },
             "validation_mae": {k: mae(k, validation) for k in candidates},
             "holdout_mae": {k: mae(k, holdout) for k in candidates},
+            "baseline_method": baseline,
+            "baseline_quantity": round(baseline_prediction),
+            "trend_quantity": round(trend_prediction),
             "selected_on_validation": selected,
             "release_method": released,
             "release_gate": (

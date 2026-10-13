@@ -13,3 +13,8 @@
 .passport-panel textarea{min-height:100px;resize:vertical}.passport-panel .choice-row{grid-column:1/-1;justify-content:flex-start;font-weight:500;line-height:1.6}
 .passport-panel .choice-row input{flex:0 0 22px}.passport-panel article{padding:22px 0;border-top:1px solid #e7dfd3}
 @media(max-width:600px){.passport-panel fieldset{grid-template-columns:1fr}.passport-panel dl{grid-template-columns:1fr;gap:6px}.passport-panel dd{margin-bottom:10px}.passport-panel h2{font-size:1.3rem}}
+
+.passport-panel .passport-advisory-disclaimer{display:block;margin-top:5px;color:rgba(35,31,27,.56);font-size:10px;font-weight:400;line-height:1.35}
+
+.passport-panel .passport-advisory-disclaimer{font-size:9px;letter-spacing:-.015em;white-space:nowrap}
+@media(max-width:600px){.passport-panel .passport-advisory-disclaimer{white-space:normal}}

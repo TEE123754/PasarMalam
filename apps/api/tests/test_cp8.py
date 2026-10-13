@@ -41,6 +41,21 @@ def test_frozen_chronology_and_future_poison(history):
     assert set(b["holdout_mae"]) == {"historical-average", "historical-median", "bounded-trend"}
 
 
+def test_target_comparison_uses_existing_validation_baseline(history):
+    result = evaluate_history(history, "2026-10-15")
+    benchmark = result["benchmark"]
+    expected_baseline = min(
+        ("historical-median", "historical-average"),
+        key=lambda method: benchmark["validation_mae"][method],
+    )
+    assert benchmark["baseline_method"] == expected_baseline
+    assert isinstance(benchmark["baseline_quantity"], int)
+    assert isinstance(benchmark["trend_quantity"], int)
+    assert benchmark["baseline_quantity"] >= 0 and benchmark["trend_quantity"] >= 0
+    if result["method"] == "bounded-trend":
+        assert benchmark["trend_quantity"] == result["quantity"]
+
+
 def test_interval_coverage_denominators(history):
     r = evaluate_history(history, "2026-10-15")
     i = r["interval"]
