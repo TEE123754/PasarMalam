@@ -14,8 +14,6 @@ import { prepareNativeDemoRoute, nativeDemoBuild } from './native/policy'
 import { NativeRuntime } from './native/NativeRuntime'
 import { prepareMarketExperience } from './app/experience'
 import './market-experience.css'
-import './discovery-brand.css'
-import './pasarmalam-brand.css'
 
 prepareNativeDemoRoute()
 prepareMarketExperience()

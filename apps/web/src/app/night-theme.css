@@ -15,7 +15,6 @@
   /* --accent (#c83c08) is only 3.5:1 on --card-bg, which passes for fills and
      large bold prices but not small text; this lighter orange (7.7:1) is used for small orange text */
   --accent-on-dark: #ff8a4c;
-  /* pasarmalam-brand.css re-tints the app (green buttons, #b95735 accent); dark pages keep the PasarMalam orange */
   --accent: #c83c08;
   --accent-soft: rgba(200, 60, 8, .18);
   position: relative;
@@ -180,3 +179,76 @@
 .content-page .tool-icon { background: rgba(200, 60, 8, .18); color: var(--accent-on-dark); }
 .content-page .tool-arrow { color: rgba(255, 255, 255, .4); }
 .content-page .profile-identity p { color: var(--muted); }
+
+/* ── HeroIntro (session-once intro) in the night-market look ─────── */
+.app-shell:has(.night-page) .hero-intro { background: #0f0c07; }
+.app-shell:has(.night-page) .hero-intro-shell {
+  background:
+    linear-gradient(rgba(0, 0, 0, .58), rgba(0, 0, 0, .58)),
+    url('/demo/images/pm-01-night-market.webp') center / cover no-repeat,
+    #0f0c07;
+}
+.app-shell:has(.night-page) .hero-intro-wave path { fill: #0f0c07; }
+.app-shell:has(.night-page) .hero-intro-wordmark .pasar { color: #f5f0e8; }
+.app-shell:has(.night-page) .hero-intro-wordmark .malam { color: var(--accent-on-dark); }
+.app-shell:has(.night-page) .hero-intro-food { border: 3px solid rgba(255, 255, 255, .18); box-shadow: 0 24px 64px rgba(0, 0, 0, .65); }
+.app-shell:has(.night-page) .hero-intro-food img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.app-shell:has(.night-page) .hero-intro-tag.fresh { background: var(--accent); color: #fff; }
+.hero-intro-tag.tracked {
+  bottom: 27%; right: 14%;
+  transform: rotate(8deg) scale(.6);
+  animation: heroTagHalal .5s cubic-bezier(.34, 1.56, .64, 1) 1.3s forwards;
+}
+.app-shell:has(.night-page) .hero-intro-tag.tracked { background: #1d2f22; color: #cfe8c6; border: 1px solid #2c4733; }
+.app-shell:has(.night-page) .hero-intro-tagline { color: rgba(255, 255, 255, .72); }
+.app-shell:has(.night-page) .hero-intro-progress { background: rgba(255, 255, 255, .15); }
+.app-shell:has(.night-page) .hero-intro-progress-fill { background: var(--accent); }
+@media (prefers-reduced-motion: reduce) {
+  .hero-intro-tag.tracked { animation: none; opacity: 1; transform: rotate(8deg); }
+}
+
+/* Workspace switch (hawker side) on the transparent navbar */
+.app-shell:has(.night-page) > .site-header .role-switch { background: rgba(255, 255, 255, .08); border-color: rgba(255, 255, 255, .18); }
+.app-shell:has(.night-page) > .site-header .role-switch button { color: rgba(255, 255, 255, .75); }
+.app-shell:has(.night-page) > .site-header .role-switch button.active { background: var(--accent); color: #fff; box-shadow: none; }
+
+/* ── Remaining light surfaces found by a per-route audit ─────────── */
+/* Native controls (checkboxes, dropdown menus, scrollbars, date pickers) render in their dark variant */
+.night-page { color-scheme: dark; }
+/* Page stylesheets (commerce.css, vendor forms…) set white fields with specific selectors; win over all of them */
+.app-shell .night-page.content-page :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), select, textarea) {
+  background: rgba(0, 0, 0, .35);
+  color: #fff;
+  border-color: rgba(255, 255, 255, .15);
+}
+.app-shell .night-page.content-page :is(input, textarea)::placeholder { color: rgba(255, 255, 255, .45); }
+
+/* Secondary panels and inset boxes → translucent dark surfaces */
+.content-page :is(.detail-hero, .purpose-strip, .advisory-explanation, .listing-statements dl > div, .accounting-metrics > div,
+  .partner-summary > div, .dashboard-offer, .hawker-quick, .batch-detail, .demo-review-concern, .demo-complaint-receipt,
+  .prototype-notice, .prototype-partner-card, .prototype-proof-preview, .prototype-feature, .listing-statements, .dashboard-empty,
+  .prototype-node, .prototype-partner-icon, .prototype-sample-badge, .prototype-creator-campaign figcaption, dl.panel) {
+  background: rgba(255, 255, 255, .06);
+  border-color: rgba(255, 255, 255, .1);
+  color: #f5f0e8;
+  box-shadow: none;
+}
+.content-page .detail-hero { background: rgba(30, 22, 8, .75); border: 1px solid rgba(255, 255, 255, .08); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.content-page .detail-symbol { background: var(--raised-bg); }
+.content-page .detail-hero .eyebrow { color: var(--accent-on-dark); }
+.content-page .detail-hero p { color: rgba(255, 255, 255, .7); }
+.content-page :is(.purpose-strip, .purpose-strip > a, .partner-summary span, .accounting-metrics span) { color: #f5f0e8; }
+.content-page .partner-summary strong { color: #a8e295; }
+.content-page :is(.review-avatar, .attention-label, .prototype-proof-status.current) { background: rgba(255, 255, 255, .14); color: #fff; }
+.content-page .impact-bar { background: rgba(255, 255, 255, .08); }
+
+/* Text that kept a dark colour */
+.content-page :is(.dietary-label, .stall-bottom, .stall-bottom span, .partner-connected, .impact-metrics strong) { color: #f5f0e8; }
+.night-page:is(.hawker-page, .community-page, .impact-page) .panel > :is(p, span, strong) { color: #f5f0e8; }
+.content-page .rating { color: #f5b942; }
+.content-page .stall-bottom > span:last-child { color: var(--accent-on-dark); }
+/* The prototype certificate is a printed-paper mock-up, so it deliberately stays light */
+.content-page .demo-complaint-receipt :is(.prototype-proof-stamp, small) { color: #f5f0e8; }
+/* Warning callouts (e.g. passport/accounting reconciliation alerts): dark amber instead of peach */
+.content-page .passport-panel [role="alert"] { background: rgba(216, 125, 40, .16); border: 1px solid rgba(216, 125, 40, .4); color: #f6c99a; }
+.content-page .choice-row input[type="checkbox"] { accent-color: var(--accent); }

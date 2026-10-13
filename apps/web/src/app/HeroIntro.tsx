@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { ImagePlaceholder } from '../components/ImagePlaceholder'
 
 const DURATION = 4500
 const EXIT_AT = 3900
@@ -25,9 +24,10 @@ export function HeroIntro({ onDone }: { onDone: () => void }) {
         <span className="pasar">PASAR</span>
         <span className="malam">MALAM</span>
       </div>
-      <div className="hero-intro-food"><ImagePlaceholder description="Nasi Lemak Pasar Malam"/></div>
+      <div className="hero-intro-food"><img src="/demo/images/pm-06-nasi-lemak.webp" alt="" width={320} height={320}/></div>
       <span className="hero-intro-tag fresh">Freshly Made</span>
-      <span className="hero-intro-tag halal">Halal &#10003;</span>
+      {/* Not every stall is halal, so the intro claims only what the app tracks for all of them */}
+      <span className="hero-intro-tag tracked">Batch-tracked &#10003;</span>
       <p className="hero-intro-tagline">Good food &middot; Good neighbours &middot; Less waste</p>
       <div className="hero-intro-progress"><div className="hero-intro-progress-fill"/></div>
       <Wave position="bottom"/>

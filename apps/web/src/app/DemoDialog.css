@@ -7,7 +7,7 @@
   --demo-malam: #d9692e;
   /* Feature card fill — near-white with a faint cool tint, not --paper */
   --demo-card-bg: #f7fbfa;
-  /* pasarmalam-brand.css re-tints --accent and .button.primary app-wide; the splash keeps the original orange */
+  /* Splash keeps the PasarMalam orange regardless of the page theme */
   --accent: #c83c08;
 
   inset: 0;
