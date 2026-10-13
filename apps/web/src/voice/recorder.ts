@@ -10,7 +10,7 @@ export class Recorder {
   if(typeof window!=='undefined')window.addEventListener('pasarmalam-pause',this.pause)
   if(typeof document!=='undefined')document.addEventListener('visibilitychange',this.hidden)
   let stream:MediaStream
-  try{stream=await navigator.mediaDevices.getUserMedia({audio:true})}catch(error){this.detach();throw error}
+  try{stream=await navigator.mediaDevices.getUserMedia({audio:{channelCount:1,echoCancellation:true,noiseSuppression:true,autoGainControl:true}})}catch(error){this.detach();throw error}
   if(generation!==this.generation||(typeof document!=='undefined'&&document.hidden)){stream.getTracks().forEach(t=>t.stop());this.detach();throw new Error('Recording cancelled')}
   this.stream=stream
   try{this.recorder=new MediaRecorder(this.stream);this.recorder.ondataavailable=e=>{if(e.data.size)this.chunks.push(e.data)};this.recorder.onstop=()=>{const blob=new Blob(this.chunks,{type:this.recorder?.mimeType});this.chunks=[];this.stopTracks();done(blob)};this.recorder.start();this.timer=setTimeout(()=>this.stop(),30000)}catch(e){this.cancel();throw e}

@@ -1,5 +1,7 @@
 # PasarMalam - Human Actions to Complete App Features
 
+**Current product scope — prototype, 9 October 2026:** the owner requested visibly fictional future integration/certification examples. Use [the prototype checklist](PROTOTYPE_FEATURES_CHECKLIST.md) and [demo walkthrough](PROTOTYPE_DEMO_GUIDE.md). Real authority/creator access, authentic certificates, participant studies and real business data below are future rollout requirements; they do not block this prototype. Existing real-evidence counts are preserved rather than treating simulated proof as genuine.
+
 Prepared: **9 October 2026**.
 
 Follow this one guide for hands-on work and the data/access you need to provide. It covers account setup, real speech and usability measurements, phone tests, forecasting data, real partnerships and native apps. Review-only jobs and competition administration/presentation jobs are outside this guide.
@@ -15,23 +17,18 @@ Creating this guide does not change feature completion statuses. Some features s
 
 Use fictional batches for app testing. Record real participant observations honestly. Keep recordings, consent receipts, account details and business documents private. Do not place passwords or API keys in this document or commit them to GitHub.
 
-## Step 1 - Choose registration mode and use a real test account
+## Step 1 - Use your instant-signup account
 
-**Feature:** registration, email verification, login, profiles and roles.
+**Feature:** accounts and profiles, now accepted in the controlled local scope.
 
-- [x] Choose **public signup**. Selected by the owner on 9 October 2026; supersedes invitation-only.
-- [x] Tell the developer which mode you want; Supabase signup, frontend signup and public customer admission are enabled. Email confirmation stays ON pending the email-sender choice.
-- [x] Provide an owner-controlled test email. That existing account is email-confirmed; owner password setup/sign-in remains pending.
-- [ ] Complete the actual invitation/signup and email-verification flow.
-- [ ] Log in, edit the profile, switch the visible mode, sign out and log back in.
-- [ ] Use a separately assigned hawker account to open a stall and confirm that customer accounts cannot gain hawker access by changing the visible mode.
-- [ ] Record any failed email, verification, login or profile step.
+- [x] Owner selected instant public signup; Supabase signup is ON and confirmation email is OFF.
+- [x] Developer verified actual public signup, customer-only admission, sign-in/out, profile editing/persistence and protected role denial with a generated fictional account, subsequently removed.
+- [ ] Enter your own password and sign in using your existing account, or create a new account with an unused email. No signup confirmation email is needed.
+- [ ] Edit display name/language, save, sign out and sign in again yourself.
+- [ ] For connected stall management, use a separately assigned hawker account. A customer cannot grant themselves privileges through the mode selector.
+- [ ] If you need password recovery, complete the reset yourself. Reliable reset delivery to arbitrary public users still needs a configured sender.
 
-**Provide:** selected registration mode, test date, steps that worked/failed and errors with private details removed.
-
-**Do next:** follow [the public signup instructions](STEP1_PUBLIC_SIGNUP_SETUP.md). New users choose Create account; existing users choose Sign in or Forgot password. Clicking the email button returns to the app. Public email delivery still needs an SMTP sender or an explicit choice of instant demo signup. The owner's complete password/login journey stays unchecked until they finish it.
-
-**After your action:** any remaining account-flow repairs can be completed. See [account acceptance](CP1_ACCEPTANCE.md) for the existing implementation scope.
+**Do next:** [instant signup/account instructions](STEP1_PUBLIC_SIGNUP_SETUP.md). Your personal password must be entered by you. These are owner/release actions; C01-03 is now complete locally. Record any failure with credentials removed. Privacy/food-policy review jobs remain tracked separately, outside this hands-on guide.
 
 ## Step 2 - Recruit speakers, hawkers and customers
 
@@ -52,7 +49,7 @@ Use fictional batches for app testing. Record real participant observations hone
 
 **Features:** BM/English/Manglish recognition, local expressions and extraction accuracy.
 
-- [ ] Download/use the prepared pack: **10 BM, 10 Manglish and four English cases**.
+- [ ] Download/use the **fresh holdout v2** pack: **10 BM, 10 Manglish and four English cases**. The 24 supplied clips and original scripts were used for development; they cannot be reused as independent acceptance.
 - [ ] Record one separate file for each case using the fictional interpretation clock and test facts in the pack.
 - [ ] Include prices, quantities, preparation times and batch references, including ambiguous examples.
 - [ ] Record the planned noise cases without capturing non-consenting bystanders; note whether the background noise is controlled or natural.
@@ -63,7 +60,7 @@ Use fictional batches for app testing. Record real participant observations hone
 
 **Provide:** 24 audio files, consent references, actual transcripts, expected fields and recording conditions in the private CP7 collection.
 
-**Use:** [24-case recording pack](../contracts/cp7-recording-pack.json) and [collection instructions](CP7_MEASUREMENT_GUIDE.md). The developer can help with file hashes and manifest formatting; you need to supply the real recordings and facts.
+**Use:** [fresh 24-case holdout v2](../contracts/cp7-holdout-v2.json) and [collection instructions](CP7_MEASUREMENT_GUIDE.md). The developer can help with file hashes and manifest formatting; you need to supply the real recordings and facts.
 
 ## Step 4 - Run actual voice and typing tasks
 
@@ -97,6 +94,8 @@ Use fictional batches for app testing. Record real participant observations hone
 **After your action:** the developer can calculate supported latency/failure/cost metrics. Developer assistance can capture technical timing; you supply account access or exported usage records through a secure channel.
 
 ## Step 6 - Test the web app on a physical phone
+
+Automatic request time, failures/retries and available tokens now appear in Evaluation. Download the private measurements from the same tab after tasks; add actual billing/free-allowance evidence separately. [Automatic measurement instructions](AI_REQUEST_MEASUREMENT_GUIDE.md). Request timing does not replace complete participant task timing.
 
 **Features:** microphone, PWA installation/offline use, notifications and practical mobile usability.
 

@@ -1,0 +1,13 @@
+# Automatic AI request measurements
+
+Implemented 9 October 2026. This removes manual timing/token entry for requests made through the voice screen. It does not replace the consenting live voice-versus-typing tasks or provider billing evidence.
+
+1. Use **Voice & quick entry** on the demo or connected hawker screen. Transcribe or enter text, review sharing consent if required, then extract fields. Each network attempt is recorded, including failure, cancellation and retry. Quick entry without a provider request creates no AI request record.
+2. Resolve clarification and explicitly confirm the listing. Attempts for that unchanged transcript/stall are linked to the save's idempotent request ID. Repeated confirmation does not multiply the successful-update count. Editing the transcript/stall starts a separate group. A failed-only/manual fallback group is not counted as a successful model-assisted update.
+3. Open **Evaluation -> AI request measurements**. See attempt/failure/confirmation counts and median/P90 browser request duration. Click **Download private request measurements** before closing the tab.
+4. Keep this JSON in ignored `.local-evaluation/`. Records contain request/group IDs, time, status, model, input origin, duration and available token counts; they exclude audio, transcripts, passwords, account IDs and provider credentials. Demo and connected records have different storage keys.
+5. Add each actual request's dated provider billing/free-allowance reference privately before supplying costs. Token counts alone do not establish billed cost. Failed or cancelled requests can still consume tokens even when counts are unknown. Do not label missing cost as zero.
+6. For CP7, copy the exported `requests` array into the existing private `measurements.json`. Retain `id`, `latency_ms`, `failed`, `retry_of`, token counts and `confirmed_update`. Fill `cost`, `currency` and `billing_evidence` only from real evidence, using one currency per report. Merge with unique IDs if combining exports; retain all attempts, not just successes.
+7. Use the existing CP7 frozen-manifest/report command after collecting the independent recordings and live/user context. Automatic request time covers browser fetch/response validation; provider time additionally covers server extraction handling. Neither measures a participant's complete listing task, speech model download or phone latency by itself.
+
+Records are bounded to 500 per tab/mode. The panel flags a truncated or unavailable session; such an export cannot support a claim of complete usage/cost. Closing the tab clears this session storage. Billing, accuracy, interview and device evidence stay incomplete until supplied and measured.

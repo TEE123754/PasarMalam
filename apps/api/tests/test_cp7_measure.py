@@ -11,7 +11,7 @@ from cp7_measure import ROOT, distance, fingerprint, freeze, score, words
 
 @pytest.fixture
 def fixture():
-    manifest = json.loads((ROOT / "contracts/cp7-recording-pack.json").read_text(encoding="utf-8"))
+    manifest = json.loads((ROOT / "contracts/cp7-holdout-v2.json").read_text(encoding="utf-8"))
     for i, s in enumerate(manifest["samples"]):
         s["speaker"] = f"S{i % 5 + 1:02}"
     lock = {"manifest_sha256": fingerprint(manifest)}
@@ -171,6 +171,14 @@ def test_no_consent_no_freeze(fixture, tmp_path: Path):
 def test_word_normalisation_and_edit_distance():
     assert words("RM 4.50, siap!") == ["rm", "4", "50", "siap"]
     assert distance(["a", "b"], ["a", "c", "d"]) == 2
+
+
+def test_used_scripts_cannot_be_relabelled_as_holdout(fixture):
+    manifest, _, measurements = fixture
+    manifest["samples"][0]["id"] = "cp7-01"
+    manifest["development_ids"] = []  # Removing the operator declaration cannot evade the guard.
+    with pytest.raises(AssertionError, match="Development scripts"):
+        score(manifest, {"manifest_sha256": fingerprint(manifest)}, measurements)
 
 
 def test_freeze_checks_real_files_and_changed_audio(fixture, tmp_path):

@@ -15,10 +15,21 @@
   /* --accent (#c83c08) is only 3.5:1 on --card-bg, which passes for fills and
      large bold prices but not small text; this lighter orange (7.7:1) is used for small orange text */
   --accent-on-dark: #ff8a4c;
+  /* pasarmalam-brand.css re-tints the app (green buttons, #b95735 accent); dark pages keep the PasarMalam orange */
+  --accent: #c83c08;
+  --accent-soft: rgba(200, 60, 8, .18);
   position: relative;
   background-color: var(--page-bg); /* fallback while the page photo loads */
   overflow-x: clip;
 }
+/* The brand doodle pattern would sit under the photo layer anyway; skip painting it */
+.app-shell:has(.night-page)::before { display: none; }
+.app-shell:has(.night-page) .button.primary { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 5px 14px #c83c0830; }
+.app-shell:has(.night-page) .button.primary:hover:not(:disabled) { background: #a72d04; border-color: #a72d04; }
+
+/* Floating bottom nav, darkened to sit on the photo */
+.app-shell:has(.night-page) .bottom-nav-surface { background: rgba(20, 14, 4, .92); box-shadow: 0 12px 30px rgba(0, 0, 0, .5); }
+.app-shell:has(.night-page) .bottom-nav-link:not(.active) { color: rgba(255, 255, 255, .7); }
 
 /* Transparent navbar over the photo — same look on every customer page.
    It stays in normal flow here; Discover lifts it over its hero (discovery.css). */
@@ -28,6 +39,8 @@
   background: transparent;
   border-bottom: 0;
   box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 .app-shell:has(.night-page) > .site-header .brand { color: #fff; }
 .app-shell:has(.night-page) > .site-header .brand > span > span { color: var(--accent-on-dark); }

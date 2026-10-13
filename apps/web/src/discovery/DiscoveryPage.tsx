@@ -49,14 +49,13 @@ export function DiscoveryStallCard({ stall, market, now, distance }: { stall: St
   const { t } = useTranslation()
   return <NavLink className="stall-card card-link" to={`/stalls/${stall.id}`}><div className="food-art"><DemoImage image={foodImage(stall.specialty)} description={`${stall.specialty} from ${stall.name}`}/></div><div className="stall-content"><div className="eyebrow">{stall.category}</div><h3>{stall.name}</h3><PublicFlag stall={stall.id}/><EditorialBadge stall={stall.id}/><p className="muted">{stall.specialty} · {market?.name}</p><p className="dietary-label">{t(`diet_${dietaryStatus(stall,now)}`)}</p><p className="small muted">{t(stall.open ? 'vendorOpen' : 'vendorClosed')}{distance !== undefined ? ` · ${distance.toFixed(1)} km` : ''}</p><Availability at={stall.availabilityConfirmedAt} now={now}/><div className="stall-bottom"><span className="rating"><Star size={14}/>{stall.reviews ? `${stall.rating.toFixed(1)} (${stall.reviews})` : t('noReviews')}</span><span>RM {(stall.priceSen/100).toFixed(2)}</span></div></div></NavLink>
 }
-
 export function DiscoveryPage({ gateway }: { gateway: DataGateway }) {
   const { t } = useTranslation()
   const [filters, setFilters] = useState<Filters>(defaultFilters)
   const [search, setSearch] = useState('')
   const [page, setPage] = useState(0)
   const [showMap, setShowMap] = useState(true)
-  const [filtersOpen,setFiltersOpen] = useState(false)
+  const [filtersOpen,setFiltersOpen] = useState(true)
   const [locationMessage, setLocationMessage] = useState('manualLocation')
   const [geoExpires, setGeoExpires] = useState(0)
   const [mapLookup, setMapLookup] = useState('')

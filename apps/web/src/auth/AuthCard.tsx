@@ -7,6 +7,7 @@ import { RegistrationPanel } from './RegistrationPanel'
 import { getAuthClient } from './client'
 import { appPath } from '../app/config'
 import { ui } from '../locales/phrases'
+import { ProfileEditor } from './ProfileEditor'
 
 export function AuthCard() {
   const { t } = useTranslation()
@@ -37,6 +38,7 @@ export function AuthCard() {
     <div className="feature-icon"><LockKeyhole size={24}/></div><h2>{t('account')}</h2>
     {auth.notice && <p role="alert">{t(auth.notice === 'expired' ? 'sessionExpired' : 'accountUnavailable')}</p>}
     {auth.actor ? <><p>{auth.actor.display_name}</p><p>{t('accountRoles')}: {auth.actor.roles.map(role => t(`role_${role}`)).join(', ')}</p>
+      <ProfileEditor key={auth.actor.id} actor={auth.actor}/>
       <button className="button secondary" onClick={() => void auth.signOut()}>{t('signOut')}</button>
       {auth.actor.roles.includes('admin') && <NavLink className="button secondary" to="/admin">{t('admin')}</NavLink>}</>
       : !auth.configured ? <p>{t('authConfiguration')}</p>

@@ -9,6 +9,7 @@ import { fixtureClock, closingScenarioTimestamp } from './clock'
 import { NearbyConsent } from '../freshness/FreshPage'
 
 const tools = [
+  {to:'/potential',icon:ShieldCheck,title:'Prototype potential & proof',body:'Demo authority partners, creator features and watermarked certificates.'},
   {to:'/saved',icon:Heart,title:'Saved stalls',body:'Your favourite stops, all in one place.'},
   {to:'/commerce',icon:Tag,title:'Reservations & orders',body:'Reserve surplus food and collect at the stall.'},
   {to:'/community',icon:Users,title:'Reviews & confidential reports',body:'Share a good meal or raise a hygiene concern.'},

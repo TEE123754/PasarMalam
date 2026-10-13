@@ -327,6 +327,11 @@ export interface Preferences {
   end: string
 }
 
+export interface ProfileUpdate {
+  display_name: string
+  locale: "en" | "ms"
+}
+
 export interface PromotionInput {
   title: string
   price_sen: number

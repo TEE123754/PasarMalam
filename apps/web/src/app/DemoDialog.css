@@ -7,6 +7,8 @@
   --demo-malam: #d9692e;
   /* Feature card fill — near-white with a faint cool tint, not --paper */
   --demo-card-bg: #f7fbfa;
+  /* pasarmalam-brand.css re-tints --accent and .button.primary app-wide; the splash keeps the original orange */
+  --accent: #c83c08;
 
   inset: 0;
   left: 0;
@@ -68,6 +70,8 @@
 }
 .demo-entry-title span { color: var(--demo-malam); }
 
+.demo-entry .demo-entry-cta.button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.demo-entry .demo-entry-cta.button.primary:hover:not(:disabled) { background: #a72d04; border-color: #a72d04; }
 .demo-entry .demo-entry-cta { margin: 0; min-height: 44px; padding: 10px 18px; font-size: 15px; font-weight: 600; }
 
 /* Four cards spanning the full width, ~160px each at 800px */

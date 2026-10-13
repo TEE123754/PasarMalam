@@ -25,6 +25,7 @@ export const en = {
     discoverBody: 'Follow the aroma. Explore nearby markets, meet local hawkers and catch a good offer before closing.',
     exploreMarkets: 'Explore markets', browseOffers: 'Browse offers', findFood: 'Find a stall or dish',
     allMarkets: 'Markets to explore', featuredStalls: 'From the stalls', showAll: 'See all',
+    featuredEyebrow: 'FEATURED TONIGHT', exploreMarket: 'Explore market',
     open: 'Open', upcoming: 'Opening soon', closed: 'Closed', night: 'Night market', day: 'Day market',
     from: 'From', reviews: 'reviews', vendorDeclared: 'Vendor-declared halal', nonHalal: 'Non-halal', notDeclared: 'Not declared',
     offersTitle: 'A good deal, while it lasts.', offersBody: 'Offers are linked to a specific batch. The hawker confirms availability before a real collection.',

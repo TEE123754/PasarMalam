@@ -7,12 +7,15 @@ import { PwaStatus } from './app/PwaStatus'
 import { AuthProvider } from './auth/AuthProvider'
 import './locales/i18n'
 import './styles.css'
+import './prototype/prototype.css'
 import './ui-refresh.css'
 import './native/native.css'
 import { prepareNativeDemoRoute, nativeDemoBuild } from './native/policy'
 import { NativeRuntime } from './native/NativeRuntime'
 import { prepareMarketExperience } from './app/experience'
 import './market-experience.css'
+import './discovery-brand.css'
+import './pasarmalam-brand.css'
 
 prepareNativeDemoRoute()
 prepareMarketExperience()

@@ -4,6 +4,32 @@
   "revision": "ff4177021cc41f7db950912b73ea4fdf7d01d8e7",
   "dtype": "q8",
   "device": "wasm",
+  "profiles": [
+    {
+      "id": "tiny",
+      "model": "onnx-community/whisper-tiny",
+      "revision": "ff4177021cc41f7db950912b73ea4fdf7d01d8e7",
+      "size_note": "Approximately 41 MB weights; fastest and smallest download."
+    },
+    {
+      "id": "small",
+      "model": "onnx-community/whisper-small",
+      "revision": "36050c46d777d46dc4b5f43f6d90574fc38f8732",
+      "size_note": "Larger download and memory use; use a capable device. Phone performance is unmeasured."
+    },
+    {
+      "id": "turbo",
+      "model": "onnx-community/whisper-large-v3-turbo",
+      "revision": "360ebcde2559d60bb474678be3c1de9ef347d01a",
+      "size_note": "Largest download and memory use; try on a capable computer. Phone performance is unmeasured."
+    },
+    {
+      "id": "desktop",
+      "model": "mobiuslabsgmbh/faster-whisper-large-v3-turbo",
+      "revision": "0a363e9161cbc7ed1431c9597a8ceaf0c4f78fcf",
+      "size_note": "Requires the speech helper on this computer. Audio is processed locally in memory until transcription finishes; no audio upload or storage."
+    }
+  ],
   "weights_bytes": 40844231,
   "size_note": "Approximately 41 MB weights, plus tokenizer/config and ONNX WASM runtime; browser cache may avoid repeat downloads.",
   "license": "MIT upstream Whisper; ONNX repository declares its upstream base_model but has no separate license field.",
@@ -13,5 +39,5 @@
   "llm_revision": "91cad51170dc346986eccefdc2dd33a9da36ead9",
   "llm_file": "qwen2.5-1.5b-instruct-q5_k_m.gguf",
   "llm_license": "Apache-2.0",
-  "evaluation": "Not measured; Malay/Manglish recognition and structured extraction require real recordings."
+  "evaluation": "Supplied original satay development runs on desktop CPU: best local turbo BM 90%, Manglish 86%, English 95%, valid 24/24; ONNX turbo Manglish 70%. Independent v2 holdout, browser/phone accuracy and live timing remain unmeasured. See docs/VOICE_ACCURACY_IMPROVEMENTS.md."
 }

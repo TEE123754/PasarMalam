@@ -47,7 +47,7 @@ Build warnings were existing Zod annotation removal and a large bundle; pytest r
 
 ![CP1 customer listing with explicit declarations](screenshots/cp1-customer-statements.png)
 
-## Still open before registration/real-data acceptance
+## Historical registration/real-data acceptance gaps — before instant-signup completion
 
 - [x] Owner selected public signup on 9 October 2026, superseding invitation-only. Public Auth signup and customer admission are enabled on the existing controlled sandbox; email confirmation stays ON pending the sender choice.
 - [ ] On that approved target, confirm Auth email verification, allowed redirect/template settings and the production data boundary. A frontend flag alone is insufficient; this disposable backend deliberately cannot advertise public production registration.
@@ -68,7 +68,7 @@ Focused verification: registration tests **6 passed**; lint, production build (i
 
 This invitation-only stage was superseded by the owner's public-signup request below. Feature counts remain unchanged because the human journey is incomplete.
 
-## Public signup repair — current state, 9 October 2026
+## Public signup repair — earlier confirmed-email stage, 9 October 2026
 
 Owner explicitly changed the mode to public signup. The API now reports `public`; the frontend flag is enabled on the matching sandbox. Supabase signup was already ON when checked following the owner's change. Site URL was corrected from `localhost:3000` to `http://127.0.0.1:5174/sandbox/profile`. New confirmation/reset emails return to that account screen. Supabase's SDK handles the email callback on profile routes and clears the URL fragment; sessions remain in memory. Demo routes cannot register or authenticate real accounts.
 
@@ -83,3 +83,15 @@ Focused checks: registration **10 passed**; backend/connected gate **21 passed**
 The all-history local migration runner found three pre-existing checksum mismatches (`20261006183620_vendor_photo_binding.sql`, `20261006183801_voice_retention_tick.sql`, `20261006184041_voice_retention_restore.sql`). The Supabase connector also refused migration-write permission. Only the new account migration was applied through the configured database connection after verifying the disposable guard, and its checksum was recorded. Prior migration files/checksums were preserved. This is not a claim that the older history mismatch was repaired.
 
 Continue with [the current public signup instructions](STEP1_PUBLIC_SIGNUP_SETUP.md). No deployment or owner-password change was performed.
+
+## Current completion — instant public signup and profile editing, 9 October 2026
+
+The owner explicitly selected instant public signup for this demo. Public signup remains ON; Confirm email is saved OFF. A generated public signup received an immediate session without an invitation or email. Automatic confirmation in this mode is not evidence of email ownership.
+
+Connected profiles now edit display name/preferred language through the existing own-profile RPC. The API forbids caller IDs, role and verification fields. Browser sign-in, editing in both languages and sign-out passed; fresh sign-in and database reads confirmed persistence. Forged metadata still produced customer only; vendor/admin routes returned 403 and injected profile roles returned 422. This generated identity and its local credential file were cleaned up. The owner account/password was untouched.
+
+A fractional provider/host clock difference caused intermittent immediate session rejection. A bounded two-second JWT tolerance repairs this; auth regression cases reject materially future/expired tokens. Profile/onboarding tests: 10 passed; auth contracts: 24 passed. Frontend registration: 10 passed, with lint/TypeScript/build. Additional request metrics/voice gates are in [the batch report](LOCAL_FEATURE_COMPLETION.md).
+
+**C01-03 is accepted locally.** Owner personal password entry, recovery-email delivery, privacy approval before real participants and eventual production acceptance remain separate. Previous invitation/confirmation-email sections above are dated history. [Current instructions](STEP1_PUBLIC_SIGNUP_SETUP.md).
+
+![Current connected profile editor](screenshots/instant-signup-profile-edit-oct9.png)

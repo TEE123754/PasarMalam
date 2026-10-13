@@ -5,7 +5,7 @@ import { showcaseJSON } from './showcase'
 export function ShowcasePack() {
   return <section className="panel">
     <h2>Student showcase preparation · CP9</h2>
-    <p>Five-minute English storyboard and evidence checklist. Official rules, student narration, real user metrics and the complete backup recording remain pending. This pack does not certify competition eligibility.</p>
+    <p>Five-minute English storyboard and evidence checklist. Supplied rules are verified; actual student narration, independent user metrics and the complete backup recording remain pending. For a prototype walkthrough, show the clearly fictional integration and proof library. This pack does not certify competition eligibility.</p>
     <button className="button secondary" onClick={() => download(showcaseJSON(), 'pasarmalam-cp9-showcase-pack.json', 'application/json;charset=utf-8')}>Download CP9 showcase pack</button>
     <ol>{pack.chapters.map(chapter => <li key={chapter.id}>
       <strong>{Math.floor(chapter.start / 60)}:{String(chapter.start % 60).padStart(2, '0')}–{Math.floor(chapter.end / 60)}:{String(chapter.end % 60).padStart(2, '0')} · {chapter.title}</strong>

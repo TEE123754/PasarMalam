@@ -1,17 +1,17 @@
 # CP9 — competition evidence and declarations
 
-Prepared 8 October 2026. **Preparation, not an entry or a TRL certification.** Official competition name/rules, student eligibility, supervisor, previous-version history and real user evidence have not been supplied. Deployment and submission are excluded.
+Updated 9 October 2026. **Preparation, not an entry or TRL certification.** Supplied official rules are verified; actual eligibility, supervisor, prior-version history and independent user evidence remain pending. [Rules](COMPETITION_RULES_VERIFIED.md) · [TRL supporting documentation](TRL4_EVIDENCE.md). No deployment/submission.
 
 ## Claim-to-evidence map
 
 | Claim appropriate for the current presentation | Evidence | Limit / remaining input |
 | --- | --- | --- |
 | Working local PWA and connected persistent workflows | [Local readiness](local-readiness-acceptance.md), [CP1](CP1_ACCEPTANCE.md), [CP2](CP2_ACCEPTANCE.md) | Guarded disposable Supabase; not a deployed product or actual-user study |
-| Speech draft, field clarification and hawker-confirmed writes | [CP3](CP3_ACCEPTANCE.md) | Technical smoke and deterministic/manual safeguards; real BM/Manglish accuracy and comprehension unmeasured |
+| Speech draft, field clarification and hawker-confirmed writes | [CP3](CP3_ACCEPTANCE.md) | Technical smoke and deterministic/manual safeguards; development audio results measured; fresh independent/phone comprehension acceptance pending |
 | Independent batches, preparation/upload separation and correction trail | [CP4](CP4_ACCEPTANCE.md) | Qualified policy/cumulative holding-time review pending; no safe badge |
 | Approval, stock/ETA eligibility, customer offer and accounting | [CP5](CP5_ACCEPTANCE.md) | Fictional technical journeys; no real commercial transaction/causal impact |
 | Private reports, reply/moderation and scoped metrics | [CP6](CP6_ACCEPTANCE.md) | Reports are allegations; no real referral/authority integration claimed |
-| Human measurement tools are prepared | [CP7](CP7_ACCEPTANCE.md), [measurement guide](CP7_MEASUREMENT_GUIDE.md) | No recordings, interviews, paired timing or phone evidence yet |
+| Human measurement tools are prepared | [CP7](CP7_ACCEPTANCE.md), [measurement guide](CP7_MEASUREMENT_GUIDE.md) | 24 supplied recordings measured as development; fresh independent recordings/interviews/live timing/phone evidence pending; automatic request metrics available |
 | One actual photo inference and constrained apparent categories | [CP8](CP8_ACCEPTANCE.md), [response](cp8-vision-smoke.json) | One supplied illustration, uncalibrated confidence; not photo accuracy or billed cost |
 | Chronological forecast implementation with baseline errors | [CP8 history guide](CP8_FORECAST_GUIDE.md), [frozen synthetic report](../apps/web/public/planning-demo.json) | Synthetic coverage 6/8 (75%), below nominal 90%; real-history benchmark pending |
 | Resettable fictional showcase scenarios | [Demo guide](demo-guide.md), [storyboard](../contracts/cp9-showcase-pack.json) | Technical desktop rehearsal is separate from student presentation, device and backup-video acceptance |
@@ -19,19 +19,9 @@ Prepared 8 October 2026. **Preparation, not an entry or a TRL certification.** O
 
 A test pass count measures selected software checks. It is not an AI accuracy percentage, pilot outcome, user satisfaction score or official readiness level. Do not present the synthetic pilot's RM/kg, generated reviews or fictional partner badges as real evidence.
 
-## Provisional TRL mapping for reviewer completion
+## TRL supporting evidence delivered
 
-The pasted checklist requests TRL 4 or above; **the official definition and assessment procedure remain unverified**. This matrix identifies evidence candidates only. It does not assign or certify a level.
-
-| Review dimension | Evidence available | Reviewer decision / gap |
-| --- | --- | --- |
-| Components integrated into a working prototype | PWA, FastAPI, owner-scoped Supabase, transcription/extraction and deterministic advisory workflows | Confirm against dated official criteria |
-| Controlled technical validation | Local API/domain tests; guarded connected fixture tests; recorded browser observations | Laboratory context only; no real market environment validation |
-| Experimental method and reproducibility | CP7 frozen measurement pack; CP8 chronological splits/input hash/errors | CP7 participant results absent; CP8 real-history results absent |
-| Safety and privacy assumptions | CP1 privacy draft, CP4 policy review package, explicit provider consent and no safe badge | Obtain qualified reviews before real data/food trial |
-| Relevant-device/user evidence | Collection/measurement protocols exist | Actual target-phone tests, consenting trials and independent feedback pending |
-
-Reviewer record: official criterion/version **pending**; reviewer/name/role **pending**; evidence reviewed **pending**; level assessment **not assigned**; rationale/date **pending**.
+The supplied rules require TRL 4+ but define no assessment method. [The evidence document](TRL4_EVIDENCE.md) maps integrated core software components and controlled technical validation to a bounded TRL 4 engineering inference, using a cited software-readiness reference. C15-10 documentation is complete. No organiser-issued level, real-market validation or qualified food-policy approval is claimed. Student/supervisor confirmation of the entry's own declaration remains a personal responsibility.
 
 ## Previous-version declaration — two conditional drafts
 
@@ -45,9 +35,9 @@ Useful current advancement candidates for comparison, once the earlier version i
 
 ## Eligibility and official-rule review
 
-Keep names and any student-status documents in private `.local-evaluation/cp9/`; do not add student IDs/contact details to Git or the downloadable public pack. Record competition/organiser, official URL/PDF and retrieval date, track, eligible student level/institution/team size, supervisor requirements, prior-entry rules, deadline/timezone, language, video duration/format, judging criteria and TRL definition. Each value is currently **unverified**.
+Keep actual names and student-status documents private under `.local-evaluation/cp9/`. [Verified competition rules](COMPETITION_RULES_VERIFIED.md) cover FAI UTM eligibility, separate UG/PG teams, supervisor, dates, rubric and prior-version conditions. Actual student/team/supervisor/history facts remain unconfirmed. No deadline time/timezone is given in the PDF; do not invent one.
 
-The supplied checklist contains a five-minute heading and an eight-minute maximum. The storyboard's **300 seconds is provisional**, not verified compliance. Once official rules arrive, review them and adjust before recording/submitting. A participating student must narrate/present; an AI voice or these two existing diagram clips do not satisfy that requirement.
+The heading says five minutes and the explicit limit is eight minutes. The 300-second storyboard fits both; actual student delivery/duration is still required. English presentation/narration must be by a participating student. AI narration and the existing diagram clips do not satisfy it. Source storyboard metadata still records its earlier provisional preparation basis; use the verified rules here for current recording acceptance.
 
 ## Evidence to hand over locally
 

@@ -316,3 +316,51 @@ Local preparation/contract gate complete; all six real partner/data requirements
 Android/iOS source projects and isolated native bundle prepared; native binaries/device testing skipped by owner. 57 distinct frontend tests, lint/TypeScript/builds, platform generation/sync, config/credential checks passed. Dependency pin 8.4.3 avoids CLI audit finding. Focused repairs addressed notification-removal type, late-night seed initialization, Swift Windows paths, native exit link and pause UI cleanup; only affected checks repeated. Browser root/sandbox redirected to working fictional discovery; screenshot captured. No APK, iOS compiler or device receipt claim. C01-07 remains partial; 124 checked / 27 open. [Guide](CP11_NATIVE_GUIDE.md) · [Acceptance](CP11_ACCEPTANCE.md). Deployment held.
 
 CP11 handoff continuation: final source/document review complete; no further code changes or repeated test gate. Owner-requested device/toolchain skip preserved. Native source preparation complete, C01-07 partial and deployment held.
+
+
+## 9 October 2026 - supplied recording integration
+
+Imported 24 consented original satay recordings (10 BM, 10 Manglish, four English; five speaker folders) privately with byte-identical Ogg copies and hashes. Fixed extensionless upload handling and the installed speech library's English default; added explicit language choice, optional pinned Whisper-small, raw recognition/draft export and measured-report import/download. Morpheus interprets only redacted recognized text; unknown units require a manual choice. Audio remains local and listings require confirmation.
+
+Actual full small + Morpheus baseline: BM 56%, Manglish 34%, English 40% critical-field accuracy; 20/24 valid drafts. Targets failed. Three of four affected interpretation reruns succeeded after the unknown-unit repair; one remains failed, with all first attempts retained. These script-relative development results do not close expanded CP7 acceptance. No live timing, phone, independent spoken annotation or billing cost claimed.
+
+Local gate: 51 distinct selected frontend cases and 24 distinct backend voice cases passed across initial/focused repair batches. Final affected six-case frontend check, lint/types/production build, Ruff, diff and credential/private-ignore checks passed. Browser original extensionless file -> real small-model WASM transcription -> real Morpheus draft -> verified original private JSON export. API refreshed on 8010; preview on 5174. Overall 124 checked / 27 open; no deployment. [Evidence](SUPPLIED_VOICE_ACCEPTANCE.md).
+
+
+## 9 October 2026 - voice accuracy enhancement
+
+Pinned browser/local turbo models, optional loopback desktop helper, language selection/dual Manglish decoding, audio conditioning, stronger Morpheus instructions and conservative transcript-grounded numbers/time/bundle/batch guards delivered. Best complete original-recording development run: BM 90%, Manglish 86%, English 95%, 24/24 valid drafts; ONNX CPU lane 86%/70%/90%, 22/24. The unchanged small-text lane regressed to 48%/36%/60%, 19/24 and is preserved. Original CP7 text scripts now development-only; complete repaired text extraction 98.15%/98.08%/100%, 24/24. Fresh unmeasured cp7b holdout provided; scorer prevents relabelling known development IDs.
+
+68 affected backend and 56 frontend voice tests passed; lint/types/build and changed-file Ruff passed. Repository-wide Ruff has ten existing unrelated issues. Browser supplied recording -> local desktop transcription -> actual Morpheus draft verified; future preparation time kept confirmation blocked, no write. API 8010, preview 5174, optional helper 8020 running locally. Detailed voices/transcripts stay ignored. Independent spoken references, fresh noise/phone/live tasks and billing remain pending. No fine-tuning or deployment; 124 checked / 27 open. [Measured improvements](VOICE_ACCURACY_IMPROVEMENTS.md) and [fresh collection guide](CP7_MEASUREMENT_GUIDE.md).
+
+## Local completion batch — 9 October 2026
+
+Completed instant public signup (owner choice), connected own-profile editing, bounded two-second sign-in clock tolerance, automatic tab-scoped request measurements/private export, official-PDF rule verification and bounded TRL supporting documentation. See [complete report](LOCAL_FEATURE_COMPLETION.md).
+
+Actual browser extraction/menu confirmation yielded one attempt, zero failures, one confirmed update, 9,370.8 ms, 2,282 input / 204 output tokens; cost unknown. Connected signup/profile persistence and customer-only privilege denial passed; generated test identity/private credentials cleaned. No owner password change.
+
+Batch gates: 70 distinct frontend cases and 100 distinct API cases passed across selected runs, failed cases repaired/rerun; frontend lint/TypeScript/build passed. Changed-file Ruff, final contract, built credential and document-count/link checks recorded below. Existing bundle/Zod/test warnings remain; no physical phone/independent study/production claim. C01-03/C15-10 closed locally: **126/151 checked, 25 open**. Deployment remains on hold.
+
+Final checks: API health/config/OpenAPI/CORS/restricted route **5/5 passed**; final built-artifact and Git-upload-candidate credential scans passed; changed-file Ruff passed after import-only fixes. Checklist **151 total / 126 checked / 25 open**, section/priority totals, unique pending IDs/action mapping, focused relative links and whitespace diff checks passed. Existing unrelated working-tree voice changes were preserved; this batch was not committed, pushed or deployed.
+
+
+## Prototype potential and fictional proof — 9 October 2026
+
+Owner changed the objective to a prototype with authored future integrations and evidence, and prohibited real authority logos. Delivered six actor-guided journeys, five original fictional proof types and inspectable supporting records, proof lifecycle/customer badge gating, redacted consent preview, local persistence, safe watermarked HTML/JSON exports, payload hashes, research-only exposure uncertainty, fictional task/cost examples and recalculated synthetic surplus planning. Linked existing working product/showcase/partner screens and labelled demo screens. No real authority logo, seal, signature, endorsement, outside referral or certification.
+
+Data flow verified: browser action -> bounded validated local demo state -> displayed step/status -> export. Authority consent blocked without acknowledgement; 6/6 authority and 5/5 creator stages completed and survived reload. Expired/revoked/missing proof hid the sample badge; revoked persisted. Evidence expanded, hash generated and actual HTML download succeeded. Unknown exposure blocked its remaining-budget preview; authored slower-voice scenario displayed 13.6%. Plan 50 -> predicted 30 -> likely unsold 20. Narrow layout had no horizontal overflow; override reset; captured console errors empty. Screenshot evidence and walkthrough in [demo guide](PROTOTYPE_DEMO_GUIDE.md).
+
+Gates: 40 targeted frontend cases across prototype/partners/planning/showcase, lint, TypeScript and production build passed. Final built credential scan passed. No API/schema changes in this prototype batch. Existing voice/auth work preserved; no commit, push or deployment performed. Generic icons and typography suit the proof library; image generation was optional and no generated authority branding was needed.
+
+[Current prototype checklist](PROTOTYPE_FEATURES_CHECKLIST.md): 33 checked demonstration behaviours. The original checklist remains 126/151 checked with 25 genuine real-rollout evidence requirements deferred under the clarified prototype scope; synthetic examples do not close those real-world requirements.
+
+
+## Simplified integration showcase and complaint routing — 9 October 2026
+
+Owner requested removing integration workflows, showing demo partners/creator promotion/sample certificates instead, moving food-safety and stall-hygiene referrals into the customer review/complaint experience, and using generated realistic fictional branding with demo watermarks. Replaced the guided journey UI with three invented partner cards and the RasaTrail Demo campaign/stall picks. Generated a professional original navy/gold health-office identity and an invented adult food creator promoting PasarMalam; selected images copied into the app's public prototype folder. Both assets carry intrinsic DEMO · FICTIONAL watermarks; no real authority branding or actual influencer endorsement.
+
+Customer complaint destination follows concern category: food safety/handling -> Pejabat Kesihatan Demo Seri Rasa; cleanliness/pests -> Majlis Pasar Demo Seri Rasa; other/misleading -> community support. Successful local save shows a simulated reference/destination receipt projected from saved report data, consistent with reload history. Receipt excludes reporter, raw observation, evidence and location. Existing moderation state/public flags and connected-mode handling remain unchanged. Partner links preselect the corresponding complaint type; review tab includes a complaint entry. Permit and halal certificate samples remain with fictional issuer/scope/expiry/evidence and downloadable watermarked documents.
+
+Browser acceptance: zero workflow completion buttons, two generated images loaded, correct health-office and council receipts after local complaint save, saved referral survives reload, review-to-complaint entry works, sample permit rendered. Narrow complaint/creator layouts had no horizontal overflow; viewport reset. Captured console errors empty. [Current walkthrough and screenshots](PROTOTYPE_DEMO_GUIDE.md).
+
+Gates: 38 targeted frontend tests across community routing/community/proof, frontend lint and final TypeScript/production build passed. Final credential scan and documentation link check passed. Existing non-fatal bundle/Zod warnings remain. No real authority transmission, partner API, certification, endorsement or deployment. Current [prototype checklist](PROTOTYPE_FEATURES_CHECKLIST.md) has 31 completed demonstration items; original checklist still preserves 126 checked and 25 future real-rollout requirements.

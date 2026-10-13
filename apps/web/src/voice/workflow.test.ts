@@ -8,6 +8,13 @@ w.batches.push({id:'b',food_item_id:food.id,batch_number:1,prepared_at:'2026-10-
 const v:Review={stall:stall.id,food:food.id,batch:'b',action:'create_batch',quantity:10,unit:'pack',price:400,ingredients:['Vegetables'],cooked:'2026-10-08T17:00:00+08:00',priceResolved:true,dateResolved:true}
 const h=intent('',w)
 describe('CP3 clarification and references',()=>{
+ it('parses English batch/stock words and excludes a batch explicitly left unchanged',()=>{
+  const x=intent('Update chicken satay batch two to nine remaining sticks. Do not change batch one.',w)
+  expect(x).toMatchObject({batchNumber:2,quantity:9,stock:true})
+  expect(intent('batch one or batch two tinggal five',w).batchNumber).toBeNull()
+  expect(intent('thirty sticks, five for five ringgit',w).bundle).toBe(true)
+  expect(intent('24 biji, tiga biji dua ringgit',w).bundle).toBe(true)
+ })
  it('resolves only uniquely named owned references and explicit batch numbers',()=>{const x=intent(`${stall.name} ${food.name} batch 1 tinggal sepuluh bungkus`,w);expect(x).toMatchObject({stall:stall.id,dish:food.id,batchNumber:1,stock:true,quantity:10});expect(intent('Foreign batch 9',w).dish).toBeNull()})
  it('requires ID selection for duplicate names',()=>{const duplicate={...w,foods:[food,{...food,id:'duplicate'}]};expect(intent(food.name,duplicate).dish).toBeNull();expect(questions({...v,food:'not-owned'},w,now,h)).not.toHaveLength(0)})
  it('never fabricates batch 2 from kuali kedua or accepts timer edits',()=>{const x=intent('Kuali kedua dah siap',w);expect(x.unsupported).toBe(true);expect(x.batchNumber).toBeNull();expect(questions(v,w,now,x)).not.toHaveLength(0);expect(intent('extend deadline',w).unsupported).toBe(true)})

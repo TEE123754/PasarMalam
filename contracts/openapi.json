@@ -1124,6 +1124,52 @@
         }
       }
     },
+    "/api/v1/me/profile": {
+      "post": {
+        "tags": [
+          "identity"
+        ],
+        "summary": "Update Profile",
+        "operationId": "update_profile_api_v1_me_profile_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfileUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Actor"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ]
+      }
+    },
     "/api/v1/me/onboard": {
       "post": {
         "tags": [
@@ -4455,6 +4501,31 @@
           "end"
         ],
         "title": "Preferences"
+      },
+      "ProfileUpdate": {
+        "properties": {
+          "display_name": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 2,
+            "title": "Display Name"
+          },
+          "locale": {
+            "type": "string",
+            "enum": [
+              "en",
+              "ms"
+            ],
+            "title": "Locale"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "display_name",
+          "locale"
+        ],
+        "title": "ProfileUpdate"
       },
       "PromotionInput": {
         "properties": {

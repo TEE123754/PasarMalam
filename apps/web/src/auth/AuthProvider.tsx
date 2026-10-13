@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import type { Session } from '@supabase/supabase-js'
 import { useQueryClient } from '@tanstack/react-query'
 import { selectedMode } from '../app/config'
@@ -15,6 +15,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [notice, setNotice] = useState<AuthState['notice']>(null)
   const [recovery, setRecovery] = useState(() => new URLSearchParams(window.location.hash.slice(1)).get('type') === 'recovery')
   const queryClient = useQueryClient()
+  const currentUser = useRef<string | null>(null)
   const connected = selectedMode() === 'connected'
   const [client] = useState(() => {
     try { return connected ? getAuthClient() : null } catch { return null }
@@ -24,10 +25,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!client) return
     let alive = true
     void client.auth.getSession().then(({ data, error }) => {
-      if (alive) { setSession(data.session); if (error) setNotice('expired') }
+      if (alive) { currentUser.current = data.session?.user.id ?? null; setSession(data.session); if (error) setNotice('expired') }
     })
     const { data } = client.auth.onAuthStateChange((event, next) => {
       if (!alive) return
+      currentUser.current = next?.user.id ?? null
       setSession(next)
       if (event === 'PASSWORD_RECOVERY') setRecovery(true)
       if (event === 'SIGNED_OUT') {
@@ -103,10 +105,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (!client) return
       const { error } = await client.auth.signOut({ scope: 'local' })
       if (error) { setNotice('unavailable'); return }
+      currentUser.current = null
       setActor(null); setSession(null); setNotice(null)
       queryClient.removeQueries({ queryKey: ['discovery', 'connected'] })
       queryClient.removeQueries({ queryKey: ['personal'] })
         queryClient.removeQueries({ queryKey: ['vendor'] })
+    },
+    async updateProfile(displayName, locale) {
+      if (!actor || !client) return false
+      const id = actor.id
+      try {
+        const response = await connectedRequest('/api/v1/me/profile', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ display_name: displayName, locale }) })
+        if (!response.ok) return false
+        const identity = actorSchema.parse(await response.json())
+        if (identity.id !== id || currentUser.current !== id) return false
+        setActor(identity)
+        return true
+      } catch { return false }
     },
   }}>{children}</AuthContext.Provider>
 }

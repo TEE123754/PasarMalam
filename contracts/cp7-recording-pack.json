@@ -1,6 +1,6 @@
 {
   "version": "cp7-v1",
-  "status": "Collection template; NOT measured or frozen",
+  "status": "Development regression scripts used for model enhancement on 9 October 2026; not an independent holdout.",
   "reference_now": "2026-10-08T20:00:00+08:00",
   "minimum_speakers": 5,
   "development_ids": [
@@ -9,7 +9,31 @@
     "bm-03",
     "bm-04",
     "manglish-01",
-    "en-01"
+    "en-01",
+    "cp7-01",
+    "cp7-02",
+    "cp7-03",
+    "cp7-04",
+    "cp7-05",
+    "cp7-06",
+    "cp7-07",
+    "cp7-08",
+    "cp7-09",
+    "cp7-10",
+    "cp7-11",
+    "cp7-12",
+    "cp7-13",
+    "cp7-14",
+    "cp7-15",
+    "cp7-16",
+    "cp7-17",
+    "cp7-18",
+    "cp7-19",
+    "cp7-20",
+    "cp7-21",
+    "cp7-22",
+    "cp7-23",
+    "cp7-24"
   ],
   "targets": {
     "critical_accuracy_BM": 0.8,
@@ -20,7 +44,7 @@
     {
       "id": "cp7-01",
       "language": "BM",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S01",
       "speaker": null,
       "consented": false,
@@ -47,7 +71,7 @@
     {
       "id": "cp7-02",
       "language": "BM",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S02",
       "speaker": null,
       "consented": false,
@@ -69,7 +93,7 @@
     {
       "id": "cp7-03",
       "language": "BM",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S03",
       "speaker": null,
       "consented": false,
@@ -94,7 +118,7 @@
     {
       "id": "cp7-04",
       "language": "BM",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S04",
       "speaker": null,
       "consented": false,
@@ -115,7 +139,7 @@
     {
       "id": "cp7-05",
       "language": "BM",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S05",
       "speaker": null,
       "consented": false,
@@ -136,7 +160,7 @@
     {
       "id": "cp7-06",
       "language": "BM",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S01",
       "speaker": null,
       "consented": false,
@@ -158,7 +182,7 @@
     {
       "id": "cp7-07",
       "language": "BM",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S02",
       "speaker": null,
       "consented": false,
@@ -178,7 +202,7 @@
     {
       "id": "cp7-08",
       "language": "BM",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S03",
       "speaker": null,
       "consented": false,
@@ -199,7 +223,7 @@
     {
       "id": "cp7-09",
       "language": "BM",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S04",
       "speaker": null,
       "consented": false,
@@ -220,7 +244,7 @@
     {
       "id": "cp7-10",
       "language": "BM",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S05",
       "speaker": null,
       "consented": false,
@@ -242,7 +266,7 @@
     {
       "id": "cp7-11",
       "language": "Manglish",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S01",
       "speaker": null,
       "consented": false,
@@ -263,7 +287,7 @@
     {
       "id": "cp7-12",
       "language": "Manglish",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S02",
       "speaker": null,
       "consented": false,
@@ -285,7 +309,7 @@
     {
       "id": "cp7-13",
       "language": "Manglish",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S03",
       "speaker": null,
       "consented": false,
@@ -306,7 +330,7 @@
     {
       "id": "cp7-14",
       "language": "Manglish",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S04",
       "speaker": null,
       "consented": false,
@@ -327,7 +351,7 @@
     {
       "id": "cp7-15",
       "language": "Manglish",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S05",
       "speaker": null,
       "consented": false,
@@ -348,7 +372,7 @@
     {
       "id": "cp7-16",
       "language": "Manglish",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S01",
       "speaker": null,
       "consented": false,
@@ -370,7 +394,7 @@
     {
       "id": "cp7-17",
       "language": "Manglish",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S02",
       "speaker": null,
       "consented": false,
@@ -390,7 +414,7 @@
     {
       "id": "cp7-18",
       "language": "Manglish",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S03",
       "speaker": null,
       "consented": false,
@@ -411,7 +435,7 @@
     {
       "id": "cp7-19",
       "language": "Manglish",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S04",
       "speaker": null,
       "consented": false,
@@ -433,7 +457,7 @@
     {
       "id": "cp7-20",
       "language": "Manglish",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S05",
       "speaker": null,
       "consented": false,
@@ -454,7 +478,7 @@
     {
       "id": "cp7-21",
       "language": "English",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S01",
       "speaker": null,
       "consented": false,
@@ -475,7 +499,7 @@
     {
       "id": "cp7-22",
       "language": "English",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S02",
       "speaker": null,
       "consented": false,
@@ -497,7 +521,7 @@
     {
       "id": "cp7-23",
       "language": "English",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S03",
       "speaker": null,
       "consented": false,
@@ -517,7 +541,7 @@
     {
       "id": "cp7-24",
       "language": "English",
-      "split": "holdout",
+      "split": "development",
       "planned_speaker": "S04",
       "speaker": null,
       "consented": false,
