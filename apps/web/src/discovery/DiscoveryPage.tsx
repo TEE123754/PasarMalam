@@ -23,7 +23,7 @@ import { coarsePoint, requestDeviceLocation } from './location'
 import { DemoImage } from '../components/DemoImage'
 import { foodImage } from '../components/demo-images'
 import { DiscoveryIntro, DiscoveryCategories } from './DiscoveryIntro'
-import { SlidersHorizontal, ChevronDown } from 'lucide-react'
+import { SlidersHorizontal, ChevronDown, Flame, ListFilter, LocateFixed, RotateCcw, Wallet } from 'lucide-react'
 import { StallDetail } from './StallDetail'
 import { ValueProps, CategoryChips, PreparedToday, PopularMarkets, StallTile, DiscoverFooter } from './DiscoverSections'
 import './discovery.css'
@@ -109,37 +109,48 @@ export function DiscoveryPage({ gateway }: { gateway: DataGateway }) {
   return <div className="discover-dark night-page"><DiscoveryIntro data={data} filters={filters}/><ValueProps/>
     <CategoryChips selected={filters.category} onChange={category=>change({category})}/>
     {data&&<PreparedToday data={data} now={now} gateway={gateway}/>}
-    <div className="search-wrap"><Search size={20}/><label className="sr-only" htmlFor="market-search">{t('findFood')}</label><input id="market-search" value={search} onChange={e => setSearch(e.target.value)} placeholder={t('findFood')}/></div>
-    <div className="discovery-action-bar">
-      <button className="filter-chip" aria-expanded={filtersOpen} aria-controls="discovery-filter-panel" onClick={()=>setFiltersOpen(!filtersOpen)}><SlidersHorizontal size={16}/>{ui('Find your food')}<ChevronDown size={15}/>{filtersApplied&&<span className="filter-applied">•</span>}</button>
-      <div className="browse-tabs" role="group" aria-label={t('sortResults')}>
-        <button className={filters.sort==='rating'?'active':''} aria-pressed={filters.sort==='rating'} onClick={()=>change({sort:'rating'})}><Star size={15}/>{t('bestReviewed')}</button>
-        <button className={filters.sort==='popularity'?'active':''} aria-pressed={filters.sort==='popularity'} onClick={()=>change({sort:'popularity'})}>{t('popularity')}</button>
-        <button className={filters.sort==='nearest'?'active':''} aria-pressed={filters.sort==='nearest'} onClick={()=>filters.origin?change({sort:'nearest'}):void locate(true)}><MapPin size={15}/>{nearbyLabel?`${ui('Nearby')} (${nearbyLabel})`:ui('Nearby')}</button>
+    <div className="filter-card">
+      <div className="search-wrap"><Search size={20}/><label className="sr-only" htmlFor="market-search">{t('findFood')}</label><input id="market-search" value={search} onChange={e => setSearch(e.target.value)} placeholder={t('findFood')}/></div>
+      <div className="discovery-action-bar">
+        <button className="filter-chip" aria-expanded={filtersOpen} aria-controls="discovery-filter-panel" onClick={()=>setFiltersOpen(!filtersOpen)}><SlidersHorizontal size={16}/>{ui('Find your food')}<ChevronDown size={15}/>{filtersApplied&&<span className="filter-applied">•</span>}</button>
+        <div className="browse-tabs" role="group" aria-label={t('sortResults')}>
+          <button className={filters.sort==='rating'?'active':''} aria-pressed={filters.sort==='rating'} onClick={()=>change({sort:'rating'})}><Star size={15}/>{t('bestReviewed')}</button>
+          <button className={filters.sort==='popularity'?'active':''} aria-pressed={filters.sort==='popularity'} onClick={()=>change({sort:'popularity'})}>{t('popularity')}</button>
+          <button className={filters.sort==='nearest'?'active':''} aria-pressed={filters.sort==='nearest'} onClick={()=>filters.origin?change({sort:'nearest'}):void locate(true)}><MapPin size={15}/>{nearbyLabel?`${ui('Nearby')} (${nearbyLabel})`:ui('Nearby')}</button>
+        </div>
+        <button className="filter-chip" aria-pressed={showMap} onClick={()=>setShowMap(!showMap)}><MapIcon size={16}/>{ui('Map view')}</button>
       </div>
-      <button className="filter-chip" aria-pressed={showMap} onClick={()=>setShowMap(!showMap)}><MapIcon size={16}/>{ui('Map view')}</button>
-    </div>
-    <section id="discovery-filter-panel" hidden={!filtersOpen} className="panel discovery-controls" aria-label={t('discoveryFilters')}>
-      <label>{t('chooseMarket')}<select value={filters.market} onChange={e => change({market:e.target.value})}><option value="">{t('anyMarket')}</option>{data?.markets.map(m => <option key={m.id} value={m.id}>{m.name} · {m.area}</option>)}</select></label>
-      <label>{t('chooseArea')}<select value={areaChoice} onChange={e => {
+    <div id="discovery-filter-panel" hidden={!filtersOpen} className="fs-panel" role="region" aria-label={t('discoveryFilters')}>
+      <section className="fs-section">
+        <header className="fs-head"><span className="fs-icon fs-dot" aria-hidden="true"/><div><h3>{ui('Market & location')}</h3><p>{ui('Find markets near you or explore by area.')}</p></div></header>
+        <div className="fs-grid"><label>{t('chooseMarket')}<select value={filters.market} onChange={e => change({market:e.target.value})}><option value="">{t('anyMarket')}</option>{data?.markets.map(m => <option key={m.id} value={m.id}>{m.name} · {m.area}</option>)}</select></label>
+<label>{t('chooseArea')}<select value={areaChoice} onChange={e => {
         const market = data?.markets.find(m => m.id === e.target.value)
         setAreaChoice(e.target.value)
         change({origin:market?.latitude !== null && market?.longitude !== null && market ? {latitude:market.latitude,longitude:market.longitude} : null,bounds:null})
         setGeoExpires(0); setLocationMessage('manualLocation')
       }}><option value="">{t('noArea')}</option>{data?.markets.map(m => <option key={m.id} value={m.id}>{m.area} · {m.name}</option>)}</select></label>
-      <label>{t('marketType')}<select value={filters.type} onChange={e => change({type:e.target.value})}><option value="">{t('allTypes')}</option><option value="night">{t('night')}</option><option value="day">{t('day')}</option></select></label>
-      <label>{ui('Market classification')}<select value={filters.marketKind??''} onChange={e=>change({marketKind:e.target.value})}><option value="">{ui('All market classifications')}</option><option value="general">{ui('General market')}</option><option value="farmers">{ui('Farmers’ market')}</option></select></label>
-      <label>{t('category')}<select value={filters.category} onChange={e => change({category:e.target.value})}><option value="">{t('allCategories')}</option>{categories.map(c=><option key={c.id} value={c.id}>{ui(c.en)}</option>)}</select></label>
-      <label>{t('dietary')}<select value={filters.dietary} onChange={e => change({dietary:e.target.value})}><option value="">{t('allDietary')}</option>{(gateway.mode==='fixture'?['declared','non-halal']:['certified','declared','non-halal','not-declared']).map(value => <option key={value} value={value}>{t(`diet_${value}`)}</option>)}</select></label>
-      <label>{ui('Plant diet')}<select value={filters.plantDiet??''} onChange={e=>change({plantDiet:e.target.value})}><option value="">{ui('Any plant-diet status')}</option><option value="vegetarian">{ui('Vendor-declared vegetarian')}</option><option value="vegan">{ui('Vendor-declared vegan')}</option></select></label>
-      <div><label>{ui('Maximum menu-unit price (RM)')}<input type="number" min="0" max="1000000" step="0.01" value={filters.maxPriceSen==null?'':(filters.maxPriceSen/100)} onChange={e=>change({maxPriceSen:e.target.value===''?null:Math.round(e.target.valueAsNumber*100)})}/></label><div className="button-row"><button className="button secondary" onClick={()=>change({maxPriceSen:500})}>RM5</button><button className="button secondary" onClick={()=>change({maxPriceSen:1000})}>RM10</button></div></div>
-      <p className="small muted">{ui('Budget matches one menu item before discounts; bundles and clearance offers are excluded from this price basis.')}</p>
-      <label>{t('sortResults')}<select value={filters.sort} onChange={e => change({sort:e.target.value})}><option value="rating">{t('bestReviewed')}</option><option value="popularity">{t('popularity')}</option><option value="nearest" disabled={!filters.origin}>{t('nearest')}</option></select></label>
-      <label>{t('distanceRadius')}<select value={filters.radius} onChange={e => change({radius:Number(e.target.value)})} disabled={!filters.origin}>{[1,5,10,25,50,100].map(km => <option key={km} value={km}>{km} km</option>)}</select></label>
-      <label className="choice-row"><span>{t('promotionOnly')}</span><input type="checkbox" checked={filters.promotion} onChange={e => change({promotion:e.target.checked})}/></label>
-      <div className="button-row"><button className="button secondary" onClick={()=>void locate()}><MapPin size={16}/>{t('useLocation')}</button><button className="button secondary" onClick={() => {setSearch('');change(defaultFilters);setAreaChoice('');setGeoExpires(0);setLocationMessage('manualLocation')}}>{t('resetFilters')}</button></div>
-      <p role="status" className="small muted">{t(locationMessage)}{mapLookup && gateway.mode === 'connected' && filters.origin ? ` · ${t(mapLookup)}` : ''} {t('marketDistance')}</p>
-    </section>
+<label>{t('distanceRadius')}<select value={filters.radius} onChange={e => change({radius:Number(e.target.value)})} disabled={!filters.origin}>{[1,5,10,25,50,100].map(km => <option key={km} value={km}>{km} km</option>)}</select></label>
+<label>{t('marketType')}<select value={filters.type} onChange={e => change({type:e.target.value})}><option value="">{t('allTypes')}</option><option value="night">{t('night')}</option><option value="day">{t('day')}</option></select></label>
+<label>{ui('Market classification')}<select value={filters.marketKind??''} onChange={e=>change({marketKind:e.target.value})}><option value="">{ui('All market classifications')}</option><option value="general">{ui('General market')}</option><option value="farmers">{ui('Farmers’ market')}</option></select></label></div>
+      </section>
+      <section className="fs-section">
+        <header className="fs-head"><Flame className="fs-icon" size={22} aria-hidden="true"/><div><h3>{ui('Food preferences')}</h3><p>{ui('Choose what you’re in the mood for.')}</p></div></header>
+        <div className="fs-grid"><label>{t('category')}<select value={filters.category} onChange={e => change({category:e.target.value})}><option value="">{t('allCategories')}</option>{categories.map(c=><option key={c.id} value={c.id}>{ui(c.en)}</option>)}</select></label>
+<label>{t('dietary')}<select value={filters.dietary} onChange={e => change({dietary:e.target.value})}><option value="">{t('allDietary')}</option>{(gateway.mode==='fixture'?['declared','non-halal']:['certified','declared','non-halal','not-declared']).map(value => <option key={value} value={value}>{t(`diet_${value}`)}</option>)}</select></label>
+<label>{ui('Plant diet')}<select value={filters.plantDiet??''} onChange={e=>change({plantDiet:e.target.value})}><option value="">{ui('Any plant-diet status')}</option><option value="vegetarian">{ui('Vendor-declared vegetarian')}</option><option value="vegan">{ui('Vendor-declared vegan')}</option></select></label></div>
+      </section>
+      <section className="fs-section">
+        <header className="fs-head"><Wallet className="fs-icon" size={22} aria-hidden="true"/><div><h3>{ui('Budget & offers')}</h3><p>{ui('Set your price range and find special deals.')}</p></div></header>
+        <div className="fs-budget"><div className="fs-price"><label><span className="fs-label">{ui('Maximum menu-unit price (RM)')}</span><span className="fs-rm-field"><span aria-hidden="true">RM</span><input placeholder={ui('Enter maximum price')} type="number" min="0" max="1000000" step="0.01" value={filters.maxPriceSen==null?'':(filters.maxPriceSen/100)} onChange={e=>change({maxPriceSen:e.target.value===''?null:Math.round(e.target.valueAsNumber*100)})}/></span></label><div className="fs-quick"><button type="button" className={`fs-pill ${filters.maxPriceSen===500?'active':''}`} aria-pressed={filters.maxPriceSen===500} onClick={()=>change({maxPriceSen:500})}>RM5</button><button type="button" className={`fs-pill ${filters.maxPriceSen===1000?'active':''}`} aria-pressed={filters.maxPriceSen===1000} onClick={()=>change({maxPriceSen:1000})}>RM10</button></div><p className="small muted">{ui('Budget matches one menu item before discounts; bundles and clearance offers are excluded from this price basis.')}</p></div><span className="fs-vrule" aria-hidden="true"/><div className="fs-promo"><span className="fs-promo-title">{t('promotionOnly')}</span><label className="fs-check"><input type="checkbox" checked={filters.promotion} onChange={e => change({promotion:e.target.checked})}/><span>{ui('Show only stalls with current promotions')}</span></label></div></div>
+      </section>
+      <section className="fs-section">
+        <header className="fs-head"><ListFilter className="fs-icon" size={22} aria-hidden="true"/><div><h3>{ui('Sort results')}</h3><p>{ui('Choose how you want to see the results.')}</p></div></header>
+        <div className="fs-sort"><div className="fs-sort-field"><label>{t('sortResults')}<select value={filters.sort} onChange={e => change({sort:e.target.value})}><option value="rating">{t('bestReviewed')}</option><option value="popularity">{t('popularity')}</option><option value="nearest" disabled={!filters.origin}>{t('nearest')}</option></select></label></div><p role="status" className="fs-note"><MapPin size={13}/>{t(locationMessage)}{mapLookup && gateway.mode === 'connected' && filters.origin ? ` · ${t(mapLookup)}` : ''} {t('marketDistance')}</p></div>
+      </section>
+      <footer className="fs-actions"><button type="button" className="button primary" onClick={()=>void locate()}><LocateFixed size={16}/>{t('useLocation')}</button><button type="button" className="fs-reset" onClick={() => {setSearch('');change(defaultFilters);setAreaChoice('');setGeoExpires(0);setLocationMessage('manualLocation')}}><RotateCcw size={15}/>{t('resetFilters')}</button></footer>
+    </div>
+    </div>
     {data&&<DiscoveryCategories data={data} selected={filters.category} onChange={category=>change({category})}/>}
     {!data || !result || !everything ? <State query={query} gateway={gateway}/> : <>
       <section className="markets-explore" aria-labelledby="markets-explore-title">

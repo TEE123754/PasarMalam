@@ -119,15 +119,17 @@
 .alert-photo .image-placeholder{min-height:140px}
 .urgency-badge{position:absolute;top:10px;left:10px;display:inline-flex;align-items:center;gap:4px;background:#d97c4022;backdrop-filter:blur(4px);color:#d97c40;font-weight:800;font-size:.68rem;border-radius:999px;padding:4px 10px}
 
-/* Floating pill bottom nav — DESIGN.md bottom-nav tokens. The white surface is a
-   separate layer so the notch mask can carve it without clipping the raised bump. */
-.bottom-nav{position:fixed;z-index:10;bottom:0;left:0;right:0;display:flex;justify-content:space-around;align-items:center;gap:3px;height:64px;margin:0 20px calc(16px + env(safe-area-inset-bottom));padding:0 max(8px,env(safe-area-inset-right)) 0 max(8px,env(safe-area-inset-left))}
-.bottom-nav-surface{position:absolute;inset:0;z-index:0;background:#ffffff;border-radius:999px;box-shadow:0 12px 30px #18332f22;--notch-x:12.5%;-webkit-mask-image:radial-gradient(36px 36px at var(--notch-x) 0,#0000 0 35px,#000 36px);mask-image:radial-gradient(36px 36px at var(--notch-x) 0,#0000 0 35px,#000 36px);-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat}
-.bottom-nav[data-active="1"] .bottom-nav-surface{--notch-x:37.5%}
-.bottom-nav[data-active="2"] .bottom-nav-surface{--notch-x:62.5%}
-.bottom-nav[data-active="3"] .bottom-nav-surface{--notch-x:87.5%}
-.bottom-nav[data-active="none"] .bottom-nav-surface{-webkit-mask-image:none;mask-image:none}
-.bottom-nav-link{position:relative;z-index:1;min-width:58px;flex:1;min-height:54px;color:#7a8c83;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:.61rem;font-weight:750;border-radius:999px;white-space:nowrap}
-.bottom-nav-link.active{top:-16px;flex:0 0 56px;width:56px;height:56px;min-height:56px;background:#d97c40;color:#ffffff;box-shadow:0 8px 20px #d97c4055}
-.bottom-nav-link.active span{display:none}
+
+
+
+
+
+
+
+
+
+
 .site-footer{padding-bottom:96px}
+/* Phone bottom nav: hidden on desktop (the header links show there), fixed bar where the header links are hidden */
+.mobile-nav{display:none}
+@media(max-width:800px){.mobile-nav{position:fixed;z-index:10;bottom:0;left:0;right:0;display:flex;justify-content:space-around;gap:3px;min-height:70px;background:#fff;border-top:1px solid #e1e7de;padding:5px max(8px,env(safe-area-inset-right)) calc(5px + env(safe-area-inset-bottom)) max(8px,env(safe-area-inset-left));box-shadow:0 -5px 15px #123e2910}.mobile-link{min-width:58px;flex:1;min-height:54px;color:#829188;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:.61rem;font-weight:750;border-radius:10px;white-space:nowrap}.mobile-link.active{color:#215f47;background:#eaf3e7}}

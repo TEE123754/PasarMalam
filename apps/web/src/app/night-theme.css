@@ -26,9 +26,10 @@
 .app-shell:has(.night-page) .button.primary { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 5px 14px #c83c0830; }
 .app-shell:has(.night-page) .button.primary:hover:not(:disabled) { background: #a72d04; border-color: #a72d04; }
 
-/* Floating bottom nav, darkened to sit on the photo */
-.app-shell:has(.night-page) .bottom-nav-surface { background: rgba(20, 14, 4, .92); box-shadow: 0 12px 30px rgba(0, 0, 0, .5); }
-.app-shell:has(.night-page) .bottom-nav-link:not(.active) { color: rgba(255, 255, 255, .7); }
+/* Phone bottom nav (shown only where the top links are hidden), dark over the photo */
+.app-shell:has(.night-page) .mobile-nav { background: rgba(15, 12, 7, .94); border-top: 1px solid rgba(255, 255, 255, .1); box-shadow: 0 -6px 24px rgba(0, 0, 0, .45); }
+.app-shell:has(.night-page) .mobile-link { color: rgba(255, 255, 255, .65); }
+.app-shell:has(.night-page) .mobile-link.active { color: var(--accent-on-dark); background: rgba(200, 60, 8, .16); }
 
 /* Transparent navbar over the photo — same look on every customer page.
    It stays in normal flow here; Discover lifts it over its hero (discovery.css). */
@@ -215,8 +216,9 @@
 /* ── Remaining light surfaces found by a per-route audit ─────────── */
 /* Native controls (checkboxes, dropdown menus, scrollbars, date pickers) render in their dark variant */
 .night-page { color-scheme: dark; }
-/* Page stylesheets (commerce.css, vendor forms…) set white fields with specific selectors; win over all of them */
-.app-shell .night-page.content-page :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), select, textarea) {
+/* Page stylesheets (commerce.css, vendor forms…) set white fields with class+element selectors; this outranks them,
+   while :where() keeps it low enough for component styles (e.g. the profile account picker) to win */
+.app-shell .night-page.content-page :where(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]), select, textarea) {
   background: rgba(0, 0, 0, .35);
   color: #fff;
   border-color: rgba(255, 255, 255, .15);
