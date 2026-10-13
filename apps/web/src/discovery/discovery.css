@@ -125,61 +125,18 @@
 .discover-dark .category-chips button.active { color: var(--text-on-dark); border-bottom-color: var(--accent); }
 .discover-dark .category-chips button.active .chip-icon { background: #c83c0829; border-color: var(--accent); color: var(--accent-on-dark); }
 
-/* 4. Prepared today — 3-col grid, equal-height rows, bar pinned to each card's bottom edge */
+/* 4. Prepared today — 3-col grid of shared food cards (FoodCard.css) */
 .discover-dark .dish-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-.discover-dark .dish-card {
-  position: relative;
-  display: flex; flex-direction: column;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 12px;
-  overflow: hidden;
-  transition: transform .2s ease, border-color .2s ease;
-}
-.discover-dark .dish-card:hover { transform: translateY(-3px); border-color: #5a4426; }
-.discover-dark .dish-card:focus-within { outline: 2px solid var(--accent-on-dark); outline-offset: 2px; }
-.discover-dark .dish-photo { position: relative; height: 180px; flex-shrink: 0; }
-.discover-dark .dish-photo .batch-photo,
-.discover-dark .dish-photo .demo-artwork,
-.discover-dark .dish-photo .image-placeholder { width: 100%; height: 100%; min-height: 0; flex: none; border-radius: 0; }
-.discover-dark .dish-photo img { height: 100%; aspect-ratio: auto; }
-.discover-dark .dish-badge {
-  position: absolute; left: 12px; top: 12px; z-index: 2;
-  display: inline-flex; align-items: center; gap: 4px;
-  padding: 5px 10px;
-  border-radius: 999px;
-  font-size: 11px; font-weight: 800;
-}
-.discover-dark .dish-badge.popular { background: #ffd27a; color: #5c3500; }  /* amber */
-.discover-dark .dish-badge.best { background: #c9ecc4; color: #1d5219; }     /* green */
-.discover-dark .dish-badge.fresh { background: #bff0e8; color: #0c4f46; }    /* teal */
-.discover-dark .dish-badge.hot { background: var(--accent); color: #fff; }   /* orange-red */
-.discover-dark .dish-badge.chilled { background: #cfe2ff; color: #123d78; }  /* blue */
-.discover-dark .dish-save {
-  position: absolute; right: 12px; top: 12px; z-index: 3;
-  display: grid; place-items: center;
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  background: rgba(0, 0, 0, .5);
-  border: 1px solid rgba(255, 255, 255, .3);
-  color: #fff;
-}
-.discover-dark .dish-save:hover { background: rgba(0, 0, 0, .7); }
-.discover-dark .dish-copy { flex: 1; padding: 14px 16px 14px; }
-.discover-dark .dish-copy h3 { margin: 0 0 4px; font-size: 16px; font-weight: 800; color: var(--text-on-dark); }
 .discover-dark .stretched-link { color: inherit; }
-/* Whole card is clickable; the save/add buttons sit above this layer */
+/* Whole card is clickable; the save button and linked tags sit above this layer */
 .discover-dark .stretched-link::after { content: ''; position: absolute; inset: 0; z-index: 1; }
-.discover-dark .dish-price { display: block; color: var(--accent); font-size: 18px; font-weight: 800; margin-bottom: 8px; }
-.discover-dark .dish-meta { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 0 0 5px; color: var(--text-2); font-size: 12px; }
-.discover-dark .dish-meta span,
-.discover-dark .dish-portions { display: inline-flex; align-items: center; gap: 5px; }
-.discover-dark .dish-meta span:first-child svg { color: #f5b942; }
-.discover-dark .dish-portions { margin: 0; color: var(--text-2); font-size: 12px; }
-/* Fill scales from the left via transform (inline scaleX) so the per-second countdown never triggers layout */
-.discover-dark .dish-track { height: 4px; flex-shrink: 0; background: #33281a; overflow: hidden; }
-.discover-dark .dish-track > span { display: block; width: 100%; height: 100%; background: #6fbf5a; transform-origin: left center; transition: transform 1s linear; }
 .discover-dark .advisory-note { margin: 14px 0 0; font-size: 12px; }
+
+/* 4b. Featured stalls — four spotlight cards */
+.discover-dark .featured-stalls { margin-top: 44px; }
+.discover-dark .section-sub { margin: 4px 0 0; color: var(--text-2); font-size: 13px; }
+.discover-dark .featured-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.discover-dark .featured-grid .food-photo { height: 150px; }
 
 /* 5. Search + filter chips */
 .discover-dark .search-wrap {
@@ -302,41 +259,11 @@
 .discover-dark .popular-market-rating svg { color: #f5b942; }
 .discover-dark .see-all-open { transform: rotate(45deg); }
 
-/* 8. From the stalls — minimal borderless tiles */
+/* 8. From the stalls — paged results grid of compact food cards */
 .discover-dark .from-stalls { margin-top: 44px; }
 .discover-dark .sponsored-row { background: var(--card-bg); border-color: var(--card-border); color: var(--text-on-dark); }
 .discover-dark .privacy-notice { background: #22311f; color: #d6e6cf; }
 .discover-dark .stall-tile-grid { margin-top: 18px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
-.discover-dark .stall-tile {
-  position: relative;
-  display: flex; flex-direction: column;
-  background: var(--tile-bg);
-  border: 0;
-  border-radius: 8px;
-  overflow: hidden;
-  transition: transform .2s ease;
-}
-.discover-dark .stall-tile:hover { transform: translateY(-3px); }
-.discover-dark .stall-tile:focus-within { outline: 2px solid var(--accent-on-dark); outline-offset: 2px; }
-.discover-dark .stall-tile-photo .demo-artwork,
-.discover-dark .stall-tile-photo .image-placeholder { width: 100%; height: 100px; min-height: 0; flex: none; border-radius: 0; }
-.discover-dark .stall-tile-photo img { height: 100%; aspect-ratio: auto; }
-.discover-dark .stall-tile-copy { display: flex; flex-direction: column; gap: 2px; flex: 1; padding: 10px 12px 12px; }
-.discover-dark .stall-tile h3 { margin: 0; font-size: 13px; font-weight: 800; color: var(--text-on-dark); }
-.discover-dark .stall-tile-cat { color: var(--text-2); font-size: 11px; }
-.discover-dark .stall-tile-foot { display: flex; align-items: center; justify-content: space-between; margin-top: auto; padding-top: 8px; }
-.discover-dark .stall-tile-foot strong { color: var(--accent-on-dark); font-size: 14px; font-weight: 800; }
-.discover-dark .stall-tile-add {
-  position: relative; z-index: 2;
-  display: grid; place-items: center;
-  width: 30px; height: 30px;
-  border-radius: 50%;
-  border: 0;
-  background: var(--accent);
-  color: #fff;
-}
-.discover-dark .stall-tile-add:hover { background: #a72d04; }
-.discover-dark .stall-tile-add[aria-pressed="true"] { background: #3d6b3a; }
 
 .discover-dark .pagination { color: var(--text-on-dark); }
 
@@ -358,6 +285,7 @@
 /* Responsive */
 @media (max-width: 1100px) {
   .discover-dark .stall-tile-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .discover-dark .featured-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .discover-dark .popular-market-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 900px) {
@@ -373,6 +301,8 @@
   .discover-dark .discovery-hero { min-height: 60vh; }
   .discover-dark .discovery-hero-copy { padding: 84px 20px 32px; }
   .discover-dark .dish-grid { grid-template-columns: 1fr; }
+  .discover-dark .featured-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; }
+  .discover-dark .featured-grid > .food-card { flex: 0 0 78%; scroll-snap-align: start; }
   .discover-dark .stall-tile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   .discover-dark .category-chips button { flex: 0 0 80px; }
   .discover-dark .discovery-action-bar > .filter-chip:last-child { margin-left: 0; }
@@ -381,12 +311,12 @@
 /* ── Filter card: search, sort tabs and the grouped filter panel ─────── */
 .discover-dark .filter-card {
   margin: 40px 0 0;
-  background: rgba(22, 15, 5, .92);
+  background: rgba(25, 17, 5, .85);
   border: 1px solid rgba(255, 255, 255, .08);
-  border-radius: 20px;
+  border-radius: 16px;
   overflow: hidden;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 /* Search bar sits flush at the top of the card */
 .discover-dark .filter-card .search-wrap {
@@ -417,11 +347,31 @@
 /* Panel sections */
 .discover-dark .fs-panel[hidden] { display: none; }
 .discover-dark .fs-section { border-bottom: 1px solid rgba(255, 255, 255, .07); }
-.discover-dark .fs-head { display: flex; align-items: flex-start; gap: 14px; margin: 0 24px; padding: 20px 0 12px; border-bottom: 1px solid rgba(255, 255, 255, .07); }
-.discover-dark .fs-head h3 { margin: 0; color: #fff; font-size: 17px; font-weight: 800; }
-.discover-dark .fs-head p { margin: 3px 0 0; color: rgba(255, 255, 255, .45); font-size: 13px; }
-.discover-dark .fs-icon { flex-shrink: 0; margin-top: 2px; color: var(--accent-on-dark); }
-.discover-dark .fs-dot { display: block; width: 10px; height: 10px; margin: 7px 6px 0; border-radius: 50%; background: var(--accent); }
+.discover-dark .fs-head { display: flex; align-items: center; gap: 14px; margin: 0 24px; padding: 22px 0 4px; }
+.discover-dark .fs-head h3 { margin: 0; color: #fff; font-size: 16px; font-weight: 800; letter-spacing: -.01em; }
+.discover-dark .fs-head p { margin: 3px 0 0; color: rgba(255, 255, 255, .5); font-size: 13px; }
+.discover-dark .fs-icon {
+  display: grid; place-items: center; flex-shrink: 0;
+  width: 38px; height: 38px;
+  border-radius: 11px;
+  background: rgba(200, 60, 8, .16);
+  border: 1px solid rgba(255, 138, 76, .28);
+  color: var(--accent-on-dark);
+}
+/* "Use my location" shortcut at the end of the Market & location header */
+.discover-dark .fs-locate {
+  display: inline-flex; align-items: center; gap: 7px;
+  margin-left: auto; flex-shrink: 0;
+  min-height: 38px;
+  padding: 8px 14px;
+  background: rgba(255, 255, 255, .04);
+  border: 1px solid rgba(255, 255, 255, .15);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 13px; font-weight: 600;
+}
+.discover-dark .fs-locate:hover { border-color: rgba(255, 138, 76, .55); }
+.discover-dark .fs-locate:focus-visible { outline: 2px solid var(--accent-on-dark); outline-offset: 2px; }
 
 /* Labels and fields */
 .discover-dark .fs-panel label { display: flex; flex-direction: column; gap: 8px; color: #fff; font-size: 13px; font-weight: 500; }
@@ -450,10 +400,10 @@
 .discover-dark .fs-panel :is(select, input):focus { outline: none; border-color: rgba(200, 60, 8, .6); }
 .discover-dark .fs-panel :is(select, input):focus-visible { box-shadow: 0 0 0 3px rgba(200, 60, 8, .25); }
 
-.discover-dark .fs-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; padding: 16px 24px 24px; }
+.discover-dark .fs-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; padding: 16px 24px 24px 76px; }
 
 /* Budget & offers */
-.discover-dark .fs-budget { display: flex; align-items: flex-start; gap: 24px; padding: 16px 24px 24px; }
+.discover-dark .fs-budget { display: flex; align-items: flex-start; gap: 24px; padding: 16px 24px 24px 76px; }
 .discover-dark .fs-price { flex: 1 1 auto; min-width: 0; }
 .discover-dark .fs-label { font-weight: 700; }
 .discover-dark .fs-price label { display: inline-flex; width: min(280px, 100%); vertical-align: bottom; }
@@ -496,13 +446,13 @@
 .discover-dark .fs-check input:focus-visible { outline: 2px solid var(--accent-on-dark); outline-offset: 2px; }
 
 /* Sort results */
-.discover-dark .fs-sort { display: flex; align-items: flex-end; gap: 20px; padding: 16px 24px 24px; flex-wrap: wrap; }
+.discover-dark .fs-sort { display: flex; align-items: flex-end; gap: 20px; padding: 16px 24px 24px 76px; flex-wrap: wrap; }
 .discover-dark .fs-sort-field { width: min(280px, 100%); }
 .discover-dark .fs-note { display: flex; align-items: flex-start; gap: 6px; max-width: 360px; margin: 0 0 0 auto; color: rgba(255, 255, 255, .35); font-size: 12px; line-height: 1.5; text-align: right; }
 .discover-dark .fs-note svg { flex-shrink: 0; margin-top: 2px; }
 
 /* Footer actions */
-.discover-dark .fs-actions { display: flex; flex-wrap: wrap; gap: 12px; padding: 16px 24px; background: rgba(15, 10, 3, .8); }
+.discover-dark .fs-actions { display: flex; flex-wrap: wrap; gap: 12px; padding: 16px 24px; background: rgba(15, 10, 3, .55); }
 .discover-dark .fs-actions .button { padding: 12px 24px; border-radius: 10px; font-weight: 600; }
 .discover-dark .fs-reset {
   display: inline-flex; align-items: center; gap: 8px;
@@ -518,13 +468,15 @@
 
 @media (max-width: 900px) {
   .discover-dark .fs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .discover-dark :is(.fs-grid, .fs-budget, .fs-sort) { padding-left: 24px; }
   .discover-dark .fs-budget { flex-direction: column; }
   .discover-dark .fs-vrule { align-self: auto; width: 100%; height: 1px; }
   .discover-dark .fs-promo { flex-basis: auto; }
 }
 @media (max-width: 600px) {
   .discover-dark .fs-grid { grid-template-columns: 1fr; padding: 14px 16px 20px; }
-  .discover-dark .fs-head { margin: 0 16px; }
+  .discover-dark .fs-head { flex-wrap: wrap; margin: 0 16px; }
+  .discover-dark .fs-locate { margin-left: 52px; }
   .discover-dark :is(.fs-budget, .fs-sort) { padding: 14px 16px 20px; }
   .discover-dark .fs-quick { display: flex; margin: 10px 0 0; }
   .discover-dark .fs-note { margin-left: 0; text-align: left; }
@@ -544,6 +496,3 @@
 @media (prefers-reduced-motion: reduce) {
   .discover-dark.arriving > * { animation-duration: .01ms; }
 }
-
-/* One-tap batch passport shortcut; lifted above the card's stretched stall link. */
-.discover-dark .dish-batch-shortcut{position:relative;z-index:2;display:inline-flex;align-items:center;gap:6px;max-width:100%;min-height:30px;margin-top:8px;padding:6px 9px;border:1px solid rgba(139,190,130,.3);border-radius:999px;background:rgba(52,105,57,.2);color:#c7e2bf;font-size:10px;font-weight:700;line-height:1.1;text-decoration:none;transition:background .16s ease,border-color .16s ease,transform .16s ease}.discover-dark .dish-batch-shortcut svg{flex:0 0 auto}.discover-dark .dish-batch-shortcut:hover{border-color:rgba(166,211,155,.52);background:rgba(66,127,71,.3);transform:translateY(-1px)}.discover-dark .dish-batch-shortcut:focus-visible{outline:2px solid var(--accent-on-dark);outline-offset:2px}

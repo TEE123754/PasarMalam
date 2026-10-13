@@ -19,14 +19,14 @@ import { defaultFilters, dietaryStatus, discover, scheduleStatus, type Filters }
 import { useDiscovery } from './useDiscovery'
 import { checkIn, useFavourites } from './actions'
 import { coarsePoint, requestDeviceLocation } from './location'
-import { PredictedClearanceSection, PredictionBadge, predictedStall } from '../clearance/PredictedClearance'
+import { PredictedClearanceSection, predictedStall } from '../clearance/PredictedClearance'
 
 import { DemoImage } from '../components/DemoImage'
 import { foodImage } from '../components/demo-images'
 import { DiscoveryIntro, DiscoveryCategories } from './DiscoveryIntro'
-import { SlidersHorizontal, ChevronDown, Flame, ListFilter, LocateFixed, RotateCcw, Wallet } from 'lucide-react'
+import { SlidersHorizontal, ChevronDown, Check, Flame, ListFilter, LocateFixed, MoonStar, RotateCcw, Wallet } from 'lucide-react'
 import { StallDetail } from './StallDetail'
-import { ValueProps, CategoryChips, PreparedToday, PopularMarkets, StallTile, DiscoverFooter } from './DiscoverSections'
+import { ValueProps, CategoryChips, PreparedToday, FeaturedStalls, PopularMarkets, StallTile, DiscoverFooter } from './DiscoverSections'
 import './discovery.css'
 const MarketMap = lazy(() => import('./MarketMap'))
 // Two rows of the five-column "From the stalls" grid
@@ -65,6 +65,7 @@ export function DiscoveryPage({ gateway }: { gateway: DataGateway }) {
   const now = useNow(gateway)
   const query = useDiscovery(gateway, data => discover(data,filters,now,page,PAGE_SIZE).markets.map(m => m.id))
   const mapRef = useRef<HTMLDivElement>(null)
+  const resultsRef = useRef<HTMLElement>(null)
   // Rise in from below only when arriving from the landing splash's slide-up, not on every visit
   const [arriving,setArriving] = useState(false)
   useLayoutEffect(() => {
@@ -121,7 +122,8 @@ export function DiscoveryPage({ gateway }: { gateway: DataGateway }) {
   return <div className={`discover-dark night-page ${arriving?'arriving':''}`}><DiscoveryIntro data={data} filters={filters}/><ValueProps/>
     <CategoryChips selected={filters.category} onChange={category=>change({category})}/>
     {data&&<PreparedToday data={data} now={now} gateway={gateway}/>}
-    {gateway.mode==='fixture'&&data&&<PredictedClearanceSection data={data} now={now} locale={i18n.language}/>}
+    {data&&<FeaturedStalls data={data} now={now} gateway={gateway}/>}
+    {gateway.mode==='fixture'&&data&&<PredictedClearanceSection data={data} now={now} locale={i18n.language} limit={3} seeMoreTo="/offers"/>}
     <div className="filter-card">
       <div className="search-wrap"><Search size={20}/><label className="sr-only" htmlFor="market-search">{t('findFood')}</label><input id="market-search" value={search} onChange={e => setSearch(e.target.value)} placeholder={t('findFood')}/></div>
       <div className="discovery-action-bar">
@@ -135,7 +137,7 @@ export function DiscoveryPage({ gateway }: { gateway: DataGateway }) {
       </div>
     <div id="discovery-filter-panel" hidden={!filtersOpen} className="fs-panel" role="region" aria-label={t('discoveryFilters')}>
       <section className="fs-section">
-        <header className="fs-head"><span className="fs-icon fs-dot" aria-hidden="true"/><div><h3>{ui('Market & location')}</h3><p>{ui('Find markets near you or explore by area.')}</p></div></header>
+        <header className="fs-head"><span className="fs-icon" aria-hidden="true"><MapPin size={18}/></span><div><h3>{ui('Market & location')}</h3><p>{ui('Find markets near you or explore by area.')}</p></div><button type="button" className="fs-locate" onClick={()=>void locate()}><LocateFixed size={15}/>{t('useLocation')}</button></header>
         <div className="fs-grid"><label>{t('chooseMarket')}<select value={filters.market} onChange={e => change({market:e.target.value})}><option value="">{t('anyMarket')}</option>{data?.markets.map(m => <option key={m.id} value={m.id}>{m.name} · {m.area}</option>)}</select></label>
 <label>{t('chooseArea')}<select value={areaChoice} onChange={e => {
         const market = data?.markets.find(m => m.id === e.target.value)
@@ -144,24 +146,28 @@ export function DiscoveryPage({ gateway }: { gateway: DataGateway }) {
         setGeoExpires(0); setLocationMessage('manualLocation')
       }}><option value="">{t('noArea')}</option>{data?.markets.map(m => <option key={m.id} value={m.id}>{m.area} · {m.name}</option>)}</select></label>
 <label>{t('distanceRadius')}<select value={filters.radius} onChange={e => change({radius:Number(e.target.value)})} disabled={!filters.origin}>{[1,5,10,25,50,100].map(km => <option key={km} value={km}>{km} km</option>)}</select></label>
-<label>{t('marketType')}<select value={filters.type} onChange={e => change({type:e.target.value})}><option value="">{t('allTypes')}</option><option value="night">{t('night')}</option><option value="day">{t('day')}</option></select></label>
+</div>
+      </section>
+      <section className="fs-section">
+        <header className="fs-head"><span className="fs-icon" aria-hidden="true"><MoonStar size={18}/></span><div><h3>{ui('Date & night')}</h3><p>{ui('Choose when you want to visit and what kind of market.')}</p></div></header>
+        <div className="fs-grid"><label>{t('marketType')}<select value={filters.type} onChange={e => change({type:e.target.value})}><option value="">{t('allTypes')}</option><option value="night">{t('night')}</option><option value="day">{t('day')}</option></select></label>
 <label>{ui('Market classification')}<select value={filters.marketKind??''} onChange={e=>change({marketKind:e.target.value})}><option value="">{ui('All market classifications')}</option><option value="general">{ui('General market')}</option><option value="farmers">{ui('Farmers’ market')}</option></select></label></div>
       </section>
       <section className="fs-section">
-        <header className="fs-head"><Flame className="fs-icon" size={22} aria-hidden="true"/><div><h3>{ui('Food preferences')}</h3><p>{ui('Choose what you’re in the mood for.')}</p></div></header>
+        <header className="fs-head"><span className="fs-icon" aria-hidden="true"><Flame size={18}/></span><div><h3>{ui('Food preferences')}</h3><p>{ui('Choose what you’re in the mood for.')}</p></div></header>
         <div className="fs-grid"><label>{t('category')}<select value={filters.category} onChange={e => change({category:e.target.value})}><option value="">{t('allCategories')}</option>{categories.map(c=><option key={c.id} value={c.id}>{ui(c.en)}</option>)}</select></label>
 <label>{t('dietary')}<select value={filters.dietary} onChange={e => change({dietary:e.target.value})}><option value="">{t('allDietary')}</option>{(gateway.mode==='fixture'?['declared','non-halal']:['certified','declared','non-halal','not-declared']).map(value => <option key={value} value={value}>{t(`diet_${value}`)}</option>)}</select></label>
 <label>{ui('Plant diet')}<select value={filters.plantDiet??''} onChange={e=>change({plantDiet:e.target.value})}><option value="">{ui('Any plant-diet status')}</option><option value="vegetarian">{ui('Vendor-declared vegetarian')}</option><option value="vegan">{ui('Vendor-declared vegan')}</option></select></label></div>
       </section>
       <section className="fs-section">
-        <header className="fs-head"><Wallet className="fs-icon" size={22} aria-hidden="true"/><div><h3>{ui('Budget & offers')}</h3><p>{ui('Set your price range and find special deals.')}</p></div></header>
+        <header className="fs-head"><span className="fs-icon" aria-hidden="true"><Wallet size={18}/></span><div><h3>{ui('Budget & offers')}</h3><p>{ui('Set your price range and find special deals.')}</p></div></header>
         <div className="fs-budget"><div className="fs-price"><label><span className="fs-label">{ui('Maximum menu-unit price (RM)')}</span><span className="fs-rm-field"><span aria-hidden="true">RM</span><input placeholder={ui('Enter maximum price')} type="number" min="0" max="1000000" step="0.01" value={filters.maxPriceSen==null?'':(filters.maxPriceSen/100)} onChange={e=>change({maxPriceSen:e.target.value===''?null:Math.round(e.target.valueAsNumber*100)})}/></span></label><div className="fs-quick"><button type="button" className={`fs-pill ${filters.maxPriceSen===500?'active':''}`} aria-pressed={filters.maxPriceSen===500} onClick={()=>change({maxPriceSen:500})}>RM5</button><button type="button" className={`fs-pill ${filters.maxPriceSen===1000?'active':''}`} aria-pressed={filters.maxPriceSen===1000} onClick={()=>change({maxPriceSen:1000})}>RM10</button></div><p className="small muted">{ui('Budget matches one menu item before discounts; bundles and clearance offers are excluded from this price basis.')}</p></div><span className="fs-vrule" aria-hidden="true"/><div className="fs-promo"><span className="fs-promo-title">{t('promotionOnly')}</span><label className="fs-check"><input type="checkbox" checked={filters.promotion} onChange={e => change({promotion:e.target.checked})}/><span>{ui('Show only stalls with current promotions')}</span></label></div></div>
       </section>
       <section className="fs-section">
-        <header className="fs-head"><ListFilter className="fs-icon" size={22} aria-hidden="true"/><div><h3>{ui('Sort results')}</h3><p>{ui('Choose how you want to see the results.')}</p></div></header>
+        <header className="fs-head"><span className="fs-icon" aria-hidden="true"><ListFilter size={18}/></span><div><h3>{ui('Sort results')}</h3><p>{ui('Choose how you want to see the results.')}</p></div></header>
         <div className="fs-sort"><div className="fs-sort-field"><label>{t('sortResults')}<select value={filters.sort} onChange={e => change({sort:e.target.value})}><option value="rating">{t('bestReviewed')}</option><option value="popularity">{t('popularity')}</option><option value="nearest" disabled={!filters.origin}>{t('nearest')}</option></select></label></div><p role="status" className="fs-note"><MapPin size={13}/>{t(locationMessage)}{mapLookup && gateway.mode === 'connected' && filters.origin ? ` · ${t(mapLookup)}` : ''} {t('marketDistance')}</p></div>
       </section>
-      <footer className="fs-actions"><button type="button" className="button primary" onClick={()=>void locate()}><LocateFixed size={16}/>{t('useLocation')}</button><button type="button" className="fs-reset" onClick={() => {setSearch('');change(defaultFilters);setAreaChoice('');setGeoExpires(0);setLocationMessage('manualLocation')}}><RotateCcw size={15}/>{t('resetFilters')}</button></footer>
+      <footer className="fs-actions"><button type="button" className="button primary" onClick={()=>resultsRef.current?.scrollIntoView({behavior:'smooth',block:'start'})}><Check size={16}/>{ui('Apply filters')}</button><button type="button" className="fs-reset" onClick={() => {setSearch('');change(defaultFilters);setAreaChoice('');setGeoExpires(0);setLocationMessage('manualLocation')}}><RotateCcw size={15}/>{t('resetFilters')}</button></footer>
     </div>
     </div>
     {data&&<DiscoveryCategories data={data} selected={filters.category} onChange={category=>change({category})}/>}
@@ -175,7 +181,7 @@ export function DiscoveryPage({ gateway }: { gateway: DataGateway }) {
         </div>
       </section>
       <PopularMarkets data={data} origin={filters.origin}/>
-      <section className="from-stalls"><div className="section-heading"><h2>{t('featuredStalls')}</h2><span>{t('resultsCount',{count:displayTotal})}</span></div>{gateway.mode === 'fixture' && <label className="predicted-clearance-toggle"><input type="checkbox" checked={showPredictedOnly} onChange={event => { setShowPredictedOnly(event.target.checked); setPage(0) }}/><span>Show predicted clearances</span><small>Heuristic · not a live offer</small></label>}{showPredictedOnly && <p className="predicted-filter-note">Showing stalls above the predicted-clearance likelihood threshold; this estimate is not a guarantee.</p>}<Sponsored data={data} filters={filters} now={now} campaigns={gateway.mode==='connected'?advertisements.data??[]:undefined}/><div className="stall-tile-grid">{displayStalls.map(stall => <div className="predicted-stall-tile" key={stall.id}><StallTile stall={stall} gateway={gateway}/>{clearancePredictions.get(stall.id) && <PredictionBadge prediction={clearancePredictions.get(stall.id)!} compact/>}</div>)}</div>{showPredictedOnly && !displayTotal && <div className="panel state-panel"><h2>No predicted matches</h2><p>Current saved demo prep volumes are below the illustrative threshold.</p></div>}</section>
+      <section className="from-stalls" ref={resultsRef}><div className="section-heading"><h2>{t('featuredStalls')}</h2><span>{t('resultsCount',{count:displayTotal})}</span></div>{gateway.mode === 'fixture' && <label className="predicted-clearance-toggle"><input type="checkbox" checked={showPredictedOnly} onChange={event => { setShowPredictedOnly(event.target.checked); setPage(0) }}/><span>Show predicted clearances</span><small>Heuristic · not a live offer</small></label>}{showPredictedOnly && <p className="predicted-filter-note">Showing stalls above the predicted-clearance likelihood threshold; this estimate is not a guarantee.</p>}<Sponsored data={data} filters={filters} now={now} campaigns={gateway.mode==='connected'?advertisements.data??[]:undefined}/><div className="stall-tile-grid">{displayStalls.map(stall => <StallTile key={stall.id} stall={stall} market={data.markets.find(m => m.id === stall.marketId)} prediction={clearancePredictions.get(stall.id)} gateway={gateway}/>)}</div>{showPredictedOnly && !displayTotal && <div className="panel state-panel"><h2>No predicted matches</h2><p>Current saved demo prep volumes are below the illustrative threshold.</p></div>}</section>
       {!showPredictedOnly && !displayTotal && <div className="panel state-panel"><h2>{t('noMatches')}</h2><p>{t('relaxFilters')}</p></div>}
       <nav className="pagination" aria-label={t('resultPages')}><button className="button secondary" disabled={page === 0} onClick={() => setPage(page-1)}><ArrowLeft size={16}/>{t('previous')}</button><span>{page+1} / {displayPages}</span><button className="button secondary" disabled={page+1 >= displayPages} onClick={() => setPage(page+1)}>{t('next')}<ArrowRight size={16}/></button></nav></>}
     <DiscoverFooter/>

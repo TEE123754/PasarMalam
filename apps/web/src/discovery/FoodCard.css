@@ -1,0 +1,130 @@
+/* Shared food card on the Discover page. Glass surface: translucent --card-bg plus blur,
+   so the fixed night-market photo glows through. Scoped to .discover-dark like discovery.css. */
+
+.discover-dark .food-card {
+  position: relative;
+  display: flex; flex-direction: column;
+  min-width: 0;
+  background: var(--card-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform .2s ease, border-color .2s ease;
+}
+.discover-dark .food-card:hover { transform: translateY(-3px); border-color: #5a4426; }
+.discover-dark .food-card:focus-within { outline: 2px solid var(--accent-on-dark); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { .discover-dark .food-card:hover { transform: none; } }
+
+/* Photo + overlays */
+.discover-dark .food-photo { position: relative; height: 180px; flex-shrink: 0; }
+.discover-dark .food-card.compact .food-photo { height: 124px; }
+.discover-dark .food-photo .batch-photo,
+.discover-dark .food-photo .demo-artwork,
+.discover-dark .food-photo .image-placeholder { width: 100%; height: 100%; min-height: 0; flex: none; border-radius: 0; }
+.discover-dark .food-photo img { height: 100%; aspect-ratio: auto; }
+/* Soft bottom fade so the photo settles into the glass body */
+.discover-dark .food-photo::after { content: ''; position: absolute; inset: auto 0 0; height: 40%; background: linear-gradient(to top, rgba(15, 10, 3, .55), transparent); pointer-events: none; }
+.discover-dark .food-badge-slot { position: absolute; left: 10px; top: 10px; right: 54px; z-index: 2; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; }
+
+.discover-dark .food-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-size: 11px; font-weight: 800; line-height: 1.2;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .3);
+}
+.discover-dark .food-badge.popular { background: #ffd27a; color: #5c3500; }  /* amber */
+.discover-dark .food-badge.best { background: #c9ecc4; color: #1d5219; }     /* green */
+.discover-dark .food-badge.fresh { background: #bff0e8; color: #0c4f46; }    /* teal */
+.discover-dark .food-badge.hot { background: var(--accent); color: #fff; }   /* orange-red */
+.discover-dark .food-badge.chilled { background: #cfe2ff; color: #123d78; }  /* blue */
+.discover-dark .food-badge.local { background: #f5e3c8; color: #5a3410; }    /* cream */
+.discover-dark .food-badge.must { background: #ffc9b0; color: #6e1f00; }     /* peach */
+
+.discover-dark .food-save {
+  position: absolute; right: 10px; top: 10px; z-index: 3;
+  display: grid; place-items: center;
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  background: rgba(15, 10, 3, .55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, .25);
+  color: #fff;
+  transition: background .15s ease, color .15s ease;
+}
+.discover-dark .food-save:hover:not(:disabled) { background: rgba(15, 10, 3, .8); }
+.discover-dark .food-save[aria-pressed="true"] { color: var(--accent-on-dark); border-color: rgba(255, 138, 76, .6); }
+.discover-dark .food-save:focus-visible { outline: 2px solid var(--accent-on-dark); outline-offset: 2px; }
+
+/* Body: name → price → meta → tag/arrow footer */
+.discover-dark .food-body { display: flex; flex-direction: column; gap: 6px; flex: 1; padding: 13px 14px 14px; }
+.discover-dark .food-body h3 { margin: 0; color: var(--text-on-dark); font-size: 16px; font-weight: 800; line-height: 1.25; letter-spacing: -.01em; }
+.discover-dark .food-price-row { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+/* --accent passes contrast only as large bold text; the compact size drops to the lighter --accent-on-dark */
+.discover-dark .food-price { color: var(--accent); font-size: 18px; font-weight: 800; }
+.discover-dark .food-rating { display: inline-flex; align-items: center; gap: 4px; color: var(--text-2); font-size: 12px; font-weight: 700; white-space: nowrap; }
+.discover-dark .food-rating svg { color: #f5b942; }
+.discover-dark .food-meta { display: flex; flex-direction: column; gap: 4px; margin: 0; padding: 0; list-style: none; color: var(--text-2); font-size: 12px; }
+.discover-dark .food-meta li { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.discover-dark .food-meta li span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.discover-dark .food-meta svg { flex-shrink: 0; color: var(--accent-on-dark); }
+.discover-dark .food-body .privacy-notice { margin: 2px 0 0; font-size: 11px; }
+.discover-dark .food-note { position: relative; z-index: 2; }
+
+.discover-dark .food-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 8px; }
+.discover-dark .food-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  min-width: 0; min-height: 28px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  background: rgba(255, 255, 255, .04);
+  color: var(--text-2);
+  font-size: 11px; font-weight: 700; line-height: 1.2;
+}
+.discover-dark .food-tag svg { flex-shrink: 0; }
+.discover-dark .food-tag span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.discover-dark .food-tag.fresh { border-color: rgba(139, 190, 130, .3); background: rgba(52, 105, 57, .2); color: #c7e2bf; }
+.discover-dark .food-tag.clear { border: 1px dashed rgba(255, 173, 127, .6); background: rgba(200, 60, 8, .1); color: #ffcfb3; }
+/* Linked tag sits above the card-wide stretched link */
+.discover-dark .food-tag-link { position: relative; z-index: 2; text-decoration: none; transition: border-color .15s ease, background .15s ease; }
+.discover-dark .food-tag-link:hover { border-color: rgba(166, 211, 155, .52); background: rgba(66, 127, 71, .3); }
+.discover-dark .food-tag-link:focus-visible { outline: 2px solid var(--accent-on-dark); outline-offset: 2px; }
+.discover-dark .food-go {
+  display: grid; place-items: center; flex-shrink: 0;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .14);
+  color: var(--text-on-dark);
+  transition: background .15s ease, border-color .15s ease;
+}
+.discover-dark .food-card:hover .food-go { background: var(--accent); border-color: var(--accent); }
+.discover-dark .food-details {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(200, 60, 8, .16);
+  border: 1px solid rgba(255, 138, 76, .35);
+  color: var(--text-on-dark);
+  font-size: 12px; font-weight: 750;
+  transition: background .15s ease;
+}
+.discover-dark .food-card:hover .food-details { background: var(--accent); border-color: var(--accent); }
+
+/* Compact (results grid): tighter type so five fit across */
+.discover-dark .food-card.compact .food-body { gap: 5px; padding: 11px 12px 12px; }
+.discover-dark .food-card.compact h3 { font-size: 14px; }
+.discover-dark .food-card.compact .food-price { color: var(--accent-on-dark); font-size: 15px; }
+.discover-dark .food-card.compact .food-meta { font-size: 11px; }
+.discover-dark .food-card.compact .food-go { width: 28px; height: 28px; }
+.discover-dark .food-card.compact .food-badge-slot { left: 8px; top: 8px; right: 48px; }
+.discover-dark .food-card.compact .food-save { right: 8px; top: 8px; width: 30px; height: 30px; }
+
+/* Portions-remaining meter pinned to the card's bottom edge (Prepared today) */
+.discover-dark .food-track { height: 4px; flex-shrink: 0; background: #33281a; overflow: hidden; }
+.discover-dark .food-track > span { display: block; width: 100%; height: 100%; background: #6fbf5a; transform-origin: left center; transition: transform 1s linear; }

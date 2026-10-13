@@ -73,6 +73,18 @@ export function formatPredictionWindow(date: Date, locale: string): string {
   return `${formatter.format(date)}–${formatter.format(new Date(date.getTime() + 30 * 60_000))}`
 }
 
+// Shopper-facing wording for the heuristic score; display only, the score itself is unchanged
+export function confidenceLabel(score: number): 'High confidence' | 'Medium confidence' | 'Lower confidence' {
+  return score >= 85 ? 'High confidence' : score >= 60 ? 'Medium confidence' : 'Lower confidence'
+}
+
+// "8:53 PM – 9:23 PM" for the shopper cards (the hawker nudge keeps formatPredictionWindow)
+export function formatSellOutWindow(date: Date, locale: string): string {
+  const formatter = new Intl.DateTimeFormat(locale.startsWith('ms') ? 'ms-MY' : 'en-MY', { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: MALAYSIA_TIME_ZONE })
+  const time = (value: Date) => formatter.format(value).replace(/\s*(am|pm|PG|PTG)$/i, (_, period: string) => ` ${period.toUpperCase()}`)
+  return `${time(date)} – ${time(new Date(date.getTime() + 30 * 60_000))}`
+}
+
 function isSameMalaysiaDay(value: string, now: Date): boolean {
   if (!Number.isFinite(Date.parse(value))) return false
   const formatter = new Intl.DateTimeFormat('en-CA', { timeZone: MALAYSIA_TIME_ZONE, year: 'numeric', month: '2-digit', day: '2-digit' })

@@ -8,6 +8,7 @@ import { cp1Ms } from './cp1'
 import { phase6Ms } from './phase6'
 import { phase7Ms } from './phase7'
 const ms:Record<string,string>={
+ 'Unsave':'Nyahsimpan','View details':'Lihat butiran','Apply filters':'Guna penapis','Date & night':'Tarikh & malam','Choose when you want to visit and what kind of market.':'Pilih bila anda mahu berkunjung dan jenis pasar.',
  "Desktop accuracy · this computer":"Ketepatan desktop · komputer ini",
  "Requires the speech helper on this computer. Audio is processed locally in memory until transcription finishes; no audio upload or storage.":"Memerlukan pembantu pertuturan pada komputer ini. Audio diproses dalam memori setempat sehingga transkripsi selesai; tiada muat naik atau penyimpanan audio.",
  "Desktop speech helper unavailable; choose a browser model or text entry.":"Pembantu pertuturan desktop tidak tersedia; pilih model pelayar atau gunakan teks.",

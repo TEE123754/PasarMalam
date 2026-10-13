@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { LIKELY_CLEARANCE_THRESHOLD, predictClearance, SAMPLE_FORECAST_BASELINE } from './prediction'
+import { confidenceLabel, formatSellOutWindow, LIKELY_CLEARANCE_THRESHOLD, predictClearance, SAMPLE_FORECAST_BASELINE } from './prediction'
 
 describe('predicted clearance heuristic', () => {
   const early = new Date('2026-10-13T09:00:00Z') // 5:00 pm in Malaysia
@@ -23,5 +23,13 @@ describe('predicted clearance heuristic', () => {
   it('returns no score when no same-day preparation quantity is available', () => {
     expect(predictClearance(0, SAMPLE_FORECAST_BASELINE, early, '17:00', '23:00')).toBeNull()
     expect(predictClearance(20, 0, early, '17:00', '23:00')).toBeNull()
+  })
+
+  it('maps the score to a shopper-facing confidence label at 85 and 60', () => {
+    expect([100, 85, 84, 60, 59, 0].map(confidenceLabel)).toEqual(['High confidence', 'High confidence', 'Medium confidence', 'Medium confidence', 'Lower confidence', 'Lower confidence'])
+  })
+
+  it('formats the sell-out window as a spaced half-hour range with upper-case periods', () => {
+    expect(formatSellOutWindow(new Date('2026-10-13T12:53:00Z'), 'en')).toBe('8:53 PM – 9:23 PM')
   })
 })
