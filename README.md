@@ -5,6 +5,7 @@
   <p>A Malaysian community market platform connecting hawkers, customers and market organisers.</p>
   <p>
     <a href="#product"><strong>Product</strong></a> ·
+    <a href="#whats-new"><strong>What's new</strong></a> ·
     <a href="#business-model"><strong>Business</strong></a> ·
     <a href="#technology"><strong>Technology</strong></a> ·
     <a href="#trust-and-inclusion"><strong>Trust</strong></a>
@@ -38,6 +39,27 @@ A market stall's information changes throughout the day: a new batch arrives, po
 | **Market organisers and councils** | Coordinate markets, review private concerns, manage cases and permits, and understand food-waste trends |
 | **Advertisers, food media and community partners** | Reach relevant local audiences and coordinate discovery campaigns or surplus collection |
 
+## What's new
+
+Recent releases (October 2026) deepen the hawker workspace, add forward-looking market intelligence and give the whole product a night-market look and feel.
+
+| Area | What changed |
+| --- | --- |
+| **Night-market redesign** | A dark night-market theme across customer and hawker pages, a demo entry splash with shortcut cards, one shared site header for both sides, a phone bottom bar and slide-up page transitions that are skipped when reduced motion is preferred |
+| **Discover** | Search and filters first, results directly beneath, redesigned food cards, a *Featured stalls* row, grouped filters (including *Date & night*) that apply instantly, and a three-card preview of clearance estimates that links to *Offers* |
+| **Estimated clearance** | Discover cards and the *Predicted clearances* sections show an *Estimated* "likely to sell out soon" outlook with a High / Medium / Lower confidence label. It is a transparent heuristic comparing today's prep volume with a sample historical baseline and the time left in the trading day, **not** a machine-learning prediction; it never creates an offer or changes a freshness deadline |
+| **Batch lifecycle and transparency** | A batch lifecycle timeline that only marks a listing as live from a recorded event, batch details linked on offer cards, per-field voice confidence indicators, and one primary action per batch state with a *More actions* menu |
+| **Hawker workspace** | Redesigned *Dashboard*, *My stall* (menu and batches), *Promotions and alerts*, *List by voice*, *Planning*, *Session accounting* and a hawker *Language & privacy* page, with 44–48 px touch targets on batch actions |
+| **Hawker entry** | *Are you a hawker?* opens a fictional log-in / sign-up gate; any submission continues to the demo dashboard and nothing is checked or stored |
+| **Photo menu onboarding** | *Add dishes from a photo* produces editable dish drafts that the hawker reviews before saving. In the demo the vision step is simulated in the browser; the photo is not uploaded |
+| **Market Pulse** | Category-level trends across other stalls in the same market (time to clear, promotion participation) with a suggested prep adjustment; no individual stall figures. The demo uses a labelled fictional sample |
+| **Market Run Planner** | Customers tick saved stalls, choose a start point and mark stops as visited; stops are ordered by short clearance/advisory windows, then straight-line distance |
+| **Organiser Market Health report** | A printable market summary of estimated food diverted, net clearance recovery, participating hawkers, visits and reporting coverage, with every figure marked as fictional demo data |
+| **Profile hub** | Tools grouped by role (shopper, hawker workspace, organisers/moderators/advertisers) plus a separate *Demo lab* for scenarios, prototype evidence and the presentation |
+| **Clearer status language** | *Reserve by* is separated from the holding-time advisory, and demo photos are labelled as illustrative rather than real batch photos |
+
+> Demo routes (`/demo/*`) run on fictional, browser-local data with no backend. Estimated clearance and the sales forecast are decision aids, not guarantees, and real-user validation is still pending.
+
 ## Product
 
 ### Discovery and community
@@ -45,6 +67,8 @@ A market stall's information changes throughout the day: a new batch arrives, po
 - **Live market map:** pasar pins, stall locations, market schedules and realtime listing updates.
 - **Food discovery:** search by market, stall or dish; filter by distance, categories, popularity, reviews, promotions and halal status.
 - **Customer accounts:** saved stalls, reservations, collection codes, reviews and confidential hygiene reports.
+- **Market Run Planner:** pick saved stalls, choose a start point and mark stops as visited along a suggested order.
+- **Estimated clearance outlook:** a cautious "likely to sell out soon" heuristic estimate with a confidence label, shown separately from confirmed offers.
 - **Local language support:** Bahasa Melayu and English interfaces, with BM, English and Manglish voice input.
 
 ### Hawker operations
@@ -52,6 +76,10 @@ A market stall's information changes throughout the day: a new batch arrives, po
 - **Stall and menu management:** food descriptions, ingredients, prices, opening sessions and stall photos.
 - **Independent food batches:** batch numbers, preparation and upload timestamps, stock, distinct photos and correction history.
 - **Voice and photo assistance:** editable structured suggestions with evidence, confidence indicators and hawker confirmation.
+- **Photo menu onboarding:** add dishes from a menu photo as editable drafts; the hawker confirms every item (simulated extraction in the demo).
+- **Batch lifecycle:** a recorded timeline for each batch, one primary action per state, and the batch's details linked from its offer.
+- **Market Pulse:** anonymised, category-level trends from other stalls in the market to inform how much to prepare (fictional sample in the demo).
+- **Merged workspace pages:** *My stall* (including batches) and *Promotions and alerts* replace separate batch and alert pages.
 - **Operational records:** stock reconciliation, sales and collection records, exports, and history-based cooking recommendations.
 
 ### Food transparency and waste prevention
@@ -65,6 +93,7 @@ A market stall's information changes throughout the day: a new batch arrives, po
 ### Market ecosystem
 
 - **Sponsored discovery:** clearly labelled stall placements and advertisements with campaign controls and capped slots.
+- **Market Health report:** a printable organiser summary of food diverted, clearance recovery, participation and visits.
 - **Organiser insights:** market activity, reported food recovery, hygiene trends and geographic summaries.
 - **Partner workspaces:** collaboration records, editorial campaigns, reviewed authority referrals, permit records and surplus handoffs.
 
@@ -72,13 +101,37 @@ A market stall's information changes throughout the day: a new batch arrives, po
 
 **Customer interface — discover markets, stalls and food prepared nearby.**
 
-![Customer market discovery with food categories, market imagery and batch countdowns](docs/screenshots/demo-discovery-oct9.png)
+![Customer Discover page with search, filters and stall results](docs/screenshots/demo-discovery-oct14.png)
 
 **Hawker interface — manage products, preparation batches, alerts and clearance offers.**
 
-![Hawker workspace with batch photos, preparation times and freshness alerts](docs/screenshots/demo-hawker-oct9.png)
+![Hawker dashboard with the stall summary, batches needing attention and voice listing](docs/screenshots/demo-hawker-oct14.png)
 
 *Product imagery uses illustrative Malaysian market, business and customer data.*
+
+## Run locally
+
+**Live demo:** `https://<your-vercel-url>/demo`
+
+Requirements: Node 24, npm, and uv with Python 3.12.
+
+```powershell
+# Install locked dependencies (repository root)
+npm ci
+uv sync --frozen --project apps/api
+
+# Web app — the /demo routes need no backend or keys
+npm run dev
+# then open http://127.0.0.1:5173/demo  (redirects to /demo/discover)
+
+# API (only for connected mode) — operator settings go in the ignored apps/api/.env
+./scripts/start-local.ps1 -Service api      # http://127.0.0.1:8010/health
+
+# Optional desktop speech helper for the voice page (127.0.0.1:8020)
+./scripts/start-speech-helper.ps1
+```
+
+Public browser settings go in the ignored `apps/web/.env.local` (copy `.env.example`). Never commit `.env` files or put secret keys in `VITE_` variables. See `docs/local-operations.md` for the full connected setup.
 
 ## Market positioning
 
@@ -129,12 +182,12 @@ These categories describe integration opportunities; they do not imply an endors
 | Layer | Technology | Purpose |
 | --- | --- | --- |
 | **Web application** | React 19, TypeScript, Vite, React Router | Responsive customer, hawker and organiser interfaces |
-| **UI and forms** | Tailwind CSS, Radix Dialog, Lucide, React Hook Form, Zod | Accessible controls, validated input and consistent visual components |
+| **UI and forms** | Plain CSS with shared design tokens and co-located stylesheets (Tailwind CSS v4 is loaded only for its base reset), Radix Dialog, Lucide, React Hook Form, Zod | Accessible controls, validated input and consistent visual components |
 | **Client data** | TanStack Query, Supabase JS | Query caching and realtime-aware data refresh |
 | **Maps and languages** | Leaflet, configurable OpenStreetMap tiles, i18next | Geographic discovery and multilingual presentation |
 | **Backend** | Python 3.12, FastAPI, Pydantic, Uvicorn, HTTPX | Typed APIs, domain validation and provider adapters |
 | **Data platform** | Supabase PostgreSQL, PostGIS, Auth, Storage, Realtime | Relational and geographic data, identity, media and live updates |
-| **Speech recognition** | Transformers.js, multilingual Whisper-tiny ONNX, Web Worker, WASM | On-device transcription |
+| **Speech recognition** | Transformers.js with Whisper tiny / small / large-v3-turbo ONNX in a Web Worker; optional faster-whisper desktop helper on `127.0.0.1:8020` | On-device transcription |
 | **AI assistance** | Morpheus with Qwen/Gemma adapters; optional local Qwen through llama.cpp | Structured text extraction and reviewed image suggestions |
 | **Weather** | Open-Meteo with shared caching | Market-area temperature and humidity context |
 | **Jobs and notifications** | pg_cron, pg_net, SQL outbox, pywebpush, VAPID | Scheduled monitoring and scoped notification dispatch |

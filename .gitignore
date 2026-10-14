@@ -20,6 +20,8 @@ supabase/.temp/
 supabase/.branches/
 .env
 .env.*
+# Root secrets file without the dot (renamed to .env); keep it out even if recreated
+/env
 !.env.example
 !.env.local.example
 .DS_Store
