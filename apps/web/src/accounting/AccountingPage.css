@@ -1,0 +1,96 @@
+/* Session accounting (/hawker/accounting): visual pass to match the other hawker screens.
+   Only presentation; every count, money value and handler comes from AccountingPage as before. */
+
+/* ── Hero ─────────────────────────────────────────────────────────── */
+.night-page.hawker-page .acct-hero {
+  position: relative;
+  display: grid; justify-items: center;
+  width: 100%; max-width: none;
+  margin: 0;
+  padding: 44px 24px 8px;
+  text-align: center;
+}
+.night-page.hawker-page .acct-hero .eyebrow { position: absolute; top: 12px; right: 12px; margin: 0; font-size: 12px; font-weight: 800; letter-spacing: .12em; }
+.night-page.hawker-page .acct-hero h1 { margin: 0 0 12px; font-family: inherit; font-size: clamp(38px, 4.8vw, 58px); font-weight: 800; line-height: 1.04; letter-spacing: -.04em; }
+.night-page.hawker-page .acct-hero p { max-width: 560px; margin: 0; color: rgba(245, 240, 232, .82); font-size: 15px; line-height: 1.6; }
+.night-page.hawker-page .acct-impact { display: flex; width: fit-content; min-height: 44px; margin: 18px auto 22px; }
+
+/* ── Shared card ──────────────────────────────────────────────────── */
+.night-page.hawker-page .acct-card {
+  margin: 0 0 20px;
+  padding: 24px 28px;
+  background: rgba(25, 17, 5, .85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 14px;
+  color: #f5f0e8;
+}
+.night-page.hawker-page .acct-card > h2 { margin: 0 0 16px; color: #fff; font-family: inherit; text-align: center; font-size: clamp(26px, 2.8vw, 34px); font-weight: 400; letter-spacing: -.02em; }
+.night-page.hawker-page .acct-card p { margin: 6px 0; color: rgba(245, 240, 232, .85); font-size: 14px; line-height: 1.55; }
+.night-page.hawker-page .acct-card label:not(.choice-row) { color: #f5f0e8; font-weight: 700; }
+.night-page.hawker-page .acct-card :is(select, input:not([type="checkbox"]), textarea) { min-height: 44px; background: rgba(12, 8, 2, .9); border: 1px solid rgba(255, 255, 255, .12); color: #fff; }
+.night-page.hawker-page .acct-card .choice-row { display: flex; align-items: center; justify-content: flex-start; gap: 12px; min-height: 44px; text-align: left; font-weight: 600; }
+.night-page.hawker-page .acct-card .choice-row input { width: 20px; height: 20px; margin: 0; flex-shrink: 0; }
+.night-page.hawker-page .acct-card .button { min-height: 44px; border-radius: 10px; }
+.night-page.hawker-page .acct-card .button-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 12px 0 0; }
+
+/* ── Session reconciliation: batch picker beside the "show all" toggle ── */
+.night-page.hawker-page .acct-session { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 8px 24px; align-items: end; }
+.night-page.hawker-page .acct-session > * { grid-column: 1 / -1; min-width: 0; }
+.night-page.hawker-page .acct-session > label:not(.choice-row) { grid-column: 1; display: grid; gap: 8px; margin: 0; }
+.night-page.hawker-page .acct-session > label.choice-row { grid-column: 2; margin: 0; }
+.night-page.hawker-page .acct-session > .button { justify-self: start; margin-top: 4px; }
+.night-page.hawker-page .acct-session > .button-row { padding-bottom: 18px; border-bottom: 1px solid rgba(255, 255, 255, .08); }
+/* One block per session, stat tiles like the dashboard and My stall */
+.night-page.hawker-page .acct-session > article { margin-top: 10px; padding: 0; border: 0; }
+.night-page.hawker-page .acct-session > article > h3 { margin: 6px 0 12px; color: #fff; font-size: 18px; font-weight: 800; }
+.night-page.hawker-page .acct-session .accounting-metrics { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; margin: 0 0 14px; }
+.night-page.hawker-page .acct-session .accounting-metrics > div { padding: 14px 16px; background: rgba(15, 9, 2, .7); border: 1px solid rgba(255, 255, 255, .08); border-radius: 12px; }
+.night-page.hawker-page .acct-session .accounting-metrics span { color: rgba(245, 240, 232, .72); font-size: 12px; }
+.night-page.hawker-page .acct-session .accounting-metrics strong { margin-top: 6px; color: #fff; font-size: 22px; font-weight: 800; }
+.night-page.hawker-page .acct-session article > p[role="status"] { padding: 10px 14px; background: rgba(143, 217, 138, .12); border: 1px solid rgba(143, 217, 138, .45); border-radius: 10px; color: #c3ebb8; font-weight: 700; }
+.night-page.hawker-page .acct-session article > p[role="alert"] { padding: 10px 14px; background: rgba(246, 201, 154, .12); border: 1px solid rgba(246, 201, 154, .45); border-left-width: 1px; border-radius: 10px; color: #f6c99a; font-weight: 700; }
+.night-page.hawker-page .acct-session article > p:last-child { color: rgba(245, 240, 232, .72); }
+
+/* ── Record stall outcomes ────────────────────────────────────────── */
+.night-page.hawker-page .acct-record fieldset { gap: 16px 24px; padding: 0; }
+.night-page.hawker-page .acct-record fieldset .choice-row { padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, .08); }
+.night-page.hawker-page .acct-record > p[role="status"]:empty { display: none; }
+.night-page.hawker-page .acct-record > .button.primary { display: flex; width: 100%; min-height: 48px; margin-top: 12px; justify-content: center; }
+
+/* ── Clearance decision: the six figures as dark stat tiles ───────── */
+.night-page.hawker-page .acct-decision .accounting-eta { display: grid; gap: 8px; max-width: 420px; }
+.night-page.hawker-page .acct-decision dl {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(4, auto);
+  grid-auto-flow: column;
+  gap: 0 10px;
+  margin: 16px 0;
+  padding: 0;
+  background: none;
+  border-radius: 0;
+}
+.night-page.hawker-page .acct-decision dl dt { padding: 12px 14px 4px; background: rgba(15, 9, 2, .7); border: 1px solid rgba(255, 255, 255, .08); border-bottom: 0; border-radius: 12px 12px 0 0; color: rgba(245, 240, 232, .72); font-size: 12px; }
+.night-page.hawker-page .acct-decision dl dd { margin: 0 0 10px; padding: 0 14px 12px; background: rgba(15, 9, 2, .7); border: 1px solid rgba(255, 255, 255, .08); border-top: 0; border-radius: 0 0 12px 12px; color: #fff; font-size: 20px; font-weight: 800; }
+.night-page.hawker-page .acct-decision > .button { margin-top: 6px; }
+
+/* ── Source audit ─────────────────────────────────────────────────── */
+.night-page.hawker-page .acct-audit > article { margin: 0 0 10px; padding: 14px 16px; background: rgba(15, 9, 2, .7); border: 1px solid rgba(255, 255, 255, .08); border-radius: 12px; }
+.night-page.hawker-page .acct-audit > article > h3 { margin: 0 0 6px; color: #fff; font-size: 16px; font-weight: 800; }
+.night-page.hawker-page .acct-audit > article > p { margin: 2px 0; font-size: 13px; }
+.night-page.hawker-page .acct-audit > p { text-align: center; color: rgba(245, 240, 232, .78); }
+
+/* ── Responsive ───────────────────────────────────────────────────── */
+@media (max-width: 1023px) {
+  .night-page.hawker-page .acct-session { grid-template-columns: minmax(0, 1fr); }
+  .night-page.hawker-page .acct-session > label.choice-row { grid-column: 1; }
+  .night-page.hawker-page .acct-session .accounting-metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (max-width: 640px) {
+  .night-page.hawker-page .acct-card { padding: 20px 16px; }
+  .night-page.hawker-page .acct-session .accounting-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .night-page.hawker-page .acct-decision dl { grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-auto-flow: row; }
+  .night-page.hawker-page .acct-hero .eyebrow { position: static; margin-bottom: 8px; }
+}
