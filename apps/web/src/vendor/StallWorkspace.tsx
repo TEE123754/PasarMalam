@@ -9,6 +9,7 @@ import { BusinessStatements, AllergenStatement } from '../listings/ListingStatem
 import { PlantStatement } from '../discovery/DiscoveryMetadata'
 import type { FreshState } from '../freshness/engine'
 import type { VendorBatch, VendorFood, VendorStall } from './model'
+import './StallWorkspace.css'
 
 export function StallHero() {
   return <header className="stall-ws-hero">
