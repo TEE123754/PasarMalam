@@ -26,6 +26,7 @@ const toolGroups:{id:string;title:[string,string];note:[string,string];tools:Too
   ]},
   {id:'partners',title:['Organisers, moderators & advertisers','Penganjur, moderator & pengiklan'],note:['Each opens as a different fictional demo account.','Setiap satu dibuka sebagai akaun demo rekaan yang berbeza.'],tools:[
     {to:'/community?account=organiser-a',icon:ClipboardList,title:'Organiser hub',body:'Redacted concerns, market management and follow-up.'},
+    {to:'/organizer/report',icon:BarChart3,title:'Market health report',body:'Aggregated market indicators for councils and organisers.'},
     {to:'/community?account=admin-a',icon:ShieldCheck,title:'Hygiene review',body:'Moderation, independent reports and hawker replies.'},
     {to:'/commerce?account=brand-a',icon:Megaphone,title:'Advertise your stall',body:'Campaigns, sponsored placements and performance.'},
     {to:'/partners',icon:Building2,title:'Community partners',body:'Market organisers, health agencies and food partners.'},
