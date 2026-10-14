@@ -8,6 +8,7 @@ import { cp1Ms } from './cp1'
 import { phase6Ms } from './phase6'
 import { phase7Ms } from './phase7'
 const ms:Record<string,string>={
+ 'Are you a customer?':'Anda pelanggan?','Are you a hawker?':'Anda penjaja?',
  'See more ({count})':'Lihat lagi ({count})','Show fewer':'Tunjuk kurang',
  'Skip intro':'Langkau pengenalan','More actions':'Tindakan lain','Add dishes from a photo':'Tambah hidangan daripada foto','Add handling details':'Tambah butiran pengendalian',
  'The hawker reports open, but the market’s scheduled session is closed now. Check with the stall before travelling.':'Penjaja melaporkan dibuka, tetapi sesi pasar berjadual kini ditutup. Semak dengan gerai sebelum pergi.',

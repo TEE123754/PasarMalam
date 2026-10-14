@@ -3,42 +3,7 @@
 
 .night-page.hawker-page { --night-scrim: rgba(0, 0, 0, .68); }
 
-/* Solid dark navbar on hawker pages, orange-underlined active tab, separate workspace buttons */
-/* Floating navbar: inset from the edges, rounded, translucent with blur so the photo shows around and through it */
-.app-shell:has(.night-page.hawker-page) > .site-header {
-  box-sizing: border-box;
-  width: min(1300px, calc(100% - 32px));
-  height: 72px;
-  margin: 12px auto 0;
-  padding: 0 20px;
-  background: rgba(15, 12, 7, .6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, .08);
-  border-radius: 14px;
-}
-.app-shell:has(.night-page.hawker-page) > .site-header .nav-link { color: rgba(255, 255, 255, .78); }
-.app-shell:has(.night-page.hawker-page) > .site-header .nav-link:hover { color: #fff; background: rgba(255, 255, 255, .08); }
-.app-shell:has(.night-page.hawker-page) > .site-header .nav-link.active { color: var(--accent-on-dark); background: rgba(200, 60, 8, .12); box-shadow: inset 0 -2px 0 var(--accent); }
-.app-shell:has(.night-page.hawker-page) > .site-header .role-switch { gap: 10px; padding: 0; background: none; border: 0; }
-.app-shell:has(.night-page.hawker-page) > .site-header .role-switch button {
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 10px 14px;
-  border: 1px solid rgba(255, 255, 255, .22);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, .04);
-  color: #fff;
-}
-.app-shell:has(.night-page.hawker-page) > .site-header .role-switch button.active { background: var(--accent); border-color: var(--accent); }
-/* Keep the five hawker tabs on one line; tighten spacing instead of wrapping */
-.app-shell:has(.night-page.hawker-page) > .site-header .desktop-nav { flex-wrap: nowrap; gap: 2px; min-width: 0; }
-@media (max-width: 1360px) {
-  .app-shell:has(.night-page.hawker-page) > .site-header { gap: 14px; }
-  .app-shell:has(.night-page.hawker-page) > .site-header .nav-link { padding: 10px 10px; font-size: 12.5px; }
-  .app-shell:has(.night-page.hawker-page) > .site-header .brand small { display: none; }
-  .app-shell:has(.night-page.hawker-page) > .site-header .role-switch button,
-  .app-shell:has(.night-page.hawker-page) > .site-header .header-actions > .button { padding: 9px 11px; }
-}
+/* The navbar itself is the shared SiteHeader styled by night-theme.css, identical to the customer side */
 
 /* Outer panel around the dashboard (no backdrop-filter here: it would pin the fixed photo layer) */
 .night-page.hawker-page:has(.hawker-overview) {
