@@ -1,0 +1,22 @@
+# Web service only. Point the Railway web service's "Config file path" at this
+# file so it does NOT inherit the repo-root railway.toml (which builds the
+# Python API Dockerfile and has no npm).
+#
+# Keep the service Root Directory at the repository root: apps/web is an npm
+# workspace and its dependencies are installed from the root package.json.
+
+[build]
+builder = "RAILPACK"
+buildCommand = "npm ci && npm run build"
+watchPatterns = ["apps/web/**", "package.json", "package-lock.json"]
+
+[deploy]
+# Serve the built static bundle. -s rewrites unknown paths to index.html so the
+# React Router SPA routes (/demo/*, /sandbox/*) resolve on refresh.
+# `vite preview` is not used: it rejects non-localhost hostnames, so a
+# *.up.railway.app domain would return "Blocked request".
+startCommand = "npx -y serve apps/web/dist -s -l $PORT"
+healthcheckPath = "/"
+healthcheckTimeout = 60
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 3

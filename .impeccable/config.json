@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "apps/web/src/vendor/HawkerDashboard.css"
+        ],
+        "createdAt": "2026-10-14T06:58:16.373Z",
+        "reason": "Reference mockup supplied by the user for the hawker dashboard shows the suggestion sub-card with an orange left accent bar; implemented to match it"
+      }
+    ]
+  }
+}
