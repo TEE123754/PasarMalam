@@ -2,25 +2,25 @@
    sections below are siblings in the page wrapper, so the reference's two-column rows are made
    with explicit grid rows; anything else (save messages, edit forms) flows full-width after them. */
 
-.night-page.hawker-page:has(.stall-ws-hero) {
+.night-page.hawker-page:has(> .stall-ws-hero) {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 16px 20px;
   align-items: start;
 }
-.night-page.hawker-page:has(.stall-ws-hero) > * { grid-column: 1 / -1; min-width: 0; }
-.night-page.hawker-page:has(.stall-ws-hero) > .stall-ws-hero { grid-row: 1; }
-.night-page.hawker-page:has(.stall-ws-hero) > .workspace-management { grid-column: 1; grid-row: 2 / span 2; align-self: stretch; }
-.night-page.hawker-page:has(.stall-ws-hero) > .stall-ws-alerts { grid-column: 2; grid-row: 2; }
-.night-page.hawker-page:has(.stall-ws-hero) > .stall-ws-stats { grid-column: 2; grid-row: 3; }
-.night-page.hawker-page:has(.stall-ws-hero) > .stall-ws-statements { grid-column: 1; grid-row: 4; align-self: stretch; }
-.night-page.hawker-page:has(.stall-ws-hero) > .stall-ws-status { grid-column: 2; grid-row: 4; align-self: stretch; }
+.night-page.hawker-page:has(> .stall-ws-hero) > * { grid-column: 1 / -1; min-width: 0; }
+.night-page.hawker-page:has(> .stall-ws-hero) > .stall-ws-hero { grid-row: 1; }
+.night-page.hawker-page:has(> .stall-ws-hero) > .workspace-management { grid-column: 1; grid-row: 2 / span 2; align-self: stretch; }
+.night-page.hawker-page:has(> .stall-ws-hero) > .stall-ws-alerts { grid-column: 2; grid-row: 2; }
+.night-page.hawker-page:has(> .stall-ws-hero) > .stall-ws-stats { grid-column: 2; grid-row: 3; }
+.night-page.hawker-page:has(> .stall-ws-hero) > .stall-ws-statements { grid-column: 1; grid-row: 4; align-self: stretch; }
+.night-page.hawker-page:has(> .stall-ws-hero) > .stall-ws-status { grid-column: 2; grid-row: 4; align-self: stretch; }
 
 /* Shared sans headings, larger and lighter than body text, as in the reference */
-.night-page.hawker-page:has(.stall-ws-hero) :is(.stall-ws-hero h1, .stall-ws-head h2, .stall-ws-yours h2, .stall-ws-batches > .vendor-toolbar h2) { font-family: inherit; }
+.night-page.hawker-page:has(> .stall-ws-hero) :is(.stall-ws-hero h1, .stall-ws-head h2, .stall-ws-yours h2, .stall-ws-batches > .vendor-toolbar h2) { font-family: inherit; }
 
 /* ── Hero ─────────────────────────────────────────────────────────── */
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-hero {
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-hero {
   position: relative;
   align-items: center; justify-content: center;
   min-height: 260px;
@@ -28,32 +28,32 @@
   text-align: center;
   background: linear-gradient(to bottom, rgba(10, 6, 2, .15) 0%, rgba(10, 6, 2, .55) 100%);
 }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-hero .eyebrow { position: absolute; top: 18px; right: 24px; font-size: 12px; font-weight: 800; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-hero h1 { margin: 0 0 12px; font-size: clamp(40px, 5vw, 60px); font-weight: 800; letter-spacing: -.04em; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-hero p { max-width: 560px; margin: 0 auto; color: rgba(245, 240, 232, .82); }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-hero-actions { justify-content: center; gap: 16px; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-hero-actions .button { min-height: 48px; min-width: 200px; justify-content: center; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-hero .eyebrow { position: absolute; top: 18px; right: 24px; font-size: 12px; font-weight: 800; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-hero h1 { margin: 0 0 12px; font-size: clamp(40px, 5vw, 60px); font-weight: 800; letter-spacing: -.04em; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-hero p { max-width: 560px; margin: 0 auto; color: rgba(245, 240, 232, .82); }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-hero-actions { justify-content: center; gap: 16px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-hero-actions .button { min-height: 48px; min-width: 200px; justify-content: center; }
 
 /* ── Stall picker (left) ──────────────────────────────────────────── */
-.night-page.hawker-page:has(.stall-ws-hero) > .workspace-management { justify-content: flex-start; gap: 16px; padding: 22px 24px; }
-.night-page.hawker-page:has(.stall-ws-hero) .workspace-row select { flex: 1; min-width: 0; min-height: 44px; }
+.night-page.hawker-page:has(> .stall-ws-hero) > .workspace-management { justify-content: flex-start; gap: 16px; padding: 22px 24px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .workspace-row select { flex: 1; min-width: 0; min-height: 44px; }
 
 /* ── Alerts bar + 2×2 stats (right) ───────────────────────────────── */
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-alerts { min-height: 48px; padding: 12px 18px; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-stat { padding: 16px 18px; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-stat-copy span { color: rgba(245, 240, 232, .72); }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-alerts { min-height: 48px; padding: 12px 18px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-stat { padding: 16px 18px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-stat-copy span { color: rgba(245, 240, 232, .72); }
 
 /* ── Hawker statements (left) ─────────────────────────────────────── */
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-statements .stall-ws-head { align-items: center; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-statements .stall-ws-head h2 { font-size: clamp(24px, 2.4vw, 30px); font-weight: 500; letter-spacing: -.02em; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-statements .listing-statements dl > div { min-height: 36px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-statements .stall-ws-head { align-items: center; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-statements .stall-ws-head h2 { font-size: clamp(24px, 2.4vw, 30px); font-weight: 500; letter-spacing: -.02em; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-statements .listing-statements dl > div { min-height: 36px; }
 /* "Declared yes" reads as an affirmative (green) tag */
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-statements dd { padding: 2px 8px; border-radius: 999px; background: rgba(111, 191, 90, .16); color: #c3ebb8; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-statements .listing-statements p { color: rgba(245, 240, 232, .65); text-align: right; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-statements dd { padding: 2px 8px; border-radius: 999px; background: rgba(111, 191, 90, .16); color: #c3ebb8; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-statements .listing-statements p { color: rgba(245, 240, 232, .65); text-align: right; }
 
 /* ── Status summary (right) ───────────────────────────────────────── */
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-status {
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-status {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   align-content: start;
@@ -62,41 +62,41 @@
   background: var(--card-bg);
   border-color: var(--card-border);
 }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-status > div { padding-top: 2px; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-status span { color: rgba(245, 240, 232, .65); font-size: 13px; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-status .button { grid-column: 1 / -1; justify-self: center; align-self: end; margin: 12px 0 0; min-height: 44px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-status > div { padding-top: 2px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-status span { color: rgba(245, 240, 232, .65); font-size: 13px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-status .button { grid-column: 1 / -1; justify-self: center; align-self: end; margin: 12px 0 0; min-height: 44px; }
 
 /* ── Your stall ───────────────────────────────────────────────────── */
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-yours.hawker-card { grid-template-columns: minmax(0, .95fr) minmax(0, 1.3fr) auto; align-items: start; gap: 0 24px; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-yours-photo,
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-yours-photo .demo-artwork { min-height: 300px; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-yours-copy { padding: 24px 0; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-yours h2 { margin: 12px 0 10px; font-size: clamp(40px, 5vw, 72px); font-weight: 400; line-height: 1; letter-spacing: -.03em; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-yours-desc { margin-top: 28px; max-width: 460px; color: rgba(245, 240, 232, .7); font-size: 14px; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-yours-actions { align-self: center; border-left: 1px solid rgba(255, 255, 255, .08); }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-yours-actions .button { min-height: 44px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-yours.hawker-card { grid-template-columns: minmax(0, .95fr) minmax(0, 1.3fr) auto; align-items: start; gap: 0 24px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-yours-photo,
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-yours-photo .demo-artwork { min-height: 300px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-yours-copy { padding: 24px 0; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-yours h2 { margin: 12px 0 10px; font-size: clamp(40px, 5vw, 72px); font-weight: 400; line-height: 1; letter-spacing: -.03em; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-yours-desc { margin-top: 28px; max-width: 460px; color: rgba(245, 240, 232, .7); font-size: 14px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-yours-actions { align-self: center; border-left: 1px solid rgba(255, 255, 255, .08); }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-yours-actions .button { min-height: 44px; }
 
 /* ── Menu ─────────────────────────────────────────────────────────── */
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-menu .stall-ws-head { align-items: center; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-menu .stall-ws-head h2 { font-size: clamp(30px, 3.2vw, 40px); font-weight: 400; letter-spacing: -.03em; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-menu .stall-ws-head p { display: none; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-head-actions .button { min-height: 44px; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-food-grid { gap: 12px; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-food-photo { height: 140px; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-price { color: #fff; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-details summary { display: list-item; min-height: 32px; padding-top: 6px; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-food-actions .button { min-height: 44px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-menu .stall-ws-head { align-items: center; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-menu .stall-ws-head h2 { font-size: clamp(30px, 3.2vw, 40px); font-weight: 400; letter-spacing: -.03em; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-menu .stall-ws-head p { display: none; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-head-actions .button { min-height: 44px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-food-grid { gap: 12px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-food-photo { height: 140px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-price { color: #fff; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-details summary { display: list-item; min-height: 32px; padding-top: 6px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-food-actions .button { min-height: 44px; }
 
 /* ── Batches: two cards, then "See more" beside them ──────────────── */
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batches > .vendor-toolbar h2 { font-size: clamp(30px, 3.2vw, 40px); font-weight: 400; letter-spacing: -.03em; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batches > .small { color: rgba(245, 240, 232, .65); font-size: 13px; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batch-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; align-items: start; gap: 22px 16px; margin-top: 22px; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batch-grid.is-expanded { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-see-more { display: inline-flex; align-items: center; align-self: center; gap: 4px; min-height: 44px; padding: 0 12px; background: none; border: 0; color: var(--accent-on-dark); font-size: 14px; font-weight: 750; cursor: pointer; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batch-grid.is-expanded .stall-ws-see-more { grid-column: 1 / -1; justify-self: start; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-see-more:focus-visible { outline: 2px solid var(--accent-on-dark); outline-offset: 2px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batches > .vendor-toolbar h2 { font-size: clamp(30px, 3.2vw, 40px); font-weight: 400; letter-spacing: -.03em; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batches > .small { color: rgba(245, 240, 232, .65); font-size: 13px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batch-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; align-items: start; gap: 22px 16px; margin-top: 22px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batch-grid.is-expanded { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-see-more { display: inline-flex; align-items: center; align-self: center; gap: 4px; min-height: 44px; padding: 0 12px; background: none; border: 0; color: var(--accent-on-dark); font-size: 14px; font-weight: 750; cursor: pointer; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batch-grid.is-expanded .stall-ws-see-more { grid-column: 1 / -1; justify-self: start; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-see-more:focus-visible { outline: 2px solid var(--accent-on-dark); outline-offset: 2px; }
 
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batches .batch-card {
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batches .batch-card {
   position: relative;
   grid-template-columns: 128px minmax(0, 1fr);
   column-gap: 14px; row-gap: 4px;
@@ -104,39 +104,39 @@
   padding: 18px 16px 12px;
   background: rgba(12, 7, 1, .72);
 }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batches .batch-card > * { grid-column: 2; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batches .batch-card > .batch-photo { grid-column: 1; grid-row: 1 / span 6; height: 112px; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batches .batch-card h3 { font-size: 18px; line-height: 1.15; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batches .batch-card > p { font-size: 13px; line-height: 1.4; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batches .batch-card > * { grid-column: 2; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batches .batch-card > .batch-photo { grid-column: 1; grid-row: 1 / span 6; height: 112px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batches .batch-card h3 { font-size: 18px; line-height: 1.15; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batches .batch-card > p { font-size: 13px; line-height: 1.4; }
 /* Status pill sits on the card's top edge, tinted by state */
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batches .batch-card .status-pill { position: absolute; top: -11px; right: 14px; padding: 3px 10px; border: 1px solid rgba(255, 255, 255, .25); border-radius: 999px; background: #1a130a; color: #f5f0e8; font-size: 11px; font-weight: 750; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batches .batch-card .status-pill.status-needs-information { border-color: rgba(246, 201, 154, .6); background: #3a2a12; color: #f6c99a; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batches .batch-card .status-pill.status-active { border-color: rgba(143, 217, 138, .55); background: #18301a; color: #b9eab3; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batches .batch-card > .batch-primary { grid-column: 1 / -1; margin: 10px 0 2px; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batches .batch-card > .batch-primary > .button:only-child { width: 100%; justify-content: center; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batches .batch-card > .batch-primary > label + .button { flex: 1; justify-content: center; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batches .batch-card > .batch-foot { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 12px; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batches .batch-card .batch-foot .choice-row { flex-direction: row; align-items: center; gap: 8px; min-height: 44px; margin: 0; padding: 0; border: 0; color: rgba(245, 240, 232, .8); font-size: 13px; font-weight: 700; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batches .batch-card .batch-foot .choice-row input { width: 20px; height: 20px; min-height: 0; margin: 0; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batches .batch-card .batch-foot .batch-more { margin: 0 0 0 auto; }
-.night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batches .batch-card .batch-foot .batch-more[open] { flex-basis: 100%; margin: 0; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batches .batch-card .status-pill { position: absolute; top: -11px; right: 14px; padding: 3px 10px; border: 1px solid rgba(255, 255, 255, .25); border-radius: 999px; background: #1a130a; color: #f5f0e8; font-size: 11px; font-weight: 750; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batches .batch-card .status-pill.status-needs-information { border-color: rgba(246, 201, 154, .6); background: #3a2a12; color: #f6c99a; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batches .batch-card .status-pill.status-active { border-color: rgba(143, 217, 138, .55); background: #18301a; color: #b9eab3; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batches .batch-card > .batch-primary { grid-column: 1 / -1; margin: 10px 0 2px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batches .batch-card > .batch-primary > .button:only-child { width: 100%; justify-content: center; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batches .batch-card > .batch-primary > label + .button { flex: 1; justify-content: center; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batches .batch-card > .batch-foot { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 12px; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batches .batch-card .batch-foot .choice-row { flex-direction: row; align-items: center; gap: 8px; min-height: 44px; margin: 0; padding: 0; border: 0; color: rgba(245, 240, 232, .8); font-size: 13px; font-weight: 700; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batches .batch-card .batch-foot .choice-row input { width: 20px; height: 20px; min-height: 0; margin: 0; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batches .batch-card .batch-foot .batch-more { margin: 0 0 0 auto; }
+.night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batches .batch-card .batch-foot .batch-more[open] { flex-basis: 100%; margin: 0; }
 
 /* ── Below 1024px: every two-column zone stacks ───────────────────── */
 @media (max-width: 1023px) {
-  .night-page.hawker-page:has(.stall-ws-hero) { grid-template-columns: minmax(0, 1fr); }
-  .night-page.hawker-page:has(.stall-ws-hero) > :is(.workspace-management, .stall-ws-alerts, .stall-ws-stats, .stall-ws-statements, .stall-ws-status) { grid-column: 1; grid-row: auto; }
-  .night-page.hawker-page:has(.stall-ws-hero) .stall-ws-hero-actions { flex-direction: column; align-items: stretch; width: min(100%, 320px); margin-inline: auto; }
-  .night-page.hawker-page:has(.stall-ws-hero) .stall-ws-yours.hawker-card { grid-template-columns: 1fr; }
-  .night-page.hawker-page:has(.stall-ws-hero) .stall-ws-yours-copy { padding: 20px 20px 0; }
-  .night-page.hawker-page:has(.stall-ws-hero) .stall-ws-yours-actions { border-left: 0; }
-  .night-page.hawker-page:has(.stall-ws-hero) .stall-ws-food-grid,
-  .night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batch-grid,
-  .night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batch-grid.is-expanded { grid-template-columns: minmax(0, 1fr); }
-  .night-page.hawker-page:has(.stall-ws-hero) .stall-ws-see-more { justify-self: start; }
+  .night-page.hawker-page:has(> .stall-ws-hero) { grid-template-columns: minmax(0, 1fr); }
+  .night-page.hawker-page:has(> .stall-ws-hero) > :is(.workspace-management, .stall-ws-alerts, .stall-ws-stats, .stall-ws-statements, .stall-ws-status) { grid-column: 1; grid-row: auto; }
+  .night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-hero-actions { flex-direction: column; align-items: stretch; width: min(100%, 320px); margin-inline: auto; }
+  .night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-yours.hawker-card { grid-template-columns: 1fr; }
+  .night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-yours-copy { padding: 20px 20px 0; }
+  .night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-yours-actions { border-left: 0; }
+  .night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-food-grid,
+  .night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batch-grid,
+  .night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batch-grid.is-expanded { grid-template-columns: minmax(0, 1fr); }
+  .night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-see-more { justify-self: start; }
 }
 @media (max-width: 560px) {
-  .night-page.hawker-page:has(.stall-ws-hero) .stall-ws-hero .eyebrow { position: static; margin-bottom: 8px; }
-  .night-page.hawker-page:has(.stall-ws-hero) .stall-ws-stats { grid-template-columns: minmax(0, 1fr); }
-  .night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batches .batch-card { grid-template-columns: 96px minmax(0, 1fr); }
-  .night-page.hawker-page:has(.stall-ws-hero) .stall-ws-batches .batch-card > .batch-photo { height: 90px; }
+  .night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-hero .eyebrow { position: static; margin-bottom: 8px; }
+  .night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-stats { grid-template-columns: minmax(0, 1fr); }
+  .night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batches .batch-card { grid-template-columns: 96px minmax(0, 1fr); }
+  .night-page.hawker-page:has(> .stall-ws-hero) .stall-ws-batches .batch-card > .batch-photo { height: 90px; }
 }
