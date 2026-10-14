@@ -125,3 +125,33 @@
   .night-page.hawker-page .promos-hero .eyebrow { position: static; margin-bottom: 8px; }
   .night-page.hawker-page .promos > section.detail-panel > label { flex-direction: column; }
 }
+
+/* ── Category chips: self-contained so the row always has gaps and a clear active pill ── */
+.night-page.hawker-page .promos .promos-cats { display: flex; flex-wrap: nowrap; gap: 10px; }
+.night-page.hawker-page .promos .promos-cats > button {
+  display: inline-flex; align-items: center; gap: 8px; flex: 0 0 auto;
+  min-height: 44px; margin: 0; padding: 8px 16px;
+  background: rgba(20, 13, 3, .85);
+  border: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 999px;
+  color: #f5f0e8; font-size: 13px; font-weight: 700; white-space: nowrap;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease;
+}
+.night-page.hawker-page .promos .promos-cats > button:hover { border-color: rgba(255, 255, 255, .35); }
+.night-page.hawker-page .promos .promos-cats > button[aria-pressed="true"] { background: var(--accent); border-color: #ff8a4c; color: #fff; box-shadow: 0 0 0 2px rgba(200, 60, 8, .35); }
+.night-page.hawker-page .promos .promos-cats > button[aria-pressed="true"] svg { color: #fff; }
+.night-page.hawker-page .promos .promos-cats > button:focus-visible { outline: 2px solid #ff8a4c; outline-offset: 2px; }
+
+/* ── Inline result of "Record batch discard" / "Run fake dispatch" ── */
+.night-page.hawker-page .promos > section.detail-panel > .promos-inline-msg {
+  order: 2;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px 10px;
+  margin: 0; padding: 10px 14px;
+  border-radius: 10px;
+  font-size: 14px; font-weight: 700; line-height: 1.4;
+}
+.night-page.hawker-page .promos > section.detail-panel > .promos-inline-msg.error { background: rgba(255, 139, 126, .14); border: 1px solid rgba(255, 139, 126, .55); color: #ffb3a8; }
+.night-page.hawker-page .promos > section.detail-panel > .promos-inline-msg.ok { background: rgba(143, 217, 138, .12); border: 1px solid rgba(143, 217, 138, .45); color: #c3ebb8; }
+.night-page.hawker-page .promos > section.detail-panel > .promos-inline-msg .button { min-height: 36px; padding: 6px 12px; font-size: 13px; }
+.night-page.hawker-page .promos > section.detail-panel input[aria-invalid="true"] { border-color: #ff8b7e; box-shadow: 0 0 0 3px rgba(255, 139, 126, .2); }

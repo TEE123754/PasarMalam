@@ -275,3 +275,7 @@
 @media (prefers-reduced-motion: reduce) {
   .page-wrapper.slide-in-up :is(*), .page-wrapper.slide-out-up :is(*) { animation: none !important; }
 }
+/* Passport details sit on a cream card (passports.css); values need dark text there, labels already have it */
+.content-page .passport-panel dl dd { color: #26221e; }
+.content-page .passport-panel dl dd small { color: #5c5248; }
+.content-page .passport-panel dl dd a { color: #9c3307; }

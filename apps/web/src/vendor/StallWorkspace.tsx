@@ -16,7 +16,7 @@ export function StallHero() {
     <span className="eyebrow">{ui('HAWKER WORKSPACE')}</span>
     <h1>{ui('Stall & menu')}</h1>
     <p>{ui('Every preparation gets its own batch number and original photo. New batches await a handling policy; no safety claim or clearance offer is inferred.')}</p>
-    <div className="stall-ws-hero-actions"><NavLink className="button primary" to="/hawker/voice"><Mic size={17}/>{ui('Voice & quick entry')}</NavLink><NavLink className="button secondary" to="/profile"><Globe size={17}/>{ui('Language & privacy')}</NavLink></div>
+    <div className="stall-ws-hero-actions"><NavLink className="button primary" to="/hawker/voice"><Mic size={17}/>{ui('Voice & quick entry')}</NavLink><NavLink className="button secondary" to="/hawker/settings"><Globe size={17}/>{ui('Language & privacy')}</NavLink></div>
   </header>
 }
 

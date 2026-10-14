@@ -10,7 +10,8 @@ export type NavItem = { readonly to: string; readonly label: string; readonly ic
 
 // One header for both sides of the app: the customer and hawker views differ only in their links
 // and in which side the primary button switches to, so the two can't drift apart.
-export function SiteHeader({ mode, role, links, onCustomerRoute, onRole }: { mode: AppMode; role: PersonaRole; links: readonly NavItem[]; onCustomerRoute: boolean; onRole: (next: PersonaRole) => void }) {
+// hideRoleSwitch: on the hawker login gate the switch would only point back at the page itself
+export function SiteHeader({ mode, role, links, onCustomerRoute, onRole, hideRoleSwitch = false }: { mode: AppMode; role: PersonaRole; links: readonly NavItem[]; onCustomerRoute: boolean; onRole: (next: PersonaRole) => void; hideRoleSwitch?: boolean }) {
   const { t } = useTranslation()
   return <header className="site-header">
     <NavLink className="brand" to="/discover"><span className="brand-mark"><Store size={27} strokeWidth={2.2}/></span><span>Pasar<span>Malam</span><small>{t('tagline')}</small></span></NavLink>
@@ -18,7 +19,7 @@ export function SiteHeader({ mode, role, links, onCustomerRoute, onRole }: { mod
     <div className="header-actions">
       {mode === 'connected' ? <DemoDialog/> : !nativeDemoBuild() && <a className="button secondary" href="/"><Store size={18}/>{ui('Home')}</a>}
       {mode === 'connected' && <NavLink className="button secondary" to="/profile"><UserRound size={18}/>{t('profile')}</NavLink>}
-      {mode === 'fixture' && (role === 'hawker'
+      {mode === 'fixture' && !hideRoleSwitch && (role === 'hawker'
         ? <button className="button primary hawker-pill" onClick={() => onRole('customer')}>{ui('Are you a customer?')}</button>
         : onCustomerRoute
           ? <button className="button primary hawker-pill" onClick={() => onRole('hawker')}>{ui('Are you a hawker?')}</button>

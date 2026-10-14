@@ -19,7 +19,7 @@ const toolGroups:{id:string;title:[string,string];note:[string,string];tools:Too
     {to:'/impact',icon:Leaf,title:'Community impact',body:'Meals shared, RM saved and food waste diverted (demo data).'},
   ]},
   {id:'hawker',title:['Hawker workspace','Ruang kerja penjaja'],note:['Opens the hawker side of the demo.','Membuka bahagian penjaja dalam demo.'],tools:[
-    {to:'/hawker/dashboard',icon:Store,title:'Hawker dashboard',body:'Batches to review, menu, freshness and promotions.'},
+    {to:'/hawker/login',icon:Store,title:'Hawker dashboard',body:'Batches to review, menu, freshness and promotions.'},
     {to:'/hawker/voice',icon:Mic,title:'Voice listing',body:'Speak in BM, English or Manglish; review and confirm.'},
     {to:'/hawker/planning',icon:TrendingUp,title:'Demand planning',body:'A suggested cooking plan from sales history.'},
     {to:'/hawker/accounting',icon:BarChart3,title:'Sales & stock',body:'Track collections, savings and session outcomes.'},

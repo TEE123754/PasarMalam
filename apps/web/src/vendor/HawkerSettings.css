@@ -1,0 +1,27 @@
+/* Hawker language & privacy (/hawker/settings): same glass cards as the other hawker screens */
+.hawker-settings { display: grid; gap: 18px; width: min(100%, 760px); margin: 0 auto; padding-bottom: 32px; }
+.hawker-settings-hero { position: relative; display: grid; justify-items: center; gap: 10px; padding: 40px 16px 8px; text-align: center; }
+.hawker-settings-hero .eyebrow { color: var(--accent-on-dark, #ff8a4c); font-size: 12px; font-weight: 800; letter-spacing: .12em; }
+.hawker-settings-hero h1 { margin: 0; color: #fff; font-family: inherit; font-size: clamp(36px, 4.6vw, 52px); font-weight: 800; letter-spacing: -.04em; }
+.hawker-settings-hero p { max-width: 520px; margin: 0; color: rgba(245, 240, 232, .82); font-size: 15px; line-height: 1.55; }
+.hawker-settings-card {
+  display: grid; gap: 12px;
+  padding: 22px 24px;
+  background: rgba(25, 17, 5, .85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 14px;
+  color: #f5f0e8;
+}
+.hawker-settings-card h2 { display: flex; align-items: center; gap: 10px; margin: 0; color: #fff; font-family: inherit; font-size: 22px; font-weight: 800; }
+.hawker-settings-card h2 svg { color: var(--accent-on-dark, #ff8a4c); }
+.hawker-settings-card p { margin: 0; color: rgba(245, 240, 232, .8); font-size: 14px; }
+.hawker-settings-card ul { display: grid; gap: 8px; margin: 0; padding-left: 20px; color: rgba(245, 240, 232, .88); font-size: 14px; line-height: 1.55; }
+.hawker-settings-card > .button { justify-self: start; min-height: 44px; }
+.hawker-settings-segmented { display: inline-grid; grid-template-columns: 1fr 1fr; gap: 4px; justify-self: start; padding: 4px; background: rgba(0, 0, 0, .3); border: 1px solid rgba(255, 255, 255, .1); border-radius: 12px; }
+.hawker-settings-segmented button { min-height: 44px; padding: 0 18px; border: 0; border-radius: 9px; background: transparent; color: rgba(245, 240, 232, .78); font-size: 14px; font-weight: 750; cursor: pointer; }
+.hawker-settings-segmented button.active { background: var(--accent, #c83c08); color: #fff; }
+.hawker-settings-segmented button:focus-visible { outline: 2px solid var(--accent-on-dark, #ff8a4c); outline-offset: 2px; }
+.hawker-settings-back { display: inline-flex; align-items: center; justify-self: center; gap: 6px; min-height: 44px; color: var(--accent-on-dark, #ff8a4c); font-size: 14px; font-weight: 700; text-decoration: none; }
+.hawker-settings-back:hover { text-decoration: underline; }
