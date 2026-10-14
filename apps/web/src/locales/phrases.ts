@@ -8,6 +8,9 @@ import { cp1Ms } from './cp1'
 import { phase6Ms } from './phase6'
 import { phase7Ms } from './phase7'
 const ms:Record<string,string>={
+ 'Skip intro':'Langkau pengenalan','More actions':'Tindakan lain','Add dishes from a photo':'Tambah hidangan daripada foto','Add handling details':'Tambah butiran pengendalian',
+ 'The hawker reports open, but the market’s scheduled session is closed now. Check with the stall before travelling.':'Penjaja melaporkan dibuka, tetapi sesi pasar berjadual kini ditutup. Semak dengan gerai sebelum pergi.',
+ 'The market is in session, but this hawker reports closed right now.':'Pasar sedang beroperasi, tetapi penjaja ini melaporkan ditutup sekarang.',
  'Unsave':'Nyahsimpan','View details':'Lihat butiran','Apply filters':'Guna penapis','Date & night':'Tarikh & malam','Choose when you want to visit and what kind of market.':'Pilih bila anda mahu berkunjung dan jenis pasar.',
  "Desktop accuracy · this computer":"Ketepatan desktop · komputer ini",
  "Requires the speech helper on this computer. Audio is processed locally in memory until transcription finishes; no audio upload or storage.":"Memerlukan pembantu pertuturan pada komputer ini. Audio diproses dalam memori setempat sehingga transkripsi selesai; tiada muat naik atau penyimpanan audio.",

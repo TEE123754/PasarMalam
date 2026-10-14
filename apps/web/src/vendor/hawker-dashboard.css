@@ -51,27 +51,20 @@
   border-radius: 20px;
 }
 
-/* Two columns: content left, voice card right; clearance spans both */
+/* Two columns on desktop: stall summary/pulse/products left, review queue and actions right.
+   The columns are real wrappers, so below 1024px they stack left-then-right (HawkerDashboard.tsx). */
 .night-page.hawker-page .hawker-overview {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 340px;
-  grid-template-areas:
-    "top ."
-    "stall quick"
-    "attention quick"
-    "pulse quick"
-    "products quick"
-    "clearance clearance";
-  gap: 20px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  grid-template-areas: "top top" "main side";
+  gap: 16px 20px;
   align-items: start;
   margin: 0;
 }
-.night-page.hawker-page .hawker-top { grid-area: top; display: flex; flex-direction: column; gap: 12px; max-width: 430px; }
-.night-page.hawker-page .hawker-stall-card { grid-area: stall; }
-.night-page.hawker-page .hawker-attention { grid-area: attention; }
-.night-page.hawker-page .hawker-products { grid-area: products; }
-.night-page.hawker-page .hawker-clearance { grid-area: clearance; }
-.night-page.hawker-page .hawker-quick { grid-area: quick; }
+.night-page.hawker-page .hawker-top { grid-area: top; }
+.night-page.hawker-page .hawker-col { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.night-page.hawker-page .hawker-col-main { grid-area: main; }
+.night-page.hawker-page .hawker-col-side { grid-area: side; }
 .night-page.hawker-page .hawker-fab { grid-column: 1 / -1; }
 
 /* Shared card */
@@ -131,7 +124,7 @@
 .night-page.hawker-page .dashboard-section h2 { display: flex; align-items: center; gap: 10px; margin: 0; color: #fff; font-family: Georgia, "Times New Roman", serif; font-size: 21px; }
 .night-page.hawker-page .dashboard-section h2 svg { color: #f5f0e8; }
 .night-page.hawker-page .dashboard-section .section-heading > a { display: inline-flex; align-items: center; gap: 4px; color: var(--accent-on-dark); font-size: 13px; font-weight: 750; }
-.night-page.hawker-page .section-caption { margin: 0 0 14px; color: rgba(255, 255, 255, .45); font-size: 13px; }
+.night-page.hawker-page .section-caption { margin: 0 0 14px; color: rgba(245, 240, 232, .78); font-size: 14px; }
 .night-page.hawker-page .dashboard-empty {
   margin-top: 10px;
   padding: 14px 16px;
@@ -178,15 +171,11 @@
 .night-page.hawker-page .workspace-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 .night-page.hawker-page .workspace-row label { flex-direction: row; align-items: center; gap: 12px; min-width: 0; color: rgba(255, 255, 255, .7); font-size: 13px; white-space: nowrap; }
 .night-page.hawker-page .workspace-row select { min-width: 260px; }
-.night-page.hawker-page .workspace-row .button { min-height: 40px; padding: 8px 16px; border-radius: 10px; }
+.night-page.hawker-page .workspace-row .button { min-height: 44px; padding: 10px 16px; border-radius: 10px; }
 .night-page.hawker-page .workspace-row [class^="small availability"] { margin: 0; color: rgba(255, 255, 255, .45); font-size: 12px; }
 
-@media (max-width: 1000px) {
-  .night-page.hawker-page .hawker-overview {
-    grid-template-columns: 1fr;
-    grid-template-areas: "top" "stall" "quick" "attention" "pulse" "products" "clearance";
-  }
-  .night-page.hawker-page .hawker-top { max-width: none; }
+@media (max-width: 1023px) {
+  .night-page.hawker-page .hawker-overview { grid-template-columns: minmax(0, 1fr); grid-template-areas: "top" "main" "side"; }
 }
 @media (max-width: 640px) {
   .night-page.hawker-page:has(.hawker-overview) { padding: 14px; border-radius: 16px; }
@@ -355,16 +344,20 @@
 .night-page .stall-ws-batches .batch-card > .vendor-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0 0 4px; }
 .night-page .stall-ws-batches .batch-card h3 { margin: 0; font-size: 16px; font-weight: 800; }
 .night-page .stall-ws-batches .batch-card .status-pill { padding: 3px 10px; font-size: 11px; }
-.night-page .stall-ws-batches .batch-card .vendor-toolbar .choice-row { flex-direction: row; gap: 8px; margin-left: auto; padding: 0; border: 0; color: rgba(245, 240, 232, .7); font-size: 13px; font-weight: 700; }
-.night-page .stall-ws-batches .batch-card .vendor-toolbar .choice-row input { width: 16px; height: 16px; min-height: 0; }
-.night-page .stall-ws-batches .batch-card > p { color: rgba(245, 240, 232, .65); font-size: 13px; }
+.night-page .stall-ws-batches .batch-card .vendor-toolbar .choice-row { flex-direction: row; gap: 8px; min-height: 44px; margin-left: auto; padding: 0 4px; border: 0; color: rgba(245, 240, 232, .7); font-size: 13px; font-weight: 700; }
+.night-page .stall-ws-batches .batch-card .vendor-toolbar .choice-row input { width: 20px; height: 20px; min-height: 0; }
+.night-page .stall-ws-batches .batch-card > p { color: rgba(245, 240, 232, .78); font-size: 14px; }
 .night-page .stall-ws-batches .batch-card > p strong { color: #fff; }
 .night-page .stall-ws-batches .batch-card .button-row { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px; margin: 4px 0; }
-.night-page .stall-ws-batches .batch-card .button-row .button { min-height: 38px; padding: 7px 14px; font-size: 13px; border-radius: 9px; }
-.night-page .stall-ws-batches .batch-card .button-row label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; }
-.night-page .stall-ws-batches .batch-card .button-row input { width: 90px; min-height: 38px; padding: 6px 10px; }
+.night-page .stall-ws-batches .batch-card .button-row .button { min-height: 44px; padding: 10px 16px; font-size: 14px; border-radius: 10px; }
+.night-page .stall-ws-batches .batch-card .batch-primary .button { min-height: 48px; padding: 12px 20px; }
+.night-page .stall-ws-batches .batch-card .button-row label { display: flex; flex-direction: column; gap: 4px; font-size: 13px; }
+.night-page .stall-ws-batches .batch-card .button-row input { width: 96px; min-height: 48px; padding: 8px 12px; font-size: 16px; }
 .night-page .stall-ws-batches .batch-card details { margin-top: 4px; font-size: 13px; }
-.night-page .stall-ws-batches .batch-card summary { cursor: pointer; color: var(--accent-on-dark); font-weight: 700; }
+.night-page .stall-ws-batches .batch-card summary { display: flex; align-items: center; min-height: 44px; cursor: pointer; color: var(--accent-on-dark); font-size: 14px; font-weight: 700; }
+.night-page .stall-ws-batches .batch-card .batch-more[open] { display: grid; gap: 8px; padding-bottom: 6px; }
+.night-page .stall-ws-batches .batch-card .batch-more h4 { margin: 8px 0 0; color: #f5f0e8; font-size: 14px; }
+.night-page .stall-ws-batches .batch-card .batch-more input[type="datetime-local"] { min-height: 44px; }
 @media (max-width: 640px) {
   .night-page .stall-ws-batches .batch-card { grid-template-columns: 1fr; }
   .night-page .stall-ws-batches .batch-card > * { grid-column: 1; }

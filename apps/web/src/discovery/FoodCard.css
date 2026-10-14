@@ -1,5 +1,5 @@
-/* Shared food card on the Discover page. Glass surface: translucent --card-bg plus blur,
-   so the fixed night-market photo glows through. Scoped to .discover-dark like discovery.css. */
+/* Shared food card on the Discover page. Translucent --card-bg with one light blur against the
+   photo; nothing inside the card is blurred again (DESIGN.md: no glass-on-glass). Scoped to .discover-dark like discovery.css. */
 
 .discover-dark .food-card {
   position: relative;
@@ -49,9 +49,7 @@
   display: grid; place-items: center;
   width: 34px; height: 34px;
   border-radius: 50%;
-  background: rgba(15, 10, 3, .55);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  background: rgba(15, 10, 3, .72);
   border: 1px solid rgba(255, 255, 255, .25);
   color: #fff;
   transition: background .15s ease, color .15s ease;

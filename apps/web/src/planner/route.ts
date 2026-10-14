@@ -25,12 +25,12 @@ export function distanceKm(a: Pick<PlannerStopInput, 'latitude' | 'longitude'>, 
 }
 
 /**
- * The customer's starting point is not captured, so begin at the most urgent
- * selected stall when one has an active countdown. Then use a greedy route:
+ * Begin at the shopper's chosen start stall when given; otherwise at the most
+ * urgent selected stall when one has an active countdown. Then use a greedy route:
  * score = added straight-line distance (km) - inverse-time urgency bonus (km).
  * The bonus is 4/sqrt(minutes + 1), so a small detour can advance a short window.
  */
-export function planRoute<T extends PlannerStopInput>(stops: T[]): PlannedStop<T>[] {
+export function planRoute<T extends PlannerStopInput>(stops: T[], startId?: string): PlannedStop<T>[] {
   if (stops.length < 2) return stops.map(stop => ({ stop, distanceFromPreviousKm: null, score: 0 }))
   const remaining = [...stops]
   const firstUrgentIndex = remaining.reduce((best, stop, index) => {
@@ -39,7 +39,8 @@ export function planRoute<T extends PlannerStopInput>(stops: T[]): PlannedStop<T
     if (best < 0 || minutes < remaining[best].urgencyMinutes!) return index
     return best
   }, -1)
-  const firstIndex = firstUrgentIndex >= 0 ? firstUrgentIndex : 0
+  const chosenIndex = startId ? remaining.findIndex(stop => stop.id === startId) : -1
+  const firstIndex = chosenIndex >= 0 ? chosenIndex : firstUrgentIndex >= 0 ? firstUrgentIndex : 0
   const first = remaining.splice(firstIndex, 1)[0]
   const result: PlannedStop<T>[] = [{ stop: first, distanceFromPreviousKm: null, score: first.urgencyMinutes === null ? 0 : -urgencyBonus(first.urgencyMinutes) }]
   let previous: T = first

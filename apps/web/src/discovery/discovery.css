@@ -42,7 +42,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  min-height: 70vh;
+  min-height: 46vh; /* short: the search card follows directly (DESIGN.md first viewport) */
   margin: 0 calc(50% - 50vw);
   border: 0;
   border-radius: 0;
@@ -64,7 +64,7 @@
   position: relative; z-index: 1;
   width: min(1260px, 100%);
   margin: 0 auto;
-  padding: 104px clamp(20px, 4vw, 64px) 44px;
+  padding: 96px clamp(20px, 4vw, 64px) 28px;
 }
 .discover-dark .discovery-hero-copy > * { max-width: min(600px, 50vw); }
 .discover-dark .location-kicker { display: flex; align-items: center; gap: 6px; color: var(--text-on-dark); font-size: 13px; font-weight: 700; margin-bottom: 14px; }
@@ -93,7 +93,7 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
-  margin: 22px 0 30px;
+  margin: 44px 0 0; /* now closes the page above the footer */
   padding: 18px 26px;
   background: rgba(29, 47, 34, .9); /* --value-bg, translucent over the photo */
   border: 1px solid var(--value-border);
@@ -105,7 +105,7 @@
 .discover-dark .value-props span { display: block; color: var(--text-2); font-size: 12px; margin-top: 3px; }
 
 /* 3. Category filter chips */
-.discover-dark .category-chips { display: flex; gap: 12px; overflow-x: auto; padding: 2px 2px 10px; margin-bottom: 26px; }
+.discover-dark .category-chips { display: flex; gap: 12px; overflow-x: auto; padding: 2px 2px 10px; margin: 20px 0 0; }
 .discover-dark .category-chips button {
   display: flex; flex-direction: column; align-items: center; gap: 8px;
   flex: 1 0 92px;
@@ -298,8 +298,8 @@
   .discover-dark .value-props { grid-template-columns: 1fr; gap: 14px; }
 }
 @media (max-width: 600px) {
-  .discover-dark .discovery-hero { min-height: 60vh; }
-  .discover-dark .discovery-hero-copy { padding: 84px 20px 32px; }
+  .discover-dark .discovery-hero { min-height: 40vh; }
+  .discover-dark .discovery-hero-copy { padding: 80px 20px 20px; }
   .discover-dark .dish-grid { grid-template-columns: 1fr; }
   .discover-dark .featured-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; }
   .discover-dark .featured-grid > .food-card { flex: 0 0 78%; scroll-snap-align: start; }
@@ -310,7 +310,7 @@
 
 /* ── Filter card: search, sort tabs and the grouped filter panel ─────── */
 .discover-dark .filter-card {
-  margin: 40px 0 0;
+  margin: 16px 0 0;
   background: rgba(25, 17, 5, .85);
   border: 1px solid rgba(255, 255, 255, .08);
   border-radius: 16px;
@@ -496,3 +496,12 @@
 @media (prefers-reduced-motion: reduce) {
   .discover-dark.arriving > * { animation-duration: .01ms; }
 }
+
+/* Saved page: pick which saved stalls go into a market run (DiscoveryPage SavedPage) */
+.saved-plan-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.saved-plan-actions .button { min-height: 44px; }
+.saved-item { display: grid; gap: 8px; min-width: 0; }
+.saved-pick { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 12px; border: 1px solid rgba(255, 255, 255, .12); border-radius: 10px; background: rgba(25, 17, 5, .85); color: #f5f0e8; font-size: 14px; font-weight: 700; cursor: pointer; }
+.saved-pick input { width: 20px; height: 20px; margin: 0; accent-color: #c83c08; }
+.saved-pick:has(input:checked) { border-color: rgba(255, 138, 76, .6); background: rgba(200, 60, 8, .16); }
+.saved-pick:has(input:focus-visible) { outline: 2px solid #ff8a4c; outline-offset: 2px; }

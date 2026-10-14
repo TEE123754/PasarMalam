@@ -11,3 +11,5 @@
 .content-page .clearance-copy .offer-advisory-disclaimer{margin:4px 0 10px;color:rgba(255,255,255,.5);font-size:10px;line-height:1.35}
 
 .content-page .clearance-copy .offer-advisory-disclaimer{font-size:9px;letter-spacing:-.015em;white-space:nowrap}
+/* Offer deadline: the reservation cut-off, distinct from the holding-time advisory above it */
+.offer-reserve-by{display:flex;align-items:center;gap:6px;margin:10px 0 12px;color:#f6c99a;font-size:14px;font-weight:750}

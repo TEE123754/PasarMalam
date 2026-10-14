@@ -11,7 +11,7 @@ export function BatchFreshness({batch,now,compact=false}:{batch:DiscoverySnapsho
   return <div className={`freshness-info ${left<=15*60000?'time-short':''} ${compact?'compact':''}`}>
     <span className="prepared-line"><Clock3 size={14}/>{bm?'Disediakan':'Prepared'} {malaysiaTime(batch.correctedPreparedAt??batch.preparedAt,i18n.language)} · #{batch.batchNumber}</span>
     <div className="countdown-line"><strong>{left>0?countdown(batch.deadline,now):bm?'Tempoh tamat':'Window ended'}</strong><span>{bm?'baki tempoh nasihat':'advisory time left'}</span></div>
-    {!compact&&<><div className="freshness-track" role="meter" aria-label={bm?'Baki tempoh nasihat':'Advisory window remaining'} aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(Math.max(0,Math.min(100,left/Math.max(1,total)*100)))}><span style={{width:`${Math.max(0,Math.min(100,left/Math.max(1,total)*100))}%`}}/></div><p>{batch.remaining} {bm?'hidangan tersedia':'portions available'} · {bm?'Hingga':'Until'} {malaysiaTime(batch.deadline,i18n.language)}</p></>}
+    {!compact&&<><div className="freshness-track" role="meter" aria-label={bm?'Baki tempoh nasihat':'Advisory window remaining'} aria-valuemin={0} aria-valuemax={100} aria-valuenow={Math.round(Math.max(0,Math.min(100,left/Math.max(1,total)*100)))}><span style={{width:`${Math.max(0,Math.min(100,left/Math.max(1,total)*100))}%`}}/></div><p>{batch.remaining} {bm?'hidangan tersedia':'portions available'} · {bm?'Nasihat masa simpanan tamat':'Holding-time advisory ends'} {malaysiaTime(batch.deadline,i18n.language)}</p></>}
   </div>
 }
 export function FreshFoodSection({data,now}:{data:DiscoverySnapshot;now:Date}) {

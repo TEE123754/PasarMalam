@@ -1,0 +1,23 @@
+/* Compressed to the 2.2s intro budget (base keyframes live in styles.css) */
+.hero-intro .hero-intro-wordmark .pasar { animation-duration: .6s; animation-delay: .05s; }
+.hero-intro .hero-intro-wordmark .malam { animation-duration: .6s; animation-delay: .2s; }
+.hero-intro .hero-intro-food { animation-duration: .6s; animation-delay: .3s; }
+.hero-intro .hero-intro-tag.fresh { animation-delay: .6s; }
+.hero-intro .hero-intro-tag.tracked { animation-delay: .75s; }
+.hero-intro .hero-intro-tagline { animation-delay: .9s; }
+.hero-intro .hero-intro-progress-fill { animation-duration: 2s; animation-delay: .1s; }
+
+.hero-intro-skip {
+  position: absolute; z-index: 6;
+  top: max(24px, env(safe-area-inset-top)); right: 24px;
+  min-height: 44px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .35);
+  background: rgba(15, 12, 7, .7);
+  color: #f5f0e8;
+  font-size: 14px; font-weight: 700;
+  cursor: pointer;
+}
+.hero-intro-skip:hover { background: rgba(15, 12, 7, .9); }
+.hero-intro-skip:focus-visible { outline: 3px solid #ff8a4c; outline-offset: 3px; }

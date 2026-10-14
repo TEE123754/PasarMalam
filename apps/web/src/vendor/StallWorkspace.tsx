@@ -70,7 +70,7 @@ export function StallSections({state,stall,foods,batches,now,onEditStall,onAddFo
     </section>
 
     <section className="hawker-card stall-ws-menu">
-      <div className="stall-ws-head"><span className="stall-ws-head-icon"><UtensilsCrossed size={20}/></span><div><h2>{ui('Menu')}</h2><p>{ui('{count} dishes · ingredients, allergens and plant-diet statements per dish',{count:foods.length})}</p></div><div className="stall-ws-head-actions"><button type="button" className="button secondary" onClick={onNewBatch}><Package size={16}/>{ui('New batch prepared')}</button><button type="button" className="button primary" onClick={onAddFood}><Plus size={16}/>{ui('Add food')}</button></div></div>
+      <div className="stall-ws-head"><span className="stall-ws-head-icon"><UtensilsCrossed size={20}/></span><div><h2>{ui('Menu')}</h2><p>{ui('{count} dishes · ingredients, allergens and plant-diet statements per dish',{count:foods.length})}</p></div><div className="stall-ws-head-actions">{showPhotoSetup&&foods.length>0&&<button type="button" className="button secondary" onClick={onStartPhotoSetup}><Camera size={16}/>{ui('Add dishes from a photo')}</button>}<button type="button" className="button secondary" onClick={onNewBatch}><Package size={16}/>{ui('New batch prepared')}</button><button type="button" className="button primary" onClick={onAddFood}><Plus size={16}/>{ui('Add food')}</button></div></div>
       {foods.length?<div className="stall-ws-food-grid">{foods.map(f=>{const b=latest(f);return <article className="stall-ws-food" key={f.id}>
         <div className="stall-ws-food-photo"><DemoImage image={foodImage(f.name)} photo={f.photo} description={`${f.name} dish`}/></div>
         <div className="stall-ws-food-copy">

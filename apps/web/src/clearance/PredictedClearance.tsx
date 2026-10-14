@@ -1,4 +1,5 @@
 import { ArrowRight, Clock3, Sparkles } from 'lucide-react'
+import { useState } from 'react'
 import { NavLink } from 'react-router'
 import { BatchPhoto } from '../components/BatchPhoto'
 import { DemoImage } from '../components/DemoImage'
@@ -46,8 +47,9 @@ export function predictedStall(data: DiscoverySnapshot, stallId: string, now: Da
   return prediction && prediction.score >= LIKELY_CLEARANCE_THRESHOLD && (prediction.isSample || hasUnmarkedBatch) ? prediction : null
 }
 
-// `limit` trims to a single preview row; `seeMoreTo` adds the heading's "See more" link to the full list
+// `limit` caps the list: with `seeMoreTo` the heading links to the full list, otherwise a toggle expands in place
 export function PredictedClearanceSection({ data, now, locale = 'en', limit, seeMoreTo }: { data: DiscoverySnapshot; now: Date; locale?: string; limit?: number; seeMoreTo?: string }) {
+  const [expanded, setExpanded] = useState(false)
   type Candidate = { batch?: DiscoverySnapshot['batches'][number]; food: NonNullable<DiscoverySnapshot['menu']>[number]; stall: DiscoverySnapshot['stalls'][number]; prediction: ClearancePrediction }
   const candidates: Candidate[] = (data.batches ?? []).flatMap(batch => {
     const food = data.menu?.find(item => item.id === batch.foodItemId)
@@ -65,10 +67,13 @@ export function PredictedClearanceSection({ data, now, locale = 'en', limit, see
   if (!candidates.length) return null
   // A limited preview leads with one card per stall so a single stall's batches don't fill the row
   const firstPerStall = candidates.filter((c, i) => candidates.findIndex(x => x.stall.id === c.stall.id) === i)
-  const shown = limit === undefined ? candidates : [...firstPerStall, ...candidates.filter(c => !firstPerStall.includes(c))].slice(0, limit)
+  const ordered = limit === undefined ? candidates : [...firstPerStall, ...candidates.filter(c => !firstPerStall.includes(c))]
+  const capped = limit !== undefined && !expanded && ordered.length > limit
+  const shown = capped ? ordered.slice(0, limit) : ordered
   return <section className="predicted-clearance-section" aria-labelledby="predicted-clearance-title">
-    <div className="predicted-clearance-heading"><div><span className="prediction-kicker"><Sparkles size={14}/>DEMO HEURISTIC · NOT A LIVE OFFER</span><h2 id="predicted-clearance-title">Predicted clearances</h2><p>These items have not been marked down by their hawkers; timing and score are estimates.</p></div>{seeMoreTo && candidates.length > (limit ?? Infinity) && <NavLink className="predicted-see-more" to={seeMoreTo}>See more<ArrowRight size={15}/></NavLink>}</div>
+    <div className="predicted-clearance-heading"><div><span className="prediction-kicker"><Sparkles size={14}/>Demo estimate · not a live offer</span><h2 id="predicted-clearance-title">Predicted clearances</h2><p>These items have not been marked down by their hawkers; timing and score are estimates.</p></div>{seeMoreTo && candidates.length > (limit ?? Infinity) && <NavLink className="predicted-see-more" to={seeMoreTo}>See more<ArrowRight size={15}/></NavLink>}</div>
     <div className="predicted-clearance-grid">{shown.map(({ batch, food, stall, prediction }, index) => <PredictedBatchCard key={batch?.id ?? `sample-${stall.id}-${food.id}-${index}`} batch={batch} foodName={food.name} stallName={stall.name} stallId={stall.id} prediction={prediction} locale={locale}/>)}</div>
+    {!seeMoreTo && limit !== undefined && ordered.length > limit && <button type="button" className="button secondary predicted-expand" aria-expanded={expanded} onClick={() => setExpanded(!expanded)}>{expanded ? 'Show fewer estimates' : `Show all ${ordered.length} estimates`}</button>}
   </section>
 }
 

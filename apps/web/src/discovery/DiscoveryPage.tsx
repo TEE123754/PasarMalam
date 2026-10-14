@@ -57,7 +57,8 @@ export function DiscoveryPage({ gateway }: { gateway: DataGateway }) {
   const [showPredictedOnly, setShowPredictedOnly] = useState(false)
   const [page, setPage] = useState(0)
   const [showMap, setShowMap] = useState(true)
-  const [filtersOpen,setFiltersOpen] = useState(true)
+  // Collapsed by default so search and results lead; the grouped panel opens from "Find your food"
+  const [filtersOpen,setFiltersOpen] = useState(false)
   const [locationMessage, setLocationMessage] = useState('manualLocation')
   const [geoExpires, setGeoExpires] = useState(0)
   const [mapLookup, setMapLookup] = useState('')
@@ -119,11 +120,7 @@ export function DiscoveryPage({ gateway }: { gateway: DataGateway }) {
   const nearbyLabel = data?.markets.find(m=>m.id===areaChoice)?.area ?? (filters.origin ? ui('your location') : null)
   const filtersApplied = !!(filters.marketKind||filters.plantDiet||filters.maxPriceSen!=null||filters.category||filters.dietary||filters.type||filters.promotion||filters.market)
   function viewMap() { setShowMap(true); requestAnimationFrame(()=>mapRef.current?.scrollIntoView({behavior:'smooth',block:'center'})) }
-  return <div className={`discover-dark night-page ${arriving?'arriving':''}`}><DiscoveryIntro data={data} filters={filters}/><ValueProps/>
-    <CategoryChips selected={filters.category} onChange={category=>change({category})}/>
-    {data&&<PreparedToday data={data} now={now} gateway={gateway}/>}
-    {data&&<FeaturedStalls data={data} now={now} gateway={gateway}/>}
-    {gateway.mode==='fixture'&&data&&<PredictedClearanceSection data={data} now={now} locale={i18n.language} limit={3} seeMoreTo="/offers"/>}
+  return <div className={`discover-dark night-page ${arriving?'arriving':''}`}><DiscoveryIntro data={data} filters={filters}/>
     <div className="filter-card">
       <div className="search-wrap"><Search size={20}/><label className="sr-only" htmlFor="market-search">{t('findFood')}</label><input id="market-search" value={search} onChange={e => setSearch(e.target.value)} placeholder={t('findFood')}/></div>
       <div className="discovery-action-bar">
@@ -170,8 +167,18 @@ export function DiscoveryPage({ gateway }: { gateway: DataGateway }) {
       <footer className="fs-actions"><button type="button" className="button primary" onClick={()=>resultsRef.current?.scrollIntoView({behavior:'smooth',block:'start'})}><Check size={16}/>{ui('Apply filters')}</button><button type="button" className="fs-reset" onClick={() => {setSearch('');change(defaultFilters);setAreaChoice('');setGeoExpires(0);setLocationMessage('manualLocation')}}><RotateCcw size={15}/>{t('resetFilters')}</button></footer>
     </div>
     </div>
-    {data&&<DiscoveryCategories data={data} selected={filters.category} onChange={category=>change({category})}/>}
+    <CategoryChips selected={filters.category} onChange={category=>change({category})}/>
+    {/* Results follow the search so filtering gives immediate feedback; predictions stay below confirmed availability */}
     {!data || !result || !everything ? <State query={query} gateway={gateway}/> : <>
+      <section className="from-stalls" ref={resultsRef}><div className="section-heading"><h2>{t('featuredStalls')}</h2><span>{t('resultsCount',{count:displayTotal})}</span></div>{gateway.mode === 'fixture' && <label className="predicted-clearance-toggle"><input type="checkbox" checked={showPredictedOnly} onChange={event => { setShowPredictedOnly(event.target.checked); setPage(0) }}/><span>Show predicted clearances</span><small>Heuristic · not a live offer</small></label>}{showPredictedOnly && <p className="predicted-filter-note">Showing stalls above the predicted-clearance likelihood threshold; this estimate is not a guarantee.</p>}<Sponsored data={data} filters={filters} now={now} campaigns={gateway.mode==='connected'?advertisements.data??[]:undefined}/><div className="stall-tile-grid">{displayStalls.map(stall => <StallTile key={stall.id} stall={stall} market={data.markets.find(m => m.id === stall.marketId)} prediction={clearancePredictions.get(stall.id)} gateway={gateway}/>)}</div>{showPredictedOnly && !displayTotal && <div className="panel state-panel"><h2>No predicted matches</h2><p>Current saved demo prep volumes are below the illustrative threshold.</p></div>}</section>
+      {!showPredictedOnly && !displayTotal && <div className="panel state-panel"><h2>{t('noMatches')}</h2><p>{t('relaxFilters')}</p></div>}
+      <nav className="pagination" aria-label={t('resultPages')}><button className="button secondary" disabled={page === 0} onClick={() => setPage(page-1)}><ArrowLeft size={16}/>{t('previous')}</button><span>{page+1} / {displayPages}</span><button className="button secondary" disabled={page+1 >= displayPages} onClick={() => setPage(page+1)}>{t('next')}<ArrowRight size={16}/></button></nav>
+    </>}
+    {data&&<PreparedToday data={data} now={now} gateway={gateway}/>}
+    {data&&<FeaturedStalls data={data} now={now} gateway={gateway}/>}
+    {gateway.mode==='fixture'&&data&&<PredictedClearanceSection data={data} now={now} locale={i18n.language} limit={3} seeMoreTo="/offers"/>}
+    {data&&<DiscoveryCategories data={data} selected={filters.category} onChange={category=>change({category})}/>}
+    {data && everything && <>
       <section className="markets-explore" aria-labelledby="markets-explore-title">
         <div className="section-heading discovery-results-heading"><h2 id="markets-explore-title">{t('allMarkets')}</h2><span>{ui(filters.origin?'{count} markets nearby':'{count} markets',{count:everything.markets.length})}</span></div>
         <Freshness query={query} gateway={gateway}/>
@@ -181,9 +188,8 @@ export function DiscoveryPage({ gateway }: { gateway: DataGateway }) {
         </div>
       </section>
       <PopularMarkets data={data} origin={filters.origin}/>
-      <section className="from-stalls" ref={resultsRef}><div className="section-heading"><h2>{t('featuredStalls')}</h2><span>{t('resultsCount',{count:displayTotal})}</span></div>{gateway.mode === 'fixture' && <label className="predicted-clearance-toggle"><input type="checkbox" checked={showPredictedOnly} onChange={event => { setShowPredictedOnly(event.target.checked); setPage(0) }}/><span>Show predicted clearances</span><small>Heuristic · not a live offer</small></label>}{showPredictedOnly && <p className="predicted-filter-note">Showing stalls above the predicted-clearance likelihood threshold; this estimate is not a guarantee.</p>}<Sponsored data={data} filters={filters} now={now} campaigns={gateway.mode==='connected'?advertisements.data??[]:undefined}/><div className="stall-tile-grid">{displayStalls.map(stall => <StallTile key={stall.id} stall={stall} market={data.markets.find(m => m.id === stall.marketId)} prediction={clearancePredictions.get(stall.id)} gateway={gateway}/>)}</div>{showPredictedOnly && !displayTotal && <div className="panel state-panel"><h2>No predicted matches</h2><p>Current saved demo prep volumes are below the illustrative threshold.</p></div>}</section>
-      {!showPredictedOnly && !displayTotal && <div className="panel state-panel"><h2>{t('noMatches')}</h2><p>{t('relaxFilters')}</p></div>}
-      <nav className="pagination" aria-label={t('resultPages')}><button className="button secondary" disabled={page === 0} onClick={() => setPage(page-1)}><ArrowLeft size={16}/>{t('previous')}</button><span>{page+1} / {displayPages}</span><button className="button secondary" disabled={page+1 >= displayPages} onClick={() => setPage(page+1)}>{t('next')}<ArrowRight size={16}/></button></nav></>}
+    </>}
+    <ValueProps/>
     <DiscoverFooter/>
   </div>
 }
@@ -215,6 +221,9 @@ export function SavedPage({gateway}:{gateway:DataGateway}) {
   const saved = useFavourites(gateway)
   const now = useNow(gateway)
   const selectedStalls = query.data?.stalls.filter(stall => saved.ids.includes(stall.id)) ?? []
-  const plannerPath = `/planner?stalls=${encodeURIComponent(selectedStalls.map(stall => stall.id).join(','))}`
-  return <><header className="page-intro"><div className="eyebrow">{t('saved')}</div><h1>{t('savedTitle')}</h1><p>{t('savedBody')}</p></header>{saved.allowed && !saved.loading && !saved.error && selectedStalls.length >= 2 && <div className="saved-plan-run"><div><strong>Ready for a market run?</strong><span>{selectedStalls.length} saved stalls can be planned into one visit.</span></div><NavLink className="button primary" to={plannerPath}><MapPin size={16}/>Plan my run</NavLink></div>}{!saved.allowed ? <NavLink className="button primary" to="/profile">{t('signInToSave')}</NavLink> : !query.data ? <State query={query} gateway={gateway}/> : saved.error ? <p role="alert">{t('actionFailed')}</p> : saved.loading ? <p>{t('loading')}</p> : <div className="stall-grid">{selectedStalls.map(s => <DiscoveryStallCard key={s.id} stall={s} market={query.data?.markets.find(m => m.id === s.marketId)} now={now}/>)}</div>}{saved.allowed && !saved.loading && !saved.error && !saved.ids.length && <div className="panel state-panel"><Heart size={34}/><p>{t('emptySaved')}</p><NavLink className="button primary" to="/discover">{ui('Explore markets')}</NavLink></div>}</>
+  // The run is planned only from stalls the shopper ticks (DESIGN.md: explicit selection, visible count)
+  const [picked, setPicked] = useState<string[]>([])
+  const runStalls = selectedStalls.filter(stall => picked.includes(stall.id))
+  const plannerPath = `/planner?stalls=${encodeURIComponent(runStalls.map(stall => stall.id).join(','))}`
+  return <><header className="page-intro"><div className="eyebrow">{t('saved')}</div><h1>{t('savedTitle')}</h1><p>{t('savedBody')}</p></header>{saved.allowed && !saved.loading && !saved.error && selectedStalls.length >= 2 && <div className="saved-plan-run"><div><strong>Plan a market run</strong><span role="status">{runStalls.length} of {selectedStalls.length} saved stalls selected{runStalls.length < 2 ? ' · tick at least 2' : ''}</span></div><div className="saved-plan-actions"><button type="button" className="button secondary" onClick={() => setPicked(runStalls.length === selectedStalls.length ? [] : selectedStalls.map(stall => stall.id))}>{runStalls.length === selectedStalls.length ? 'Clear' : 'Select all'}</button>{runStalls.length >= 2 && <NavLink className="button primary" to={plannerPath}><MapPin size={16}/>Plan run with {runStalls.length} stalls</NavLink>}</div></div>}{!saved.allowed ? <NavLink className="button primary" to="/profile">{t('signInToSave')}</NavLink> : !query.data ? <State query={query} gateway={gateway}/> : saved.error ? <p role="alert">{t('actionFailed')}</p> : saved.loading ? <p>{t('loading')}</p> : <div className="stall-grid">{selectedStalls.map(s => <div className="saved-item" key={s.id}>{selectedStalls.length >= 2 && <label className="saved-pick"><input type="checkbox" checked={picked.includes(s.id)} onChange={event => setPicked(ids => event.target.checked ? [...ids, s.id] : ids.filter(id => id !== s.id))}/><span>Include {s.name} in my run</span></label>}<DiscoveryStallCard stall={s} market={query.data?.markets.find(m => m.id === s.marketId)} now={now}/></div>)}</div>}{saved.allowed && !saved.loading && !saved.error && !saved.ids.length && <div className="panel state-panel"><Heart size={34}/><p>{t('emptySaved')}</p><NavLink className="button primary" to="/discover">{ui('Explore markets')}</NavLink></div>}</>
 }

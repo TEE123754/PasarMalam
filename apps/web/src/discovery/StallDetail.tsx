@@ -101,6 +101,8 @@ export function StallDetail({ gateway, data, stall, market, now }: { gateway: Da
           <h1>{stall.name}</h1>
           <p className="stall-meta"><span><Clock3 size={14} />{hours}</span>{stall.lot && <span><MapPin size={14} />Lot {stall.lot}</span>}<span>{market.name} · {market.area}</span></p>
           <p className="stall-status"><span className={`status-dot ${stall.open ? 'open' : ''}`} />{t(stall.open ? 'vendorOpen' : 'vendorClosed')} · {t('scheduleOnly')}: {scheduleStatus(market, now) === 'closing-soon' ? ui('Closing soon') : t(scheduleStatus(market, now))}</p>
+          {stall.open && scheduleStatus(market, now) === 'closed' && <p className="stall-status-conflict" role="note">{ui('The hawker reports open, but the market’s scheduled session is closed now. Check with the stall before travelling.')}</p>}
+          {!stall.open && scheduleStatus(market, now) !== 'closed' && <p className="stall-status-conflict" role="note">{ui('The market is in session, but this hawker reports closed right now.')}</p>}
           <Availability at={stall.availabilityConfirmedAt} now={now} />
           {stall.description && <p className="stall-description">{stall.description}</p>}
           {badges.length > 0 && <ul className="stall-badges">{badges.map(({ Icon, label }) => <li key={label}><Icon size={14} aria-hidden="true" />{label}</li>)}</ul>}

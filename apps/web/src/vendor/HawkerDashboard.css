@@ -1,0 +1,151 @@
+/* Hawker Dashboard: visual layer for the two-column layout (grid lives in hawker-dashboard.css).
+   Everything is scoped under .hawker-overview so the stall page and other hawker routes keep their look. */
+
+/* Sans headings, clearly larger than body text (replaces the serif section titles) */
+.night-page.hawker-page .hawker-overview :is(.dashboard-section h2, .hawker-quick h2, .workspace-title) {
+  font-family: inherit;
+  letter-spacing: -.03em;
+}
+.night-page.hawker-page .hawker-overview .dashboard-section h2 { font-size: clamp(24px, 2.4vw, 30px); font-weight: 800; line-height: 1.1; }
+
+/* Stall picker: one full-width row across both columns */
+.night-page.hawker-page .hawker-overview .hawker-stall-choice {
+  display: flex; flex-direction: row; align-items: center; gap: 14px;
+  padding: 10px 16px;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.night-page.hawker-page .hawker-overview .hawker-stall-choice select { flex: 1; min-height: 44px; background-color: transparent; border-color: transparent; color: #f5f0e8; font-weight: 700; }
+
+/* ── Left: stall at a glance ─────────────────────────────────────────── */
+.night-page.hawker-page .hawker-overview .hawker-stall-card { position: relative; padding: 24px 24px 18px; text-align: center; }
+.night-page.hawker-page .hawker-overview .hawker-welcome { display: flex; flex-direction: column; align-items: center; gap: 0; margin: 0 0 18px; }
+.night-page.hawker-page .hawker-overview .hawker-welcome .eyebrow { margin-top: 8px; font-size: 12px; font-weight: 800; letter-spacing: .12em; }
+.night-page.hawker-page .hawker-overview .hawker-welcome h1 { margin: 14px 0 0; font-family: inherit; font-size: clamp(38px, 4.4vw, 56px); font-weight: 800; line-height: 1; letter-spacing: -.04em; }
+.night-page.hawker-page .hawker-overview .hawker-welcome > .status-pill { position: absolute; top: 18px; right: 18px; min-height: 32px; padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 750; }
+/* Three tiles stacked tightly, as in the reference */
+.night-page.hawker-page .hawker-overview .hawker-stats { display: grid; grid-template-columns: 1fr; gap: 8px; width: min(100%, 320px); margin: 0 auto; text-align: left; }
+.night-page.hawker-page .hawker-overview .hawker-stats > div { padding: 12px 16px; }
+.night-page.hawker-page .hawker-overview .hawker-stats strong { font-size: 24px; line-height: 1.1; }
+.night-page.hawker-page .hawker-overview .hawker-stall-caption { margin: 14px 0 0; color: rgba(245, 240, 232, .72); font-size: 14px; }
+
+/* ── Left: market pulse ─────────────────────────────────────────────── */
+.night-page.hawker-page .hawker-overview .market-pulse { border-left: 1px solid var(--card-border); }
+.night-page.hawker-page .hawker-overview .market-pulse-heading { justify-content: center; position: relative; }
+.night-page.hawker-page .hawker-overview .market-pulse-heading h2 svg { width: 30px; height: 30px; color: #f5f0e8 !important; }
+.night-page.hawker-page .hawker-overview .market-pulse-sample { position: absolute; right: 0; top: 50%; transform: translateY(-50%); font-size: 10px; color: rgba(245, 240, 232, .7); }
+.night-page.hawker-page .hawker-overview .market-pulse-disclosure p { font-size: 12px; color: rgba(245, 240, 232, .75); }
+.night-page.hawker-page .hawker-overview .market-pulse-insight { justify-items: center; padding: 12px 14px; text-align: center; border-radius: 10px; }
+.night-page.hawker-page .hawker-overview .market-pulse-insight > strong { color: #fff; font-size: 17px; line-height: 1.25; }
+.night-page.hawker-page .hawker-overview .market-pulse-insight > small { color: rgba(245, 240, 232, .72); font-size: 11px; }
+.night-page.hawker-page .hawker-overview .market-pulse-insight .market-pulse-category { color: rgba(245, 240, 232, .8); font-size: 11px; }
+/* Two-tone chips: low-opacity tints so they stay part of the dark system */
+.night-page.hawker-page .hawker-overview .market-pulse-insight:first-child { background: rgba(176, 38, 30, .28); border: 1px solid rgba(255, 112, 92, .4); }
+.night-page.hawker-page .hawker-overview .market-pulse-insight:first-child .market-pulse-category svg { color: #ff9b8a; }
+.night-page.hawker-page .hawker-overview .market-pulse-insight:nth-child(2) { background: rgba(46, 125, 62, .3); border: 1px solid rgba(124, 200, 124, .4); }
+.night-page.hawker-page .hawker-overview .market-pulse-insight:nth-child(2) .market-pulse-category svg { color: #9fdc96; }
+.night-page.hawker-page .hawker-overview .market-pulse-recommendation { display: grid; justify-items: center; gap: 8px; padding: 16px 18px; text-align: center; background: rgba(255, 255, 255, .03); border: 1px solid var(--card-border); border-left: 3px solid var(--accent); border-radius: 10px; }
+.night-page.hawker-page .hawker-overview .market-pulse-recommendation .planning-comparison-header { flex-direction: column; gap: 4px; }
+.night-page.hawker-page .hawker-overview .market-pulse-recommendation .planning-comparison-header h3 { font-size: clamp(22px, 2.2vw, 28px); font-weight: 500; letter-spacing: -.02em; }
+.night-page.hawker-page .hawker-overview .market-pulse-recommendation > strong { font-size: 15px; }
+.night-page.hawker-page .hawker-overview .market-pulse-recommendation > p { margin: 0; color: rgba(245, 240, 232, .65); font-size: 12px; }
+.night-page.hawker-page .hawker-overview .market-pulse-recommendation > .button { min-height: 44px; padding: 10px 22px; border-radius: 10px; font-size: 13px; }
+.night-page.hawker-page .hawker-overview .market-pulse-network { justify-content: center; text-align: center; font-size: 12px; color: rgba(245, 240, 232, .6); }
+
+/* ── Left: your products — the heading is the first cell of a two-up grid ── */
+.night-page.hawker-page .hawker-overview .hawker-products .dashboard-product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 0; }
+.night-page.hawker-page .hawker-overview .hawker-products-head { display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto 1fr; align-items: start; gap: 8px; min-height: 180px; }
+.night-page.hawker-page .hawker-overview .hawker-products-icon { color: #f5f0e8; }
+.night-page.hawker-page .hawker-overview .hawker-products-head > a { grid-row: 1; grid-column: 2; justify-self: end; display: inline-flex; align-items: center; gap: 4px; min-height: 32px; color: var(--accent-on-dark); font-size: 13px; font-weight: 750; }
+.night-page.hawker-page .hawker-overview .hawker-products-head h2 { grid-column: 1 / -1; align-self: center; margin: 0; color: #fff; font-size: clamp(32px, 3.6vw, 44px); font-weight: 800; line-height: 1.05; letter-spacing: -.04em; }
+.night-page.hawker-page .hawker-overview .hawker-products .dashboard-product > .demo-artwork,
+.night-page.hawker-page .hawker-overview .hawker-products .dashboard-product > .image-placeholder { height: 130px; min-height: 0; border-radius: 0; }
+
+/* ── Right: needs your attention (amber-tinted card) ───────────────────── */
+.night-page.hawker-page .hawker-overview .hawker-attention {
+  background: linear-gradient(rgba(214, 138, 32, .3), rgba(214, 138, 32, .3)), var(--card-bg);
+  border-color: rgba(246, 184, 96, .45);
+}
+.night-page.hawker-page .hawker-overview .hawker-attention .section-heading { position: relative; justify-content: center; margin-bottom: 6px; }
+.night-page.hawker-page .hawker-overview .hawker-attention .section-heading h2 svg { color: #f5f0e8; }
+.night-page.hawker-page .hawker-overview .hawker-attention .section-heading > a { position: absolute; right: 0; top: 50%; transform: translateY(-50%); color: #ffd2a8; }
+.night-page.hawker-page .hawker-overview .hawker-attention .section-caption { margin: 0 0 12px; text-align: center; color: rgba(245, 240, 232, .85); font-size: 13px; }
+/* Prediction nudge: the highlighted panel, copy left and button on its right edge */
+.night-page.hawker-page .hawker-overview .hawker-prediction-nudge {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 6px 16px;
+  margin: 0 0 12px;
+  padding: 14px 16px;
+  background: rgba(255, 196, 120, .1);
+  border: 1px dashed rgba(255, 206, 140, .65);
+  border-radius: 12px;
+}
+.night-page.hawker-page .hawker-overview .hawker-prediction-nudge > strong { grid-column: 1; font-size: 14px; }
+.night-page.hawker-page .hawker-overview .hawker-prediction-nudge > p { grid-column: 1; color: rgba(245, 240, 232, .66); font-size: 11px; }
+.night-page.hawker-page .hawker-overview .hawker-prediction-nudge > .button { grid-column: 2; grid-row: 1 / span 2; justify-self: end; margin: 0; min-height: 44px; max-width: 140px; padding: 10px 16px; white-space: normal; text-align: center; background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 220, 170, .5); color: #fff; }
+.night-page.hawker-page .hawker-overview .hawker-prediction-score { color: #ffb36e; }
+
+/* Batch cards, three across, with pill badges */
+.night-page.hawker-page .hawker-overview .attention-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.night-page.hawker-page .hawker-overview .attention-card { min-width: 0; background: rgba(15, 9, 2, .88); border-color: rgba(255, 255, 255, .1); }
+.night-page.hawker-page .hawker-overview .attention-card .product-image,
+.night-page.hawker-page .hawker-overview .attention-card .batch-photo { height: 110px; }
+.night-page.hawker-page .hawker-overview .attention-card .product-copy { display: grid; gap: 14px; padding: 10px 10px 12px; }
+.night-page.hawker-page .hawker-overview .attention-card .product-copy h3 { margin: 0; font-size: 14px; }
+.night-page.hawker-page .hawker-overview .attention-card .product-copy span { margin: 0; font-size: 12px; color: rgba(245, 240, 232, .65); }
+.night-page.hawker-page .hawker-overview .hawker-attention .attention-card .attention-label {
+  right: auto;
+  max-width: calc(100% - 16px);
+  top: 8px; left: 8px;
+  gap: 5px;
+  padding: 4px 9px;
+  background: rgba(15, 10, 3, .72);
+  border: 1px solid rgba(255, 255, 255, .45);
+  border-radius: 999px;
+  color: #fff;
+  font-size: 11px; font-weight: 700; line-height: 1.3;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.night-page.hawker-page .hawker-overview .hawker-see-more { width: 100%; min-height: 48px; margin-top: 10px; justify-content: center; border-radius: 10px; }
+
+/* ── Right: next batch, clearance, stall management ─────────────────────── */
+.night-page.hawker-page .hawker-overview .hawker-quick { padding: 24px; }
+.night-page.hawker-page .hawker-overview .hawker-quick h2 { margin: 18px 0 8px; font-size: clamp(22px, 2vw, 26px); font-weight: 500; }
+.night-page.hawker-page .hawker-overview .hawker-quick .button { min-height: 48px; margin-bottom: 10px; }
+.night-page.hawker-page .hawker-overview .hawker-quick .button.secondary { background: rgba(255, 255, 255, .04); border-color: rgba(255, 255, 255, .16); }
+/* Populated clearance state: compact offer rows sized for the narrower column */
+.night-page.hawker-page .hawker-overview .dashboard-offer { gap: 14px; margin: 12px 0 0; border-radius: 12px; }
+.night-page.hawker-page .hawker-overview .dashboard-offer > :is(.batch-photo, .demo-artwork) { flex: 0 0 132px; width: 132px; height: auto; min-height: 112px; aspect-ratio: auto; align-self: stretch; }
+.night-page.hawker-page .hawker-overview .dashboard-offer > div:last-child { padding: 12px 14px 12px 0; }
+.night-page.hawker-page .hawker-overview .dashboard-offer h3 { margin: 4px 0; font-family: inherit; font-size: 17px; font-weight: 800; line-height: 1.25; }
+.night-page.hawker-page .hawker-overview .dashboard-offer strong { font-size: 18px; }
+.night-page.hawker-page .hawker-overview .dashboard-offer .eyebrow { font-size: 11px; }
+
+/* Icon above a large heading, link on the right (Clearance & Stall management) */
+.night-page.hawker-page .hawker-overview .hawker-clearance .section-heading { align-items: flex-end; }
+.night-page.hawker-page .hawker-overview .hawker-clearance .section-heading h2,
+.night-page.hawker-page .hawker-overview .workspace-title { flex-direction: column; align-items: flex-start; gap: 18px; font-size: clamp(28px, 3vw, 36px); font-weight: 800; line-height: 1.05; letter-spacing: -.04em; }
+.night-page.hawker-page .hawker-overview .hawker-clearance .section-heading h2 svg,
+.night-page.hawker-page .hawker-overview .workspace-title svg { width: 20px; height: 20px; }
+.night-page.hawker-page .hawker-overview .hawker-clearance-empty { flex-direction: column; align-items: stretch; gap: 12px; }
+.night-page.hawker-page .hawker-overview .hawker-clearance-empty .button { justify-content: center; min-height: 44px; }
+.night-page.hawker-page .hawker-overview .workspace-management { gap: 14px; padding: 20px 24px; }
+.night-page.hawker-page .hawker-overview .workspace-row select { min-width: 0; flex: 1; }
+
+@media (max-width: 1023px) {
+  .night-page.hawker-page .hawker-overview .hawker-products-head { min-height: 140px; }
+}
+@media (max-width: 560px) {
+  .night-page.hawker-page .hawker-overview .attention-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .night-page.hawker-page .hawker-overview .hawker-prediction-nudge { grid-template-columns: 1fr; }
+  .night-page.hawker-page .hawker-overview .hawker-prediction-nudge > .button { grid-column: 1; grid-row: auto; justify-self: stretch; max-width: none; }
+  .night-page.hawker-page .hawker-overview .hawker-attention .section-heading { flex-direction: column; gap: 4px; }
+  .night-page.hawker-page .hawker-overview .hawker-attention .section-heading > a { position: static; transform: none; }
+  .night-page.hawker-page .hawker-overview .market-pulse-sample { position: static; transform: none; }
+  .night-page.hawker-page .hawker-overview .market-pulse-heading { flex-direction: column; gap: 6px; }
+  .night-page.hawker-page .hawker-overview .hawker-welcome > .status-pill { position: static; margin-bottom: 4px; }
+}

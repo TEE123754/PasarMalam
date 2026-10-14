@@ -27,4 +27,15 @@ describe('market run routing', () => {
     const plan = planRoute([stall('a', 3.1, 101.6), stall('b', 3.11, 101.6)])
     expect(plan[1].distanceFromPreviousKm).toBeGreaterThan(0)
   })
+
+  it('starts at the shopper-chosen stall instead of the most urgent one', () => {
+    const stops = [
+      { id: 'urgent', latitude: 3.1, longitude: 101.6, urgencyMinutes: 5 },
+      { id: 'chosen', latitude: 3.2, longitude: 101.7, urgencyMinutes: null },
+      { id: 'other', latitude: 3.15, longitude: 101.65, urgencyMinutes: null },
+    ]
+    expect(planRoute(stops)[0].stop.id).toBe('urgent')
+    expect(planRoute(stops, 'chosen')[0].stop.id).toBe('chosen')
+    expect(planRoute(stops, 'missing')[0].stop.id).toBe('urgent')
+  })
 })

@@ -45,11 +45,13 @@ function LifecycleView({ mode }: { mode: AppMode }) {
   const listingEvent = workspace.events.find(item => item.batch_id === batch.id && ['listed', 'listing-live', 'listing-published'].includes(item.kind))
     ?? state.audit.find(item => item.batch === batch.id && ['listed', 'listing-live', 'listing-published'].includes(item.kind))
   const listingLiveAt = listingEvent?.at ?? null
-  const listingRecorded = !!listingLiveAt || batch.status === 'active' || promotions.length > 0
+  // Only a recorded go-live event proves the customer listing; an active status or promotion alone does not (DESIGN.md)
+  const listingRecorded = !!listingLiveAt
+  const listingImplied = !listingRecorded && (batch.status === 'active' || promotions.length > 0)
   const closed = isClosedBatchStatus(batch.status)
   const advisoryRecorded = !!deadline
   const advisoryCurrent = !closed && !activePromotion && (decision?.eligible === true || batch.status === 'active')
-  const listingStage: StageState = listingRecorded ? 'complete' : batch.status === 'needs-information' ? 'current' : 'unrecorded'
+  const listingStage: StageState = listingRecorded ? 'complete' : listingImplied || batch.status === 'needs-information' ? 'current' : 'unrecorded'
   const advisoryStage: StageState = advisoryCurrent ? 'current' : advisoryRecorded ? 'complete' : batch.status === 'needs-information' ? 'current' : 'unrecorded'
   const clearanceStage: StageState = activePromotion ? 'current' : promotions.length ? 'complete' : 'unrecorded'
   const closedStage: StageState = closed ? 'current' : 'upcoming'
@@ -77,10 +79,10 @@ function LifecycleView({ mode }: { mode: AppMode }) {
           </Fields>
         </StageCard>
 
-        <StageCard number={2} title="Listed" state={listingStage} hint={batch.status === 'active' ? 'Active now' : `Status: ${statusLabel}`}>
+        <StageCard number={2} title="Customer listing" state={listingStage} hint={listingImplied ? `${batch.status === 'active' ? 'Active now' : `Status: ${statusLabel}`} · go-live time not recorded` : batch.status === 'active' ? 'Active now' : `Status: ${statusLabel}`}>
           <Fields>
-            <Field label="Batch entered" value={formatDate(batch.uploaded_at)}/>
-            <Field label="Went live" value={formatDate(listingLiveAt)}/>
+            <Field label="Batch entered (hawker record)" value={formatDate(batch.uploaded_at)}/>
+            <Field label="Listing went live for customers" value={formatDate(listingLiveAt)}/>
             <Field label="Initial quantity" value={portionCount(batch.original_quantity)}/>
             <Field label="Voice-entry confidence" value="Not recorded"/>
           </Fields>

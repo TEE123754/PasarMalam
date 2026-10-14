@@ -188,3 +188,14 @@
   .profile-dash .pd-tool { min-height: 0; padding: 16px; }
   .profile-dash .pd-tool p { padding-right: 0; padding-bottom: 18px; }
 }
+
+/* Tool groups by role; the demo lab is visually quieter than real workspaces */
+.profile-dash .pd-group { display: grid; gap: 12px; }
+.profile-dash .pd-group-head h2 { margin: 0; color: #f5f0e8; font-size: 20px; font-weight: 800; letter-spacing: -.01em; }
+.profile-dash .pd-group-head p { margin: 4px 0 0; color: rgba(245, 240, 232, .72); font-size: 14px; }
+.profile-dash .pd-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.profile-dash .pd-group-lab { padding: 16px; border: 1px dashed rgba(255, 255, 255, .18); border-radius: 16px; }
+.profile-dash .pd-group-lab .pd-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.profile-dash .pd-group-lab .pd-tool { background: rgba(15, 10, 3, .6); }
+@media (max-width: 1100px) { .profile-dash .pd-grid, .profile-dash .pd-group-lab .pd-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .profile-dash .pd-grid, .profile-dash .pd-group-lab .pd-grid { grid-template-columns: 1fr; } }
