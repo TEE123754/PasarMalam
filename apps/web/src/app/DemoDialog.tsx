@@ -1,13 +1,13 @@
 import { useEffect, type ElementType } from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
-import { ArrowRight, Sparkles, Mic, MapPin, Clock3, Leaf } from 'lucide-react'
+import { ArrowRight, Sparkles, Mic, MapPin, Clock3, Leaf, Store } from 'lucide-react'
 import { ui } from '../locales/phrases'
 import { openDemo } from './config'
 import './DemoDialog.css'
 
 // Each card is a shortcut into the matching part of the demo
 const features = [
-  { Icon: Mic,    title: 'Just say it',      body: 'List food by voice in BM, English or Manglish.',        path: '/demo/hawker/voice', role: 'hawker' },
+  { Icon: Mic,    title: 'Just say it',      body: 'List food by voice in BM, English or Manglish.',        path: '/demo/hawker/login', role: 'customer' },
   { Icon: MapPin, title: 'Find your market', body: 'Discover markets and food stalls on the map.',          path: '/demo/discover',     role: 'customer' },
   { Icon: Clock3, title: 'Know your batch',  body: 'See preparation times and advisory countdowns.',        path: '/demo/discover',     role: 'customer' },
   { Icon: Leaf,   title: 'Save a meal',      body: 'Reserve surplus food before its advisory window ends.', path: '/demo/offers',       role: 'customer' },
@@ -43,9 +43,14 @@ function Splash({ standalone = false }: { standalone?: boolean }) {
         <Title className="splash-title">
           <span className="title-pasar">PASAR</span><span className="title-malam">MALAM</span>
         </Title>
-        <button type="button" className="button primary try-demo-btn" onClick={() => enter()}>
-          <Sparkles size={18}/>{ui('Try demo')}<ArrowRight size={18}/>
-        </button>
+        <div className="splash-entry-actions">
+          <button type="button" className="button primary try-demo-btn" onClick={() => enter()}>
+            <Sparkles size={18}/>{ui('Explore as customer')}<ArrowRight size={18}/>
+          </button>
+          <button type="button" className="button secondary splash-hawker-btn" onClick={() => enter('/demo/hawker/login')}>
+            <Store size={18}/>{ui('Are you a hawker?')}
+          </button>
+        </div>
       </div>
 
       <nav className="splash-features" aria-label={ui('Explore the demo')}>

@@ -1,0 +1,20 @@
+/* Friendly fallback card for normal routes without a configured real data environment */
+.real-env-card {
+  display: grid; justify-items: center; gap: 14px;
+  width: min(100%, 560px);
+  margin: 48px auto;
+  padding: 32px 28px 26px;
+  text-align: center;
+  background: rgba(25, 17, 5, .85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, .08);
+  border-radius: 16px;
+  color: #f5f0e8;
+}
+.real-env-mark { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 14px; background: var(--accent, #c83c08); color: #fff; }
+.real-env-card h1 { margin: 0; color: #fff; font-family: inherit; font-size: clamp(26px, 3vw, 34px); font-weight: 800; letter-spacing: -.03em; line-height: 1.1; }
+.real-env-card p { max-width: 460px; margin: 0; color: rgba(245, 240, 232, .85); font-size: 15px; line-height: 1.55; }
+.real-env-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 6px; }
+.real-env-actions .button { min-height: 48px; padding: 12px 20px; border-radius: 10px; }
+.real-env-card .real-env-note { color: rgba(245, 240, 232, .7); font-size: 13px; }

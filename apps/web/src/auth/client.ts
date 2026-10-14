@@ -21,13 +21,25 @@ export function getAuthClient(): SupabaseClient | null {
   return client
 }
 
+const apiBase = () => (import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000').replace(/\/$/, '')
+
+// Read-only probe with the same rule connectedRequest enforces, so the shell can show a friendly
+// "open the demo" card instead of letting every page fail with the environment error.
+export async function realEnvironmentReady(): Promise<boolean> {
+  try {
+    const config = await fetch(`${apiBase()}/api/v1/config`)
+    const metadata: unknown = config.ok ? await config.json() : null
+    return !!metadata && typeof metadata === 'object' && 'data_environment' in metadata && metadata.data_environment === 'production'
+  } catch { return false }
+}
+
 export async function connectedRequest(path: string, init?: RequestInit, onUploadProgress?: (fraction:number)=>void): Promise<Response> {
   if (selectedMode() === 'fixture') throw new Error('Demo cannot call real services')
   const auth = getAuthClient()
   const { data } = auth ? await auth.auth.getSession() : { data: { session: null } }
   const headers = new Headers(init?.headers)
   if (data.session) headers.set('Authorization', `Bearer ${data.session.access_token}`)
-  const base = (import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000').replace(/\/$/, '')
+  const base = apiBase()
   if (!/^\/sandbox(?:\/|$)/.test(window.location.pathname)) {
     const config = await fetch(`${base}/api/v1/config`)
     const metadata: unknown = config.ok ? await config.json() : null

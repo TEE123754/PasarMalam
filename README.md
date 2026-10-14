@@ -111,7 +111,9 @@ Recent releases (October 2026) deepen the hawker workspace, add forward-looking 
 
 ## Run locally
 
-**Live demo:** `https://<your-vercel-url>/demo`
+**Live demo:** https://<vercel-url>/demo
+
+> Demo mode uses fictional, browser-local data. Connected production mode (separate data environment, verified Supabase project) is planned future work.
 
 Requirements: Node 24, npm, and uv with Python 3.12.
 

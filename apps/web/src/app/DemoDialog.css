@@ -182,3 +182,19 @@ html.demo-leaving .dialog-overlay { opacity: 0; transition: opacity .3s ease; }
 @media (prefers-reduced-motion: reduce) {
   @keyframes landingSlideUp { from { opacity: 1; } to { opacity: 0; } }
 }
+
+/* Two entry points side by side: customer (primary) and the hawker login gate (secondary) */
+.demo-entry .splash-entry-actions { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px; margin-top: 32px; }
+.demo-entry .splash-entry-actions .try-demo-btn.button.primary { margin-top: 0; }
+.demo-entry .splash-hawker-btn.button.secondary {
+  display: inline-flex; align-items: center; gap: 10px;
+  min-height: 0;
+  padding: 15px 30px;
+  border: 1px solid rgba(255, 255, 255, .55);
+  border-radius: 50px;
+  background: rgba(15, 12, 7, .55);
+  color: #fff;
+  font-size: 17px; font-weight: 600;
+}
+.demo-entry .splash-hawker-btn.button.secondary:hover { background: rgba(15, 12, 7, .8); border-color: #fff; }
+.demo-entry .splash-hawker-btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
