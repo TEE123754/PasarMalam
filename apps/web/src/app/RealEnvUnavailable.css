@@ -12,7 +12,8 @@
   border-radius: 16px;
   color: #f5f0e8;
 }
-.real-env-mark { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 14px; background: var(--accent, #c83c08); color: #fff; }
+.real-env-mark { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 14px; background: #fefbf4; border: 1px solid var(--line, #e8e0d5); padding: 3px; overflow: hidden; }
+.real-env-mark img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .real-env-card h1 { margin: 0; color: #fff; font-family: inherit; font-size: clamp(26px, 3vw, 34px); font-weight: 800; letter-spacing: -.03em; line-height: 1.1; }
 .real-env-card p { max-width: 460px; margin: 0; color: rgba(245, 240, 232, .85); font-size: 15px; line-height: 1.55; }
 .real-env-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 6px; }

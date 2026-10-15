@@ -156,5 +156,5 @@ export function StallTile({stall,market,prediction,gateway}:{stall:Stall;market?
 
 export function DiscoverFooter() {
   const {t}=useTranslation()
-  return <footer className="discover-footer"><div className="discover-footer-brand"><span className="brand-mark"><Store size={22} strokeWidth={2.2}/></span><div><strong>Pasar<span>Malam</span></strong><small>{t('tagline')}</small></div></div><span>{ui('Community markets · Basic tier free')}</span></footer>
+  return <footer className="discover-footer"><div className="discover-footer-brand"><span className="brand-mark"><img src="/brand/pasarmalam-mark.png" alt="" width="45" height="45"/></span><div><strong>Pasar<span>Malam</span></strong><small>{t('tagline')}</small></div></div><span>{ui('Community markets · Basic tier free')}</span></footer>
 }

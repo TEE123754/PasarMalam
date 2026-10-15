@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { NavLink } from 'react-router'
-import { ArrowLeft, LogIn, Store, UserPlus } from 'lucide-react'
+import { ArrowLeft, LogIn, UserPlus } from 'lucide-react'
 import { ui } from '../locales/phrases'
 import './HawkerLogin.css'
 
@@ -11,7 +11,7 @@ export function HawkerLogin({ onEnter }: { onEnter: () => void }) {
   function submit(event: FormEvent) { event.preventDefault(); onEnter() }
   return <div className="hawker-login">
     <section className="hawker-login-card" aria-labelledby="hawker-login-title">
-      <span className="hawker-login-mark" aria-hidden="true"><Store size={24}/></span>
+      <span className="hawker-login-mark" aria-hidden="true"><img src="/brand/pasarmalam-mark.png" alt="" width="52" height="52"/></span>
       <h1 id="hawker-login-title">{ui('Hawker workspace')}</h1>
       <p className="hawker-login-lead">{ui('Log in or create a stall account to manage batches, offers and alerts.')}</p>
       <div className="hawker-login-tabs" role="tablist" aria-label={ui('Account')}>

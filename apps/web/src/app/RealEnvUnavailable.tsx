@@ -1,4 +1,4 @@
-import { ArrowRight, Sparkles, Store } from 'lucide-react'
+import { ArrowRight, Sparkles } from 'lucide-react'
 import { ui } from '../locales/phrases'
 import './RealEnvUnavailable.css'
 
@@ -8,7 +8,7 @@ export function RealEnvUnavailable({ hawker }: { hawker: boolean }) {
   const primary = hawker ? '/demo/hawker/dashboard' : '/demo/discover'
   const secondary = hawker ? { to: '/demo/discover', label: ui('Customer demo') } : { to: '/demo/hawker/login', label: ui('Hawker demo') }
   return <section className="real-env-card" aria-labelledby="real-env-title">
-    <span className="real-env-mark" aria-hidden="true"><Store size={24}/></span>
+    <span className="real-env-mark" aria-hidden="true"><img src="/brand/pasarmalam-mark.png" alt="" width="52" height="52"/></span>
     <h1 id="real-env-title">{ui('The live app isn’t connected here yet')}</h1>
     <p>{ui('This deployment runs without its backend, so real accounts and live market data aren’t available. The full product is ready to try in the demo.')}</p>
     <div className="real-env-actions">

@@ -1,7 +1,7 @@
 /* Cache public static shell only; never API/Auth/media/weather/maps or caller data. */
 importScripts('/push-sw.js');
 const SHELL='pasarmalam-shell-v1';
-const STATIC=['/offline.html','/manifest.webmanifest','/app-icon.svg','/offline-assets.json','/demo/discover'];
+const STATIC=['/offline.html','/manifest.webmanifest','/app-icon.svg','/brand/pasarmalam-mark.png','/offline-assets.json','/demo/discover'];
 const assetPath=path=>typeof path==='string'&&/^\/assets\/[^/]+\.(?:js|css)$/.test(path)&&!/^\/assets\/(?:speech\.worker-|ort[-.])/.test(path);
 self.addEventListener('install',e=>e.waitUntil((async()=>{
  const c=await caches.open(SHELL);await c.addAll(STATIC);

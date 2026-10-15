@@ -14,7 +14,7 @@ export type NavItem = { readonly to: string; readonly label: string; readonly ic
 export function SiteHeader({ mode, role, links, onCustomerRoute, onRole, hideRoleSwitch = false }: { mode: AppMode; role: PersonaRole; links: readonly NavItem[]; onCustomerRoute: boolean; onRole: (next: PersonaRole) => void; hideRoleSwitch?: boolean }) {
   const { t } = useTranslation()
   return <header className="site-header">
-    <NavLink className="brand" to="/discover"><span className="brand-mark"><Store size={27} strokeWidth={2.2}/></span><span>Pasar<span>Malam</span><small>{t('tagline')}</small></span></NavLink>
+    <NavLink className="brand" to="/discover"><span className="brand-mark"><img src="/brand/pasarmalam-mark.png" alt="" width="45" height="45"/></span><span>Pasar<span>Malam</span><small>{t('tagline')}</small></span></NavLink>
     <nav className="desktop-nav" aria-label={t('mainNavigation')}>{links.map(({ to, label, icon: Icon }) => <NavLink key={to} to={to} className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}><Icon size={18}/>{t(label)}</NavLink>)}</nav>
     <div className="header-actions">
       {mode === 'connected' ? <DemoDialog/> : !nativeDemoBuild() && <a className="button secondary" href="/"><Store size={18}/>{ui('Home')}</a>}
