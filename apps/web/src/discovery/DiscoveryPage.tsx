@@ -9,7 +9,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState, type FormEvent }
 import { useQuery } from '@tanstack/react-query'
 import { NavLink, useParams } from 'react-router'
 import { useTranslation } from 'react-i18next'
-import { ArrowLeft, ArrowRight, Heart, Map as MapIcon, MapPin, Search, Star } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Map as MapIcon, MapPin, Search, Star } from 'lucide-react'
 import type { DataGateway, Market, Stall } from '../data/types'
 import { fixtureClock } from '../app/clock'
 import { DemoDialog } from '../app/DemoDialog'
@@ -17,7 +17,7 @@ import { useAuth } from '../auth/context'
 import { connectedRequest } from '../auth/client'
 import { defaultFilters, dietaryStatus, discover, scheduleStatus, type Filters } from './engine'
 import { useDiscovery } from './useDiscovery'
-import { checkIn, useFavourites } from './actions'
+import { checkIn } from './actions'
 import { coarsePoint, requestDeviceLocation } from './location'
 import { PredictedClearanceSection, predictedStall } from '../clearance/PredictedClearance'
 
@@ -198,17 +198,4 @@ export function DiscoveryDetail({ gateway, kind }: {gateway:DataGateway;kind:'ma
     {message && <p role="status" className="panel">{t(message)}</p>}
     <><button className="button primary" disabled={busy || gateway.mode === 'connected' && !actor?.roles.includes('customer')} onClick={() => void action(async () => {const created=await checkIn(gateway,market.id);setMessage(created ? 'checkedIn' : 'alreadyCheckedIn');return created},'checkedIn')}>{t('checkIn')}</button><p className="small muted">{t('checkInLimit')}</p><div className="stall-grid">{data.stalls.filter(s => s.marketId === market.id).map(s => <DiscoveryStallCard key={s.id} stall={s} market={market} now={now}/>)}</div></>
   </>
-}
-
-export function SavedPage({gateway}:{gateway:DataGateway}) {
-  const {t} = useTranslation()
-  const query = useDiscovery(gateway,[])
-  const saved = useFavourites(gateway)
-  const now = useNow(gateway)
-  const selectedStalls = query.data?.stalls.filter(stall => saved.ids.includes(stall.id)) ?? []
-  // The run is planned only from stalls the shopper ticks (DESIGN.md: explicit selection, visible count)
-  const [picked, setPicked] = useState<string[]>([])
-  const runStalls = selectedStalls.filter(stall => picked.includes(stall.id))
-  const plannerPath = `/planner?stalls=${encodeURIComponent(runStalls.map(stall => stall.id).join(','))}`
-  return <><header className="page-intro"><div className="eyebrow">{t('saved')}</div><h1>{t('savedTitle')}</h1><p>{t('savedBody')}</p></header>{saved.allowed && !saved.loading && !saved.error && selectedStalls.length >= 2 && <div className="saved-plan-run"><div><strong>Plan a market run</strong><span role="status">{runStalls.length} of {selectedStalls.length} saved stalls selected{runStalls.length < 2 ? ' · tick at least 2' : ''}</span></div><div className="saved-plan-actions"><button type="button" className="button secondary" onClick={() => setPicked(runStalls.length === selectedStalls.length ? [] : selectedStalls.map(stall => stall.id))}>{runStalls.length === selectedStalls.length ? 'Clear' : 'Select all'}</button>{runStalls.length >= 2 && <NavLink className="button primary" to={plannerPath}><MapPin size={16}/>Plan run with {runStalls.length} stalls</NavLink>}</div></div>}{!saved.allowed ? <NavLink className="button primary" to="/profile">{t('signInToSave')}</NavLink> : !query.data ? <DiscoveryState query={query} gateway={gateway}/> : saved.error ? <p role="alert">{t('actionFailed')}</p> : saved.loading ? <p>{t('loading')}</p> : <div className="stall-grid">{selectedStalls.map(s => <div className="saved-item" key={s.id}>{selectedStalls.length >= 2 && <label className="saved-pick"><input type="checkbox" checked={picked.includes(s.id)} onChange={event => setPicked(ids => event.target.checked ? [...ids, s.id] : ids.filter(id => id !== s.id))}/><span>Include {s.name} in my run</span></label>}<DiscoveryStallCard stall={s} market={query.data?.markets.find(m => m.id === s.marketId)} now={now}/></div>)}</div>}{saved.allowed && !saved.loading && !saved.error && !saved.ids.length && <div className="panel state-panel"><Heart size={34}/><p>{t('emptySaved')}</p><NavLink className="button primary" to="/discover">{ui('Explore markets')}</NavLink></div>}</>
 }

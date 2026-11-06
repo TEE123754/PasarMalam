@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ChevronLeft, ChevronRight, Clock3, Flame, Leaf, Store, Tag } from 'lucide-react'
 import type { DataGateway, DiscoverySnapshot } from '../data/types'
@@ -19,7 +19,7 @@ import './SellingOutSoon.css'
 type Stall = DiscoverySnapshot['stalls'][number]
 type Food = NonNullable<DiscoverySnapshot['menu']>[number]
 type Batch = DiscoverySnapshot['batches'][number]
-type Item = { key: string; stall: Stall; food?: Food; batch?: Batch; title: string; priceSen: number; wasSen?: number; endsAt?: string; prediction?: ClearancePrediction; order: number }
+export type Item = { key: string; stall: Stall; food?: Food; batch?: Batch; title: string; priceSen: number; wasSen?: number; endsAt?: string; prediction?: ClearancePrediction; order: number }
 
 // Foods, not stalls: live clearance offers first, then (when ticked) one food per stall with an estimated sell-out.
 // `stallIds` are the stalls that already passed the page's search and filters; the food itself must pass too.
@@ -37,26 +37,27 @@ function sellingOutItems(data: DiscoverySnapshot, now: Date, filters: Filters, s
   }
   items.sort((a, b) => a.order - b.order)
   if (!withEstimates) return items
-  // The forecast is per stall, so each stall appears once, with the food from its newest batch
+  return [...items, ...estimateItems(data, now, (stall, food) => stallIds.has(stall.id) && foodMatches(data, filters, stall, food), seen)]
+}
+
+// The forecast is per stall, so each stall appears once, with the food from its newest batch; soonest window first
+export function estimateItems(data: DiscoverySnapshot, now: Date, accept: (stall: Stall, food: Food) => boolean, seen = new Set<string>()): Item[] {
   const best = new Map<string, Item>()
   for (const { batch, food, stall, prediction } of predictedCandidates(data, now)) {
-    if (seen.has(food.id) || !stallIds.has(stall.id) || !foodMatches(data, filters, stall, food)) continue
+    if (seen.has(food.id) || !accept(stall, food)) continue
     const current = best.get(stall.id)
     if (current && !(batch && (!current.batch || Date.parse(batch.preparedAt) > Date.parse(current.batch.preparedAt)))) continue
     best.set(stall.id, { key: `estimate-${batch?.id ?? `sample-${stall.id}-${food.id}`}`, stall, food, batch, title: food.name, priceSen: food.priceSen, prediction, order: prediction.windowStart.getTime() })
   }
   const estimates = [...best.values()]
   estimates.sort((a, b) => a.order - b.order || a.title.localeCompare(b.title, 'en'))
-  return [...items, ...estimates]
+  return estimates
 }
 
-export function SellingOutSoon({ data, now, gateway, filters, stallIds }: { data: DiscoverySnapshot; now: Date; gateway: DataGateway; filters: Filters; stallIds: Set<string> }) {
-  const { i18n } = useTranslation(), bm = i18n.language.startsWith('ms')
-  const [withEstimates, setWithEstimates] = useState(false)
-  const canEstimate = gateway.mode === 'fixture' // estimates are demo-only, like the rest of the clearance forecast
-  const items = useMemo(() => sellingOutItems(data, now, filters, stallIds, canEstimate && withEstimates), [data, now, filters, stallIds, canEstimate, withEstimates])
+// The horizontal swipe row with its arrows: one click moves by the cards in view, arrows disable at the ends.
+// `hideWhenFit` removes them when every card already fits.
+export function SellingOutRow({ items, hideWhenFit = false, children }: { items: Item[]; hideWhenFit?: boolean; children: (item: Item) => ReactNode }) {
   const signature = items.map(item => item.key).join('|')
-
   const track = useRef<HTMLUListElement>(null)
   const [edge, setEdge] = useState({ start: true, end: true })
   const measure = useCallback(() => {
@@ -80,6 +81,39 @@ export function SellingOutSoon({ data, now, gateway, filters, stallIds }: { data
     const visible = Math.max(1, Math.floor((node.clientWidth + gap) / width + .02))
     node.scrollBy({ left: direction * visible * width, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' })
   }
+  const showArrows = !(hideWhenFit && edge.start && edge.end)
+  return <div className="sellout-row">
+    {showArrows && <button type="button" className="sellout-arrow prev" aria-label={ui('Previous foods')} disabled={edge.start} onClick={() => step(-1)}><ChevronLeft size={22} aria-hidden="true"/></button>}
+    <ul className="sellout-track" ref={track} onScroll={measure}>{items.map(item => <li className="sellout-item" key={item.key}>{children(item)}</li>)}</ul>
+    {showArrows && <button type="button" className="sellout-arrow next" aria-label={ui('Next foods')} disabled={edge.end} onClick={() => step(1)}><ChevronRight size={22} aria-hidden="true"/></button>}
+  </div>
+}
+
+// One food card: photo, name, stall, price and the time or portion details; estimates carry the orange pill and its "?"
+export function SellingOutCard({ item, data, now, gateway }: { item: Item; data: DiscoverySnapshot; now: Date; gateway: DataGateway }) {
+  const { i18n } = useTranslation(), bm = i18n.language.startsWith('ms')
+  const { stall, food, batch } = item
+  const market = data.markets.find(m => m.id === stall.marketId)
+  const live = batch && Date.parse(batch.deadline) > now.getTime() && batch.remaining > 0 ? batch : undefined
+  const left = live ? Date.parse(live.deadline) - now.getTime() : 0
+  const meta = [
+    { Icon: Store, text: [stall.name, market?.area].filter(Boolean).join(' · ') },
+    ...(item.endsAt ? [{ Icon: Clock3, text: ui('Reserve by {time}', { time: malaysiaTime(item.endsAt, i18n.language) }) }] : []),
+    ...(live ? [{ Icon: Leaf, text: `${live.remaining} ${bm ? 'hidangan' : 'portions'} · ${timeLeft(left, bm)} ${bm ? 'lagi' : 'left'}` }] : !item.endsAt && !batch ? [{ Icon: Clock3, text: ui('Sample planning estimate · no current batch listed') }] : []),
+  ]
+  return <FoodCard gateway={gateway} stallId={stall.id} stallName={stall.name} foodId={food?.id} to={`/stalls/${stall.id}`} title={item.title} priceSen={item.priceSen} rating={ratingLabel(stall)}
+    photo={batch ? <BatchPhoto food={item.title} number={batch.batchNumber} foodId={batch.foodItemId} batchId={batch.id} photo={batch.photoUrl}/> : <DemoImage image={foodImage(food?.name ?? stall.specialty)} photo={food?.photoUrl} description={`${item.title} from ${stall.name}`} sizes="(max-width: 600px) 82vw, 320px"/>}
+    badge={item.endsAt ? <CardBadge kind="hot" label={ui('Live offer')} Icon={Tag}/> : undefined}
+    wasPriceSen={item.wasSen}
+    meta={meta}
+    note={item.prediction && <SellOutPill prediction={item.prediction} locale={i18n.language}/>}
+    track={live ? <div className="food-track" role="meter" aria-label={bm ? 'Baki hidangan' : 'Portions remaining'} aria-valuemin={0} aria-valuemax={100} aria-valuenow={portionPercent(live, now)}><span style={{ transform: `scaleX(${portionPercent(live, now) / 100})` }}/></div> : undefined}/>
+}
+
+export function SellingOutSoon({ data, now, gateway, filters, stallIds }: { data: DiscoverySnapshot; now: Date; gateway: DataGateway; filters: Filters; stallIds: Set<string> }) {
+  const [withEstimates, setWithEstimates] = useState(false)
+  const canEstimate = gateway.mode === 'fixture' // estimates are demo-only, like the rest of the clearance forecast
+  const items = useMemo(() => sellingOutItems(data, now, filters, stallIds, canEstimate && withEstimates), [data, now, filters, stallIds, canEstimate, withEstimates])
 
   return <section className="selling-out" aria-labelledby="selling-out-title">
     <div className="section-heading selling-heading">
@@ -88,29 +122,6 @@ export function SellingOutSoon({ data, now, gateway, filters, stallIds }: { data
     </div>
     {items.length === 0
       ? <p className="sellout-empty" role="status">{canEstimate && !withEstimates ? ui('No live offers match right now. Tick “Show estimated sell-outs” to see likely sell-outs.') : ui('No foods match right now. Try another search or category.')}</p>
-      : <div className="sellout-row">
-        <button type="button" className="sellout-arrow prev" aria-label={ui('Previous foods')} disabled={edge.start} onClick={() => step(-1)}><ChevronLeft size={22} aria-hidden="true"/></button>
-        <ul className="sellout-track" ref={track} onScroll={measure}>{items.map(item => {
-          const { stall, food, batch } = item
-          const market = data.markets.find(m => m.id === stall.marketId)
-          const live = batch && Date.parse(batch.deadline) > now.getTime() && batch.remaining > 0 ? batch : undefined
-          const left = live ? Date.parse(live.deadline) - now.getTime() : 0
-          const meta = [
-            { Icon: Store, text: [stall.name, market?.area].filter(Boolean).join(' · ') },
-            ...(item.endsAt ? [{ Icon: Clock3, text: ui('Reserve by {time}', { time: malaysiaTime(item.endsAt, i18n.language) }) }] : []),
-            ...(live ? [{ Icon: Leaf, text: `${live.remaining} ${bm ? 'hidangan' : 'portions'} · ${timeLeft(left, bm)} ${bm ? 'lagi' : 'left'}` }] : !item.endsAt && !batch ? [{ Icon: Clock3, text: ui('Sample planning estimate · no current batch listed') }] : []),
-          ]
-          return <li className="sellout-item" key={item.key}>
-            <FoodCard gateway={gateway} stallId={stall.id} stallName={stall.name} to={`/stalls/${stall.id}`} title={item.title} priceSen={item.priceSen} rating={ratingLabel(stall)}
-              photo={batch ? <BatchPhoto food={item.title} number={batch.batchNumber} foodId={batch.foodItemId} batchId={batch.id} photo={batch.photoUrl}/> : <DemoImage image={foodImage(food?.name ?? stall.specialty)} photo={food?.photoUrl} description={`${item.title} from ${stall.name}`} sizes="(max-width: 600px) 82vw, 320px"/>}
-              badge={item.endsAt ? <CardBadge kind="hot" label={ui('Live offer')} Icon={Tag}/> : undefined}
-              wasPriceSen={item.wasSen}
-              meta={meta}
-              note={item.prediction && <SellOutPill prediction={item.prediction} locale={i18n.language}/>}
-              track={live ? <div className="food-track" role="meter" aria-label={bm ? 'Baki hidangan' : 'Portions remaining'} aria-valuemin={0} aria-valuemax={100} aria-valuenow={portionPercent(live, now)}><span style={{ transform: `scaleX(${portionPercent(live, now) / 100})` }}/></div> : undefined}/>
-          </li>
-        })}</ul>
-        <button type="button" className="sellout-arrow next" aria-label={ui('Next foods')} disabled={edge.end} onClick={() => step(1)}><ChevronRight size={22} aria-hidden="true"/></button>
-      </div>}
+      : <SellingOutRow items={items}>{item => <SellingOutCard item={item} data={data} now={now} gateway={gateway}/>}</SellingOutRow>}
   </section>
 }

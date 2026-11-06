@@ -116,7 +116,7 @@ export function PreparedToday({data,now,gateway}:{data:DiscoverySnapshot;now:Dat
       :busiest.has(stall.marketId)?{kind:'popular',label:bm?'Popular':'Popular',Icon:Star}
       :batch&&now.getTime()-Date.parse(batch.correctedPreparedAt??batch.preparedAt)<3600000?{kind:'fresh',label:bm?'Segar':'Fresh',Icon:Leaf}
       :offer?{kind:'hot',label:bm?'Tawaran panas':'Hot Sale',Icon:Flame}:null
-    return <FoodCard key={f.id} gateway={gateway} stallId={stall.id} stallName={stall.name} to={`/stalls/${f.stallId}`} title={f.name} priceSen={f.priceSen} rating={ratingLabel(stall)}
+    return <FoodCard key={f.id} gateway={gateway} stallId={stall.id} stallName={stall.name} foodId={f.id} to={`/stalls/${f.stallId}`} title={f.name} priceSen={f.priceSen} rating={ratingLabel(stall)}
       photo={batch?<BatchPhoto food={f.name} number={batch.batchNumber} foodId={f.id} batchId={batch.id} photo={batch.photoUrl}/>:<DemoImage image={foodImage(f.name)} photo={f.photoUrl} description={`${f.name}, menu photo`}/>}
       badge={badge&&<CardBadge {...badge}/>}
       meta={[{Icon:Clock3,text:`${batch?`${bm?'Hari ini':'Today'} · `:''}${hoursLabel(stall,market)}`},{Icon:MapPin,text:[stall.name,market?.area].filter(Boolean).join(' · ')}]}
@@ -147,7 +147,7 @@ export function FeaturedStalls({data,now,gateway}:{data:DiscoverySnapshot;now:Da
       :stall.id===topRated?{kind:'local',label:bm?'Kegemaran tempatan':'Local favourite',Icon:Heart}
       :stall.marketId===busiest?{kind:'popular',label:'Popular',Icon:Star}
       :{kind:'must',label:bm?'Wajib cuba':'Must try',Icon:Sparkles}
-    return <FoodCard key={stall.id} gateway={gateway} stallId={stall.id} stallName={stall.name} to={`/stalls/${stall.id}`} title={dish.name} priceSen={dish.priceSen} rating={ratingLabel(stall)} action="details"
+    return <FoodCard key={stall.id} gateway={gateway} stallId={stall.id} stallName={stall.name} foodId={dish.id} to={`/stalls/${stall.id}`} title={dish.name} priceSen={dish.priceSen} rating={ratingLabel(stall)} action="details"
       photo={<DemoImage image={foodImage(dish.name)} photo={dish.photoUrl} description={`${dish.name} from ${stall.name}`} sizes="(max-width: 600px) 100vw, 520px"/>}
       badge={<CardBadge {...badge}/>}
       meta={[{Icon:Store,text:stall.name},{Icon:MapPin,text:market?`${market.name} · ${market.area}`:''}]}

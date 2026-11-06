@@ -42,6 +42,15 @@
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
+/* Black fade behind the navbar on every page that uses it: solid at the very top, gone just past the header's lower edge.
+   It sits inside the header's own stacking context (z-index 20 above), under the links and above the page photo. */
+.app-shell:has(.night-page) > .site-header::before {
+  content: '';
+  position: absolute; inset: 0 0 -24px;
+  z-index: -1;
+  background: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, .78) 45%, transparent 100%);
+  pointer-events: none;
+}
 .app-shell:has(.night-page) > .site-header .brand { color: #fff; }
 .app-shell:has(.night-page) > .site-header .brand > span > span { color: var(--accent-on-dark); }
 .app-shell:has(.night-page) > .site-header .brand small { color: #e4dad0; }

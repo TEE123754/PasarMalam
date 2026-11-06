@@ -1,0 +1,16 @@
+/* The Offers cards use the same heart as the food cards, laid over the top-right of the photo.
+   (On Discover and Saved the heart is styled by FoodCard.css.) */
+.clearance-card { position: relative; }
+.clearance-card > .food-save {
+  position: absolute; right: 10px; top: 10px; z-index: 3;
+  display: grid; place-items: center;
+  width: 44px; height: 44px; padding: 0;
+  border-radius: 50%;
+  background: rgba(15, 10, 3, .72);
+  border: 1px solid rgba(255, 255, 255, .25);
+  color: #fff;
+  cursor: pointer;
+}
+.clearance-card > .food-save:hover:not(:disabled) { background: rgba(15, 10, 3, .85); }
+.clearance-card > .food-save[aria-pressed="true"] { color: #ff8a4c; border-color: rgba(255, 138, 76, .6); }
+.clearance-card > .food-save:focus-visible { outline: 2px solid #ff8a4c; outline-offset: 2px; }

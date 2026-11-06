@@ -1,0 +1,40 @@
+/* Saved page: title count, the plan button, the saved-items grid and the run buttons.
+   Cards are the Discover food card; heading and card styles come from discovery.css / FoodCard.css (.discover-dark). */
+
+.saved-page .page-intro h1 .saved-count { color: var(--accent-on-dark); }
+
+/* Clear space above and below, so the button never touches the text or the cards */
+.saved-plan { display: grid; justify-items: start; gap: 10px; margin: 32px 0; }
+.saved-plan .button { min-height: 52px; padding: 0 28px; font-size: 16px; }
+.saved-plan .button:disabled { opacity: 1; background: #5a3a2a; color: #eadfd2; border-color: #7a5a44; cursor: not-allowed; }
+.saved-plan-hint { margin: 0; color: var(--text-2); font-size: 15px; }
+
+.discover-dark.saved-items { margin: 0 0 40px; }
+.saved-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
+.saved-grid > li { display: flex; min-width: 0; }
+.saved-grid > li > .food-card { flex: 1; }
+.discover-dark .saved-grid .food-photo { height: 200px; }
+@media (max-width: 1000px) { .saved-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .saved-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* Full-width run buttons: green to add, red to cancel; white text, 44px tap area */
+.saved-run-button { width: 100%; min-height: 48px; justify-content: center; border: 0; color: #fff; font-size: 16px; font-weight: 800; }
+.saved-run-button.add { background: #1a7f37; }
+.saved-run-button.add:hover { background: #166b2e; }
+.saved-run-button.remove { background: #b3261e; }
+.saved-run-button.remove:hover { background: #971f18; }
+.saved-run-button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; box-shadow: 0 0 0 5px #000; }
+
+/* "Are you sure?" dialog, dark like the page */
+.saved-overlay { background: rgba(0, 0, 0, .7); }
+.dialog-content.saved-dialog {
+  display: grid; gap: 14px;
+  width: min(420px, calc(100vw - 32px));
+  padding: 24px;
+  background: #1e1608; color: #fff;
+  border: 1px solid #5a4426;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .6);
+}
+.saved-dialog h2 { margin: 0; color: #fff; font-size: 1.4rem; }
+.saved-dialog-actions { display: grid; gap: 10px; }
+.saved-dialog .saved-keep { width: 100%; min-height: 48px; justify-content: center; font-size: 16px; font-weight: 800; background: #3a2b17; color: #fff; border: 1px solid #5a4426; }

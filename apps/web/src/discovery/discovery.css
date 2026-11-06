@@ -5,14 +5,6 @@
 /* Over the hero, lift the shared transparent navbar out of flow. No explicit top: it stays at
    its static position, i.e. 0 in the demo, or just under the connected-mode banner */
 .app-shell:has(.night-page.discover-dark) > .site-header { position: absolute; left: 0; right: 0; }
-/* Black fade behind the navbar: solid at the very top, gone just past the header's lower edge */
-.app-shell:has(.night-page.discover-dark) > .site-header::before {
-  content: '';
-  position: absolute; inset: 0 0 -24px;
-  z-index: -1;
-  background: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, .78) 45%, transparent 100%);
-  pointer-events: none;
-}
 
 .night-page.discover-dark {
   --night-scrim: rgba(0, 0, 0, .55);
@@ -511,15 +503,6 @@
   .discover-dark.arriving > * { animation-duration: .01ms; }
 }
 
-/* Saved page: pick which saved stalls go into a market run (DiscoveryPage SavedPage) */
-.saved-plan-actions { display: flex; flex-wrap: wrap; gap: 10px; }
-.saved-plan-actions .button { min-height: 44px; }
-.saved-item { display: grid; gap: 8px; min-width: 0; }
-.saved-pick { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 12px; border: 1px solid rgba(255, 255, 255, .12); border-radius: 10px; background: rgba(25, 17, 5, .85); color: #f5f0e8; font-size: 14px; font-weight: 700; cursor: pointer; }
-.saved-pick input { width: 20px; height: 20px; margin: 0; accent-color: #c83c08; }
-.saved-pick:has(input:checked) { border-color: rgba(255, 138, 76, .6); background: rgba(200, 60, 8, .16); }
-.saved-pick:has(input:focus-visible) { outline: 2px solid #ff8a4c; outline-offset: 2px; }
-
 /* Predicted clearances on Discover: no outer card, the same heading as the other sections, photo-led cards */
 .discover-dark .predicted-clearance-section.discover { margin: 44px 0 0; padding: 0; border: 0; border-radius: 0; background: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
 .discover-dark .predicted-clearance-section.discover .predicted-clearance-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
@@ -533,3 +516,33 @@
 .discover-dark .predicted-clearance-section.discover .predicted-price { color: var(--accent-on-dark); font-size: 18px; font-weight: 800; }
 .discover-dark .predicted-clearance-section.discover .predicted-batch-meta { color: var(--text-2); font-size: 14px; }
 .discover-dark .predicted-clearance-section.discover .back-link { min-height: 44px; margin: 0; color: var(--accent-on-dark); font-size: 14px; }
+
+/* The 4-column default above comes after the earlier breakpoints and was beating them: restate them here */
+@media (max-width: 1100px) { .discover-dark .predicted-clearance-section.discover .predicted-clearance-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 900px) { .discover-dark .predicted-clearance-section.discover .predicted-clearance-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Phones: Predicted clearances becomes one swipe row, like Selling out soon. Declared after the
+   desktop rules above so the one-column override at 600px no longer loses to the 4-column default. */
+@media (max-width: 640px) {
+  .discover-dark .predicted-clearance-section.discover .section-heading { flex-wrap: wrap; row-gap: 4px; }
+  .discover-dark .predicted-clearance-section.discover .section-heading > .section-title { flex: 1 1 100%; }
+  .discover-dark .predicted-clearance-section.discover .section-heading > a { flex: 0 0 auto; white-space: nowrap; min-height: 44px; font-size: 14px; }
+  .discover-dark .predicted-clearance-section.discover .predicted-clearance-grid {
+    display: flex; gap: 14px;
+    margin: 0 -20px; padding: 6px 20px 10px;
+    scroll-padding-inline: 20px;
+    overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+  .discover-dark .predicted-clearance-section.discover .predicted-clearance-grid::-webkit-scrollbar { display: none; }
+  .discover-dark .predicted-clearance-section.discover .predicted-clearance-card { flex: 0 0 72vw; max-width: 340px; min-width: 0; scroll-snap-align: start; }
+  .discover-dark .predicted-clearance-section.discover .predicted-clearance-image { height: 150px; }
+  .discover-dark .predicted-clearance-section.discover .predicted-clearance-image :is(img, picture) { width: 100%; height: 100%; min-height: 0; object-fit: cover; }
+  .discover-dark .predicted-clearance-section.discover .predicted-clearance-copy { flex: 1; align-content: start; }
+  .discover-dark .predicted-clearance-section.discover :is(.eyebrow, h3) { overflow-wrap: break-word; word-break: normal; hyphens: none; }
+  .discover-dark .predicted-clearance-section.discover .predicted-price { white-space: nowrap; }
+  .discover-dark .predicted-clearance-section.discover .predicted-batch-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; font-size: 14px; line-height: 1.35; }
+  .discover-dark .predicted-clearance-section.discover .predicted-batch-meta > span { display: inline-flex; align-items: center; gap: 6px; }
+  .discover-dark .predicted-clearance-section.discover .predicted-batch-meta svg { flex-shrink: 0; }
+  .discover-dark .predicted-clearance-section.discover .back-link { margin-top: auto; }
+}

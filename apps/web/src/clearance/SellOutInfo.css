@@ -17,9 +17,11 @@
   animation: selloutPulse .9s cubic-bezier(.22, 1, .36, 1) .4s 1 both;
 }
 .sellout-pill > svg { flex-shrink: 0; margin-top: 2px; }
-.sellout-pill > span { min-width: 0; overflow-wrap: anywhere; }
+.sellout-pill > span { min-width: 0; overflow-wrap: normal; }
 @keyframes selloutPulse { 0% { transform: scale(1); } 40% { transform: scale(1.045); } 100% { transform: scale(1); } }
 @media (prefers-reduced-motion: reduce) { .sellout-pill { animation: none; } }
+/* Phones: the pill spans the card; it wraps between words only, never inside a time */
+@media (max-width: 640px) { .sellout-pill { flex: 1 1 auto; align-items: center; } .sellout-pill > svg { margin-top: 0; } }
 
 .sellout-help {
   position: relative; z-index: 2; /* above a card's whole-card link */

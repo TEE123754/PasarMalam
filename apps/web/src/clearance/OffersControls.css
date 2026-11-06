@@ -1,0 +1,64 @@
+/* Offers page: search, filters and the empty state. Pills and colours follow the Discover search bar. */
+.discover-dark.offers-controls { display: grid; gap: 12px; margin: 22px 0; }
+
+.offers-search {
+  display: flex; align-items: center; gap: 12px;
+  height: 56px; margin: 0; padding: 0 20px;
+  background: rgba(15, 10, 3, .8);
+  border: 1px solid rgba(255, 255, 255, .22);
+  border-radius: 999px;
+  color: var(--text-2);
+}
+.offers-search > svg { flex-shrink: 0; color: var(--accent-on-dark); }
+.offers-search input {
+  flex: 1; min-width: 0; height: 100%;
+  padding: 0; border: 0; outline: 0; background: transparent;
+  color: var(--text-on-dark); font: inherit; font-size: 16px;
+}
+.offers-search input::placeholder { color: var(--text-2); opacity: 1; }
+.offers-search input::-webkit-search-cancel-button { filter: invert(1); }
+.offers-search input:focus-visible { outline: 0; box-shadow: none; }
+.offers-search:focus-within { border-color: var(--accent-on-dark); box-shadow: 0 0 0 2px rgba(255, 138, 76, .35); }
+
+.offers-filters { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.offers-select { position: relative; display: inline-flex; align-items: center; flex: 0 1 220px; min-width: 0; }
+.offers-select select {
+  appearance: none; -webkit-appearance: none;
+  width: 100%; min-height: 44px; margin: 0;
+  padding: 8px 38px 8px 16px;
+  background: rgba(15, 10, 3, .8);
+  border: 1px solid rgba(255, 255, 255, .22);
+  border-radius: 999px;
+  color: var(--text-on-dark); font: inherit; font-size: 15px; font-weight: 650;
+  text-overflow: ellipsis; cursor: pointer;
+}
+.offers-select select option { background: #1e1608; color: #fff; }
+.offers-select.on select { border-color: var(--accent-on-dark); }
+.offers-select select:focus-visible { outline: 2px solid var(--accent-on-dark); outline-offset: 2px; }
+.offers-select > svg { position: absolute; right: 14px; pointer-events: none; color: var(--accent-on-dark); }
+.offers-reset { min-height: 44px; border-radius: 999px; font-size: 15px; }
+
+.offers-empty { display: grid; justify-items: center; gap: 6px; padding: 28px 20px 30px; text-align: center; }
+.offers-empty-art { width: min(240px, 70%); height: auto; margin-bottom: 6px; }
+.offers-empty h3 { margin: 0; font-size: 1.35rem; font-weight: 800; }
+.offers-empty p { margin: 0 0 12px; color: var(--text-2); font-size: 16px; }
+
+/* Page title: the second line in the same bright orange as "best bites." on Discover */
+.page-title-accent { color: var(--accent-on-dark); }
+
+/* The selling-fast section: bright orange heading; phones swipe with the next card peeking in */
+.discover-dark.selling-fast { margin-top: 44px; --per-view: 1; --gap: 16px; }
+@media (min-width: 601px) { .discover-dark.selling-fast { --per-view: 2; } }
+@media (min-width: 901px) { .discover-dark.selling-fast { --per-view: 3; } }
+@media (min-width: 1181px) { .discover-dark.selling-fast { --per-view: 4; } }
+.discover-dark.selling-fast .section-heading h2 { color: var(--accent-on-dark); }
+
+@media (max-width: 640px) {
+  .offers-filters { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .offers-select { flex: none; width: 100%; }
+  .offers-reset { justify-content: center; width: 100%; }
+  .discover-dark.selling-fast .sellout-item { flex: 0 0 72vw; max-width: 340px; }
+}
+@media (min-width: 641px) and (max-width: 900px) {
+  .offers-select { flex-basis: calc((100% - 20px) / 3); }
+}

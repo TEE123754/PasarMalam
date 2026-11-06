@@ -1,7 +1,8 @@
 import { lazy, Suspense, useCallback, useState } from 'react'
 import { useDiscovery } from '../discovery/useDiscovery'
 import { eligibleOffers } from '../discovery/engine'
-import { DiscoveryPage, DiscoveryDetail, SavedPage, useNow } from '../discovery/DiscoveryPage'
+import { DiscoveryPage, DiscoveryDetail, useNow } from '../discovery/DiscoveryPage'
+import { SavedPage } from '../discovery/SavedItems'
 import * as Dialog from '@radix-ui/react-dialog'
 import { NavLink, Navigate, Route, Routes, useLocation, useNavigate } from 'react-router'
 import { useTranslation } from 'react-i18next'
@@ -45,7 +46,10 @@ import { OfferBatchProof } from './OfferBatchProof'
 import { BatchPhoto } from '../components/BatchPhoto'
 import { foodImage } from '../components/demo-images'
 import { VendorPage } from '../vendor/VendorPage'
-import { PredictedClearanceSection } from '../clearance/PredictedClearance'
+import { OffersControls, OffersEmpty, ResetOfferFilters } from '../clearance/OffersControls'
+import { filterOffers, noOfferFilters, type OfferFilters } from '../clearance/offer-filters'
+import { SellingFastSection } from '../clearance/SellingFastSection'
+import { SaveHeart } from '../discovery/SaveHeart'
 
 const PrototypePage=lazy(()=>import('../prototype/PrototypePage'))
 const PresentationPage=lazy(()=>import('../presentation/PresentationPage'))
@@ -79,13 +83,17 @@ function EmptyState() {
 function Offers({ gateway }: { gateway: DataGateway }) {
   const { t, i18n } = useTranslation(), now = useNow(gateway)
   const {actor}=useAuth()
-  return <><PageIntro eyebrow="LESS WASTE. MORE GOOD FOOD." title={t('offersTitle')} body="Small batches, evening specials and surplus meals. Reserve while the advisory window is open; pay when you collect."/><NavLink className="button secondary" to="/commerce">Reservations & order history</NavLink><Content gateway={gateway}>{data => <><div className="clearance-grid">{eligibleOffers(data,now).length ? eligibleOffers(data,now).map(offer => {
+  const [filters,setFilters]=useState<OfferFilters>(noOfferFilters)
+  // "A good deal, / while it lasts.": two lines, the second in the bright orange used on Discover
+  const [titleFirst,...titleRest]=t('offersTitle').split(/(?<=,)\s+/)
+  const title=titleRest.length?<>{titleFirst}<br/><span className="page-title-accent">{titleRest.join(' ')}</span></>:t('offersTitle')
+  return <><PageIntro eyebrow="LESS WASTE. MORE GOOD FOOD." title={title} body="Small batches, evening specials and surplus meals. Reserve while the advisory window is open; pay when you collect."/><NavLink className="button secondary" to="/commerce">Reservations & order history</NavLink><Content gateway={gateway}>{data => { const all=eligibleOffers(data,now), shown=filterOffers(data,all,filters); return <>{all.length>0&&<OffersControls data={data} offers={all} filters={filters} onChange={setFilters}/>}{shown.length ? <div className="clearance-grid">{shown.map(offer => {
     const stall = data.stalls.find(s => s.id === offer.stallId), food=data.menu.find(f=>f.id===offer.foodItemId), batch=data.batches.find(b=>b.id===offer.batchId), discount=offer.originalPriceSen?Math.round((1-offer.priceSen/offer.originalPriceSen)*100):0
-    return <article className="clearance-card panel" key={offer.id}><NavLink to={`/stalls/${offer.stallId}`} className="clearance-image">{batch?<BatchPhoto food={food?.name??stall?.specialty??offer.title} number={batch.batchNumber} foodId={batch.foodItemId} batchId={batch.id} photo={batch.photoUrl}/>:<DemoImage image={foodImage(food?.name??stall?.specialty??'')} description={food?.name??stall?.specialty??offer.title}/>}<span className="offer-ribbon">{offer.priceSen===0?'Share a meal':`${discount}% off`}</span></NavLink><div className="clearance-copy"><span className="eyebrow">{stall?.name}</span><h2>{offer.title}</h2><div className="clearance-price"><strong>RM {(offer.priceSen/100).toFixed(2)}</strong><s>RM {(offer.originalPriceSen/100).toFixed(2)}</s></div><OfferBatchProof batch={batch} foodName={food?.name??offer.title}/>{batch&&<><BatchFreshness batch={batch} now={now}/><p className="offer-advisory-disclaimer">Advisory estimate, not a safety guarantee. Check food condition with the hawker.</p></>}<p className="offer-reserve-by"><Clock3 size={14}/> Reserve by {malaysiaTime(offer.endsAt,i18n.language)}</p><NavLink className="button primary" to={`/commerce?offer=${encodeURIComponent(offer.id)}`} onClick={()=>void impactEvent(gateway.mode,gateway.mode==='fixture'?demoPerson():{id:actor?.id??'',name:'',verified:actor?.verified??false,role:'customer'},offer.stallId,'offer-engagement',offer.id)}>Reserve & collect</NavLink><NavLink className="back-link" to={`/stalls/${offer.stallId}`}>View stall & preparation history</NavLink></div></article>
-  }) : <EmptyState/>}</div>{gateway.mode==='fixture'&&<PredictedClearanceSection data={data} now={now} locale={i18n.language} limit={6}/>}</>}</Content></>
+    return <article className="clearance-card panel" key={offer.id}><SaveHeart gateway={gateway} stallId={offer.stallId} stallName={stall?.name??''} foodId={offer.foodItemId} foodName={food?.name??offer.title}/><NavLink to={`/stalls/${offer.stallId}`} className="clearance-image">{batch?<BatchPhoto food={food?.name??stall?.specialty??offer.title} number={batch.batchNumber} foodId={batch.foodItemId} batchId={batch.id} photo={batch.photoUrl}/>:<DemoImage image={foodImage(food?.name??stall?.specialty??'')} description={food?.name??stall?.specialty??offer.title}/>}<span className="offer-ribbon">{offer.priceSen===0?'Share a meal':`${discount}% off`}</span></NavLink><div className="clearance-copy"><span className="eyebrow">{stall?.name}</span><h2>{offer.title}</h2><div className="clearance-price"><strong>RM {(offer.priceSen/100).toFixed(2)}</strong><s>RM {(offer.originalPriceSen/100).toFixed(2)}</s></div><OfferBatchProof batch={batch} foodName={food?.name??offer.title}/>{batch&&<><BatchFreshness batch={batch} now={now}/><p className="offer-advisory-disclaimer">Advisory estimate, not a safety guarantee. Check food condition with the hawker.</p></>}<p className="offer-reserve-by"><Clock3 size={14}/> Reserve by {malaysiaTime(offer.endsAt,i18n.language)}</p><NavLink className="button primary" to={`/commerce?offer=${encodeURIComponent(offer.id)}`} onClick={()=>void impactEvent(gateway.mode,gateway.mode==='fixture'?demoPerson():{id:actor?.id??'',name:'',verified:actor?.verified??false,role:'customer'},offer.stallId,'offer-engagement',offer.id)}>Reserve & collect</NavLink><NavLink className="back-link" to={`/stalls/${offer.stallId}`}>View stall & preparation history</NavLink></div></article>
+  })}</div> : all.length ? <OffersEmpty><ResetOfferFilters filters={filters} onReset={()=>setFilters(noOfferFilters)}/></OffersEmpty> : <OffersEmpty/>}{gateway.mode==='fixture'&&<SellingFastSection data={data} now={now} gateway={gateway}/>}</>}}</Content></>
 }
 
-function PageIntro({ eyebrow, title, body }: { eyebrow: string; title: string; body: string }) {
+function PageIntro({ eyebrow, title, body }: { eyebrow: string; title: React.ReactNode; body: string }) {
   return <header className="page-intro"><div className="eyebrow">{eyebrow}</div><h1>{title}</h1><p>{body}</p></header>
 }
 
