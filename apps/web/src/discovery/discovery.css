@@ -5,10 +5,19 @@
 /* Over the hero, lift the shared transparent navbar out of flow. No explicit top: it stays at
    its static position, i.e. 0 in the demo, or just under the connected-mode banner */
 .app-shell:has(.night-page.discover-dark) > .site-header { position: absolute; left: 0; right: 0; }
-/* The page renders its own dark footer */
-.app-shell:has(.night-page.discover-dark) > .site-footer { display: none; }
+/* Black fade behind the navbar: solid at the very top, gone just past the header's lower edge */
+.app-shell:has(.night-page.discover-dark) > .site-header::before {
+  content: '';
+  position: absolute; inset: 0 0 -24px;
+  z-index: -1;
+  background: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, .78) 45%, transparent 100%);
+  pointer-events: none;
+}
 
-.night-page.discover-dark { --night-scrim: rgba(0, 0, 0, .55); }
+.night-page.discover-dark {
+  --night-scrim: rgba(0, 0, 0, .55);
+  --display-serif: 'Fraunces', Georgia, 'Times New Roman', serif;
+}
 .discover-dark:has(.discovery-hero.day) { --night-photo: url('/demo/images/pm-02-day-market.webp'); }
 .discover-dark .muted,
 .discover-dark .small.muted,
@@ -18,10 +27,16 @@
 .discover-dark .demo-artwork,
 .discover-dark .image-placeholder { background: var(--raised-bg); color: var(--text-2); border-color: var(--card-border); }
 
-/* Shared section headings: white title left, orange link right */
-.discover-dark .section-heading { margin-bottom: 16px; }
-.discover-dark .section-heading h2 { color: var(--text-on-dark); font-size: 24px; font-weight: 800; letter-spacing: -.02em; }
-.discover-dark .section-heading > span { color: var(--text-2); font-size: 13px; font-weight: 600; }
+/* Shared section headings: icon and serif title left, count or orange link right */
+.discover-dark .section-heading { align-items: flex-end; margin-bottom: 18px; }
+.discover-dark .section-heading h2 { color: var(--text-on-dark); font-family: var(--display-serif); font-size: clamp(1.5rem, 2.6vw, 1.9rem); font-weight: 700; line-height: 1.15; letter-spacing: -.02em; }
+.discover-dark .section-heading > span { flex-shrink: 0; color: var(--text-2); font-size: 13px; font-weight: 600; }
+.discover-dark .section-title { display: flex; align-items: flex-start; gap: 10px; min-width: 0; }
+.discover-dark .section-title > svg { flex-shrink: 0; margin-top: 7px; }
+.discover-dark .section-title > svg.flame { color: var(--accent-on-dark); }
+.discover-dark .section-title > svg.gold { color: #f5b942; }
+.discover-dark .section-title > svg.leaf { color: #8fd98a; }
+.discover-dark .section-title > svg.cream { color: #f5e3c8; }
 .discover-dark .section-heading > a,
 .discover-dark .section-heading .text-button {
   display: inline-flex; align-items: center; gap: 6px;
@@ -37,56 +52,61 @@
 .discover-dark .button:disabled { opacity: .45; }
 .discover-dark .panel { background: var(--card-bg); border-color: var(--card-border); color: var(--text-on-dark); }
 
-/* 1. Hero — full-bleed, starting at the very top behind the navbar; the photo comes from the page layer */
+/* 1. Hero: full-bleed, starting at the very top behind the navbar. It has no background of its own,
+   so the page-wide night-market photo shows through and the satay fades into it. */
 .discover-dark .discovery-hero {
   position: relative;
   display: flex;
   align-items: center;
-  min-height: 46vh; /* short: the search card follows directly (DESIGN.md first viewport) */
+  min-height: min(640px, 76vh);
+  /* Full-bleed box, but the padding brings its content back onto the page's own left edge */
   margin: 0 calc(50% - 50vw);
+  padding-inline: calc(50vw - 50%);
   border: 0;
   border-radius: 0;
   box-shadow: none;
-  /* Transparent: the page-wide photo layer shows through, so hero and page are one continuous image */
   background: transparent;
   overflow: hidden;
 }
-/* Top fade keeps the navbar legible; left fade keeps the copy legible */
-.discover-dark .discovery-hero::before {
-  content: '';
-  position: absolute; inset: 0;
-  background:
-    linear-gradient(to bottom, rgba(0, 0, 0, .5) 0%, transparent 40%),
-    linear-gradient(to right, rgba(0, 0, 0, .7) 0%, rgba(0, 0, 0, .3) 60%, transparent 100%);
+/* The demo banner keeps the navbar in normal flow, so the hero slides up behind it instead */
+.app-shell:has(.prototype-mode-label) .discover-dark .discovery-hero { margin-top: calc(-88px - env(safe-area-inset-top)); }
+.discover-dark .discovery-hero-photo {
+  position: absolute; top: 0; right: 0;
+  width: min(60%, 1040px); height: 100%;
+  object-fit: cover; object-position: 50% 52%;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 42%), linear-gradient(to bottom, #000 74%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 42%), linear-gradient(to bottom, #000 74%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
   pointer-events: none;
 }
 .discover-dark .discovery-hero-copy {
   position: relative; z-index: 1;
-  width: min(1260px, 100%);
-  margin: 0 auto;
-  padding: 96px clamp(20px, 4vw, 64px) 28px;
+  width: 100%;
+  padding: 112px 0 28px;
 }
-.discover-dark .discovery-hero-copy > * { max-width: min(600px, 50vw); }
+.discover-dark .discovery-hero-copy > * { max-width: min(600px, 52vw); }
 .discover-dark .location-kicker { display: flex; align-items: center; gap: 6px; color: var(--text-on-dark); font-size: 13px; font-weight: 700; margin-bottom: 14px; }
 .discover-dark .hero-tags {
   display: inline-block;
-  padding: 6px 13px;
+  padding: 6px 14px;
   border-radius: 999px;
-  border: 1px solid #ff8a4c66;
-  background: #c83c0826;
-  color: var(--accent-on-dark);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: .12em;
+  background: var(--accent);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
 }
 .discover-dark .discovery-hero h1 {
   color: var(--text-on-dark);
-  font-size: clamp(2.4rem, 5vw, 4.2rem);
-  line-height: 1.05;
+  font-family: var(--display-serif);
+  font-size: clamp(2.5rem, 5.2vw, 4.4rem);
+  font-weight: 700;
+  line-height: 1.04;
   letter-spacing: -.04em;
-  margin: 18px 0 14px;
+  margin: 16px 0 14px;
 }
-.discover-dark .discovery-hero-copy > p { color: #e4dad0; font-size: 16px; line-height: 1.6; max-width: 460px; margin: 0 0 24px; }
+.discover-dark .hero-accent { color: var(--accent-on-dark); }
+.discover-dark .discovery-hero-copy > p { color: #f0e8df; font-size: 16px; line-height: 1.6; max-width: 460px; margin: 0 0 22px; }
 
 /* 2. Value props bar */
 .discover-dark .value-props {
@@ -104,135 +124,147 @@
 .discover-dark .value-props strong { display: block; color: var(--text-on-dark); font-size: 14px; }
 .discover-dark .value-props span { display: block; color: var(--text-2); font-size: 12px; margin-top: 3px; }
 
-/* 3. Category filter chips */
-.discover-dark .category-chips { display: flex; gap: 12px; overflow-x: auto; padding: 2px 2px 10px; margin: 20px 0 0; }
+/* 3. Category tiles. The row scrolls sideways on its own, so the page never does */
+.discover-dark .category-row { position: relative; z-index: 5; margin: 24px 0 0; }
+.discover-dark .category-chips { display: flex; gap: 10px; overflow-x: auto; padding: 2px; scrollbar-width: none; }
+.discover-dark .category-chips::-webkit-scrollbar { display: none; }
 .discover-dark .category-chips button {
-  display: flex; flex-direction: column; align-items: center; gap: 8px;
-  flex: 1 0 92px;
-  background: none; border: 0; padding: 0 0 6px;
-  color: var(--text-2); font-size: 12px; font-weight: 700;
-  border-bottom: 2px solid transparent;
-}
-.discover-dark .chip-icon {
-  display: grid; place-items: center;
-  width: 58px; height: 58px;
-  border-radius: 14px;
-  background: var(--card-bg);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+  flex: 1 0 auto;
+  min-width: 104px; min-height: 92px;
+  padding: 12px 16px;
+  border-radius: 18px;
   border: 1px solid var(--card-border);
+  background: var(--card-bg);
   color: var(--text-on-dark);
+  font-size: 14px; font-weight: 700; white-space: nowrap;
+  transition: background .15s ease, border-color .15s ease;
 }
-.discover-dark .category-chips button:hover .chip-icon { border-color: #5a4426; }
-.discover-dark .category-chips button.active { color: var(--text-on-dark); border-bottom-color: var(--accent); }
-.discover-dark .category-chips button.active .chip-icon { background: #c83c0829; border-color: var(--accent); color: var(--accent-on-dark); }
+.discover-dark .category-chips button:hover:not(.active) { border-color: #5a4426; }
+.discover-dark .category-chips button.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.discover-dark .category-chips .category-more { flex-direction: row; gap: 6px; flex-grow: 0; min-width: 96px; }
+.discover-dark .category-chips .category-more[aria-expanded="true"]:not(.active) { border-color: var(--accent-on-dark); }
+.discover-dark .category-menu {
+  position: absolute; right: 2px; top: calc(100% + 6px);
+  display: grid; gap: 4px;
+  min-width: 200px;
+  padding: 6px;
+  border-radius: 14px;
+  border: 1px solid #5a4426;
+  background: #1e1608;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .5);
+}
+.discover-dark .category-menu button {
+  display: flex; align-items: center; gap: 10px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: 0; border-radius: 10px;
+  background: transparent;
+  color: var(--text-on-dark);
+  font-size: 14px; font-weight: 700; text-align: left;
+}
+.discover-dark .category-menu button:hover:not(.active) { background: var(--raised-bg); }
+.discover-dark .category-menu button.active { background: var(--accent); color: #fff; }
 
-/* 4. Prepared today — 3-col grid of shared food cards (FoodCard.css) */
-.discover-dark .dish-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+/* 4. Trending tonight: shared food cards, four across (FoodCard.css) */
+.discover-dark .prepared-today { margin-top: 44px; }
+.discover-dark .dish-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
 .discover-dark .stretched-link { color: inherit; }
 /* Whole card is clickable; the save button and linked tags sit above this layer */
 .discover-dark .stretched-link::after { content: ''; position: absolute; inset: 0; z-index: 1; }
 .discover-dark .advisory-note { margin: 14px 0 0; font-size: 12px; }
 
-/* 4b. Featured stalls — four spotlight cards */
+/* 4b. Freshly made: full-width horizontal cards (FoodCard.css) */
 .discover-dark .featured-stalls { margin-top: 44px; }
-.discover-dark .section-sub { margin: 4px 0 0; color: var(--text-2); font-size: 13px; }
-.discover-dark .featured-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
-.discover-dark .featured-grid .food-photo { height: 150px; }
+.discover-dark .section-sub { margin: 4px 0 0; color: var(--text-2); font-size: 14px; }
+.discover-dark .featured-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
 
-/* 5. Search + filter chips */
-.discover-dark .search-wrap {
+/* 5. Search and its compact control row, inside the hero */
+.discover-dark .discovery-hero-copy .search-wrap {
   width: 100%;
-  height: 56px;
-  margin: 40px 0 14px;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 14px;
+  height: 60px;
+  margin: 0;
+  padding: 0 7px 0 20px;
+  background: rgba(15, 10, 3, .8);
+  border: 1px solid rgba(255, 255, 255, .22);
+  border-radius: 999px;
   box-shadow: none;
   color: var(--text-2);
 }
-.discover-dark .search-wrap input { background: transparent; color: var(--text-on-dark); }
+.discover-dark .search-wrap > svg { flex-shrink: 0; color: var(--accent-on-dark); }
+.discover-dark .search-wrap input { background: transparent; color: var(--text-on-dark); font-size: 16px; }
 .discover-dark .search-wrap input::placeholder { color: var(--text-2); }
-.discover-dark .search-wrap:focus-within { border-color: var(--accent-on-dark); }
-.discover-dark .discovery-action-bar { justify-content: flex-start; gap: 10px; margin-bottom: 22px; }
+.discover-dark .discovery-hero-copy .search-wrap:focus-within { border-color: var(--accent-on-dark); }
+.discover-dark .hero-search-go {
+  flex-shrink: 0;
+  width: 46px; height: 46px; min-height: 0;
+  padding: 0;
+  border-radius: 50%;
+  justify-content: center;
+}
+.discover-dark .discovery-hero-copy .discovery-action-bar {
+  display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 8px;
+  max-width: min(820px, 64vw);
+  margin: 12px 0 0;
+}
+/* The sort group stays a group for assistive tech; its buttons flow with the row's other chips */
+.discover-dark .browse-tabs { display: contents; }
 .discover-dark .filter-chip,
 .discover-dark .browse-tabs button {
-  display: inline-flex; align-items: center; gap: 7px;
-  min-height: 42px;
-  padding: 9px 16px;
-  border-radius: 12px;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
+  display: inline-flex; align-items: center; gap: 6px;
+  flex: 0 1 auto;
+  min-height: 40px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  background: rgba(15, 10, 3, .74);
+  border: 1px solid rgba(255, 255, 255, .18);
   color: var(--text-on-dark);
   font-size: 13px; font-weight: 700;
   box-shadow: none;
+  white-space: nowrap;
 }
 .discover-dark .filter-chip:hover,
-.discover-dark .browse-tabs button:hover:not(.active) { border-color: #5a4426; }
-.discover-dark .filter-chip[aria-expanded="true"],
-.discover-dark .filter-chip[aria-pressed="true"] { border-color: var(--accent-on-dark); }
-.discover-dark .discovery-action-bar > .filter-chip:last-child { margin-left: auto; }
-.discover-dark .browse-tabs { background: none; padding: 0; gap: 10px; flex-wrap: wrap; }
+.discover-dark .browse-tabs button:hover:not(.active) { border-color: rgba(255, 138, 76, .6); }
+.discover-dark .filter-chip[aria-expanded="true"] { border-color: var(--accent-on-dark); }
 .discover-dark .browse-tabs button.active { background: var(--accent); border-color: var(--accent); color: #fff; }
-.discover-dark .filter-applied { color: var(--accent-on-dark); }
+.discover-dark .filter-applied { color: var(--accent-on-dark); font-size: 18px; line-height: 0; }
 
-/* 6. What are you craving? */
-.discover-dark .discovery-categories { margin: 40px 0 0; }
-.discover-dark .category-strip { gap: 14px; }
-.discover-dark .category-tile {
-  flex: 0 0 160px;
-  background: var(--card-bg);
-  border: 1px solid var(--card-border);
-  border-radius: 16px;
-  box-shadow: none;
-  color: var(--text-on-dark);
+/* 6. Doorways to the offers and the market map */
+.discover-dark .discover-promos { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 44px; }
+.discover-dark .promo-card {
+  position: relative;
+  display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; gap: 22px;
+  min-width: 0; min-height: 196px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: 18px;
+  overflow: hidden;
 }
-.discover-dark .category-tile .demo-artwork { height: 120px; }
-.discover-dark .category-tile > span { color: var(--text-on-dark); font-size: 13px; }
-.discover-dark .category-tile .category-icon { display: grid; place-items: center; height: 120px; background: var(--raised-bg); color: var(--text-2); }
-.discover-dark .category-tile.selected { outline: 2px solid var(--accent-on-dark); background: #c83c0829; }
-
-/* 7. Markets to explore */
-.discover-dark .markets-explore { margin-top: 44px; }
-.discover-dark .markets-explore > .small { margin: -6px 0 12px; }
-.discover-dark .explore-card {
-  display: grid;
-  grid-template-columns: minmax(0, 3fr) minmax(0, 7fr);
-  grid-template-areas: "panel map";
-  margin-bottom: 22px;
+.discover-dark .promo-deals { background: linear-gradient(105deg, #4a1505 0%, #76230a 62%, #8f2c0a 100%); }
+.discover-dark .promo-markets { background: linear-gradient(105deg, #1e1608 0%, #27261b 100%); }
+.discover-dark .promo-photo {
+  position: absolute; top: 0; right: 0;
+  width: 48%; height: 100%;
+  object-fit: cover;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 60%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 60%);
 }
-.discover-dark .explore-panel {
-  grid-area: panel;
-  display: flex; flex-direction: column; justify-content: center;
-  min-height: 320px;
-  padding: 32px;
-  background: #1a3828;
-  border-radius: 16px 0 0 16px;
+.discover-dark .promo-map {
+  position: absolute; inset: 0 0 0 40%;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 45%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 45%);
 }
-.discover-dark .explore-panel .eyebrow { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-on-dark); }
-.discover-dark .explore-panel h3 { margin: 10px 0 8px; font-size: 24px; font-weight: 800; line-height: 1.2; color: var(--text-on-dark); }
-.discover-dark .explore-panel > p { margin: 0; color: #c9d6cc; font-size: 13px; line-height: 1.6; }
-.discover-dark .explore-panel .button { align-self: flex-start; margin-top: 16px; border-radius: 20px; }
-.discover-dark .explore-stats { display: flex; flex-wrap: wrap; align-items: center; margin-top: 14px !important; font-size: 12px !important; color: #c9d6cc !important; }
-.discover-dark .explore-stats span { display: inline-flex; align-items: center; gap: 4px; }
-.discover-dark .explore-stats span + span::before { content: '·'; margin: 0 8px; }
-.discover-dark .explore-stats svg { color: #f5b942; }
-.discover-dark .explore-map,
-.discover-dark .explore-map .map-panel { display: contents; }
-.discover-dark .explore-map .map-heading { display: none; }
-.discover-dark .explore-map .market-map,
-.discover-dark .explore-map > p {
-  grid-area: map;
-  height: auto;
-  min-height: 320px;
-  margin: 0;
-  border-radius: 0 16px 16px 0;
-  background: #1a3828;
-}
-.discover-dark .explore-map > p { display: grid; place-items: center; color: #c9d6cc; font-size: 14px; }
-/* Legend, "Search this map area" / "Clear map area" and the privacy note sit below the card */
-.discover-dark .explore-map .map-panel > :not(.market-map):not(.map-heading) { grid-column: 1 / -1; }
-.discover-dark .explore-map .map-legend { padding: 14px 0 0; color: var(--text-2); }
-.discover-dark .explore-map .map-panel > .button-row { margin: 10px 0 0; }
-.discover-dark .explore-map .map-panel > p { margin: 8px 0 0; }
+.discover-dark .promo-map svg:first-child { display: block; width: 100%; height: 100%; }
+.discover-dark .promo-map svg:first-child path { fill: none; stroke: rgba(255, 255, 255, .16); stroke-width: 5; stroke-linecap: round; }
+.discover-dark .promo-map .lucide-map-pin { position: absolute; color: #fff; fill: var(--accent); }
+.discover-dark .promo-map .pin-a { left: 34%; top: 56%; }
+.discover-dark .promo-map .pin-b { left: 58%; top: 22%; }
+.discover-dark .promo-map .pin-c { left: 80%; top: 58%; }
+.discover-dark .promo-copy { position: relative; display: flex; gap: 12px; max-width: 64%; color: var(--text-on-dark); }
+.discover-dark .promo-copy > svg { flex-shrink: 0; margin-top: 5px; }
+.discover-dark .promo-copy h2 { margin: 0; color: var(--text-on-dark); font-family: var(--display-serif); font-size: 23px; font-weight: 700; line-height: 1.2; letter-spacing: -.02em; }
+.discover-dark .promo-copy p { margin: 5px 0 0; color: #f3e4da; font-size: 14px; line-height: 1.5; }
+.discover-dark .promo-card .button { position: relative; }
 
 /* Popular night markets — four cards in one row; "See all" expands the full list */
 .discover-dark .popular-markets { margin-top: 44px; }
@@ -259,56 +291,65 @@
 .discover-dark .popular-market-rating svg { color: #f5b942; }
 .discover-dark .see-all-open { transform: rotate(45deg); }
 
-/* 8. From the stalls — paged results grid of compact food cards */
+/* 8. Selling out soon: paged results, two large photo cards across (FoodCard.css) */
 .discover-dark .from-stalls { margin-top: 44px; }
 .discover-dark .sponsored-row { background: var(--card-bg); border-color: var(--card-border); color: var(--text-on-dark); }
 .discover-dark .privacy-notice { background: #22311f; color: #d6e6cf; }
-.discover-dark .stall-tile-grid { margin-top: 18px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.discover-dark .stall-tile-grid { margin-top: 18px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+/* A map-area search made on /markets narrows these results; say so and offer the way out */
+.discover-dark .map-area-note { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0 0 12px; color: var(--text-on-dark); font-size: 13px; font-weight: 600; }
+.discover-dark .map-area-note svg { color: var(--accent-on-dark); }
+.discover-dark .map-area-note .text-button { min-height: 32px; padding: 4px 0; background: none; border: 0; color: var(--accent-on-dark); font-size: 13px; font-weight: 750; }
+.discover-dark .map-area-note .text-button:hover { text-decoration: underline; }
 
 .discover-dark .pagination { color: var(--text-on-dark); }
 
-/* 9. Footer */
-.discover-dark .discover-footer {
-  display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
-  margin: 56px calc(50% - 50vw) 0;
-  padding: 28px max(clamp(20px, 4vw, 64px), calc(50vw - 630px + clamp(20px, 4vw, 64px)));
-  border-top: 1px solid var(--card-border);
-  background: #120c05;
-  color: var(--text-2);
-  font-size: 13px;
-}
-.discover-dark .discover-footer-brand { display: flex; align-items: center; gap: 12px; }
-.discover-dark .discover-footer-brand strong { display: block; color: var(--text-on-dark); font-size: 18px; font-weight: 900; letter-spacing: -.05em; }
-.discover-dark .discover-footer-brand strong span { color: var(--accent-on-dark); }
-.discover-dark .discover-footer-brand small { display: block; color: var(--text-2); font-size: 12px; margin-top: 3px; }
-
 /* Responsive */
 @media (max-width: 1100px) {
-  .discover-dark .stall-tile-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .discover-dark .featured-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .discover-dark .dish-grid,
+  .discover-dark .stall-tile-grid,
+  .discover-dark .predicted-clearance-section.discover .predicted-clearance-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .discover-dark .popular-market-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+/* Tablets: too narrow for one row, wide enough that two rows beat hiding a tile */
+@media (min-width: 601px) and (max-width: 1000px) {
+  .discover-dark .category-chips { flex-wrap: wrap; overflow-x: visible; }
+}
 @media (max-width: 900px) {
-  .discover-dark .dish-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .discover-dark .explore-card { grid-template-columns: 1fr; grid-template-areas: "panel" "map"; }
-  .discover-dark .explore-panel { min-height: 0; border-radius: 16px 16px 0 0; }
-  .discover-dark .explore-map .market-map,
-  .discover-dark .explore-map > p { border-radius: 0 0 16px 16px; }
-  .discover-dark .discovery-hero-copy > * { max-width: none; }
+  .discover-dark .dish-grid,
+  .discover-dark .stall-tile-grid,
+  .discover-dark .predicted-clearance-section.discover .predicted-clearance-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  /* Copy runs full width here, so the satay moves up behind it and fades out before the controls */
+  .discover-dark .discovery-hero-photo {
+    width: 72%; height: 62%;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 55%), linear-gradient(to bottom, #000 45%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, #000 55%), linear-gradient(to bottom, #000 45%, transparent 100%);
+  }
+  .discover-dark .discovery-hero-copy > *,
+  .discover-dark .discovery-hero-copy .discovery-action-bar { max-width: none; }
   .discover-dark .value-props { grid-template-columns: 1fr; gap: 14px; }
 }
+@media (max-width: 800px) {
+  .app-shell:has(.prototype-mode-label) .discover-dark .discovery-hero { margin-top: calc(-70px - env(safe-area-inset-top)); }
+}
+@media (max-width: 700px) {
+  .discover-dark .discover-promos { grid-template-columns: minmax(0, 1fr); }
+}
 @media (max-width: 600px) {
-  .discover-dark .discovery-hero { min-height: 40vh; }
-  .discover-dark .discovery-hero-copy { padding: 80px 20px 20px; }
-  .discover-dark .dish-grid { grid-template-columns: 1fr; }
-  .discover-dark .featured-grid { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; }
-  .discover-dark .featured-grid > .food-card { flex: 0 0 78%; scroll-snap-align: start; }
-  .discover-dark .stall-tile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-  .discover-dark .category-chips button { flex: 0 0 80px; }
-  .discover-dark .discovery-action-bar > .filter-chip:last-child { margin-left: 0; }
+  .discover-dark .discovery-hero { min-height: 0; }
+  .discover-dark .discovery-hero-copy { padding: 96px 0 20px; }
+  .discover-dark .dish-grid,
+  .discover-dark .stall-tile-grid,
+  .discover-dark .predicted-clearance-section.discover .predicted-clearance-grid { grid-template-columns: minmax(0, 1fr); }
+  .discover-dark .filter-chip,
+  .discover-dark .browse-tabs button { min-height: 44px; }
+  /* Tiles keep their width and scroll; the row runs to the screen edge to show there is more */
+  .discover-dark .category-chips { margin-right: -20px; padding-right: 20px; }
+  .discover-dark .category-chips button { flex: 0 0 auto; min-width: 96px; min-height: 84px; padding: 10px 12px; }
+  .discover-dark .promo-copy { max-width: 74%; }
 }
 
-/* ── Filter card: search, sort tabs and the grouped filter panel ─────── */
+/* ── Filter card: the grouped filter panel, opened from "Find your food" ─────── */
 .discover-dark .filter-card {
   margin: 16px 0 0;
   background: rgba(25, 17, 5, .85);
@@ -318,31 +359,6 @@
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
 }
-/* Search bar sits flush at the top of the card */
-.discover-dark .filter-card .search-wrap {
-  height: auto;
-  margin: 0;
-  padding: 16px 24px;
-  background: rgba(15, 10, 3, .95);
-  border: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, .08);
-  border-radius: 0;
-}
-.discover-dark .filter-card .search-wrap > svg { color: var(--accent-on-dark); }
-.discover-dark .filter-card .search-wrap input { font-size: 16px; }
-.discover-dark .filter-card .search-wrap input::placeholder { color: rgba(255, 255, 255, .4); }
-.discover-dark .filter-card .search-wrap:focus-within { border-color: rgba(255, 255, 255, .08); box-shadow: inset 0 -2px 0 rgba(200, 60, 8, .6); }
-.discover-dark .filter-card .discovery-action-bar {
-  margin: 0;
-  padding: 12px 20px;
-  background: rgba(18, 12, 4, .9);
-  border-bottom: 1px solid rgba(255, 255, 255, .08);
-}
-.discover-dark .filter-card .filter-chip,
-.discover-dark .filter-card .browse-tabs button { border-radius: 10px; border-color: rgba(255, 255, 255, .15); background: rgba(255, 255, 255, .03); }
-.discover-dark .filter-card .browse-tabs button.active { background: var(--accent); border-color: var(--accent); }
-.discover-dark .filter-card .filter-applied { color: var(--accent-on-dark); font-size: 18px; line-height: 0; }
-.discover-dark .filter-card:not(:has(.fs-panel:not([hidden]))) .discovery-action-bar { border-bottom: 0; }
 
 /* Panel sections */
 .discover-dark .fs-panel[hidden] { display: none; }
@@ -482,8 +498,6 @@
   .discover-dark .fs-note { margin-left: 0; text-align: left; }
   .discover-dark .fs-actions { padding: 14px 16px; }
   .discover-dark .fs-actions > * { flex: 1 1 auto; justify-content: center; }
-  .discover-dark .filter-card .search-wrap { padding: 14px 16px; }
-  .discover-dark .filter-card .discovery-action-bar { padding: 10px 12px; }
 }
 
 /* Arrival from the landing splash: content rises in from slightly below.
@@ -505,3 +519,17 @@
 .saved-pick input { width: 20px; height: 20px; margin: 0; accent-color: #c83c08; }
 .saved-pick:has(input:checked) { border-color: rgba(255, 138, 76, .6); background: rgba(200, 60, 8, .16); }
 .saved-pick:has(input:focus-visible) { outline: 2px solid #ff8a4c; outline-offset: 2px; }
+
+/* Predicted clearances on Discover: no outer card, the same heading as the other sections, photo-led cards */
+.discover-dark .predicted-clearance-section.discover { margin: 44px 0 0; padding: 0; border: 0; border-radius: 0; background: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+.discover-dark .predicted-clearance-section.discover .predicted-clearance-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.discover-dark .predicted-clearance-section.discover .predicted-clearance-card { display: flex; flex-direction: column; border: 1px solid var(--card-border); border-radius: 16px; background: var(--card-bg); }
+.discover-dark .predicted-clearance-section.discover .predicted-clearance-image { height: 190px; min-height: 0; flex-shrink: 0; }
+.discover-dark .predicted-clearance-section.discover .predicted-clearance-image :is(.batch-photo, .demo-artwork, .image-placeholder) { width: 100%; height: 100%; min-height: 0; border-radius: 0; }
+.discover-dark .predicted-clearance-section.discover .predicted-clearance-image img { height: 100%; aspect-ratio: auto; }
+.discover-dark .predicted-clearance-section.discover .predicted-clearance-copy { display: grid; align-content: start; gap: 8px; padding: 14px 16px 16px; }
+.discover-dark .predicted-clearance-section.discover .eyebrow { margin: 0; font-size: 14px; letter-spacing: 0; text-transform: none; }
+.discover-dark .predicted-clearance-section.discover h3 { margin: 0; font-size: 18px; font-weight: 800; line-height: 1.25; }
+.discover-dark .predicted-clearance-section.discover .predicted-price { color: var(--accent-on-dark); font-size: 18px; font-weight: 800; }
+.discover-dark .predicted-clearance-section.discover .predicted-batch-meta { color: var(--text-2); font-size: 14px; }
+.discover-dark .predicted-clearance-section.discover .back-link { min-height: 44px; margin: 0; color: var(--accent-on-dark); font-size: 14px; }

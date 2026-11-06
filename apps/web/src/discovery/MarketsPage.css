@@ -1,0 +1,53 @@
+/* /markets: the map card moved off Discover. The page itself uses the shared .content-page theme. */
+
+.markets-explore { min-width: 0; }
+.markets-explore > .small { margin: 0 0 12px; }
+.markets-explore .explore-card {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 7fr);
+  grid-template-areas: "panel map";
+  margin-bottom: 22px;
+}
+.markets-explore .explore-panel {
+  grid-area: panel;
+  display: flex; flex-direction: column; justify-content: center;
+  min-height: 320px;
+  padding: 32px;
+  background: #1a3828;
+  border-radius: 16px 0 0 16px;
+}
+.markets-explore .explore-panel .eyebrow { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-on-dark); }
+.markets-explore .explore-panel h2 { margin: 10px 0 8px; font-size: 24px; font-weight: 800; line-height: 1.2; color: var(--text-on-dark); }
+.markets-explore .explore-panel > p { margin: 0; color: #c9d6cc; font-size: 13px; line-height: 1.6; }
+.markets-explore .explore-panel .button { align-self: flex-start; margin-top: 16px; border-radius: 20px; }
+.markets-explore .explore-panel .explore-stats { display: flex; flex-wrap: wrap; align-items: center; margin-top: 14px; font-size: 12px; }
+.markets-explore .explore-stats span { display: inline-flex; align-items: center; gap: 4px; }
+.markets-explore .explore-stats span + span::before { content: '·'; margin: 0 8px; }
+.markets-explore .explore-stats svg { color: #f5b942; }
+.markets-explore .explore-map,
+.markets-explore .explore-map .map-panel { display: contents; }
+.markets-explore .explore-map .map-heading { display: none; }
+.markets-explore .explore-map .market-map,
+.markets-explore .explore-map > p {
+  grid-area: map;
+  height: auto;
+  min-height: 320px;
+  margin: 0;
+  border-radius: 0 16px 16px 0;
+  background: #1a3828;
+}
+.markets-explore .explore-map > p { display: grid; place-items: center; color: #c9d6cc; font-size: 14px; }
+/* Legend, "Search this map area" / "Clear map area" and the privacy note sit below the card */
+.markets-explore .explore-map .map-panel > :not(.market-map):not(.map-heading) { grid-column: 1 / -1; }
+.markets-explore .explore-map .map-legend { padding: 14px 0 0; color: var(--text-2); }
+.markets-explore .explore-map .map-panel > .button-row { margin: 10px 0 0; }
+.markets-explore .explore-map .map-panel > p { margin: 8px 0 0; }
+
+.markets-explore .map-area-result { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 0; color: var(--text-on-dark); font-size: 14px; font-weight: 700; }
+
+@media (max-width: 900px) {
+  .markets-explore .explore-card { grid-template-columns: minmax(0, 1fr); grid-template-areas: "panel" "map"; }
+  .markets-explore .explore-panel { min-height: 0; border-radius: 16px 16px 0 0; }
+  .markets-explore .explore-map .market-map,
+  .markets-explore .explore-map > p { border-radius: 0 0 16px 16px; }
+}

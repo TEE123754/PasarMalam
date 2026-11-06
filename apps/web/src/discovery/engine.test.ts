@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import sample from '../../../../contracts/discovery-fixture.json'
 import { discoverySchema } from '../data/schemas'
-import { acceptVersion, defaultFilters, dietaryStatus, discover, distanceKm, eligibleOffers, scheduleStatus } from './engine'
+import { acceptVersion, defaultFilters, dietaryStatus, discover, distanceKm, eligibleOffers, foodMatches, scheduleStatus } from './engine'
+import { categories, categoryId } from './classifications'
 import { coarsePoint, requestDeviceLocation } from './location'
 const data = discoverySchema.parse(sample)
 const now = new Date('2026-10-01T18:00:00+08:00')
@@ -83,5 +84,26 @@ describe('location and monotonic public invalidation', () => {
     expect(acceptVersion(seen,'a',12)).toBe(false)
     expect(acceptVersion(seen,'b',1)).toBe(true)
     expect(acceptVersion(seen,'a',NaN)).toBe(false)
+  })
+})
+
+describe('food-level filters for the Selling out soon row', () => {
+  const stall = data.stalls.find(s => data.menu.some(f => f.stallId === s.id))!
+  const food = data.menu.find(f => f.stallId === stall.id)!
+  const own = categoryId(food.categoryId ?? stall.categoryId ?? stall.category)
+  it('passes a food that matches nothing in particular', () => expect(foodMatches(data, defaultFilters, stall, food)).toBe(true))
+  it('searches the food name and stall details', () => {
+    expect(foodMatches(data, { ...defaultFilters, search: food.name }, stall, food)).toBe(true)
+    expect(foodMatches(data, { ...defaultFilters, search: stall.name }, stall, food)).toBe(true)
+    expect(foodMatches(data, { ...defaultFilters, search: 'zzzzqqqq' }, stall, food)).toBe(false)
+  })
+  it('applies the category to the food itself', () => {
+    if (!own) return
+    expect(foodMatches(data, { ...defaultFilters, category: own }, stall, food)).toBe(true)
+    expect(foodMatches(data, { ...defaultFilters, category: categories.find(c => c.id !== own)!.id }, stall, food)).toBe(false)
+  })
+  it('applies the budget to the menu price, not an offer price', () => {
+    expect(foodMatches(data, { ...defaultFilters, maxPriceSen: food.priceSen }, stall, food)).toBe(true)
+    expect(foodMatches(data, { ...defaultFilters, maxPriceSen: food.priceSen - 1 }, stall, food)).toBe(false)
   })
 })

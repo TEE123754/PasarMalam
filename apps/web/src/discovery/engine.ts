@@ -106,6 +106,21 @@ export function discover(data: DiscoverySnapshot, filters: Filters, now: Date, p
   return { stalls, markets: markets.filter(m => stalls.some(s => s.marketId === m.id)), total: matched.length, pages, page: index, offers }
 }
 
+// The menu-level filters from `discover`, applied to one food, so a row of foods follows the same search,
+// category and budget as the stall list. The stall itself must already have passed `discover`.
+export function foodMatches(data: DiscoverySnapshot, filters: Filters, stall: Stall, food: DiscoverySnapshot['menu'][number]): boolean {
+  if (filters.category && (categoryId(food.categoryId ?? stall.categoryId ?? stall.category) ?? stall.category) !== (categoryId(filters.category) ?? filters.category)) return false
+  const diet = plantStatus(food.plantDiet)
+  if (filters.plantDiet === 'vegan' && diet !== 'vegan' || filters.plantDiet === 'vegetarian' && !['vegan', 'vegetarian'].includes(diet)) return false
+  if (filters.maxPriceSen != null && !(Number.isSafeInteger(filters.maxPriceSen) && filters.maxPriceSen >= 0 && food.priceSen <= filters.maxPriceSen)) return false
+  const term = normalizeSearch(filters.search)
+  if (!term) return true
+  const market = data.markets.find(m => m.id === stall.marketId)
+  // Food name, stall and place only: the stall's specialty, category and aliases would let a satay stall's cendol match "satay"
+  const haystack = normalizeSearch([food.name, stall.name, market?.name ?? '', market?.area ?? ''].join(' '))
+  return term.split(' ').every(word => haystack.includes(word))
+}
+
 export function acceptVersion(seen: Map<string, number>, market: string, version: number): boolean {
   if (!Number.isSafeInteger(version) || version <= (seen.get(market) ?? 0)) return false
   seen.set(market, version)

@@ -1,0 +1,53 @@
+/* Sell-out estimate label and its "?" help bubble. Plain colours, not the Discover theme variables:
+   the bubble is portalled to <body>, outside the themed app shell. */
+
+/* The pill shrinks and wraps its own text; the "?" always stays beside it */
+.sellout-line { display: flex; align-items: center; gap: 4px; min-width: 0; }
+
+/* A label, not a control: no hover, focus or pressed state */
+.sellout-pill {
+  display: inline-flex; align-items: flex-start; gap: 6px;
+  flex: 0 1 auto; min-width: 0;
+  padding: 7px 12px;
+  border-radius: 14px;
+  background: #c83c08;
+  color: #fff;
+  font-size: 14px; font-weight: 800; line-height: 1.3;
+  cursor: default;
+  animation: selloutPulse .9s cubic-bezier(.22, 1, .36, 1) .4s 1 both;
+}
+.sellout-pill > svg { flex-shrink: 0; margin-top: 2px; }
+.sellout-pill > span { min-width: 0; overflow-wrap: anywhere; }
+@keyframes selloutPulse { 0% { transform: scale(1); } 40% { transform: scale(1.045); } 100% { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { .sellout-pill { animation: none; } }
+
+.sellout-help {
+  position: relative; z-index: 2; /* above a card's whole-card link */
+  display: inline-grid; place-items: center; flex-shrink: 0;
+  width: 32px; height: 32px;
+  padding: 0;
+  border: 0; border-radius: 50%;
+  background: transparent;
+  color: #ffb98f;
+  cursor: help;
+}
+.sellout-help:hover, .sellout-help[aria-expanded="true"] { color: #fff; background: rgba(255, 255, 255, .12); }
+.sellout-help:focus-visible { outline: 2px solid #ff8a4c; outline-offset: 1px; }
+/* Phones and touch screens: a 44px tap area, pulled back so it does not stretch the line */
+@media (max-width: 600px), (pointer: coarse) {
+  .sellout-help { width: 44px; height: 44px; margin: -8px -6px; }
+}
+
+.sellout-bubble {
+  position: fixed; z-index: 1000;
+  display: grid; gap: 4px;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border: 1px solid #5a4426;
+  border-radius: 12px;
+  background: #1e1608;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, .55);
+  color: #f5f0e8;
+  font-size: 15px; line-height: 1.45;
+}
+.sellout-bubble strong { color: #fff; font-size: 15px; font-weight: 800; }
